@@ -20,18 +20,9 @@ Tôi đang làm bài tập HW02, thực hiện kỹ thuật Domain Testing cho t
 #### Output
 
 ```text
-Tôi đã đóng vai trò chuyên gia QA, nghiên cứu kỹ tài liệu đặc tả nghiệp vụ 
+Tôi đã đóng vai trò chuyên gia QA, nghiên cứu kỹ tài liệu đặc tả nghiệp vụ README.md và tài liệu đặc tả API api_specification.md của EShop, sau đó hoàn thành Bước 1: Xác định các biến Input và Output cho tính năng FR-02: Đăng nhập & Khóa tài khoản.
 
-README.md
- và tài liệu đặc tả API 
-
-api_specification.md
- của EShop, sau đó hoàn thành Bước 1: Xác định các biến Input và Output cho tính năng FR-02: Đăng nhập & Khóa tài khoản.
-
-Nội dung đã được ghi nhận đầy đủ dưới dạng các bảng chi tiết trong file báo cáo của bạn tại 
-
-Main_Report.md
-:
+Nội dung đã được ghi nhận đầy đủ dưới dạng các bảng chi tiết trong file báo cáo của bạn tại Main_Report.md:
 
 Biến đầu vào (Input Variables):
 Direct Inputs (Người dùng nhập trực tiếp): email, password.
@@ -39,4 +30,25 @@ State Inputs (Trạng thái hệ thống ảnh hưởng tới logic): failed_log
 Biến đầu ra (Output Variables):
 API Outputs (Kết quả trả về từ API): http_status_code và api_response_payload (JWT Token, thông tin user hoặc thông báo lỗi phù hợp).
 UI Outputs (Phản hồi/Hành động trên giao diện): ui_message (thông báo lỗi xuất hiện trên nút submit) và ui_action (chuyển hướng người dùng hoặc tạm khóa form đăng nhập).
+```
+
+### Prompt 2
+
+*   **Công cụ AI sử dụng (Name of AI Tool):** Gemini 3.5 Flash
+*   **Thời gian thực hiện (Date and Time):** 2026-07-04, 01:27PM
+*   **Mục đích:** Thực hiện kỹ thuật phân hoạch tương đương (Equivalence Partitioning) cho các biến Input/Output của FR-02 và điền vào [Main_Report.md].
+
+#### Prompt 
+
+```Text
+Dựa trên các biến Input và Output đã xác định ở Bước 1, hãy giúp tôi thực hiện Bước 2: Xác định các lớp tương đương (Equivalence Classes) cho từng biến.  Hãy chia rõ thành hai nhóm: Valid Equivalence Classes (cho đầu vào hợp lệ) và Invalid Equivalence Classes (cho đầu vào không hợp lệ) theo đúng guideline phân hoạch miền của slide 04_Domain Testing.pdf. Hãy trình bày dưới dạng bảng.
+```
+
+#### Output
+
+```
+Tôi đã hoàn thành Bước 2: Xác định các lớp tương đương (Equivalence Classes) cho từng biến đầu vào và đầu ra dựa trên các chỉ dẫn phân hoạch miền trong tài liệu 04_Domain Testing.pdf. Các thông tin đã được cập nhật thành các bảng có phân loại rõ ràng Valid Equivalence Classes (Hợp lệ) và Invalid Equivalence Classes (Không hợp lệ) tại phần Bước 2 trong file báo cáo Main_Report.md:
+
+Các biến đầu vào (Input Variables): Được phân hoạch từ EC01 đến EC14 cho các biến email, password, failed_login_attempts và lockout_status (theo thời gian khóa $t$).
+Các biến đầu ra (Output Variables): Được phân hoạch từ EC15 đến EC24 cho các phản hồi ở mức API và mức UI (gồm mã trạng thái HTTP, dữ liệu trả về, thông điệp hiển thị và các hành động chuyển hướng/khóa form tương ứng).
 ```
