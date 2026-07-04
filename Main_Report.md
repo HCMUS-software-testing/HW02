@@ -11,7 +11,16 @@
 
 #### Bước 1: Xác định các biến Input và Output (I/O Variables)
 
+##### Giải thích chi tiết từng bước (Step-by-Step Explanation)
+
+Để xác định các biến vào/ra của tính năng **FR-02: Đăng nhập & Khóa tài khoản**, chúng tôi đã thực hiện các bước phân tích sau:
+1.  **Phân tích đặc tả nghiệp vụ (Specification Analysis):** Đọc kỹ tài liệu đặc tả yêu cầu hệ thống [README.md](./eshop-sut/README.md), chức năng này yêu cầu người dùng nhập `email` và `password` qua form giao diện. Đồng thời, nghiệp vụ có yêu cầu nâng cao: tăng bộ đếm số lần sai sau mỗi lần đăng nhập thất bại và tạm khóa tài khoản 30 giây nếu đăng nhập sai liên tiếp từ 3 lần trở lên.
+2.  **Xác định biến đầu vào trực tiếp (Direct Inputs):** Hai trường người dùng tương tác trực tiếp là `email` (chuỗi ký tự, có validate HTML5 format trên UI) và `password` (chuỗi ký tự ẩn).
+3.  **Xác định biến đầu vào trạng thái (System State Inputs):** Do logic khóa tài khoản phụ thuộc vào lịch sử đăng nhập trước đó và thời gian khóa, hệ thống bắt buộc phải lưu trữ trạng thái: bộ đếm số lần sai liên tiếp (`failed_login_attempts`) và thời gian bị khóa (`lockout_status` / thời gian trôi qua kể từ lúc bị khóa). Đây chính là các tham số đầu vào ẩn quyết định luồng xử lý tiếp theo của ứng dụng.
+4.  **Xác định biến đầu ra (Outputs):** Ở mức API, hệ thống trả về mã trạng thái HTTP (`http_status_code`) và dữ liệu JSON (`api_response_payload` chứa token khi thành công hoặc thông báo lỗi bảo mật chung khi thất bại). Ở mức giao diện, hệ thống hiển thị thông điệp lỗi (`ui_message`) trên nút submit và thực hiện hành động điều hướng hoặc vô hiệu hóa form (`ui_action`).
+
 ##### 1. Các biến đầu vào (Input Variables)
+
 
 Bao gồm các biến do người dùng nhập trực tiếp từ giao diện/API (Direct Inputs) và các biến trạng thái hệ thống đóng vai trò làm tham số đầu vào cho logic xử lý (System State Inputs):
 
@@ -111,7 +120,14 @@ Tập test cases tối thiểu dưới đây được thiết kế nhằm bao ph
 
 #### Bước 4: Phân tích giá trị biên (Boundary Value Analysis - BVA)
 
-Đối với các biến có thứ tự/khoảng số (như số lần đăng nhập sai liên tiếp và thời gian khóa tài khoản), lỗi thường có xác suất xảy ra cao nhất tại các điểm biên. Ta tiến hành xác định các biên nhạy cảm ($LB, UB, LB-1, LB+1, UB-1, UB+1$) và thiết kế tập kịch bản kiểm thử giá trị biên bổ sung.
+##### Giải thích chi tiết từng bước (Step-by-Step Explanation)
+
+Để xác định các giá trị biên nhạy cảm của tính năng **FR-02: Đăng nhập & Khóa tài khoản**, chúng tôi đã thực hiện phân tích theo các bước sau:
+1.  **Xác định các biến có tính thứ tự hoặc khoảng số:** Trong các biến đầu vào đã xác định ở Bước 1, có 2 biến dạng số/thời gian liên tục là số lần đăng nhập sai liên tiếp (`failed_login_attempts`) và thời gian khóa tài khoản $t$ (tính bằng giây).
+2.  **Xác định các điểm biên (Boundaries) cho từng biến:**
+    *   *Số lần đăng nhập sai:* Nghiệp vụ quy định tài khoản bị khóa nếu đăng nhập sai từ 3 lần trở lên. Điều này có nghĩa là khoảng giá trị cho phép người dùng đăng nhập bình thường là `[0, 2]`. Do đó, biên dưới là $LB = 0$ (chưa sai lần nào) và biên trên là $UB = 2$ (số lần sai tối đa trước khi bị khóa ở lần tiếp theo).
+    *   *Thời gian khóa tài khoản:* Nghiệp vụ quy định tài khoản bị tạm khóa trong 30 giây. Điều này có nghĩa là khoảng thời gian phạt khóa tài khoản là `[0, 30]` giây. Do đó, biên dưới là $LB = 0s$ (thời điểm vừa bị khóa) và biên trên là $UB = 30s$ (giây cuối cùng trước khi hết hạn khóa).
+3.  **Lựa chọn các điểm kiểm thử biên nhạy cảm:** Với mỗi khoảng giá trị, chúng tôi áp dụng nguyên tắc kiểm thử biên tiêu chuẩn gồm $LB$ (biên dưới), $UB$ (biên trên), các giá trị ngay sát ngoài biên dưới ($LB-1$), sát ngoài biên trên ($UB+1$), sát trong biên dưới ($LB+1$) và sát trong biên trên ($UB-1$) để tạo ra các test cases kiểm thử biên tương ứng.
 
 ##### 1. Phân tích giá trị biên của các biến số/khoảng số
 
