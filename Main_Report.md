@@ -115,6 +115,9 @@ Tập test cases tối thiểu dưới đây được thiết kế nhằm bao ph
 | **TC08** | Đăng nhập với số lần sai âm (lỗi hệ thống) | EC10, EC16 | `test@eshop.com` | `Test1234!` | `-1` | Active | - HTTP Code: `400 Bad Request` hoặc báo lỗi hệ thống. | | |
 | **TC09** | Đăng nhập với số lần sai sai kiểu dữ liệu | EC11, EC16 | `test@eshop.com` | `Test1234!` | `"two"` | Active | - HTTP Code: `400 Bad Request` hoặc báo lỗi hệ thống. | | |
 | **TC10** | Đăng nhập khi tài khoản có thời gian khóa âm (lỗi hệ thống) | EC14, EC16 | `test@eshop.com` | `Test1234!` | `3` | Locked ($t = -1s$) | - HTTP Code: `400 Bad Request` hoặc báo lỗi hệ thống. | | |
+| **TC11** | Kiểm thử Brute-force song song (Race Condition) | EC09, EC17, EC24 (concurrency) | `test@eshop.com` | `WrongPassword!` | `0` | Active | - Gửi đồng thời 5 request đăng nhập sai trong cùng 1 mili giây qua API.<br>- Backend khóa dòng, khóa tài khoản ngay lập tức và trả về `403 Forbidden` ở các request từ lần 3 trở đi. | | |
+| **TC12** | Kiểm tra JWT token cũ sau khi tài khoản bị khóa ở session khác | EC09, EC13, EC17, EC24 (token check) | `test@eshop.com` | (Sử dụng JWT Token cũ) | - | Locked | Dùng token cũ của Thiết bị A gọi API `/api/users/me` sau khi Thiết bị B đã khóa tài khoản. Hệ thống trả về `401 Unauthorized`/`403 Forbidden`. | | |
+| **TC13** | Gửi định dạng email sai trực tiếp qua Backend API | EC03, EC16, EC19 | `notanemail` | `Test1234!` | `0` | Active | Dùng Postman/cURL gửi trực tiếp request POST đến `/api/login` vượt qua Frontend. Backend trả về `400 Bad Request` kèm lỗi định dạng email. | | |
 
 ---
 
@@ -158,4 +161,18 @@ Tập test cases tối thiểu dưới đây được thiết kế nhằm bao ph
 | **TC-BVA-05** | Đăng nhập khi đang bị khóa | Giá trị lân cận biên dưới $LB+1 = 1s$ của thời gian khóa $t$ | `test@eshop.com` | `Test1234!` | `3` | **Locked ($t = 1s$)** | - HTTP Code: `403 Forbidden`<br>- Bị chặn đăng nhập. | | |
 | **TC-BVA-06** | Đăng nhập tại thời điểm giây thứ 30 của khóa | Biên trên $UB = 30s$ của thời gian khóa $t$ | `test@eshop.com` | `Test1234!` | `3` | **Locked ($t = 30s$)** | - HTTP Code: `403 Forbidden` (Vẫn bị khóa hoặc mở khóa tùy cách so sánh biên của backend). | | |
 | **TC-BVA-07** | Đăng nhập thành công ngay khi vừa hết hạn khóa | Giá trị lân cận biên trên $UB+1 = 31s$ của thời gian khóa $t$ | `test@eshop.com` | `Test1234!` | `3` | **Locked ($t = 31s$ -> Active)** | - HTTP Code: `200 OK`<br>- Đăng nhập thành công. | | |
+
+#### Bước 5: Phân tích khoảng trống AI (AI Gap Analysis)
+
+##### 1. Các kịch bản/lỗi kiểm thử mà AI đã bỏ sót
+*   **Đồng thời brute-force (Race Condition):** AI bỏ sót kịch bản người dùng gửi liên tiếp nhiều request đăng nhập sai trong cùng một thời điểm rất ngắn (concurrency). Nếu hệ thống không khóa bản ghi (row lock) khi ghi nhận số lần sai vào database, bộ đếm `failed_login_attempts` có thể bị tính toán sai, dẫn đến việc tài khoản không bị khóa sau 3 lần sai.
+*   **Vô hiệu hóa phiên làm việc (Session/Token Invalidation):** AI chưa đề xuất kiểm thử xem JWT token cũ đã được cấp từ trước có bị vô hiệu hóa ngay lập tức khi tài khoản bị khóa ở một phiên khác hay không.
+
+##### 2. Giải thích nguyên nhân AI bỏ sót các kịch bản trên
+*   **Hạn chế của công cụ AI (Limitations of the AI tool itself):** AI thực hiện kiểm thử hộp đen tĩnh dựa trên văn bản đặc tả. Nó không tự chạy mã nguồn SUT hoặc mô phỏng môi trường động. Vì vậy, các khía cạnh kỹ thuật như xử lý bất đồng bộ (concurrency), tranh chấp tài nguyên (race conditions), hay các lỗ hổng bảo mật nâng cao nằm ngoài khả năng suy luận mặc định của AI trừ khi có các prompt hướng dẫn kiểm thử bảo mật chuyên sâu.
+*   **Độ phức tạp nội tại của tính năng (Inherent complexity of the feature under test):** FR-02 nhìn bên ngoài giao diện rất đơn giản (chỉ có form Email và Password), nhưng phía sau backend là sự kết hợp phức tạp giữa quản lý trạng thái (stateful counter trong database/Redis) và cơ chế xác thực không lưu trạng thái (stateless JWT token). AI có xu hướng tập trung vào các luồng chức năng bề nổi (functional UI flows) mà bỏ qua các logic bảo mật phi chức năng (non-functional security logic).
+*   **Chất lượng của dữ liệu đầu vào (Prompt Quality):** Các prompt ban đầu chỉ yêu cầu AI đọc tài liệu đặc tả chung mà chưa cung cấp ngữ cảnh về môi trường triển khai thực tế, các yêu cầu kiểm thử phi chức năng hay các tiêu chuẩn an toàn thông tin (như OWASP). Điều này khiến AI chỉ tập trung tối ưu hóa các phân vùng giá trị biên của email/password theo nghiệp vụ thông thường mà bỏ qua các trường hợp biên của bảo mật hệ thống.
+
+
+
 
