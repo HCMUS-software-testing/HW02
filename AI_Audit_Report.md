@@ -52,3 +52,25 @@ Tôi đã hoàn thành Bước 2: Xác định các lớp tương đương (Equi
 Các biến đầu vào (Input Variables): Được phân hoạch từ EC01 đến EC14 cho các biến email, password, failed_login_attempts và lockout_status (theo thời gian khóa $t$).
 Các biến đầu ra (Output Variables): Được phân hoạch từ EC15 đến EC24 cho các phản hồi ở mức API và mức UI (gồm mã trạng thái HTTP, dữ liệu trả về, thông điệp hiển thị và các hành động chuyển hướng/khóa form tương ứng).
 ```
+
+### Prompt 3
+
+*   **Công cụ AI sử dụng (Name of AI Tool):** Gemini 3.5 Flash
+*   **Thời gian thực hiện (Date and Time):** 2026-07-04, 03:13PM
+*   **Mục đích:** Thêm cột actual output cho bản test case
+
+#### Prompt 
+
+```text
+Hãy thêm cột actual output cho các test case (để trống) dùm tôi
+```
+
+#### Output
+
+```text
+Tôi đã thực hiện bổ sung hai cột Kết quả thực tế (Actual Output) và Trạng thái (Pass/Fail) (được để trống | | |) vào cuối cả 2 bảng:
+- Bảng Test Cases Phân hoạch tương đương (Bước 3 - Mục 2): Từ TC01 đến TC10.
+- Bảng Test Cases Giá trị biên (Bước 4 - Mục 2): Từ TC-BVA-01 đến TC-BVA-07.
+
+(AI đã tự động cập nhật trực tiếp cấu trúc của file Main_Report.md bằng cách thêm hai cột trống này).
+```
