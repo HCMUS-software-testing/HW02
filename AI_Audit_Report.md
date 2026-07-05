@@ -32,6 +32,8 @@ API Outputs (Kết quả trả về từ API): http_status_code và api_response
 UI Outputs (Phản hồi/Hành động trên giao diện): ui_message (thông báo lỗi xuất hiện trên nút submit) và ui_action (chuyển hướng người dùng hoặc tạm khóa form đăng nhập).
 ```
 
+File [Main_Report.md](./Main_Report.md) đã được ghi nhận đầy đủ với input và output của FR-02.
+
 ### Prompt 2
 
 *   **Công cụ AI sử dụng (Name of AI Tool):** Gemini 3.5 Flash
@@ -53,6 +55,8 @@ Các biến đầu vào (Input Variables): Được phân hoạch từ EC01 đ�
 Các biến đầu ra (Output Variables): Được phân hoạch từ EC15 đến EC24 cho các phản hồi ở mức API và mức UI (gồm mã trạng thái HTTP, dữ liệu trả về, thông điệp hiển thị và các hành động chuyển hướng/khóa form tương ứng).
 ```
 
+File [Main_Report.md](./Main_Report.md) đã được ghi nhận đầy đủ với các bảng phân hoạch.
+
 ### Prompt 3
 
 *   **Công cụ AI sử dụng (Name of AI Tool):** Gemini 3.5 Flash
@@ -65,12 +69,100 @@ Các biến đầu ra (Output Variables): Được phân hoạch từ EC15 đế
 Hãy thêm cột actual output cho các test case (để trống) dùm tôi
 ```
 
-#### Output
+### Output
 
 ```text
 Tôi đã thực hiện bổ sung hai cột Kết quả thực tế (Actual Output) và Trạng thái (Pass/Fail) (được để trống | | |) vào cuối cả 2 bảng:
-- Bảng Test Cases Phân hoạch tương đương (Bước 3 - Mục 2): Từ TC01 đến TC10.
-- Bảng Test Cases Giá trị biên (Bước 4 - Mục 2): Từ TC-BVA-01 đến TC-BVA-07.
 
-(AI đã tự động cập nhật trực tiếp cấu trúc của file Main_Report.md bằng cách thêm hai cột trống này).
+Bảng Test Cases Phân hoạch tương đương (Bước 3 - Mục 2): Từ TC01 đến TC10.
+Bảng Test Cases Giá trị biên (Bước 4 - Mục 2): Từ TC-BVA-01 đến TC-BVA-07.
+Bạn có thể xem trực tiếp sự thay đổi tại file báo cáo 
+
+Main_Report.md
+. Bây giờ các bảng đã có cấu trúc chuẩn chỉnh để bạn điền kết quả thực tế và trạng thái đạt/lỗi ngay khi thực hiện chạy thử (execute) kịch bản trên SUT!
 ```
+
+
+File [Main_Report.md](./Main_Report.md) đã được ghi nhận đầy đủ với các bảng test cases.
+
+### Prompt 4
+
+*   **Công cụ AI sử dụng (Name of AI Tool):** Gemini 3.5 Flash
+*   **Thời gian thực hiện (Date and Time):** 2026-07-05, 01:50PM
+*   **Mục đích:** Viết script kiểm thử tự động Race Condition (Brute-force song song) cho kịch bản `TC08` vượt qua giới hạn click tay của giao diện.
+
+#### Prompt
+```text
+Hãy viết một kịch bản Node.js (sử dụng fetch) để kiểm thử Race Condition (TC08) cho API đăng nhập của EShop tại địa chỉ http://localhost:3000/api/login. Kịch bản này cần tự động đăng ký một tài khoản test ngẫu nhiên, sau đó gửi đồng thời 5 request đăng nhập sai mật khẩu trong cùng 1 mili giây và in kết quả HTTP status, response để xem có request nào bị chặn 403 Forbidden từ lần 3 trở đi hay không.
+```
+
+#### Output
+```javascript
+// Ghi nhận mã nguồn được sinh ra tại scratch_test_race.js
+// Gồm hàm đăng ký tài khoản ngẫu nhiên, Promise.all gửi 5 requests đồng thời, và log kết quả.
+```
+
+### Prompt 5
+
+*   **Công cụ AI sử dụng (Name of AI Tool):** Gemini 3.5 Flash
+*   **Thời gian thực hiện (Date and Time):** 2026-07-05, 02:00PM
+*   **Mục đích:** Viết script kiểm thử tự động kiểm tra tính hiệu lực của JWT token cũ khi tài khoản bị khóa ở phiên làm việc khác cho kịch bản `TC09`.
+
+#### Prompt
+```text
+Hãy viết một kịch bản Node.js (sử dụng fetch) để kiểm thử tính hiệu lực của JWT token cũ khi tài khoản bị khóa (TC09). Kịch bản này cần:
+1. Đăng ký tài khoản sạch và đăng nhập thành công để nhận JWT Token.
+2. Gửi 2 request đăng nhập sai liên tiếp từ một luồng khác để khóa tài khoản.
+3. Dùng Token đã lấy ở bước 1 gọi API GET /api/users/me xem hệ thống có chặn lại (trả về 401/403) hay vẫn cho phép truy cập.
+```
+
+#### Output
+```javascript
+// Ghi nhận mã nguồn được sinh ra tại scratch_test_token.js
+// Thiết lập đăng nhập, lưu token, gửi sai 2 lần gây khóa, và dùng token cũ gọi GET /api/users/me.
+```
+
+
+### Prompt 6
+
+*   **Công cụ AI sử dụng (Name of AI Tool):** Gemini 3.5 Flash
+*   **Thời gian thực hiện (Date and Time):** 2026-07-05, 02:47PM
+*   **Mục đích:** Tổng hợp kết quả kiểm thử vào Bug_Report.md
+
+#### Prompt
+
+```text
+Hãy đọc Main_Report.md, tổng hợp vào Bug_Report.md theo yêu cầu sau "Bug reporting. Report all discovered bugs both in the Markdown report and on your group's GitHub Issues page. Remember to attach bug screenshots to each GitHub issue."
+```
+
+#### Output
+
+```text
+Em đã đọc kỹ file Main_Report.md, đối chiếu toàn bộ các test case có trạng thái Fail ở cả hai bảng Phân hoạch tương đương (EP) và Phân tích giá trị biên (BVA), sau đó đồng bộ và tổng hợp đầy đủ vào file Bug_Report.md.
+
+Các nội dung đã cập nhật trong Bug_Report.md:
+- Bổ sung lỗi bị thiếu BUG-FR02-07 (Race Condition): Phản ánh lỗi đồng bộ hóa/giao dịch khi gửi đồng thời nhiều yêu cầu đăng nhập sai mật khẩu để vượt cơ chế khóa (phát hiện bởi TC08).
+- Đồng bộ 100% mã Test Case phát hiện lỗi: Phân bổ rõ ràng kịch bản kiểm thử tương ứng cho từng lỗi (ví dụ: TC09 phát hiện BUG-FR02-05, TC10 phát hiện BUG-FR02-06, v.v.).
+- Tích hợp cấu trúc báo cáo lỗi chuẩn của GitHub Issues & Screenshots: Dưới mỗi mục mô tả lỗi chi tiết đã bổ sung hai phần Đường dẫn GitHub Issue và Ảnh chụp minh họa (Bug Screenshot) trỏ tới thư mục screenshots/.
+- Toàn bộ 7 lỗi phát hiện từ quá trình chạy test thực tế đã được lập hồ sơ báo cáo lỗi hoàn chỉnh và chuyên nghiệp.
+```
+
+File [Bug_report.md](./Bug_Report.md) đã được tổng hợp đầy đủ 7 lỗi (Bug) được phát hiện từ 10 kịch bản kiểm thử Miền và Giá trị biên, bao gồm các lỗi liên quan đến logic ghi nhận thất bại đăng nhập và quản lý trạng thái khóa tài khoản của hệ thống.
+
+
+### Prompt 7
+
+
+*   **Công cụ AI sử dụng (Name of AI Tool):** Gemini 3.5 Flash
+*   **Thời gian thực hiện (Date and Time):** 2026-07-05, 03:05PM
+*   **Mục đích:** Tạo các Github Issue từ Bug_Report.md
+
+#### Prompt
+
+```text
+[Bug_Report.md] Hãy dựa vào bug report tạo các Github Issue giúp tôi
+```
+
+#### Output
+
+File [github_issues_templates](./github_issues_templates.md) được sinh ra.
