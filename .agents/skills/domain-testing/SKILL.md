@@ -194,6 +194,22 @@ Thêm 1 Prompt Log tổng hợp vào cuối file theo format trong `references/f
 - Thời gian: Lấy từ metadata của cuộc hội thoại hiện tại
 - Tên AI: Ghi model đang dùng (ví dụ: Claude Sonnet 4.5, Gemini 2.5 Flash)
 
+### 6d. Thêm placeholder vào `Bug_Report.md`
+
+Đọc file `Bug_Report.md` hiện tại, sau đó **append** section placeholder cho feature mới ngay cuối file:
+
+```markdown
+---
+
+## Danh sách lỗi tổng hợp - [FEATURE_ID]: [FEATURE_NAME]
+
+> ⚠️ **Lưu ý:** Các test case cho [FEATURE_ID] chưa được thực thi. Section này sẽ được bổ sung sau khi hoàn thành chạy kiểm thử.
+
+*Sau khi thực thi các test cases trong Main_Report.md (phần [POOL_LABEL]: [FEATURE_ID]) và điền kết quả Actual Output, hãy tổng hợp các test case Fail thành các mục BUG và bổ sung vào đây.*
+```
+
+> **Lý do**: Bug_Report.md chỉ có thể điền đầy đủ SAU khi thực thi test case (có Actual Output). Giai đoạn thiết kế chỉ tạo placeholder để đánh dấu.
+
 ---
 
 ## KIỂM TRA CUỐI
@@ -202,7 +218,7 @@ Sau khi ghi xong, xác nhận với user:
 - Số lượng EC đã định nghĩa
 - Số lượng EP Test Cases (TC01 → TCxx)
 - Số lượng BVA Test Cases (TC-BVA-01 → TC-BVA-xx)
-- Các file đã được cập nhật
+- Các file đã được cập nhật: `Main_Report.md`, `README.md`, `AI_Audit_Report.md`, `Bug_Report.md`
 
 ---
 
@@ -210,5 +226,5 @@ Sau khi ghi xong, xác nhận với user:
 
 - `references/methodology.md` — Phương pháp EP + BVA chi tiết
 - `references/report_template.md` — Template cấu trúc bảng chuẩn
-- `references/file_update_rules.md` — Quy tắc ghi vào từng file
+- `references/file_update_rules.md` — Quy tắc ghi vào từng file (bao gồm Bug_Report.md)
 - `examples/fr02_completed.md` — Ví dụ gold-standard FR-02 đã hoàn thành

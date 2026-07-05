@@ -97,7 +97,7 @@ Kết quả đã được ghi vào Main_Report.md:
 - Bước 4: Phân tích giá trị biên, thiết kế [N] test cases BVA (TC-BVA-01 đến TC-BVA-[N]).
 - Bước 5: AI Gap Analysis — ghi nhận [N] kịch bản bị bỏ sót và [N] vấn đề AI Critique.
 
-README.md và AI_Audit_Report.md đã được cập nhật tương ứng.
+README.md, AI_Audit_Report.md và Bug_Report.md đã được cập nhật tương ứng.
 \`\`\`
 
 File [Main_Report.md](./Main_Report.md) đã được bổ sung đầy đủ nội dung Domain Testing cho [FEATURE_ID].
@@ -106,3 +106,54 @@ File [Main_Report.md](./Main_Report.md) đã được bổ sung đầy đủ n�
 ### ⚠️ Lưu ý
 - Thời gian thực hiện: Lấy thời gian thực tế của cuộc hội thoại (từ metadata).
 - Tên AI Tool: Ghi theo model đang được sử dụng trong session đó.
+
+---
+
+## File 4: `Bug_Report.md`
+
+### Vị trí ghi
+Append vào **cuối file** `Bug_Report.md`, ngay sau nội dung hiện có.
+
+### Nội dung cần ghi (Placeholder)
+
+Giai đoạn thiết kế test case (chưa thực thi), chỉ tạo một placeholder để đánh dấu vị trí:
+
+```markdown
+---
+
+## Danh sách lỗi tổng hợp - [FEATURE_ID]: [FEATURE_NAME]
+
+> ⚠️ **Lưu ý:** Các test case cho [FEATURE_ID] chưa được thực thi. Section này sẽ được bổ sung sau khi hoàn thành chạy kiểm thử.
+
+*Sau khi thực thi các test cases trong Main_Report.md (phần [POOL_LABEL]: [FEATURE_ID]) và điền kết quả Actual Output, hãy tổng hợp các test case Fail thành các mục BUG theo format sau:*
+
+| Mã Bug | Tên lỗi (Bug Name) | Mã TC phát hiện | Mô tả hành vi lỗi quan sát | Độ nghiêm trọng (Severity) | Trạng thái |
+| :---: | :--- | :---: | :--- | :---: | :---: |
+| **BUG-[FEATURE_ID]-01** | *[Tên lỗi]* | *[Mã TC]* | *[Mô tả hành vi]* | *[Critical/High/Medium/Low]* | Open |
+```
+
+### Quy tắc sau khi thực thi test
+
+Sau khi đã chạy test và có Actual Output, thực hiện:
+
+> **⚠️ Quy tắc quan trọng: 1 Bug = 1 Lỗi trong hệ thống (root cause), KHÔNG phải 1 TC Fail = 1 Bug.**
+> Nhiều TC có thể cùng phát hiện **một bug duy nhất** do cùng nguyên nhân gốc. Ví dụ: BUG-FR02-01 được phát hiện bởi cả TC05, TC-BVA-02, TC-BVA-03 — chỉ tạo **1 mục bug**, ghi tất cả mã TC vào cột "Mã TC phát hiện".
+
+**Quy trình phân tích**:
+1. Liệt kê tất cả các TC có trạng thái **Fail**
+2. **Nhóm các TC Fail** theo nguyên nhân gốc (root cause) — tức là cùng mô tả sai lệch hành vi hệ thống so với đặc tả
+3. Mỗi nhóm root cause = **1 mục Bug** duy nhất trong Bug_Report.md
+4. Với mỗi Bug, điền đầy đủ theo format:
+   - **Mã Bug**: `BUG-[FEATURE_ID]-0X` (số thứ tự tăng dần)
+   - **Tên lỗi**: Mô tả ngắn gọn hành vi sai so với đặc tả
+   - **Mã TC phát hiện**: Liệt kê TẤT CẢ các mã TC Fail cùng phát hiện bug này (ví dụ: `TC05`, `TC-BVA-02`, `TC-BVA-03`)
+   - **Steps to Reproduce**: Các bước tái hiện từ TC điển hình nhất của nhóm
+   - **Expected Output**: Lấy từ cột Expected Output của TC tương ứng
+   - **Actual Output**: Lấy từ cột Actual Output đã điền sau thực thi
+   - **Severity**: Critical / High / Medium / Low
+   - **GitHub Issue**: `[GitHub Issue #N](link)`
+   - **Screenshot**: `![Screenshot](screenshots/BUG-[FEATURE_ID]-0X.png)`
+
+### ⚠️ Quan trọng
+- Bug_Report.md placeholder được tạo ngay **khi thiết kế** (giai đoạn domain testing).
+- Nội dung chi tiết các Bug chỉ có thể điền **sau khi thực thi** test cases và quan sát Actual Output.
