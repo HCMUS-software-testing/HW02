@@ -192,6 +192,208 @@ Tập test cases tối thiểu dưới đây được thiết kế nhằm bao ph
 *   **Độ phức tạp nội tại của tính năng (Inherent complexity of the feature under test):** FR-02 nhìn bên ngoài giao diện rất đơn giản (chỉ có form Email và Password), nhưng phía sau backend là sự kết hợp phức tạp giữa quản lý trạng thái và cơ chế xác thực không lưu trạng thái (stateless JWT token). AI có xu hướng tập trung vào các luồng chức năng bề nổi (functional UI flows) mà bỏ qua các logic bảo mật phi chức năng (non-functional security logic).
 *   **Chất lượng của dữ liệu đầu vào (Prompt Quality):** Các prompt ban đầu chỉ yêu cầu AI đọc tài liệu đặc tả chung mà chưa cung cấp ngữ cảnh về môi trường triển khai thực tế, các yêu cầu kiểm thử phi chức năng hay các tiêu chuẩn an toàn thông tin (như OWASP). Điều này khiến AI chỉ tập trung tối ưu hóa các phân vùng giá trị biên của email/password theo nghiệp vụ thông thường mà bỏ qua các trường hợp biên của bảo mật hệ thống.
 
+---
+
+### Pool B: FR-09: Mã Giảm Giá (Coupon)
+
+#### Bước 1: Xác định các biến Input và Output (I/O Variables)
+
+##### Giải thích chi tiết từng bước (Step-by-Step Explanation)
+
+Để xác định các biến vào/ra của tính năng **FR-09: Mã Giảm Giá (Coupon)**, em đã thực hiện các bước phân tích sau:
+1.  **Phân tích đặc tả nghiệp vụ (Specification Analysis):** Đọc kỹ tài liệu đặc tả yêu cầu hệ thống [README.md](./eshop-sut/README.md). Chức năng này yêu cầu hệ thống áp dụng mã giảm giá khi người dùng nhập mã tại bước Checkout dựa trên 5 điều kiện (C1 đến C5) đồng thời thỏa mãn. Có 2 loại giảm giá là theo phần trăm (`percent`) và cố định (`fixed`).
+2.  **Xác định biến đầu vào trực tiếp (Direct Inputs):** Các tham số người dùng nhập trực tiếp hoặc gửi qua API body của endpoint `POST /api/apply-coupon` bao gồm: mã giảm giá (`code`), tổng số tiền đơn hàng gốc (`total_amount`), ID người dùng áp dụng mã (`user_id`), và Token JWT xác thực trong header (`jwt_token` / `Authorization`).
+3.  **Xác định biến đầu vào trạng thái (System State Inputs):** Trạng thái của mã giảm giá trong hệ thống bao gồm hoạt động hay không (`coupon_state`), ngày hết hạn (`coupon_expiration`), và lịch sử sử dụng của người dùng (`user_coupon_usage`). Các biến này không thể nhập trực tiếp qua form UI của client mà được lưu trữ trong CSDL và dùng làm **Điều kiện tiền đề (Preconditions)** cho các kịch bản kiểm thử.
+4.  **Xác định biến đầu ra (Outputs):** Ở mức API, backend trả về mã trạng thái HTTP (`http_status_code`), số tiền được giảm (`discount_amount`), và số tiền cuối cùng phải trả (`final_amount`). Ở mức UI, giao diện hiển thị thông báo kết quả (`ui_message`) và thực hiện hành động cập nhật giá trị hiển thị hoặc báo lỗi (`ui_action`).
+
+##### 1. Các biến đầu vào (Input Variables)
+
+Dưới đây là danh sách các biến đầu vào của chức năng:
+
+| STT | Tên biến | Loại biến | Kiểu dữ liệu | Ràng buộc đặc tả / Miền giá trị | Mô tả |
+| :---: | :--- | :--- | :--- | :--- | :--- |
+| **1** | `code` | Direct Input | String | Ký tự chữ và số, không chứa ký tự đặc biệt, không trống | Mã giảm giá do người dùng nhập vào. |
+| **2** | `total_amount` | Direct Input | Integer | Số nguyên dương >= 0 | Tổng tiền đơn hàng trước khi giảm giá. |
+| **3** | `user_id` | Direct Input | Integer | Số nguyên dương > 0 | ID của người dùng áp dụng mã giảm giá. |
+| **4** | `jwt_token` | Direct Input | String | Định dạng chuỗi JWT hợp lệ | Token xác thực truyền qua header `Authorization`. |
+| **5** | `coupon_state` | State Input | Enum | Active (`is_active = 1`) / Inactive (`is_active = 0`) / Không tồn tại | Trạng thái hoạt động của mã trong DB — **Dùng làm Precondition**. |
+| **6** | `coupon_expiration` | State Input | DateTime | Ngày cụ thể (`expired_at`) | Hạn sử dụng của mã — **Dùng làm Precondition**. |
+| **7** | `user_coupon_usage` | State Input | Integer | Số nguyên không âm (>= 0) | Số lần người dùng đã sử dụng mã này — **Dùng làm Precondition**. |
+
+##### 2. Các biến đầu ra (Output Variables)
+
+Dưới đây là danh sách các biến đầu ra phản hồi từ hệ thống:
+
+| STT | Tên biến | Loại biến | Kiểu dữ liệu | Ràng buộc đặc tả / Miền giá trị | Mô tả |
+| :---: | :--- | :--- | :--- | :--- | :--- |
+| **1** | `http_status_code` | API Output | Integer | `200` (Thành công) / `400`, `401`, `403`, `404` (Thất bại) | Mã phản hồi HTTP từ server. |
+| **2** | `discount_amount` | API Output | Integer | Số nguyên không âm (>= 0) | Số tiền được giảm giá dựa trên công thức tính. |
+| **3** | `final_amount` | API Output | Integer | Số nguyên không âm (>= 0) | Số tiền cuối cùng sau giảm giá. |
+| **4** | `ui_message` | UI Output | String | Thông báo thành công hoặc thông báo lỗi nghiệp vụ chi tiết | Cảnh báo hoặc thông điệp phản hồi hiển thị cho người dùng. |
+| **5** | `ui_action` | UI Output | Enum | Render giá mới / Hiển thị lỗi và giữ nguyên giá cũ | Phản ứng hành vi của giao diện thanh toán. |
+
+---
+
+#### Bước 2: Phân hoạch tương đương (Equivalence Partitioning)
+
+##### Giải thích chi tiết từng bước (Step-by-Step Explanation)
+
+Để thực hiện phân hoạch tương đương cho tính năng **FR-09: Mã Giảm Giá (Coupon)**, em đã áp dụng quy trình sau:
+1.  **Xác định các điều kiện nghiệp vụ:** Phân tích 5 điều kiện (C1 đến C5) cùng với 2 loại coupon (phần trăm và cố định).
+2.  **Chia nhóm các lớp tương đương:** Mỗi điều kiện ràng buộc được chia thành một lớp hợp lệ (Valid EC) đại diện cho việc thỏa mãn điều kiện và các lớp không hợp lệ (Invalid EC) đại diện cho các cách vi phạm khác nhau.
+3.  **Đánh số liên tục các lớp tương đương (EC):** Đánh số tiếp nối từ lớp `EC21` của tính năng trước đó. Cụ thể, các lớp đầu vào được đánh số từ `EC22` đến `EC41`, và các lớp đầu ra được đánh số từ `EC42` đến `EC52`.
+4.  **Lựa chọn giá trị đại diện và thiết kế Test Cases:** Mỗi kịch bản chỉ kiểm tra một nguyên nhân lỗi duy nhất (một Invalid EC) kết hợp với các EC hợp lệ còn lại để tránh che giấu lỗi.
+
+##### 1. Các biến đầu vào (Input Variables)
+
+| Mã lớp | Biến đầu vào | Phân loại lớp | Lớp tương đương | Mô tả / Ý nghĩa kiểm thử |
+| :---: | :--- | :---: | :--- | :--- |
+| **EC22** | `code` | **Valid** | Mã tồn tại trong hệ thống và đang hoạt động | Kiểm tra mã hợp lệ như `SAVE10`, `BIGBUY`, `VIP100`. |
+| **EC23** | `code` | **Invalid** | Mã không tồn tại trong hệ thống | Nhập mã sai chính tả hoặc ngẫu nhiên. |
+| **EC24** | `code` | **Invalid** | Mã tồn tại nhưng ở trạng thái ngưng hoạt động | Mã có `is_active = 0` trong database. |
+| **EC25** | `code` | **Invalid** | Chuỗi rỗng | Bỏ trống không nhập mã giảm giá. |
+| **EC26** | `total_amount` | **Valid** | Lớn hơn hoặc bằng ngưỡng tối thiểu (`min_order_amount`) | Thỏa mãn điều kiện C3 về giá trị đơn hàng. |
+| **EC27** | `total_amount` | **Invalid** | Nhỏ hơn ngưỡng tối thiểu (`min_order_amount`) | Vi phạm điều kiện C3. |
+| **EC28** | `total_amount` | **Invalid** | Số âm hoặc bằng 0 | Giá trị đơn hàng không hợp lệ. |
+| **EC29** | `total_amount` | **Invalid** | Không truyền hoặc truyền sai kiểu dữ liệu | Gửi giá trị không phải số nguyên. |
+| **EC30** | `user_id` | **Valid** | Trùng khớp với người dùng đang đăng nhập và có thực | Áp dụng mã cho chính chủ tài khoản. |
+| **EC31** | `user_id` | **Invalid** | Khác với người dùng được mã hóa trong JWT Token | Cố tình giả mạo hoặc áp dụng mã cho user khác. |
+| **EC32** | `user_id` | **Invalid** | Không tồn tại trong CSDL hoặc không hợp lệ | `user_id` âm, bằng 0, hoặc quá lớn. |
+| **EC33** | `user_id` | **Invalid** | Chuỗi rỗng hoặc không truyền | Thiếu trường thông tin bắt buộc. |
+| **EC34** | `jwt_token` | **Valid** | Token hợp lệ, chưa hết hạn | Người dùng đã đăng nhập hợp lệ (C4). |
+| **EC35** | `jwt_token` | **Invalid** | Token không hợp lệ, hết hạn hoặc không truyền | Người dùng chưa đăng nhập hoặc token giả. |
+| **EC36** | `coupon_state` | **Valid** | Trạng thái đang hoạt động (`is_active = 1`) | Đáp ứng điều kiện C1 về trạng thái coupon. |
+| **EC37** | `coupon_state` | **Invalid** | Trạng thái bị vô hiệu hóa (`is_active = 0`) | Coupon bị tạm khóa/ngưng hoạt động bởi admin. |
+| **EC38** | `coupon_expiration` | **Valid** | Ngày hiện tại nhỏ hơn ngày hết hạn (`expired_at`) | Coupon vẫn còn trong hạn sử dụng (C2). |
+| **EC39** | `coupon_expiration` | **Invalid** | Ngày hiện tại lớn hơn hoặc bằng ngày hết hạn (`expired_at`) | Coupon đã hết hạn sử dụng. |
+| **EC40** | `user_coupon_usage` | **Valid** | Số lần đã dùng < giới hạn tối đa (`max_uses_per_user`) | Người dùng còn lượt sử dụng coupon này (C5). |
+| **EC41** | `user_coupon_usage` | **Invalid** | Số lần đã dùng >= giới hạn tối đa (`max_uses_per_user`) | Người dùng đã dùng hết số lần tối đa cho phép. |
+
+##### 2. Các biến đầu ra (Output Variables)
+
+| Mã lớp | Biến đầu ra | Phân loại lớp | Lớp tương đương | Ý nghĩa phản hồi |
+| :---: | :--- | :---: | :--- | :--- |
+| **EC42** | `http_status_code` | **Valid (Success)** | `200 OK` | Áp dụng mã giảm giá thành công. |
+| **EC43** | `http_status_code` | **Invalid (Failure)** | `400 Bad Request` | Lỗi nghiệp vụ (hết hạn, thiếu tiền tối thiểu, hết lượt dùng) hoặc sai định dạng. |
+| **EC44** | `http_status_code` | **Invalid (Failure)** | `401 Unauthorized` | Không có quyền hoặc token hết hạn/không hợp lệ. |
+| **EC45** | `http_status_code` | **Invalid (Failure)** | `403 Forbidden` | Từ chối áp dụng mã do sai lệch ID người dùng. |
+| **EC46** | `http_status_code` | **Invalid (Failure)** | `404 Not Found` | Không tìm thấy mã giảm giá trong hệ thống. |
+| **EC47** | `discount_amount` & `final_amount` | **Valid (Success)** | Số tiền giảm và số tiền cuối tính chính xác | Áp dụng đúng công thức chiết khấu phần trăm hoặc giá cố định. |
+| **EC48** | `discount_amount` & `final_amount` | **Invalid (Failure)** | `discount_amount = 0`, `final_amount` giữ nguyên giá trị đơn hàng | Không thực hiện giảm trừ tiền. |
+| **EC49** | `ui_message` | **Valid (Success)** | Hiển thị thông báo áp dụng mã thành công | Xác nhận mã giảm giá hợp lệ. |
+| **EC50** | `ui_message` | **Invalid (Failure)** | Hiển thị thông báo lỗi chi tiết tương ứng | Báo lỗi đúng nguyên nhân (ví dụ: mã hết hạn, chưa đủ ngưỡng tối thiểu,...). |
+| **EC51** | `ui_action` | **Valid (Success)** | Cập nhật số tiền hiển thị trên giao diện thanh toán | Giao diện hiển thị giá sau giảm. |
+| **EC52** | `ui_action` | **Invalid (Failure)** | Hiển thị thông báo lỗi, giữ nguyên giá cũ | Chặn việc áp dụng giảm giá trên UI. |
+
+---
+
+#### Bước 3: Lựa chọn giá trị đại diện (Selecting Representatives)
+
+##### 1. Bảng giá trị đại diện cho các lớp tương đương
+
+| Mã lớp | Biến tương ứng | Loại lớp | Giá trị đại diện | Ý nghĩa / Ghi chú kiểm thử |
+| :---: | :--- | :---: | :--- | :--- |
+| **EC22** | `code` | Valid | `SAVE10` | Mã giảm giá đang hoạt động và hợp lệ trong CSDL. |
+| **EC23** | `code` | Invalid | `NOTFOUND` | Mã giảm giá không tồn tại trong hệ thống. |
+| **EC24** | `code` | Invalid | `SAVE10` (nhưng DB có `is_active = 0`) | Mã giảm giá bị ngưng hoạt động. |
+| **EC25** | `code` | Invalid | `""` | Bỏ trống mã giảm giá. |
+| **EC26** | `total_amount` | Valid | `500000` | Tổng tiền lớn hơn ngưỡng tối thiểu `300000` của mã `SAVE10`. |
+| **EC27** | `total_amount` | Invalid | `200000` | Tổng tiền nhỏ hơn ngưỡng tối thiểu `300000` của mã `SAVE10`. |
+| **EC28** | `total_amount` | Invalid | `-50000` | Số tiền âm không hợp lệ. |
+| **EC29** | `total_amount` | Invalid | `"five_hundred"` (hoặc bỏ trống) | Sai kiểu dữ liệu truyền lên. |
+| **EC30** | `user_id` | Valid | `1` | ID của người dùng thực hiện yêu cầu (khớp với JWT token). |
+| **EC31** | `user_id` | Invalid | `2` | ID người dùng khác với thông tin trong token của user 1. |
+| **EC32** | `user_id` | Invalid | `9999` | ID người dùng không tồn tại trong hệ thống. |
+| **EC33** | `user_id` | Invalid | `""` (hoặc bỏ trống) | Bỏ trống trường `user_id`. |
+| **EC34** | `jwt_token` | Valid | Token hợp lệ của User 1 | Người dùng đã đăng nhập. |
+| **EC35** | `jwt_token` | Invalid | Token sai/hết hạn hoặc thiếu header | Người dùng chưa đăng nhập hoặc phiên làm việc hết hạn. |
+| **EC36** | `coupon_state` | Valid | `is_active = 1` | Mã giảm giá đang kích hoạt. |
+| **EC37** | `coupon_state` | Invalid | `is_active = 0` | Mã giảm giá bị vô hiệu hóa. |
+| **EC38** | `coupon_expiration` | Valid | Hạn dùng `2099-12-31` | Mã giảm giá còn hạn sử dụng. |
+| **EC39** | `coupon_expiration` | Invalid | `EXPIRED` (hạn dùng `2020-01-01`) | Mã giảm giá đã hết hạn sử dụng. |
+| **EC40** | `user_coupon_usage` | Valid | Đã dùng 0 lần | Còn lượt sử dụng (giới hạn tối đa là 1). |
+| **EC41** | `user_coupon_usage` | Invalid | Đã dùng 1 lần | Hết lượt sử dụng (giới hạn tối đa là 1). |
+
+##### 2. Thiết kế tập Test Cases phân hoạch tương đương (Equivalence Partitioning Test Cases)
+
+| Mã TC | Tên Test Case | Lớp tương đương phủ | Điều kiện tiền đề (Preconditions) | code | total_amount | user_id | jwt_token | Kết quả mong đợi (Expected Output) | Kết quả thực tế (Actual Output) | Trạng thái (Pass/Fail) |
+| :---: | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---: |
+| **TC01** | Áp dụng thành công coupon loại `percent` | EC22, EC26, EC30, EC34, EC36, EC38, EC40, EC42, EC47, EC49, EC51 | Mã `SAVE10` đang hoạt động, còn hạn, giới hạn 1 lần/người. Người dùng chưa từng sử dụng mã này. | `SAVE10` | `500000` | `1` | Token hợp lệ User 1 | - HTTP Code: `200 OK`<br>- Response: JSON chứa `discount_amount` = 50,000 và `final_amount` = 450,000.<br>- UI: Hiển thị giá đã giảm và thông báo áp dụng thành công. | | |
+| **TC02** | Áp dụng thành công coupon loại `fixed` | EC22, EC26, EC30, EC34, EC36, EC38, EC40, EC42, EC47, EC49, EC51 | Mã `BIGBUY` (giảm 50,000đ, tối thiểu 500,000đ) đang hoạt động, còn hạn. Người dùng chưa từng sử dụng mã này. | `BIGBUY` | `600000` | `1` | Token hợp lệ User 1 | - HTTP Code: `200 OK`<br>- Response: JSON chứa `discount_amount` = 50,000 và `final_amount` = 550,000.<br>- UI: Hiển thị giá đã giảm và thông báo áp dụng thành công. | | |
+| **TC03** | Áp dụng thất bại - Mã giảm giá không tồn tại | EC23, EC46, EC48, EC50, EC52 | Người dùng đăng nhập bình thường. | `NOTFOUND` | `500000` | `1` | Token hợp lệ User 1 | - HTTP Code: `404 Not Found`<br>- Response: JSON chứa thông báo lỗi không tìm thấy coupon.<br>- UI: Hiển thị thông báo "Mã không tồn tại". | | |
+| **TC04** | Áp dụng thất bại - Mã giảm giá bị ngưng hoạt động | EC24, EC37, EC43, EC48, EC50, EC52 | Mã `SAVE10` đã bị chuyển trạng thái hoạt động sang `is_active = 0` trong CSDL. | `SAVE10` | `500000` | `1` | Token hợp lệ User 1 | - HTTP Code: `400 Bad Request`<br>- Response: JSON chứa thông báo lỗi coupon ngưng hoạt động.<br>- UI: Hiển thị thông báo "Mã giảm giá đang không hoạt động". | | |
+| **TC05** | Áp dụng thất bại - Bỏ trống mã giảm giá | EC25, EC43, EC48, EC50, EC52 | Người dùng đăng nhập bình thường. | `""` | `500000` | `1` | Token hợp lệ User 1 | - UI: Hiển thị lỗi hoặc chặn gửi request.<br>- HTTP Code (nếu gửi trực tiếp API): `400 Bad Request` chứa thông báo mã giảm giá là bắt buộc. | | |
+| **TC06** | Áp dụng thất bại - Tổng tiền đơn hàng chưa đạt ngưỡng tối thiểu | EC27, EC43, EC48, EC50, EC52 | Mã `SAVE10` yêu cầu tối thiểu 300,000đ. Người dùng chưa dùng mã này. | `SAVE10` | `200000` | `1` | Token hợp lệ User 1 | - HTTP Code: `400 Bad Request`<br>- Response: JSON chứa thông báo lỗi đơn hàng không đủ giá trị tối thiểu.<br>- UI: Hiển thị thông báo "Giá trị đơn hàng tối thiểu chưa đạt". | | |
+| **TC07** | Áp dụng thất bại - Số tiền đơn hàng âm | EC28, EC43, EC48, EC50, EC52 | Người dùng đăng nhập bình thường. | `SAVE10` | `-50000` | `1` | Token hợp lệ User 1 | - HTTP Code: `400 Bad Request`<br>- Response: JSON chứa thông báo lỗi số tiền không hợp lệ.<br>- UI: Không cho phép gửi hoặc hiển thị lỗi số tiền không hợp lệ. | | |
+| **TC08** | Áp dụng thất bại - Định dạng số tiền sai kiểu dữ liệu | EC29, EC43, EC48, EC50, EC52 | Người dùng đăng nhập bình thường. | `SAVE10` | `"five_hundred"` | `1` | Token hợp lệ User 1 | - HTTP Code: `400 Bad Request` hoặc `422 Unprocessable Entity`<br>- Response: JSON chứa thông báo lỗi định dạng dữ liệu.<br>- UI: Chặn gửi hoặc báo lỗi nhập liệu. | | |
+| **TC09** | Áp dụng thất bại - Người dùng giả mạo `user_id` trong body | EC31, EC45, EC48, EC50, EC52 | Gửi trực tiếp qua backend API, thay thế `user_id` trong body khác với ID lưu trong JWT Token. | `SAVE10` | `500000` | `2` | Token hợp lệ User 1 | - HTTP Code: `403 Forbidden`<br>- Response: JSON thông báo từ chối quyền truy cập hoặc lỗi bảo mật.<br>- UI: Hiển thị lỗi tương ứng hoặc không cho phép áp dụng. | | |
+| **TC10** | Áp dụng thất bại - `user_id` không tồn tại | EC32, EC43, EC48, EC50, EC52 | Người dùng đăng nhập bình thường nhưng truyền ID không có thực. | `SAVE10` | `500000` | `9999` | Token hợp lệ User 1 | - HTTP Code: `400 Bad Request` hoặc `404 Not Found`<br>- Response: JSON báo người dùng không tồn tại. | | |
+| **TC11** | Áp dụng thất bại - Chưa đăng nhập hoặc token hết hạn | EC35, EC44, EC48, EC50, EC52 | Người dùng chưa đăng nhập hoặc token đã bị sửa đổi/hết hạn. | `SAVE10` | `500000` | `1` | Token không hợp lệ hoặc thiếu | - HTTP Code: `401 Unauthorized`<br>- Response: JSON chứa thông báo lỗi chưa xác thực.<br>- UI: Hiển thị yêu cầu đăng nhập hoặc chuyển hướng về trang login. | | |
+| **TC12** | Áp dụng thất bại - Mã giảm giá hết hạn | EC39, EC43, EC48, EC50, EC52 | Mã `EXPIRED` có hạn dùng `2020-01-01` (đã hết hạn so với hiện tại). | `EXPIRED` | `200000` | `1` | Token hợp lệ User 1 | - HTTP Code: `400 Bad Request`<br>- Response: JSON chứa thông báo mã đã hết hạn.<br>- UI: Hiển thị thông báo "Mã giảm giá đã hết hạn sử dụng". | | |
+| **TC13** | Áp dụng thất bại - Người dùng đã dùng hết lượt cho phép | EC41, EC43, EC48, EC50, EC52 | Mã `SAVE10` giới hạn 1 lần sử dụng/người. Người dùng 1 đã có 1 đơn hàng trước đó áp dụng mã này thành công. | `SAVE10` | `500000` | `1` | Token hợp lệ User 1 | - HTTP Code: `400 Bad Request`<br>- Response: JSON chứa thông báo người dùng đã dùng hết lượt.<br>- UI: Hiển thị thông báo "Bạn đã sử dụng hết lượt cho phép đối với mã này". | | |
+| **TC14** | Kiểm thử Race Condition - Đồng thời áp dụng mã giới hạn 1 lần | EC41, EC43, EC48 (concurrency) | Mã `SAVE10` giới hạn 1 lần. Người dùng chưa từng sử dụng. | `SAVE10` | `500000` | `1` | Token hợp lệ User 1 | - Gửi đồng thời 2 request áp dụng mã trong cùng 1ms.<br>- Chỉ có đúng 1 request được chấp nhận (`200 OK`), request còn lại bị từ chối (`400 Bad Request`). | | |
+
+---
+
+#### Bước 4: Phân tích giá trị biên (Boundary Value Analysis - BVA)
+
+##### Giải thích chi tiết từng bước (Step-by-Step Explanation)
+
+Để xác định các giá trị biên nhạy cảm của tính năng **FR-09: Mã Giảm Giá (Coupon)**, em đã thực hiện phân tích theo các bước sau:
+1.  **Xác định các biến có tính thứ tự hoặc khoảng số:**
+    - `total_amount` (Tổng tiền đơn hàng): Có các ngưỡng biên nhạy cảm so với ngưỡng tối thiểu `min_order_amount` của từng mã giảm giá.
+    - `user_coupon_usage` (Số lần người dùng đã sử dụng mã): Có giới hạn tối đa là `max_uses_per_user`.
+2.  **Xác định các điểm biên (Boundaries) cho từng biến:**
+    - So với mã `SAVE10` có `min_order_amount = 300,000` VND:
+      - Biên dưới hợp lệ: $LB = 300,000$ VND.
+      - Sát trên biên dưới hợp lệ: $LB+1 = 300,001$ VND.
+      - Sát dưới biên dưới không hợp lệ: $LB-1 = 299,999$ VND.
+    - So với mã `VIP100` có `max_uses_per_user = 2`:
+      - Số lần đã dùng tối đa hợp lệ để vẫn còn dùng được tiếp: $UB = 1$ lần (vì số lần dùng tiếp theo sẽ là lần thứ 2, đạt mức tối đa).
+      - Số lần đã dùng bắt đầu không còn lượt: $UB+1 = 2$ lần (đã dùng hết lượt, không thể dùng tiếp).
+3.  **Thiết kế các kịch bản kiểm thử biên tương ứng.**
+
+##### 1. Phân tích giá trị biên của các biến số/khoảng số
+
+*   **Biến `total_amount` so với ngưỡng tối thiểu `min_order_amount = 300,000` VND của mã `SAVE10`:**
+    - $LB = 300,000$ VND: Tổng tiền tối thiểu vừa đủ để áp dụng mã giảm giá.
+    - $LB+1 = 300,001$ VND: Tổng tiền lớn hơn ngưỡng tối thiểu một đơn vị nhỏ nhất.
+    - $LB-1 = 299,999$ VND: Tổng tiền nhỏ hơn ngưỡng tối thiểu một đơn vị nhỏ nhất (không đủ điều kiện).
+
+*   **Biến `user_coupon_usage` so với giới hạn `max_uses_per_user = 2` của mã `VIP100`:**
+    - $usage = 0$: Người dùng chưa từng sử dụng, còn nguyên 2 lượt.
+    - $usage = 1$ (Điểm biên $UB$ để còn lượt): Người dùng đã dùng 1 lần, vẫn còn 1 lượt nữa.
+    - $usage = 2$ (Điểm biên $UB+1$ để hết lượt): Người dùng đã dùng 2 lần, không còn lượt nào để sử dụng.
+
+##### 2. Thiết kế tập Test Cases giá trị biên (Boundary Value Test Cases)
+
+| Mã TC | Tên Test Case | Biên kiểm thử | Điều kiện tiền đề (Preconditions) | code | total_amount | user_id | jwt_token | Kết quả mong đợi (Expected Output) | Kết quả thực tế (Actual Output) | Trạng thái (Pass/Fail) |
+| :---: | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---: |
+| **TC-BVA-01** | Áp dụng khi tổng tiền bằng đúng ngưỡng tối thiểu | $total\_amount = LB$ ($300,000$) của mã `SAVE10` | Mã `SAVE10` hoạt động, còn hạn. Người dùng chưa từng dùng mã. | `SAVE10` | `300000` | `1` | Token hợp lệ User 1 | - HTTP Code: `200 OK`<br>- Response: JSON chứa `discount_amount` = 30,000 và `final_amount` = 270,000.<br>- UI: Hiển thị giá mới đã áp dụng. | | |
+| **TC-BVA-02** | Áp dụng khi tổng tiền sát dưới ngưỡng tối thiểu | $total\_amount = LB-1$ ($299,999$) của mã `SAVE10` | Mã `SAVE10` hoạt động, còn hạn. Người dùng chưa từng dùng mã. | `SAVE10` | `299999` | `1` | Token hợp lệ User 1 | - HTTP Code: `400 Bad Request`<br>- Response: JSON báo lỗi trị giá đơn hàng tối thiểu chưa đạt.<br>- UI: Báo lỗi không đủ điều kiện đơn hàng tối thiểu. | | |
+| **TC-BVA-03** | Áp dụng khi tổng tiền sát trên ngưỡng tối thiểu | $total\_amount = LB+1$ ($300,001$) của mã `SAVE10` | Mã `SAVE10` hoạt động, còn hạn. Người dùng chưa từng dùng mã. | `SAVE10` | `300001` | `1` | Token hợp lệ User 1 | - HTTP Code: `200 OK`<br>- Response: JSON chứa `discount_amount` = 30,000 và `final_amount` = 270,001.<br>- UI: Hiển thị giá mới đã áp dụng. | | |
+| **TC-BVA-04** | Áp dụng mã khi người dùng đã sử dụng 1 lần (vẫn còn lượt) | $usage = 1$ của mã `VIP100` (giới hạn tối đa 2 lần) | Mã `VIP100` hoạt động, còn hạn. Người dùng đã từng dùng mã này 1 lần. | `VIP100` | `300000` | `1` | Token hợp lệ User 1 | - HTTP Code: `200 OK`<br>- Response: JSON chứa `discount_amount` = 100,000 và `final_amount` = 200,000.<br>- UI: Hiển thị giảm giá thành công lần 2. | | |
+| **TC-BVA-05** | Áp dụng mã khi người dùng đã sử dụng 2 lần (hết lượt) | $usage = 2$ của mã `VIP100` (giới hạn tối đa 2 lần) | Mã `VIP100` hoạt động, còn hạn. Người dùng đã từng dùng mã này 2 lần. | `VIP100` | `300000` | `1` | Token hợp lệ User 1 | - HTTP Code: `400 Bad Request`<br>- Response: JSON báo lỗi đã dùng hết số lần tối đa.<br>- UI: Hiển thị lỗi đã hết lượt dùng. | | |
+
+---
+
+#### Bước 5: Phân tích khoảng trống AI (AI Gap Analysis)
+
+##### 1. Các kịch bản/lỗi kiểm thử mà AI đã bỏ sót
+*   **Race Condition khi gửi đồng thời nhiều request áp dụng mã (Double Apply):** AI khi đọc tài liệu tĩnh thường bỏ qua kịch bản người dùng nhấp đúp nhanh hoặc dùng script gửi đồng thời nhiều yêu cầu áp dụng mã giảm giá (ví dụ gửi 2 request trong cùng 1ms cho mã có giới hạn 1 lần sử dụng). Nếu hệ thống thiếu cơ chế khóa dòng hoặc transaction rollback thích hợp ở backend, người dùng có thể lách luật để được giảm giá nhiều lần.
+*   **Bypass kiểm tra ngưỡng tối thiểu tại bước tạo đơn hàng (Checkout bypass):** Một lỗi logic nghiệp vụ nghiêm trọng mà AI ít khi nghĩ tới là: Người dùng thêm sản phẩm vào giỏ để tổng tiền đạt 300,000 VND, áp dụng mã `SAVE10` thành công. Sau đó, họ xóa bớt sản phẩm trong giỏ hàng để tổng tiền giảm xuống còn 100,000 VND rồi tiến hành tạo đơn hàng. Nếu backend không re-validate lại các điều kiện mã coupon tại thời điểm tạo đơn hàng (Order Creation API), mã giảm giá vẫn được áp dụng trái phép.
+*   **Bất đồng bộ múi giờ (Timezone discrepancies):** AI thường không thiết kế các test case cho sự chênh lệch múi giờ giữa client và server. Ví dụ: coupon hết hạn vào lúc `2026-07-05 23:59:59` theo múi giờ GMT+7, nhưng server chạy GMT+0 hoặc client điều chỉnh giờ hệ thống để cố tình áp dụng mã đã hết hạn.
+
+##### 2. Các sự nhầm lẫn, ảo giác và thiếu sót của AI trong quá trình thiết kế (AI Critique)
+*   **Nhầm lẫn System State thành Direct Input:** AI có xu hướng liệt kê `user_coupon_usage` (số lần đã dùng mã của user) hay `coupon_expiration` (trạng thái hết hạn) vào cột Input của bảng test case, yêu cầu người dùng phải truyền các giá trị này trong request body. Trên thực tế, đây là trạng thái hệ thống cần truy vấn từ DB, do đó bắt buộc phải nằm ở cột Preconditions.
+*   **Lỗi ảo giác về kiểm chứng trực tiếp Database (Grey-box Bias):** AI đề xuất Expected Output chứa việc kiểm tra dữ liệu trực tiếp trong CSDL (ví dụ: "Kiểm tra bảng `coupon_usages` có thêm dòng mới"). Điều này vi phạm nguyên tắc kiểm thử hộp đen tĩnh khi chỉ được phép quan sát hành vi thông qua HTTP response hoặc UI.
+*   **Xu hướng thiên vị cài đặt cụ thể (Implementation Bias):** AI định nghĩa chi tiết các chuỗi thông báo lỗi JSON (ví dụ: `{"status": "error", "message": "Min amount not reached"}`) vào Expected Output thay vì mô tả hành vi nghiệp vụ ở mức tổng quát. Điều này khiến bộ test case dễ bị lỗi thời nếu định dạng API thay thế chuỗi thông báo lỗi.
+
+##### 3. Giải thích nguyên nhân AI gặp các hạn chế trên
+*   **Thiếu khả năng thực thi và kiểm nghiệm động:** AI chỉ làm việc trên tài liệu đặc tả dạng văn bản và suy luận tĩnh. Do đó, AI không thể tự động nhận thức được các vấn đề phát sinh trong môi trường chạy thực tế như độ trễ mạng, xử lý đa luồng bất đồng bộ (concurrency), hay xung đột tranh chấp ghi dữ liệu.
+*   **Thiếu tư duy tấn công bảo mật (Security Threat Modeling):** AI thường chỉ tập trung tối ưu hóa các luồng đi bình thường (Happy Path) và các lỗi nhập liệu đơn giản trên form, mà không chủ động đặt giả thuyết về việc người dùng cố tình thay đổi tham số request gửi trực tiếp qua Postman/cURL để qua mặt hệ thống.
+
+
 
 
 
