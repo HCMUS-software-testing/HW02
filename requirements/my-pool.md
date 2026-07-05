@@ -1,0 +1,4 @@
+- PoolA: FR01
+- PoolB: FR-07
+- PoolC: FR-18
+- PoolD: Chưa chọn được
