@@ -1,0 +1,4 @@
+interface:
+  display_name: "Applying Domain Testing"
+  short_description: "Design EP and BVA test cases for one function."
+  default_prompt: "Apply domain testing with equivalence partitioning and boundary value analysis for this function."

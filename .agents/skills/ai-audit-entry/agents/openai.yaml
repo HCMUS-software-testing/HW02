@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI Audit Entry"
+  short_description: "Append HW02 AI audit entries"
+  default_prompt: "Use $ai-audit-entry to append an AI audit entry for this HW02 prompt session."

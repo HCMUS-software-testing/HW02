@@ -31,3 +31,5 @@ Existing commit history uses short imperative messages such as `setup` and `firs
 ## Agent-Specific Instructions
 
 Do not modify `eshop-sut` source code for documentation-only tasks. Avoid destructive git commands. Before staging or committing, check `git status` and confirm with the user.
+
+For each user prompt session in this repository, add one AI audit entry before the final response. Use the repo-local skill at `.agents/skills/ai-audit-entry/SKILL.md` and run `rtk python3 .agents/skills/ai-audit-entry/scripts/append_ai_audit_entry.py` to append to `23127075_HW02_AI_DomainTesting_100/report/ai_audit_report.md`. Leave `Human Review/Corrections` and `Final Use in Submission` as manual placeholders for the user.
