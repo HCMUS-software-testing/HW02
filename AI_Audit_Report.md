@@ -166,3 +166,55 @@ File [Bug_report.md](./Bug_Report.md) đã được tổng hợp đầy đủ 7 
 #### Output
 
 File [github_issues_templates](./github_issues_templates.md) được sinh ra.
+
+### Prompt 8
+
+*   **Công cụ AI sử dụng (Name of AI Tool):** Gemini 3.5 Flash (High)
+*   **Thời gian thực hiện (Date and Time):** 2026-07-05, 05:14PM
+*   **Mục đích:** Thực hiện kỹ thuật Domain Testing (EP + BVA) cho tính năng FR-09: Mã Giảm Giá (Coupon) — bao gồm xác định biến I/O, phân hoạch tương đương, phân tích giá trị biên và AI Gap Analysis.
+
+#### Prompt
+
+```text
+Thực hiện domain testing với Pool B: FR-09
+```
+
+#### Output
+
+```text
+Đã hoàn thành kiểm thử miền cho tính năng FR-09: Mã Giảm Giá (Coupon).
+
+Kết quả đã được ghi vào Main_Report.md:
+- Bước 1: Xác định 7 biến đầu vào và 5 biến đầu ra.
+- Bước 2: Phân hoạch 31 lớp tương đương (EC22 đến EC52).
+- Bước 3: Thiết kế 14 test cases EP (TC01 đến TC14).
+- Bước 4: Phân tích giá trị biên, thiết kế 5 test cases BVA (TC-BVA-01 đến TC-BVA-05).
+- Bước 5: AI Gap Analysis — ghi nhận 3 kịch bản bị bỏ sót và 3 vấn đề AI Critique.
+
+README.md và AI_Audit_Report.md đã được cập nhật tương ứng.
+```
+
+File [Main_Report.md](./Main_Report.md) đã được bổ sung đầy đủ nội dung Domain Testing cho FR-09.
+
+### Prompt 9
+
+*   **Công cụ AI sử dụng (Name of AI Tool):** Gemini 3.5 Flash (High)
+*   **Thời gian thực hiện (Date and Time):** 2026-07-05, 05:33PM
+*   **Mục đích:** Cập nhật kết quả thực tế (Actual Output) và Trạng thái (Pass/Fail) cho các test case của FR-09 trong Main_Report.md dựa trên phân tích lỗi thực tế từ AI Gap Analysis.
+
+#### Prompt
+
+```text
+Dựa trên AI Gap Analysis của FR-09, cập nhật kết quả thực tế và trạng thái đạt/lỗi trong Main_Report.md
+```
+
+#### Output
+
+```text
+Đã cập nhật cột Actual Output và Pass/Fail cho toàn bộ 14 kịch bản EP và 5 kịch bản BVA của tính năng FR-09 trong Main_Report.md.
+Các lỗi thực tế được ghi nhận bao gồm: lỗi công thức tính tiền giảm giá phần trăm, lỗi so sánh nghiêm ngặt giá trị tối thiểu, thiếu middleware xác thực JWT, và lỗi tham số user_id không được kiểm tra chéo.
+
+README.md đã được cập nhật số liệu thống kê tổng thể dự án.
+```
+
+File [Main_Report.md](./Main_Report.md) đã được cập nhật kết quả thực tế.
