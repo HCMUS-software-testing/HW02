@@ -17,10 +17,6 @@ DEFAULT_TOOL_MODEL = "Codex / GPT-5"
 MANUAL_PLACEHOLDER = "[Manual by user]"
 
 
-def escape_table_cell(value: str) -> str:
-    return " ".join(value.strip().split()).replace("|", "\\|")
-
-
 def markdown_fence(value: str) -> str:
     longest_run = max((len(match.group(0)) for match in re.finditer(r"`+", value)), default=0)
     fence = "`" * max(3, longest_run + 1)
@@ -60,11 +56,6 @@ def initial_report() -> str:
 - Student name: `Lê Trung Kiên`
 - Student ID: `23127075`
 
-## AI Tool Usage Summary
-
-| Date/Time | Tool/Model | Purpose |
-| --- | --- | --- |
-
 ## Prompt and Output Log
 
 ## Integrity Notes
@@ -85,14 +76,11 @@ def append_entry(
     audit_file.parent.mkdir(parents=True, exist_ok=True)
     text = audit_file.read_text(encoding="utf-8") if audit_file.exists() else initial_report()
     text = renumber_entries(text)
+    text = remove_summary_section(text)
 
     now = datetime.now(ZoneInfo("Asia/Ho_Chi_Minh")).strftime("%Y-%m-%d %H:%M %Z")
     entry_id = next_entry_id(text)
 
-    summary_row = (
-        f"| {escape_table_cell(now)} | {escape_table_cell(tool_model)} | "
-        f"{escape_table_cell(purpose)} |"
-    )
     detail_block = f"""
 ### Entry {entry_id}
 - Time: `{now}`
@@ -103,56 +91,21 @@ def append_entry(
 - Final Use in Submission: `{MANUAL_PLACEHOLDER}`
 """
 
-    text = insert_summary_row(text, summary_row)
-    text = normalize_summary_table(text)
     text = insert_detail_block(text, detail_block)
     audit_file.write_text(text.rstrip() + "\n", encoding="utf-8")
 
 
-def insert_summary_row(text: str, row: str) -> str:
-    placeholder = "| `[TODO]` | `[TODO]` | `[TODO]` | `[TODO]` | `[TODO]` |"
-    if placeholder in text:
-        return text.replace(placeholder, row, 1)
-
-    short_placeholder = "| `[TODO]` | `[TODO]` | `[TODO]` |"
-    if short_placeholder in text:
-        return text.replace(short_placeholder, row, 1)
-
-    marker = "## Prompt and Output Log"
-    if marker in text:
-        return text.replace(marker, row + "\n\n" + marker, 1)
-
-    return text.rstrip() + "\n\n" + row + "\n"
-
-
-def normalize_summary_table(text: str) -> str:
-    """Keep the AI Tool Usage Summary table as Date/Time, Tool/Model, Purpose."""
+def remove_summary_section(text: str) -> str:
+    """Remove the AI Tool Usage Summary section if an older report contains it."""
     start_marker = "## AI Tool Usage Summary"
     end_marker = "## Prompt and Output Log"
     if start_marker not in text or end_marker not in text:
         return text
 
     before, summary_and_after = text.split(start_marker, 1)
-    summary, after = summary_and_after.split(end_marker, 1)
-    rows = [
-        "| Date/Time | Tool/Model | Purpose |",
-        "| --- | --- | --- |",
-    ]
-    for line in summary.splitlines():
-        stripped = line.strip()
-        if not stripped.startswith("|"):
-            continue
-        cells = [cell.strip() for cell in stripped.strip("|").split("|")]
-        if len(cells) < 3:
-            continue
-        is_separator = all(re.fullmatch(r":?-{3,}:?", cell) for cell in cells[:3])
-        if cells[0] in {"Date/Time", "`[TODO]`"} or is_separator:
-            continue
-        rows.append(f"| {cells[0]} | {cells[1]} | {cells[2]} |")
+    _summary, after = summary_and_after.split(end_marker, 1)
 
-    cleaned_summary = "\n".join(rows)
-
-    return f"{before}{start_marker}\n\n{cleaned_summary}\n\n{end_marker}{after}"
+    return f"{before.rstrip()}\n\n{end_marker}{after}"
 
 
 def insert_detail_block(text: str, block: str) -> str:
@@ -195,6 +148,14 @@ def parse_args() -> argparse.Namespace:
     output_group = parser.add_mutually_exclusive_group(required=True)
     output_group.add_argument("--output")
     output_group.add_argument(
+        "--output-file",
+        type=Path,
+        help=(
+            "Path to a single contiguous AI-created artifact. The file content "
+            "is copied verbatim into the Output field."
+        ),
+    )
+    output_group.add_argument(
         "--output-summary",
         dest="output",
         help="Backward-compatible alias for --output.",
@@ -212,11 +173,16 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    output = (
+        args.output_file.read_text(encoding="utf-8")
+        if args.output_file is not None
+        else args.output
+    )
     append_entry(
         audit_file=args.audit_file,
         purpose=args.purpose,
         prompt=args.prompt,
-        output=args.output,
+        output=output,
         tool_model=args.tool_model,
     )
 
