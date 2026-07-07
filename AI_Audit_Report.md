@@ -195,3 +195,20 @@ README.md và AI_Audit_Report.md đã được cập nhật tương ứng.
 ```
 
 File [Main_Report.md](./Main_Report.md) đã được bổ sung đầy đủ nội dung Domain Testing cho FR-09.
+
+
+### Prompt 9
+
+*   **Công cụ AI sử dụng (Name of AI Tool):** Gemini 3.5 Flash
+*   **Thời gian thực hiện (Date and Time):** 2026-07-06, 09:28PM
+*   **Mục đích:** Tìm các bug của FR-09 từ [Main_Report.md] và ghi vào [Bug_Report.md]
+
+#### Prompt
+```text
+Hãy dựa vào [Main_Report.md] phân tích sau đó ghi các bug của FR-09 vào [Bug_Report.md] 
+```
+
+#### Output
+
+File [Bug_Report.md](./Bug_Report.md) thêm được 
+
