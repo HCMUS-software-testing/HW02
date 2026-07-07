@@ -4,7 +4,7 @@ Use this sub-skill when the task asks for boundary value analysis, BVA, boundary
 
 ## Core Rule
 
-Base BVA on repo-root `references/04_Domain Testing.md`: use boundary values as the best representatives for ordered fields because programs are more likely to fail at boundaries.
+Base BVA on black-box specifications: use boundary values as the best representatives for ordered fields because programs are more likely to fail at boundaries. Do not read implementation code to infer hidden min/max, length, date, count, stock, money, or pagination limits.
 
 Apply BVA only to inputs or outputs with meaningful order and boundaries. Do not force BVA onto unordered enums, free-text categories without length rules, boolean values, or membership sets where EP is sufficient.
 
@@ -22,6 +22,7 @@ Apply BVA only to inputs or outputs with meaningful order and boundaries. Do not
    - With only a minimum: test just outside, on, and just inside the lower boundary.
    - With only a maximum: test just inside, on, and just outside the upper boundary.
    - For length boundaries, use concrete sample strings whose lengths are visible.
+   - For cross-field equality relationships such as `confirmPassword` matching `password`, record relationship values as exact match, differs by 1 character, missing 1 character, and adding 1 extra character compared with `password`; do not add arbitrary `length=2` or other length values unless the specification defines that boundary.
    - For dates, state the reference date explicitly.
 4. Design BVA test cases. Keep unrelated inputs nominal and valid so the expected result focuses on the boundary under test.
 5. Trace every BVA test case to a named boundary such as `password length = 7`, `password length = 8`, or `quantity max+1`.
@@ -32,21 +33,21 @@ Apply BVA only to inputs or outputs with meaningful order and boundaries. Do not
 
 #### B1. Xác định miền liên tục có thể phân tích biên
 
-| Đầu vào/Đầu ra | Dạng miền | Có áp dụng BVA? | Lý do |
-| --- | --- | --- | --- |
-| `<field/output>` | `<số/độ dài/ngày/số lượng/khác>` | Có/Không | `<vì sao có hoặc không có biên>` |
+| Đầu vào/Đầu ra | Dạng miền                                 | Có áp dụng BVA? | Lý do                                   |
+| ------------------- | ------------------------------------------- | ------------------ | ---------------------------------------- |
+| `<field/output>`  | `<số/độ dài/ngày/số lượng/khác>` | Có/Không         | `<vì sao có hoặc không có biên>` |
 
 #### B2. Xác định biên và giá trị cận biên
 
-| Trường | Quy tắc biên | Giá trị biên |
-| --- | --- | --- |
-| `<field>` | `<min/max/độ dài/ngày/số lượng>` | `<min-1, min, min+1...>` |
+| Trường    | Quy tắc biên                            | Giá Trị biên và cận biên |
+| ----------- | ----------------------------------------- | ------------------------------ |
+| `<field>` | `<min/max/độ dài/ngày/số lượng>` | `<min-1, min, min+1...>`     |
 
 #### B3. Ca kiểm thử BVA
 
-| TC | Trường | Biên được kiểm thử | Dữ liệu kiểm thử | Kết quả mong đợi |
-| --- | --- | --- | --- | --- |
-| BV01 | `<field>` | `<min-1/min/min+1>` | `<giá trị>` | `<kết quả mong đợi>` |
+| TC   | Trường    | Biên được kiểm thử | Dữ liệu kiểm thử | Kết quả mong đợi       |
+| ---- | ----------- | ------------------------ | -------------------- | -------------------------- |
+| BV01 | `<field>` | `<min-1/min/min+1>`    | `<giá trị>`      | `<kết quả mong đợi>` |
 
 ## Quality Checks
 
@@ -56,4 +57,5 @@ Apply BVA only to inputs or outputs with meaningful order and boundaries. Do not
 - Boundary dates include an explicit reference date.
 - BVA is not applied to unordered enums or free-form fields without a documented length, range, count, or ordering rule.
 - Expected results are observable through UI text, API status/body, database state, or documented system state.
+- BVA is black-box: boundaries come from specifications, not source code or implementation internals.
 - Use Vietnamese with full accents, while preserving field names, endpoint names, codes, and quoted source text verbatim.

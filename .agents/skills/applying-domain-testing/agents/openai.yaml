@@ -1,4 +1,4 @@
 interface:
   display_name: "Applying Domain Testing"
-  short_description: "Coordinate EP and BVA sub-skills for one function."
-  default_prompt: "Apply domain testing for this function, using the Equivalence Partitioning and Boundary Value Analysis sub-skills as needed."
+  short_description: "Design black-box EP/BVA for a project-feature."
+  default_prompt: "Use $applying-domain-testing to design black-box Domain Testing for this project-feature from its specification."

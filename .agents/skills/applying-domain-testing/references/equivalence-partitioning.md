@@ -4,11 +4,11 @@ Use this sub-skill when the task asks for equivalence partitioning, equivalence 
 
 ## Core Rule
 
-Base EP on repo-root `references/04_Domain Testing.md`: identify input/output variables, identify equivalence classes from input/output conditions, choose at least one representative for each class, combine valid classes where possible, and isolate one invalid class per invalid test.
+Base EP on black-box specifications: identify input/output variables, identify equivalence classes from input/output conditions, choose at least one representative for each class, combine valid classes where possible, and isolate one invalid class per invalid test. Do not read implementation code to infer hidden rules.
 
 Before creating equivalence classes, split each requirement into atomic conditions. One condition should express one check only: required/non-empty, type, format, range, length, membership set, uniqueness, state, or one cross-field relationship. Keep conditions atomic even when one condition may imply another during execution; record the coverage relationship in classes or test cases instead of hiding the weaker condition.
 
-Partition each atomic input/output condition into classes that should be treated the same by the SUT. Keep classes minimal but behaviorally meaningful. Split a class when the requirement, API, UI, database state, or code path suggests different handling.
+Partition each atomic input/output condition into classes that should be treated the same by the SUT. Keep classes minimal but behaviorally meaningful. Split a class when the specification, API contract, UI rule, acceptance criteria, business rule, or documented observable behavior says values should be handled differently.
 
 ## Workflow
 
@@ -68,4 +68,5 @@ List atomic conditions. Do not combine required/non-empty, type, format, range, 
 - Each invalid EP test isolates one invalid class unless explicitly documenting an interaction test.
 - No condition is merged merely because another condition is stricter or often fails first during execution.
 - Expected results are observable through UI text, API status/body, database state, or documented system state.
+- EP is black-box: expected behavior comes from specifications, not source code or implementation internals.
 - Use Vietnamese with full accents, while preserving field names, endpoint names, codes, and quoted source text verbatim.

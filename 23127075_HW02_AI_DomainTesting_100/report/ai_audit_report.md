@@ -10,61 +10,66 @@
 ## Prompt and Output Log
 
 ### Entry 001
+
 - Time: `2026-07-05 22:41 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: Add a skill and a rule so each user prompt session appends an entry to the HW02 AI audit report; leave human review and final use fields manual.
 - Output Summary: Created repo-local ai-audit-entry skill, added append script, updated AGENTS.md rule, and left manual audit fields as placeholders.
-- Human Review/Corrections: The skill is created in the root repo so I moved it into `./.agents`
-- Final Use in Submission: `[Manual by user]`
+- Human Review/Corrections: Skill được tạo trong root của repo nên sinh viên đưa vào `./.agents`.
 
 ### Entry 002
+
 - Time: `2026-07-05 22:58 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: Đưa nội dung references/04_Domain Testing.pdf thành markdown
 - Output Summary: Created references/04_Domain Testing.md from the PDF content with headings, bullets, and Markdown tables for examples and test cases.
-- Human Review/Corrections: The output is greate and will be used to create the skills for domain testing.
-- Final Use in Submission: Not used for submission.
+- Human Review/Corrections: AI chuyển file pdf sang markdown đảm bảo được nội dung.
+- Final Use in Submission: File markdown không dùng để nộp nhưng sẽ được dùng để build skill domain testing.
 
 ### Entry 003
+
 - Time: `2026-07-05 23:02 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: Cập nhật skill ai audit .agents/skills/ai-audit-entry để luôn đánh số lại phù hợp mỗi khi thêm entry vì user có thể xóa các entry thừa.
 - Output Summary: Updated the ai-audit-entry script to renumber existing Entry headings before appending, updated SKILL.md with the behavior and correct script path, and validated the skill.
-- Human Review/Corrections: The skill is able to re-number the Entry in AI Audit automatically.
+- Human Review/Corrections: Skill đánh số các entry trong AI audit report đúng thứ tự.
 
 ### Entry 004
+
 - Time: `2026-07-05 23:18 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: User asked to change registration Part A IDs in references/23127075.md from E prefix to EC prefix.
 - Output Summary: Updated the Part A test data table so registration equivalent class references use EC01-EC23 consistently with the EP domain table.
-- Human Review/Corrections: The output is correct.
-- Final Use in Submission: Not used for submission.
+- Human Review/Corrections: Output đúng theo yêu cầu
+- Final Use in Submission: Không dùng trong bài nộp, chỉ để AI đọc.
 
 ### Entry 005
+
 - Time: `2026-07-05 23:31 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: Fix the skill ai-audit to give the Ouput of a Entry is the full output of AI (only summarize if too long or not in a single paragraph). The output might be the content of a file, a code,... or any artifact created by AI.
 - Output: Updated the AI audit skill so Output means the full AI-generated output or artifact when it is short and contiguous, including final answer text, file content, code, Markdown, command text, or other created artifacts. The script now formats multi-line prompt/output values in fenced blocks and the skill validated successfully. No commit was made.
-- Human Review/Corrections: `[Manual by user]`
-- Final Use in Submission: `[Manual by user]`
+- Human Review/Corrections: Skill đã giúp AI in output cho từng entry trong AI Audit report đúng theo ý muốn của sinh viên.
 
 ### Entry 006
+
 - Time: `2026-07-05 23:50 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) references/04_Domain Testing.md provide the knowledge about Domain Testing, meanwhile, references/23127075.md provide the example of exercises for Domain Testing to let you know how to do domain testing step by step. Based on two mentioned files, create the skills for domain testing including Equivalence partitioning (EP) and Boundary Value Analysis (BVA) for a single given function. Ensure that this skill (or skilss) is reusable and meets the requirements in requirements/2026.HW02.Domain Testing_En.md section 7. Agent Skill
 - Output: Created .agents/skills/applying-domain-testing/SKILL.md and .agents/skills/applying-domain-testing/agents/openai.yaml. The skill provides a reusable workflow and Markdown output templates for applying Domain Testing, Equivalence Partitioning, and Boundary Value Analysis to a single function/API/form/feature. Validated the skill with quick_validate.py; result: Skill is valid. No commit was made.
-- Human Review/Corrections: `[Manual by user]`
-- Final Use in Submission: `[Manual by user]`
+- Human Review/Corrections: Skill thực hiện khá tốt domain testing cho FR-01: Registration.
+- Final Use in Submission: Chỉ dùng để test skill và giữ làm bản dự bị, chưa phải bản cuối.
 
 ### Entry 007
+
 - Time: `2026-07-06 20:24 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) Cập nhật các skill để output đầu ra là tiếng Việt, đảm bảo có dấu, không bị lỗi kí tự. Tuy nhiên, trong ai audit thì với từng entry, prompt và output giữ nguyên ngôn ngữ không cần dịch để tôn trọng tính nguyên bản.
 - Output: Đã cập nhật .agents/skills/applying-domain-testing/SKILL.md để yêu cầu artifact Domain Testing bằng tiếng Việt có dấu, UTF-8, giữ nguyên định danh kỹ thuật và Việt hóa mẫu output. Đã cập nhật .agents/skills/ai-audit-entry/SKILL.md để metadata mới dùng tiếng Việt có dấu nhưng Prompt/Output của từng entry được giữ nguyên ngôn ngữ và nguyên văn. Đã thêm regression test Unicode vào .agents/skills/ai-audit-entry/scripts/test_append_ai_audit_entry.py và xác minh bằng test/compile.
-- Human Review/Corrections: `[Manual by user]`
-- Final Use in Submission: `[Manual by user]`
+- Human Review/Corrections: Output của các skill bây giờ là tiếng Việt đúng yêu cầu bài tập.
 
 ### Entry 008
+
 - Time: `2026-07-06 20:33 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project. The output for this feature will be added into folder ./domain-testing
@@ -242,10 +247,11 @@ Không áp dụng BVA cho role vì role không phải input của chức năng �
 - Các ca trong artifact này chưa được thực thi. Sau khi chạy thật, cần điền actual result, status `Passed/Failed/Blocked/Not executed`, và evidence path trong báo cáo kiểm thử hoặc phụ lục execution riêng.
 ```
 
-- Human Review/Corrections: `[Manual by user]`
-- Final Use in Submission: `[Manual by user]`
+- Human Review/Corrections: Input thiếu confirm password như yêu cầu tong đặc tả. Có vài cụm từ chưa phù hợp khi dịch ra như "Chức năng dưới kiểm thử". Phần 5 chỉ nên là Ghi chú rủi ro, còn AI gap analysis là của sinh viên làm.
+- Final Use in Submission: Chỉ dùng để test skill, chưa phải bản cuối.
 
 ### Entry 009
+
 - Time: `2026-07-06 20:54 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) Cập nhật lại  skill‌ [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) để format lại phần 1 từ Chức năng dưới kiểm thử thành Chức năng kiểm thử. Nội dung phần này trình bày dưới dạng bảng, có format mẫu trong skill. AI gap analysis là phần user điền nên phần 5. chỉ ghi là Ghi chú rủi ro thôi. Phần BVA sẽ gồm 2 bước là xác định các input, output nào có dạng số liên tục rồi step 2 xác định biên, các giá trị cận biên
@@ -368,10 +374,8 @@ Use the following Vietnamese structure for final artifacts.
 - Section 5 is `## 5. Ghi chú rủi ro`; do not generate an `AI gap analysis` section.
 ```
 
-- Human Review/Corrections: `[Manual by user]`
-- Final Use in Submission: `[Manual by user]`
-
 ### Entry 010
+
 - Time: `2026-07-06 20:59 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project. The output for this feature will be added into folder ./domain-testing
@@ -540,27 +544,27 @@ Use the following Vietnamese structure for final artifacts.
 - Requirement chưa nêu độ dài tối đa cho `name`, `email`, `password`, cũng chưa nêu chính sách trim khoảng trắng, nên các biên tối đa và xử lý whitespace cần người học bổ sung sau khi rà soát.
 ```
 
-- Human Review/Corrections: `[Manual by user]`
-- Final Use in Submission: `[Manual by user]`
+- Human Review/Corrections: Skill hoạt động tương đối đúng nhu cầu của sinh viên.
+- Final Use in Submission: Chỉ dùng để test skill, không phải bản nộp.
 
 ### Entry 011
+
 - Time: `2026-07-06 22:09 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md)  Hãy chia [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) để skill ấy có 2 sub skill là Equivalence partitioning và Boundary value analysis
 - Output: Updated .agents/skills/applying-domain-testing/SKILL.md to act as a parent Domain Testing skill that routes to two sub-skill references: references/equivalence-partitioning.md and references/boundary-value-analysis.md. Added the two reference files with Vietnamese EP/BVA workflows, output sections, and quality checks. Updated .agents/skills/applying-domain-testing/agents/openai.yaml metadata to describe the parent/sub-skill structure. Verified UTF-8 readability and ran quick_validate.py successfully.
-- Human Review/Corrections: `[Manual by user]`
-- Final Use in Submission: `[Manual by user]`
+- Human Review/Corrections: Skill domain testing đã gồm 2 phần là EP và BVA như yêu cầu.
 
 ### Entry 012
+
 - Time: `2026-07-06 22:24 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Xóa bảng AI tool usage summary trong ai audit report
 - Output: Removed the AI Tool Usage Summary section from 23127075_HW02_AI_DomainTesting_100/report/ai_audit_report.md. Updated .agents/skills/ai-audit-entry/SKILL.md so future audit work records evidence only in Prompt and Output Log entries. Updated .agents/skills/ai-audit-entry/scripts/append_ai_audit_entry.py so new reports do not create the summary table and old reports have that section removed before saving. Added a regression test in .agents/skills/ai-audit-entry/scripts/test_append_ai_audit_entry.py to verify the summary table is not created. Verified with the script tests, in-memory syntax parse, skill quick_validate.py, and a search for the removed summary table heading/header.
-- Human Review/Corrections: `[Manual by user]`
-- Final Use in Submission: `[Manual by user]`
-
+- Human Review/Corrections: Đã xóa bản Summary trong AI audit report.
 
 ### Entry 013
+
 - Time: `2026-07-06 22:43 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project. The output for this feature will be added into folder ./domain-testing
@@ -721,20 +725,19 @@ Use the following Vietnamese structure for final artifacts.
 - Schema `users` trong `eshop-sut/backend/database.js` hiện quan sát được không đặt `UNIQUE` cho cột `email`, nên ca email trùng có nguy cơ tạo tài khoản trùng thay vì bị từ chối theo FR-01.
 - Requirement chưa nêu độ dài tối đa và chính sách trim khoảng trắng cho `name`, `email`, `password`; các biên trên không được thiết kế trong artifact này để tránh tự đặt requirement ẩn.
 ```
-- Human Review/Corrections: `[Manual by user]`
-- Final Use in Submission: `[Manual by user]`
 
+- Human Review/Corrections: Ở phần A2, các điều kiện bị gộp quá mức như Password.
+- Final Use in Submission: Chỉ dùng để test skill, không phải bản nộp.
 
 ### Entry 014
+
 - Time: `2026-07-06 23:11 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md)[$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Ở A2. Điều kiện, các điều kiện đang bị gộp quá mức. Hãy cập nhật [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md)  để đảm bảo các điều kiện được chia nhỏ ra.
 - Output: Updated .agents/skills/applying-domain-testing/SKILL.md to require A2 conditions to be atomic, with separate rows for required/non-empty, type, format, length, membership, uniqueness, state, and cross-field relationship checks. Added an example splitting email and password rules into separate C rows. Updated .agents/skills/applying-domain-testing/references/equivalence-partitioning.md to remove the old guidance that encouraged merging implied conditions, and replaced it with instructions to keep A2 conditions visible while documenting coverage relationships in A3/A4. Verified with rg/file checks; quick_validate.py was not available in the repo/PATH during this session.
-- Human Review/Corrections: `[Manual by user]`
-- Final Use in Submission: `[Manual by user]`
-
 
 ### Entry 015
+
 - Time: `2026-07-06 23:17 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project. The output for this feature will be added into folder ./domain-testing
@@ -901,11 +904,11 @@ Ghi chú bao phủ: điều kiện `email` không rỗng (C3) được giữ ri�
 - Bảng `users` quan sát được không có ràng buộc `UNIQUE` cho `email`; ca email trùng `test@eshop.com` có nguy cơ vẫn tạo thêm user nếu backend không kiểm tra trùng.
 - Requirement chưa nêu độ dài tối đa cho `name`, `email`, `password`, chưa nêu chuẩn trim khoảng trắng và tập ký tự đặc biệt hợp lệ, nên không tạo BVA cho biên tối đa trong artifact này.
 ```
-- Human Review/Corrections: `[Manual by user]`
-- Final Use in Submission: `[Manual by user]`
 
+- Human Review/Corrections: Thông qua đợt prompt này, sinh viên nhận ra có mâu thuẫn trong skill apply-domain-testing đó là parent skill yêu cầu tách các Condition, EC ra mức atomic nhưng sub-skill (EP) lại yêu cầu gộp nếu có thể trùng lặp.
 
 ### Entry 016
+
 - Time: `2026-07-06 23:27 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Đồng nhất sub skill EP và parent skill apply domain testing để đảm bảo phần A2. Điều kiện của EP sẽ tách điều kiện nguyên tử để đảm bảo tối ưu khi viết Lớp tương đương và test case.
@@ -980,11 +983,9 @@ List atomic conditions. One row should express one check only. Required/non-empt
 - Expected results are observable through UI text, API status/body, database state, or documented system state.
 - Use Vietnamese with full accents, while preserving field names, endpoint names, codes, and quoted source text verbatim.
 ```
-- Human Review/Corrections: `[Manual by user]`
-- Final Use in Submission: `[Manual by user]`
-
 
 ### Entry 017
+
 - Time: `2026-07-06 23:33 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project (Please read the README in folder eshop-sut for Specification). The output for this feature will be added into folder ./domain-testing
@@ -1181,23 +1182,48 @@ List atomic conditions. One row should express one check only. Required/non-empt
 - `eshop-sut/backend/database.js` định nghĩa `email TEXT` không có `UNIQUE`, nên requirement email duy nhất có nguy cơ không được đảm bảo ở tầng database/backend.
 - Requirement chưa nêu độ dài tối đa cho `name`, `email`, `password`, chưa nêu trim khoảng trắng, và chưa quy định thông điệp lỗi cụ thể; khi thực thi cần ghi actual result theo hành vi quan sát được.
 ```
-- Human Review/Corrections: `[Manual by user]`
-- Final Use in Submission: `[Manual by user]`
 
+- Human Review/Corrections: Qua quá trình sửa skill, AI mất context domain testing từ slide môn học.
 
 ### Entry 018
+
 - Time: `2026-07-06 23:41 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Đồng nhất sub skill EP và parent skill apply domain testing để đảm bảo phần A2. Điều kiện của EP sẽ tách điều kiện nguyên tử để đảm bảo tối ưu khi viết Lớp tương đương và test case. Kiến thức phương pháp Domain Testing phải dựa trên references/04_Domain Testing.md.
 - Output: Đã cập nhật .agents/skills/applying-domain-testing/SKILL.md để yêu cầu đọc repo-root references/04_Domain Testing.md làm method oracle, đồng thời nhấn mạnh A2 phải tách điều kiện nguyên tử trước khi lập lớp tương đương. Đã cập nhật .agents/skills/applying-domain-testing/references/equivalence-partitioning.md để bỏ hướng dẫn gộp điều kiện dư thừa, thay bằng quy tắc giữ required/non-empty, type, format, range, length, membership, uniqueness, state và cross-field relationship thành các điều kiện riêng. Đã cập nhật .agents/skills/applying-domain-testing/references/boundary-value-analysis.md để nêu rõ BVA dựa trên repo-root references/04_Domain Testing.md. Đã chạy quick_validate.py và skill hợp lệ; các file Markdown vẫn là UTF-8.
-- Human Review/Corrections: `[Manual by user]`
-- Final Use in Submission: `[Manual by user]`
-
 
 ### Entry 019
-- Time: `2026-07-06 23:55 +07`
+
+- Time: `2026-07-07 10:06 +07`
 - Tool/Model: `Codex / GPT-5`
-- Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project (Please read the README in folder eshop-sut for Specification). The output for this feature will be added into folder ./domain-testing
+- Prompt: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Đưa nội dung references/04_Domain Testing.md thành các bước thực hiện domain testing vào trong [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) để đảm bảo tính tái sử dụng và portable. Bộ skill nhận input là project - feature, nhấn mạnh Domain testing gồm EP và BVA là blackbox testing, dựa trên các specification, không đọc code.
+- Output:
+
+```text
+Đã cập nhật bộ skill `applying-domain-testing` để portable hơn.
+
+Thay đổi chính:
+- Nhúng phương pháp 4 bước từ `references/04_Domain Testing.md` trực tiếp vào `SKILL.md`.
+- Đổi đơn vị input thành `project-feature` và thêm trường `Project`, `Specification tham chiếu` trong artifact.
+- Nhấn mạnh Domain Testing là black-box testing gồm EP và BVA, dựa trên specification/observable behavior, không đọc source code hay implementation internals.
+- Gỡ phụ thuộc `repo-root references/04_Domain Testing.md` khỏi parent skill và hai sub-skill EP/BVA.
+- Đồng bộ `agents/openai.yaml` để prompt mặc định cũng nói project-feature/specification.
+
+Đã verify:
+- `quick_validate.py` -> `Skill is valid!`
+- `git diff --check` sạch.
+- Kiểm tra nội dung xác nhận có `black-box`, `project-feature`, ràng buộc không đọc source code, và không còn `repo-root`/`code path` trong bộ skill.
+
+Mình chỉ sửa các file trong `.agents/skills/applying-domain-testing/`. Worktree đang có vài thay đổi ngoài phạm vi từ trước/khác task như `database.sqlite`, audit report, và một file backup bị xóa; mình không đụng vào chúng.
+```
+
+- Human Review/Corrections: Skill không còn phụ thuộc vào file slide của môn học mà có thể xuất thành bộ skill domain testing độc lập.
+
+### Entry 020
+
+- Time: `2026-07-07 21:42 +07`
+- Tool/Model: `Codex / GPT-5`
+- Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project (Please read the specifications including: eshop-sut/README, eshop-sut/api_specification.md,  in the folder eshop-sut). The output for this feature will be added into folder ./domain-testing
 - Output:
 
 ```text
@@ -1207,14 +1233,15 @@ List atomic conditions. One row should express one check only. Required/non-empt
 
 | Thuộc tính | Nội dung |
 | --- | --- |
-| Pool | Pool A - Authentication, Categories, and Products |
-| Feature | `FR-01: Account registration` |
-| SUT | EShop - customer web app, mobile app, và backend API |
-| Giao diện/API tham chiếu | Màn hình Đăng ký tài khoản; endpoint `POST /api/register`; sau thành công chuyển tới trang Đăng nhập |
-| Phạm vi kiểm thử | Thiết kế ca kiểm thử Domain Testing gồm phân hoạch tương đương và phân tích giá trị biên cho luồng người dùng đăng ký tài khoản mới. Oracle chính là `eshop-sut/README.md` và yêu cầu bài tập `requirements/2026.HW02.Domain Testing_En.md`. |
-| Ngoài phạm vi | Không kiểm thử đăng nhập, khóa tài khoản, quên mật khẩu, bảo mật lưu mật khẩu, gửi email, phân quyền sau đăng ký, hoặc kiểm thử hiệu năng. |
-| Giả định/ràng buộc thiếu | FR-01 không nêu độ dài tối đa cho `name`, `email`, `password`; không nêu regex email đầy đủ; không nêu thông báo lỗi chính xác; không nêu chính sách trim khoảng trắng; API specification chưa liệt kê `confirmPassword` dù README yêu cầu trường Xác nhận mật khẩu. Các điểm này cần người học rà soát khi thực thi. |
-| Trạng thái thực thi | Chưa thực thi; artifact này là thiết kế test case dựa trên đặc tả. |
+| Project | EShop |
+| Feature | `FR-01: Account registration` / `FR-01: Đăng ký tài khoản` |
+| SUT | EShop - Frontend Web, Frontend Mobile, Backend API |
+| Specification tham chiếu | `requirements/2026.HW02.Domain Testing_En.md` mục Pool A; `eshop-sut/README.md` mục `FR-01: Đăng ký tài khoản`, `FR-22: Form Requirements`; `eshop-sut/api_specification.md` mục `1.1 Đăng ký tài khoản` |
+| Giao diện/API tham chiếu | Màn hình Đăng ký tài khoản; endpoint `POST /api/register` với body API gồm `name`, `email`, `password`; sau đăng ký thành công chuyển tới trang Đăng nhập |
+| Phạm vi kiểm thử | Thiết kế ca kiểm thử Domain Testing gồm phân hoạch tương đương và phân tích giá trị biên cho dữ liệu đăng ký tài khoản mới. Oracle chính là đặc tả README/API, không dựa trên mã nguồn triển khai. |
+| Ngoài phạm vi | Không kiểm thử đăng nhập, khóa tài khoản, quên mật khẩu, reset mật khẩu, hồ sơ cá nhân, phân quyền, bảo mật lưu mật khẩu, gửi email, hiệu năng, hoặc kiểm thử triển khai database. |
+| Giả định/ràng buộc thiếu | FR-01 không nêu độ dài tối đa cho `name`, `email`, `password`; không nêu regex email đầy đủ ngoài ví dụ `user@domain.com`; không nêu thông báo lỗi/status code thất bại chính xác; không nêu chính sách trim khoảng trắng. Artifact giả định giá trị chỉ gồm khoảng trắng là chưa cung cấp dữ liệu người dùng. README yêu cầu `confirmPassword`, nhưng API specification của `POST /api/register` chưa liệt kê trường này; artifact tách rõ ca UI và ca API khi cần. |
+| Trạng thái thực thi | Chưa thực thi; cần bổ sung actual result, status, và evidence path sau khi chạy kiểm thử. |
 
 ### A. Phân hoạch tương đương
 
@@ -1223,25 +1250,25 @@ List atomic conditions. One row should express one check only. Required/non-empt
 | Loại | Tên | Mô tả |
 | --- | --- | --- |
 | Đầu vào | `name` | Họ tên người đăng ký; bắt buộc theo FR-01. |
-| Đầu vào | `email` | Email dùng để định danh tài khoản; bắt buộc, đúng định dạng `user@domain.com`, và duy nhất trong hệ thống. |
+| Đầu vào | `email` | Email dùng định danh tài khoản; bắt buộc, đúng định dạng `user@domain.com`, và duy nhất trong hệ thống. |
 | Đầu vào | `password` | Mật khẩu; bắt buộc, tối thiểu 8 ký tự, có ít nhất 1 chữ hoa, 1 chữ thường, 1 chữ số và 1 ký tự đặc biệt thuộc tập `@`, `$`, `!`, `%`, `*`, `?`, `&`. |
-| Đầu vào | `confirmPassword` | Xác nhận mật khẩu; bắt buộc theo FR-01 và phải khớp chính xác với `password`. |
-| Đầu ra | Tạo tài khoản | User mới được tạo khi tất cả đầu vào hợp lệ. |
-| Đầu ra | Phản hồi thành công API | API trả phản hồi thành công, ví dụ `{"message": "User registered successfully", "id": 1}` theo API specification. |
-| Đầu ra | Điều hướng sau đăng ký | Sau khi đăng ký thành công, người dùng được chuyển tới trang Đăng nhập. |
-| Đầu ra | Phản hồi lỗi | Khi dữ liệu không hợp lệ, hệ thống từ chối đăng ký, hiển thị/trả về lỗi phù hợp, và không tạo user mới. |
+| Đầu vào | `confirmPassword` | Xác nhận mật khẩu trên giao diện; bắt buộc theo FR-01 và phải khớp với `password`. |
+| Đầu ra | Tạo tài khoản | Tài khoản mới được tạo khi tất cả dữ liệu hợp lệ và `email` chưa tồn tại. |
+| Đầu ra | Phản hồi thành công API | `POST /api/register` trả `200 OK` với body dạng `{"message": "User registered successfully", "id": 1}` theo API specification. |
+| Đầu ra | Điều hướng UI | Sau khi đăng ký thành công qua giao diện, người dùng được chuyển tới trang Đăng nhập. |
+| Đầu ra | Phản hồi lỗi | Khi dữ liệu không hợp lệ, hệ thống từ chối đăng ký, hiển thị/trả lỗi phù hợp, và không tạo tài khoản mới. |
 
 #### A2. Điều kiện
 
 | Mã | Đầu vào/Đầu ra | Điều kiện |
 | --- | --- | --- |
 | C1 | `name` | `name` không được rỗng. |
-| C2 | `name` | `name` không được chỉ gồm khoảng trắng sau khi xử lý như dữ liệu nhập của người dùng. |
+| C2 | `name` | Theo giả định dữ liệu người dùng, `name` không được chỉ gồm khoảng trắng. |
 | C3 | `email` | `email` không được rỗng. |
-| C4 | `email` | `email` phải có local-part trước ký tự `@`. |
-| C5 | `email` | `email` phải có đúng ký tự phân tách `@` giữa local-part và domain. |
+| C4 | `email` | `email` phải có phần local-part trước ký tự `@`. |
+| C5 | `email` | `email` phải có đúng một ký tự phân tách `@`. |
 | C6 | `email` | `email` phải có domain sau ký tự `@`. |
-| C7 | `email` | Domain của `email` phải có phần tên miền và phần mở rộng theo dạng `domain.com`. |
+| C7 | `email` | Domain của `email` phải có phần tên miền và phần mở rộng theo dạng ví dụ `domain.com`. |
 | C8 | `email` | `email` phải là duy nhất trong hệ thống. |
 | C9 | `password` | `password` không được rỗng. |
 | C10 | `password` | `password` có độ dài tối thiểu 8 ký tự. |
@@ -1249,68 +1276,69 @@ List atomic conditions. One row should express one check only. Required/non-empt
 | C12 | `password` | `password` có ít nhất 1 chữ thường. |
 | C13 | `password` | `password` có ít nhất 1 chữ số. |
 | C14 | `password` | `password` có ít nhất 1 ký tự đặc biệt thuộc tập `@`, `$`, `!`, `%`, `*`, `?`, `&`. |
-| C15 | `confirmPassword` | `confirmPassword` không được rỗng. |
+| C15 | `confirmPassword` | `confirmPassword` không được rỗng trên giao diện đăng ký. |
 | C16 | `confirmPassword` | `confirmPassword` phải khớp chính xác với `password`. |
-| C17 | Tạo tài khoản | Chỉ tạo user mới khi toàn bộ đầu vào hợp lệ. |
-| C18 | Phản hồi thành công API | Khi đăng ký hợp lệ qua API, phản hồi thành công phải cho biết đăng ký thành công và có định danh user mới. |
-| C19 | Điều hướng sau đăng ký | Khi đăng ký hợp lệ qua giao diện, người dùng được chuyển tới trang Đăng nhập. |
-| C20 | Phản hồi lỗi | Với bất kỳ điều kiện không hợp lệ nào, hệ thống phải trả/hiển thị lỗi phù hợp và không tạo user mới. |
+| C17 | Tạo tài khoản | Chỉ tạo tài khoản mới khi toàn bộ điều kiện đầu vào hợp lệ. |
+| C18 | Phản hồi thành công API | Khi đăng ký hợp lệ qua API, phản hồi thành công phải có thông báo đăng ký thành công và `id` user mới. |
+| C19 | Điều hướng UI | Khi đăng ký hợp lệ qua giao diện, người dùng được chuyển tới trang Đăng nhập. |
+| C20 | Phản hồi lỗi | Với bất kỳ điều kiện không hợp lệ nào, hệ thống phải trả/hiển thị lỗi phù hợp và không tạo tài khoản mới. |
 
 #### A3. Lớp tương đương
 
 | EC | Đầu vào/Đầu ra | Lớp tương đương | Hợp lệ? | Giá trị đại diện | Kết quả mong đợi |
 | --- | --- | --- | --- | --- | --- |
 | EC01 | `name` | `name` có giá trị không rỗng và không chỉ gồm khoảng trắng. | Có | `Nguyễn Văn An` | Chấp nhận `name`. |
-| EC02 | `name` | `name` rỗng. | Không | `` | Từ chối đăng ký; báo lỗi họ tên bắt buộc. |
-| EC03 | `name` | `name` chỉ gồm khoảng trắng. | Không | `   ` | Từ chối đăng ký; không tạo user mới. |
+| EC02 | `name` | `name` rỗng. | Không | `` | Từ chối đăng ký; báo lỗi họ tên bắt buộc; không tạo tài khoản. |
+| EC03 | `name` | `name` chỉ gồm khoảng trắng. | Không | `   ` | Từ chối đăng ký theo giả định dữ liệu người dùng chưa được cung cấp; không tạo tài khoản. |
 | EC04 | `email` | Email đúng định dạng và chưa tồn tại. | Có | `fr01.new.user@example.com` | Chấp nhận `email`. |
-| EC05 | `email` | `email` rỗng. | Không | `` | Từ chối đăng ký; báo lỗi email bắt buộc. |
+| EC05 | `email` | `email` rỗng. | Không | `` | Từ chối đăng ký; báo lỗi email bắt buộc; không tạo tài khoản. |
 | EC06 | `email` | Email thiếu local-part trước `@`. | Không | `@example.com` | Từ chối đăng ký; báo lỗi định dạng email. |
 | EC07 | `email` | Email thiếu ký tự `@`. | Không | `fr01.example.com` | Từ chối đăng ký; báo lỗi định dạng email. |
 | EC08 | `email` | Email có nhiều hơn một ký tự `@`. | Không | `fr01@@example.com` | Từ chối đăng ký; báo lỗi định dạng email. |
 | EC09 | `email` | Email thiếu domain sau `@`. | Không | `fr01@` | Từ chối đăng ký; báo lỗi định dạng email. |
 | EC10 | `email` | Domain không có phần mở rộng theo dạng `domain.com`. | Không | `fr01@example` | Từ chối đăng ký; báo lỗi định dạng email. |
-| EC11 | `email` | Email đã tồn tại trong hệ thống. | Không | `test@eshop.com` | Từ chối đăng ký; không tạo user trùng email. |
+| EC11 | `email` | Email đã tồn tại trong hệ thống. | Không | `test@eshop.com` | Từ chối đăng ký; không tạo tài khoản trùng email. |
 | EC12 | `password` | Mật khẩu mạnh hợp lệ. | Có | `Aa12345!` | Chấp nhận `password`. |
-| EC13 | `password` | `password` rỗng. | Không | `` | Từ chối đăng ký; báo lỗi mật khẩu bắt buộc. |
+| EC13 | `password` | `password` rỗng. | Không | `` | Từ chối đăng ký; báo lỗi mật khẩu bắt buộc; không tạo tài khoản. |
 | EC14 | `password` | `password` ngắn hơn 8 ký tự. | Không | `Aa12!` | Từ chối đăng ký; báo lỗi mật khẩu tối thiểu 8 ký tự. |
 | EC15 | `password` | `password` thiếu chữ hoa. | Không | `aa12345!` | Từ chối đăng ký; báo lỗi mật khẩu yếu. |
 | EC16 | `password` | `password` thiếu chữ thường. | Không | `AA12345!` | Từ chối đăng ký; báo lỗi mật khẩu yếu. |
 | EC17 | `password` | `password` thiếu chữ số. | Không | `Aaaaaaa!` | Từ chối đăng ký; báo lỗi mật khẩu yếu. |
-| EC18 | `password` | `password` thiếu ký tự đặc biệt thuộc tập cho phép. | Không | `Aa123456` | Từ chối đăng ký; báo lỗi mật khẩu yếu. |
-| EC19 | `password` | `password` có ký tự đặc biệt ngoài tập yêu cầu nhưng không có ký tự thuộc tập `@`, `$`, `!`, `%`, `*`, `?`, `&`. | Không | `Aa12345#` | Từ chối đăng ký theo tập ký tự đặc biệt đã nêu trong FR-01. |
+| EC18 | `password` | `password` thiếu ký tự đặc biệt thuộc tập `@`, `$`, `!`, `%`, `*`, `?`, `&`. | Không | `Aa123456` | Từ chối đăng ký; báo lỗi mật khẩu yếu. |
+| EC19 | `password` | `password` có ký tự đặc biệt ngoài tập nêu trong FR-01 nhưng không có ký tự thuộc tập `@`, `$`, `!`, `%`, `*`, `?`, `&`. | Không | `Aa12345#` | Từ chối đăng ký vì chưa thỏa điều kiện ký tự đặc biệt theo FR-01. |
 | EC20 | `confirmPassword` | `confirmPassword` không rỗng và khớp chính xác `password`. | Có | `Aa12345!` | Chấp nhận xác nhận mật khẩu. |
-| EC21 | `confirmPassword` | `confirmPassword` rỗng. | Không | `` | Từ chối đăng ký; báo lỗi xác nhận mật khẩu bắt buộc. |
-| EC22 | `confirmPassword` | `confirmPassword` không khớp `password`. | Không | `Aa12345?` | Từ chối đăng ký; báo lỗi hai mật khẩu không khớp. |
-| EC23 | Tạo tài khoản | Tất cả đầu vào hợp lệ. | Có | `name=Nguyễn Văn An`, `email=fr01.success@example.com`, `password=Aa12345!`, `confirmPassword=Aa12345!` | Tạo user mới. |
-| EC24 | Tạo tài khoản | Có ít nhất một đầu vào không hợp lệ. | Không | `email=fr01.example.com` | Không tạo user mới. |
-| EC25 | Phản hồi thành công API | Đăng ký hợp lệ qua `POST /api/register`. | Có | Body hợp lệ đầy đủ | API trả phản hồi thành công và có `id` user mới. |
-| EC26 | Điều hướng sau đăng ký | Đăng ký hợp lệ qua giao diện. | Có | Dữ liệu hợp lệ đầy đủ | Người dùng được chuyển tới trang Đăng nhập. |
-| EC27 | Phản hồi lỗi | Đăng ký thất bại do một điều kiện không hợp lệ. | Không | `password=Aa123456` | Hiển thị/trả lỗi phù hợp; người dùng không được đăng ký thành công. |
+| EC21 | `confirmPassword` | `confirmPassword` rỗng. | Không | `` | Từ chối đăng ký trên giao diện; báo lỗi xác nhận mật khẩu bắt buộc; không tạo tài khoản. |
+| EC22 | `confirmPassword` | `confirmPassword` không khớp `password`. | Không | `Aa12345?` | Từ chối đăng ký; báo lỗi hai mật khẩu không khớp; không tạo tài khoản. |
+| EC23 | Tạo tài khoản | Tất cả đầu vào hợp lệ. | Có | `name=Nguyễn Văn An`, `email=fr01.success@example.com`, `password=Aa12345!`, `confirmPassword=Aa12345!` | Tạo tài khoản mới. |
+| EC24 | Tạo tài khoản | Có ít nhất một đầu vào không hợp lệ. | Không | `email=fr01.example.com` | Không tạo tài khoản mới. |
+| EC25 | Phản hồi thành công API | Đăng ký hợp lệ qua `POST /api/register`. | Có | Body API hợp lệ gồm `name`, `email`, `password` | API trả `200 OK` và body có `message`, `id`. |
+| EC26 | Điều hướng UI | Đăng ký hợp lệ qua giao diện. | Có | Dữ liệu hợp lệ đầy đủ, gồm `confirmPassword` khớp | Người dùng được chuyển tới trang Đăng nhập. |
+| EC27 | Phản hồi lỗi | Đăng ký thất bại do một điều kiện không hợp lệ. | Không | `password=Aa123456` | Hiển thị/trả lỗi phù hợp; không tạo tài khoản mới. |
 
 #### A4. Ca kiểm thử EP
 
 | TC | Mục tiêu | Dữ liệu kiểm thử | Lớp được bao phủ | Kết quả mong đợi |
 | --- | --- | --- | --- | --- |
-| EP-FR01-001 | Đăng ký thành công với dữ liệu hợp lệ điển hình. | `name=Nguyễn Văn An`; `email=fr01.success@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | EC01, EC04, EC12, EC20, EC23, EC25, EC26 | Tạo user mới; API trả thành công; giao diện chuyển tới trang Đăng nhập. |
-| EP-FR01-002 | Từ chối khi họ tên rỗng. | `name=`; `email=fr01.name.empty@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | EC02, EC24, EC27 | Không tạo user; báo lỗi họ tên bắt buộc. |
-| EP-FR01-003 | Từ chối khi họ tên chỉ gồm khoảng trắng. | `name=   `; `email=fr01.name.space@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | EC03, EC24, EC27 | Không tạo user; báo lỗi họ tên không hợp lệ. |
-| EP-FR01-004 | Từ chối khi email rỗng. | `name=Nguyễn Văn An`; `email=`; `password=Aa12345!`; `confirmPassword=Aa12345!` | EC05, EC24, EC27 | Không tạo user; báo lỗi email bắt buộc. |
-| EP-FR01-005 | Từ chối khi email thiếu local-part. | `name=Nguyễn Văn An`; `email=@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | EC06, EC24, EC27 | Không tạo user; báo lỗi định dạng email. |
-| EP-FR01-006 | Từ chối khi email thiếu `@`. | `name=Nguyễn Văn An`; `email=fr01.example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | EC07, EC24, EC27 | Không tạo user; báo lỗi định dạng email. |
-| EP-FR01-007 | Từ chối khi email có nhiều hơn một `@`. | `name=Nguyễn Văn An`; `email=fr01@@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | EC08, EC24, EC27 | Không tạo user; báo lỗi định dạng email. |
-| EP-FR01-008 | Từ chối khi email thiếu domain. | `name=Nguyễn Văn An`; `email=fr01@`; `password=Aa12345!`; `confirmPassword=Aa12345!` | EC09, EC24, EC27 | Không tạo user; báo lỗi định dạng email. |
-| EP-FR01-009 | Từ chối khi domain email thiếu phần mở rộng. | `name=Nguyễn Văn An`; `email=fr01@example`; `password=Aa12345!`; `confirmPassword=Aa12345!` | EC10, EC24, EC27 | Không tạo user; báo lỗi định dạng email. |
-| EP-FR01-010 | Từ chối khi email đã tồn tại. | `name=Nguyễn Văn An`; `email=test@eshop.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | EC11, EC24, EC27 | Không tạo user trùng email; báo lỗi email đã tồn tại hoặc lỗi tương đương. |
-| EP-FR01-011 | Từ chối khi mật khẩu rỗng. | `name=Nguyễn Văn An`; `email=fr01.password.empty@example.com`; `password=`; `confirmPassword=Aa12345!` | EC13, EC24, EC27 | Không tạo user; báo lỗi mật khẩu bắt buộc. |
-| EP-FR01-012 | Từ chối khi mật khẩu ngắn hơn 8 ký tự. | `name=Nguyễn Văn An`; `email=fr01.password.short@example.com`; `password=Aa12!`; `confirmPassword=Aa12!` | EC14, EC24, EC27 | Không tạo user; báo lỗi mật khẩu tối thiểu 8 ký tự. |
-| EP-FR01-013 | Từ chối khi mật khẩu thiếu chữ hoa. | `name=Nguyễn Văn An`; `email=fr01.password.upper@example.com`; `password=aa12345!`; `confirmPassword=aa12345!` | EC15, EC24, EC27 | Không tạo user; báo lỗi mật khẩu yếu. |
-| EP-FR01-014 | Từ chối khi mật khẩu thiếu chữ thường. | `name=Nguyễn Văn An`; `email=fr01.password.lower@example.com`; `password=AA12345!`; `confirmPassword=AA12345!` | EC16, EC24, EC27 | Không tạo user; báo lỗi mật khẩu yếu. |
-| EP-FR01-015 | Từ chối khi mật khẩu thiếu chữ số. | `name=Nguyễn Văn An`; `email=fr01.password.digit@example.com`; `password=Aaaaaaa!`; `confirmPassword=Aaaaaaa!` | EC17, EC24, EC27 | Không tạo user; báo lỗi mật khẩu yếu. |
-| EP-FR01-016 | Từ chối khi mật khẩu thiếu ký tự đặc biệt thuộc tập cho phép. | `name=Nguyễn Văn An`; `email=fr01.password.special@example.com`; `password=Aa123456`; `confirmPassword=Aa123456` | EC18, EC24, EC27 | Không tạo user; báo lỗi mật khẩu yếu. |
-| EP-FR01-017 | Từ chối khi mật khẩu chỉ có ký tự đặc biệt ngoài tập yêu cầu. | `name=Nguyễn Văn An`; `email=fr01.password.hash@example.com`; `password=Aa12345#`; `confirmPassword=Aa12345#` | EC19, EC24, EC27 | Không tạo user; báo lỗi ký tự đặc biệt không hợp lệ hoặc mật khẩu yếu. |
-| EP-FR01-018 | Từ chối khi xác nhận mật khẩu rỗng. | `name=Nguyễn Văn An`; `email=fr01.confirm.empty@example.com`; `password=Aa12345!`; `confirmPassword=` | EC21, EC24, EC27 | Không tạo user; báo lỗi xác nhận mật khẩu bắt buộc. |
-| EP-FR01-019 | Từ chối khi xác nhận mật khẩu không khớp. | `name=Nguyễn Văn An`; `email=fr01.confirm.mismatch@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345?` | EC22, EC24, EC27 | Không tạo user; báo lỗi hai mật khẩu không khớp. |
+| EP-FR01-001 | Đăng ký thành công qua giao diện với dữ liệu hợp lệ điển hình. | `name=Nguyễn Văn An`; `email=fr01.success@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | EC01, EC04, EC12, EC20, EC23, EC26 | Tạo tài khoản mới; người dùng được chuyển tới trang Đăng nhập. |
+| EP-FR01-002 | Đăng ký thành công qua API với body hợp lệ theo API specification. | `POST /api/register`; body `{ "name": "Nguyen Van A", "email": "fr01.api.success@example.com", "password": "Aa12345!" }` | EC01, EC04, EC12, EC23, EC25 | API trả `200 OK` với `message="User registered successfully"` và `id` user mới. |
+| EP-FR01-003 | Từ chối khi họ tên rỗng. | `name=`; `email=fr01.name.empty@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | EC02, EC24, EC27 | Không tạo tài khoản; báo lỗi họ tên bắt buộc. |
+| EP-FR01-004 | Từ chối khi họ tên chỉ gồm khoảng trắng. | `name=   `; `email=fr01.name.space@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | EC03, EC24, EC27 | Không tạo tài khoản; báo lỗi họ tên không hợp lệ hoặc bắt buộc. |
+| EP-FR01-005 | Từ chối khi email rỗng. | `name=Nguyễn Văn An`; `email=`; `password=Aa12345!`; `confirmPassword=Aa12345!` | EC05, EC24, EC27 | Không tạo tài khoản; báo lỗi email bắt buộc. |
+| EP-FR01-006 | Từ chối khi email thiếu local-part. | `name=Nguyễn Văn An`; `email=@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | EC06, EC24, EC27 | Không tạo tài khoản; báo lỗi định dạng email. |
+| EP-FR01-007 | Từ chối khi email thiếu `@`. | `name=Nguyễn Văn An`; `email=fr01.example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | EC07, EC24, EC27 | Không tạo tài khoản; báo lỗi định dạng email. |
+| EP-FR01-008 | Từ chối khi email có nhiều hơn một `@`. | `name=Nguyễn Văn An`; `email=fr01@@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | EC08, EC24, EC27 | Không tạo tài khoản; báo lỗi định dạng email. |
+| EP-FR01-009 | Từ chối khi email thiếu domain. | `name=Nguyễn Văn An`; `email=fr01@`; `password=Aa12345!`; `confirmPassword=Aa12345!` | EC09, EC24, EC27 | Không tạo tài khoản; báo lỗi định dạng email. |
+| EP-FR01-010 | Từ chối khi domain email thiếu phần mở rộng. | `name=Nguyễn Văn An`; `email=fr01@example`; `password=Aa12345!`; `confirmPassword=Aa12345!` | EC10, EC24, EC27 | Không tạo tài khoản; báo lỗi định dạng email. |
+| EP-FR01-011 | Từ chối khi email đã tồn tại. | `name=Nguyễn Văn An`; `email=test@eshop.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | EC11, EC24, EC27 | Không tạo tài khoản trùng email; báo lỗi email đã tồn tại hoặc lỗi tương đương. |
+| EP-FR01-012 | Từ chối khi mật khẩu rỗng qua API, tách khỏi điều kiện `confirmPassword` của UI. | `POST /api/register`; body `{ "name": "Nguyen Van A", "email": "fr01.password.empty@example.com", "password": "" }` | EC13, EC24, EC27 | Không tạo tài khoản; báo lỗi mật khẩu bắt buộc. |
+| EP-FR01-013 | Từ chối khi mật khẩu ngắn hơn 8 ký tự. | `name=Nguyễn Văn An`; `email=fr01.password.short@example.com`; `password=Aa12!`; `confirmPassword=Aa12!` | EC14, EC20, EC24, EC27 | Không tạo tài khoản; báo lỗi mật khẩu tối thiểu 8 ký tự. |
+| EP-FR01-014 | Từ chối khi mật khẩu thiếu chữ hoa. | `name=Nguyễn Văn An`; `email=fr01.password.upper@example.com`; `password=aa12345!`; `confirmPassword=aa12345!` | EC15, EC20, EC24, EC27 | Không tạo tài khoản; báo lỗi mật khẩu yếu. |
+| EP-FR01-015 | Từ chối khi mật khẩu thiếu chữ thường. | `name=Nguyễn Văn An`; `email=fr01.password.lower@example.com`; `password=AA12345!`; `confirmPassword=AA12345!` | EC16, EC20, EC24, EC27 | Không tạo tài khoản; báo lỗi mật khẩu yếu. |
+| EP-FR01-016 | Từ chối khi mật khẩu thiếu chữ số. | `name=Nguyễn Văn An`; `email=fr01.password.digit@example.com`; `password=Aaaaaaa!`; `confirmPassword=Aaaaaaa!` | EC17, EC20, EC24, EC27 | Không tạo tài khoản; báo lỗi mật khẩu yếu. |
+| EP-FR01-017 | Từ chối khi mật khẩu thiếu ký tự đặc biệt thuộc tập cho phép. | `name=Nguyễn Văn An`; `email=fr01.password.special@example.com`; `password=Aa123456`; `confirmPassword=Aa123456` | EC18, EC20, EC24, EC27 | Không tạo tài khoản; báo lỗi mật khẩu yếu. |
+| EP-FR01-018 | Từ chối khi mật khẩu chỉ có ký tự đặc biệt ngoài tập yêu cầu. | `name=Nguyễn Văn An`; `email=fr01.password.hash@example.com`; `password=Aa12345#`; `confirmPassword=Aa12345#` | EC19, EC20, EC24, EC27 | Không tạo tài khoản; báo lỗi mật khẩu chưa thỏa điều kiện ký tự đặc biệt theo FR-01. |
+| EP-FR01-019 | Từ chối khi xác nhận mật khẩu rỗng trên giao diện. | `name=Nguyễn Văn An`; `email=fr01.confirm.empty@example.com`; `password=Aa12345!`; `confirmPassword=` | EC21, EC24, EC27 | Không tạo tài khoản; báo lỗi xác nhận mật khẩu bắt buộc. |
+| EP-FR01-020 | Từ chối khi xác nhận mật khẩu không khớp. | `name=Nguyễn Văn An`; `email=fr01.confirm.mismatch@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345?` | EC22, EC24, EC27 | Không tạo tài khoản; báo lỗi hai mật khẩu không khớp. |
 
 ### B. Phân tích giá trị biên
 
@@ -1318,61 +1346,79 @@ List atomic conditions. One row should express one check only. Required/non-empt
 
 | Đầu vào/Đầu ra | Dạng miền | Có áp dụng BVA? | Lý do |
 | --- | --- | --- | --- |
-| `name` | Độ dài chuỗi | Có, giới hạn ở biên tối thiểu | FR-01 yêu cầu bắt buộc nên có biên rỗng/không rỗng; không có biên tối đa được đặc tả. |
-| `email` | Độ dài chuỗi và mẫu định dạng | Có, giới hạn ở biên rỗng/không rỗng | Điều kiện bắt buộc có biên rỗng/không rỗng; cấu trúc email và tính duy nhất là miền rời rạc, phù hợp EP hơn BVA. |
-| `password` | Độ dài chuỗi và số lượng nhóm ký tự bắt buộc | Có | FR-01 quy định rõ biên độ dài tối thiểu 8 ký tự và yêu cầu ít nhất 1 ký tự cho từng nhóm. |
+| `name` | Độ dài chuỗi | Có, giới hạn ở biên tối thiểu | FR-01 yêu cầu bắt buộc nên có biên `length=0` và `length=1`; không có biên tối đa được đặc tả. |
+| `email` | Độ dài chuỗi và mẫu định dạng | Có, giới hạn ở biên rỗng/không rỗng | Điều kiện bắt buộc có biên `length=0`; cấu trúc email và tính duy nhất là miền rời rạc, phù hợp EP hơn BVA. |
+| `password` | Độ dài chuỗi và số lượng nhóm ký tự bắt buộc | Có | FR-01 quy định rõ độ dài tối thiểu 8 ký tự và ngưỡng tối thiểu 1 cho từng nhóm ký tự bắt buộc. |
 | `confirmPassword` | Độ dài chuỗi và quan hệ bằng nhau với `password` | Có, giới hạn ở biên rỗng/không rỗng | Có biên rỗng/không rỗng; quan hệ khớp/không khớp là quan hệ rời rạc nên được bao phủ chính bằng EP. |
 | Tạo tài khoản | Trạng thái nghiệp vụ | Không | Tạo/không tạo là trạng thái rời rạc, không phải miền có thứ tự. |
-| Phản hồi thành công API | Trạng thái phản hồi | Không | Phản hồi thành công/thất bại là trạng thái rời rạc. |
-| Điều hướng sau đăng ký | Trạng thái UI | Không | Chuyển trang/không chuyển trang là trạng thái rời rạc. |
+| Phản hồi thành công API | Trạng thái phản hồi | Không | `200 OK` và body thành công là trạng thái rời rạc. |
+| Điều hướng UI | Trạng thái UI | Không | Chuyển trang/không chuyển trang là trạng thái rời rạc. |
 | Phản hồi lỗi | Tập lỗi theo điều kiện | Không | Các lỗi là tập trạng thái rời rạc, phù hợp EP. |
 
 #### B2. Xác định biên và giá trị cận biên
 
 | Trường | Quy tắc biên | Giá trị biên |
 | --- | --- | --- |
-| `name` | Biên tối thiểu: không được rỗng. | `length=0`, `length=1`; giá trị chỉ khoảng trắng được kiểm riêng vì có thể trông không rỗng nhưng không có nội dung hợp lệ. |
-| `email` | Biên tối thiểu: không được rỗng. | `length=0`, email hợp lệ ngắn có đại diện `a@b.co`; các biến thể sai định dạng đã nằm trong EP. |
-| `password` | Biên độ dài tối thiểu là 8 ký tự. | `length=7`, `length=8`, `length=9`. |
-| `password` | Biên số lượng chữ hoa tối thiểu là 1. | 0 chữ hoa, 1 chữ hoa. |
-| `password` | Biên số lượng chữ thường tối thiểu là 1. | 0 chữ thường, 1 chữ thường. |
-| `password` | Biên số lượng chữ số tối thiểu là 1. | 0 chữ số, 1 chữ số. |
-| `password` | Biên số lượng ký tự đặc biệt thuộc tập cho phép tối thiểu là 1. | 0 ký tự đặc biệt thuộc tập cho phép, 1 ký tự đặc biệt thuộc tập cho phép. |
-| `confirmPassword` | Biên tối thiểu: không được rỗng. | `length=0`, `length=8` khi khớp mật khẩu hợp lệ tối thiểu. |
+| `name` | Biên tối thiểu: không được rỗng. | `length=0`; `length=1`; giá trị chỉ khoảng trắng được kiểm riêng theo giả định dữ liệu người dùng. |
+| `email` | Biên tối thiểu: không được rỗng. | `length=0`; email hợp lệ ngắn đại diện `a@b.co`; các biến thể sai định dạng đã nằm trong EP. |
+| `password` | Biên độ dài tối thiểu là 8 ký tự. | `length=7`; `length=8`; `length=9`. |
+| `password` | Biên số lượng chữ hoa tối thiểu là 1. | 0 chữ hoa; 1 chữ hoa. |
+| `password` | Biên số lượng chữ thường tối thiểu là 1. | 0 chữ thường; 1 chữ thường. |
+| `password` | Biên số lượng chữ số tối thiểu là 1. | 0 chữ số; 1 chữ số. |
+| `password` | Biên số lượng ký tự đặc biệt thuộc tập cho phép tối thiểu là 1. | 0 ký tự đặc biệt thuộc tập cho phép; 1 ký tự đặc biệt thuộc tập cho phép. |
+| `confirmPassword` | Biên tối thiểu: không được rỗng. | `length=0`; `length=8` khi khớp mật khẩu hợp lệ tối thiểu. |
 | `confirmPassword` | Biên quan hệ bằng nhau với `password`. | Khớp toàn bộ; khác đúng 1 ký tự cuối. |
 
 #### B3. Ca kiểm thử BVA
 
 | TC | Trường | Biên được kiểm thử | Dữ liệu kiểm thử | Kết quả mong đợi |
 | --- | --- | --- | --- | --- |
-| BV-FR01-001 | `name` | `length=0` | `name=`; `email=fr01.bv.name0@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | Từ chối đăng ký; báo lỗi họ tên bắt buộc; không tạo user. |
-| BV-FR01-002 | `name` | `length=1` | `name=A`; `email=fr01.bv.name1@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | Chấp nhận nếu hệ thống không có yêu cầu độ dài tối thiểu lớn hơn 1; tạo user và chuyển tới trang Đăng nhập. |
-| BV-FR01-003 | `name` | Chỉ khoảng trắng | `name=   `; `email=fr01.bv.namespace@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | Từ chối đăng ký; không tạo user. |
-| BV-FR01-004 | `email` | `length=0` | `name=Nguyễn Văn An`; `email=`; `password=Aa12345!`; `confirmPassword=Aa12345!` | Từ chối đăng ký; báo lỗi email bắt buộc; không tạo user. |
-| BV-FR01-005 | `email` | Không rỗng và hợp lệ ngắn | `name=Nguyễn Văn An`; `email=a@b.co`; `password=Aa12345!`; `confirmPassword=Aa12345!` | Chấp nhận nếu email chưa tồn tại; tạo user và chuyển tới trang Đăng nhập. |
-| BV-FR01-006 | `password` | `min-1`, `length=7` | `name=Nguyễn Văn An`; `email=fr01.bv.password7@example.com`; `password=Aa1234!`; `confirmPassword=Aa1234!` | Từ chối đăng ký; báo lỗi mật khẩu tối thiểu 8 ký tự; không tạo user. |
-| BV-FR01-007 | `password` | `min`, `length=8` | `name=Nguyễn Văn An`; `email=fr01.bv.password8@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | Chấp nhận mật khẩu vì đủ 8 ký tự và đủ nhóm ký tự; tạo user nếu email chưa tồn tại. |
-| BV-FR01-008 | `password` | `min+1`, `length=9` | `name=Nguyễn Văn An`; `email=fr01.bv.password9@example.com`; `password=Aa123456!`; `confirmPassword=Aa123456!` | Chấp nhận mật khẩu; tạo user nếu email chưa tồn tại. |
-| BV-FR01-009 | `password` | 0 chữ hoa | `name=Nguyễn Văn An`; `email=fr01.bv.noupper@example.com`; `password=aa12345!`; `confirmPassword=aa12345!` | Từ chối đăng ký; báo lỗi mật khẩu yếu; không tạo user. |
+| BV-FR01-001 | `name` | `length=0` | `name=`; `email=fr01.bv.name0@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | Từ chối đăng ký; báo lỗi họ tên bắt buộc; không tạo tài khoản. |
+| BV-FR01-002 | `name` | `length=1` | `name=A`; `email=fr01.bv.name1@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | Chấp nhận nếu hệ thống không có yêu cầu độ dài tối thiểu lớn hơn 1; tạo tài khoản và chuyển tới trang Đăng nhập. |
+| BV-FR01-003 | `name` | Chỉ khoảng trắng | `name=   `; `email=fr01.bv.namespace@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | Từ chối đăng ký theo giả định dữ liệu người dùng chưa được cung cấp; không tạo tài khoản. |
+| BV-FR01-004 | `email` | `length=0` | `name=Nguyễn Văn An`; `email=`; `password=Aa12345!`; `confirmPassword=Aa12345!` | Từ chối đăng ký; báo lỗi email bắt buộc; không tạo tài khoản. |
+| BV-FR01-005 | `email` | Không rỗng và hợp lệ ngắn | `name=Nguyễn Văn An`; `email=a@b.co`; `password=Aa12345!`; `confirmPassword=Aa12345!` | Chấp nhận nếu email chưa tồn tại; tạo tài khoản và chuyển tới trang Đăng nhập. |
+| BV-FR01-006 | `password` | `min-1`, `length=7` | `name=Nguyễn Văn An`; `email=fr01.bv.password7@example.com`; `password=Aa1234!`; `confirmPassword=Aa1234!` | Từ chối đăng ký; báo lỗi mật khẩu tối thiểu 8 ký tự; không tạo tài khoản. |
+| BV-FR01-007 | `password` | `min`, `length=8` | `name=Nguyễn Văn An`; `email=fr01.bv.password8@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | Chấp nhận mật khẩu vì đủ 8 ký tự và đủ nhóm ký tự; tạo tài khoản nếu email chưa tồn tại. |
+| BV-FR01-008 | `password` | `min+1`, `length=9` | `name=Nguyễn Văn An`; `email=fr01.bv.password9@example.com`; `password=Aa123456!`; `confirmPassword=Aa123456!` | Chấp nhận mật khẩu; tạo tài khoản nếu email chưa tồn tại. |
+| BV-FR01-009 | `password` | 0 chữ hoa | `name=Nguyễn Văn An`; `email=fr01.bv.noupper@example.com`; `password=aa12345!`; `confirmPassword=aa12345!` | Từ chối đăng ký; báo lỗi mật khẩu yếu; không tạo tài khoản. |
 | BV-FR01-010 | `password` | 1 chữ hoa | `name=Nguyễn Văn An`; `email=fr01.bv.oneupper@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | Chấp nhận mật khẩu nếu các nhóm ký tự khác hợp lệ. |
-| BV-FR01-011 | `password` | 0 chữ thường | `name=Nguyễn Văn An`; `email=fr01.bv.nolower@example.com`; `password=AA12345!`; `confirmPassword=AA12345!` | Từ chối đăng ký; báo lỗi mật khẩu yếu; không tạo user. |
+| BV-FR01-011 | `password` | 0 chữ thường | `name=Nguyễn Văn An`; `email=fr01.bv.nolower@example.com`; `password=AA12345!`; `confirmPassword=AA12345!` | Từ chối đăng ký; báo lỗi mật khẩu yếu; không tạo tài khoản. |
 | BV-FR01-012 | `password` | 1 chữ thường | `name=Nguyễn Văn An`; `email=fr01.bv.onelower@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | Chấp nhận mật khẩu nếu các nhóm ký tự khác hợp lệ. |
-| BV-FR01-013 | `password` | 0 chữ số | `name=Nguyễn Văn An`; `email=fr01.bv.nodigit@example.com`; `password=Aaaaaaa!`; `confirmPassword=Aaaaaaa!` | Từ chối đăng ký; báo lỗi mật khẩu yếu; không tạo user. |
+| BV-FR01-013 | `password` | 0 chữ số | `name=Nguyễn Văn An`; `email=fr01.bv.nodigit@example.com`; `password=Aaaaaaa!`; `confirmPassword=Aaaaaaa!` | Từ chối đăng ký; báo lỗi mật khẩu yếu; không tạo tài khoản. |
 | BV-FR01-014 | `password` | 1 chữ số | `name=Nguyễn Văn An`; `email=fr01.bv.onedigit@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | Chấp nhận mật khẩu nếu các nhóm ký tự khác hợp lệ. |
-| BV-FR01-015 | `password` | 0 ký tự đặc biệt thuộc tập cho phép | `name=Nguyễn Văn An`; `email=fr01.bv.nospecial@example.com`; `password=Aa123456`; `confirmPassword=Aa123456` | Từ chối đăng ký; báo lỗi mật khẩu yếu; không tạo user. |
+| BV-FR01-015 | `password` | 0 ký tự đặc biệt thuộc tập cho phép | `name=Nguyễn Văn An`; `email=fr01.bv.nospecial@example.com`; `password=Aa123456`; `confirmPassword=Aa123456` | Từ chối đăng ký; báo lỗi mật khẩu yếu; không tạo tài khoản. |
 | BV-FR01-016 | `password` | 1 ký tự đặc biệt thuộc tập cho phép | `name=Nguyễn Văn An`; `email=fr01.bv.onespecial@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | Chấp nhận mật khẩu nếu email chưa tồn tại. |
-| BV-FR01-017 | `confirmPassword` | `length=0` | `name=Nguyễn Văn An`; `email=fr01.bv.confirm0@example.com`; `password=Aa12345!`; `confirmPassword=` | Từ chối đăng ký; báo lỗi xác nhận mật khẩu bắt buộc; không tạo user. |
-| BV-FR01-018 | `confirmPassword` | Khớp tuyệt đối với `password` | `name=Nguyễn Văn An`; `email=fr01.bv.confirmmatch@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | Chấp nhận xác nhận mật khẩu; tạo user nếu các input khác hợp lệ. |
-| BV-FR01-019 | `confirmPassword` | Khác đúng 1 ký tự cuối | `name=Nguyễn Văn An`; `email=fr01.bv.confirmdiff@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345?` | Từ chối đăng ký; báo lỗi hai mật khẩu không khớp; không tạo user. |
+| BV-FR01-017 | `confirmPassword` | `length=0` | `name=Nguyễn Văn An`; `email=fr01.bv.confirm0@example.com`; `password=Aa12345!`; `confirmPassword=` | Từ chối đăng ký; báo lỗi xác nhận mật khẩu bắt buộc; không tạo tài khoản. |
+| BV-FR01-018 | `confirmPassword` | Khớp tuyệt đối với `password` | `name=Nguyễn Văn An`; `email=fr01.bv.confirmmatch@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345!` | Chấp nhận xác nhận mật khẩu; tạo tài khoản nếu các input khác hợp lệ. |
+| BV-FR01-019 | `confirmPassword` | Khác đúng 1 ký tự cuối | `name=Nguyễn Văn An`; `email=fr01.bv.confirmdiff@example.com`; `password=Aa12345!`; `confirmPassword=Aa12345?` | Từ chối đăng ký; báo lỗi hai mật khẩu không khớp; không tạo tài khoản. |
 
 ## 5. Ghi chú rủi ro
 
-- `eshop-sut/README.md` yêu cầu có trường **Xác nhận mật khẩu**, nhưng `eshop-sut/api_specification.md` mô tả `POST /api/register` chỉ nhận `name`, `email`, `password`; khi thực thi cần kiểm tra đây là thiếu trong API spec, thiếu trong UI/API, hay do confirm chỉ được xử lý phía client.
-- FR-01 không nêu độ dài tối đa cho `name`, `email`, `password`, nên artifact không tạo BVA cho biên tối đa; người học có thể bổ sung sau khi có ràng buộc cụ thể từ tài liệu hoặc schema.
-- FR-01 nêu email hợp lệ dạng `user@domain.com` nhưng không định nghĩa regex đầy đủ; các lớp email sai định dạng trong EP là đại diện cần thiết, không phải danh sách toàn bộ biến thể email sai.
-- FR-01 không nêu rõ cách xử lý khoảng trắng đầu/cuối. Các ca `name=   ` và giá trị chỉ khoảng trắng nên được xác nhận khi chạy kiểm thử để phân biệt yêu cầu nghiệp vụ với hành vi triển khai.
-- Các ca kiểm thử trong artifact này đang ở trạng thái thiết kế; khi thực thi cần bổ sung actual result, status, và evidence path theo yêu cầu báo cáo của bài tập.
+- `eshop-sut/README.md` yêu cầu có trường **Xác nhận mật khẩu**, nhưng `eshop-sut/api_specification.md` mô tả `POST /api/register` chỉ nhận `name`, `email`, `password`; khi thực thi cần xác nhận `confirmPassword` chỉ được kiểm ở UI hay là thiếu trong API contract.
+- FR-01 không nêu độ dài tối đa cho `name`, `email`, `password`, nên artifact không tạo ca BVA cho biên tối đa.
+- FR-01 nêu email hợp lệ dạng `user@domain.com` nhưng không định nghĩa regex đầy đủ; các lớp email sai định dạng trong EP là đại diện, không phải danh sách toàn bộ biến thể email sai.
+- FR-01 không nêu rõ cách xử lý khoảng trắng đầu/cuối. Các ca `name=   ` được đánh dấu theo giả định cần người học rà soát khi thực thi.
+- API specification chỉ nêu phản hồi thành công `200 OK`; tài liệu không nêu status code/thông báo lỗi cụ thể cho dữ liệu không hợp lệ, nên expected result của ca lỗi chỉ khẳng định hành vi quan sát được ở mức nghiệp vụ: từ chối đăng ký và không tạo tài khoản.
+- Các ca kiểm thử trong artifact này đang ở trạng thái thiết kế; khi thực thi cần bổ sung actual result, status, và evidence path theo yêu cầu báo cáo.
 ```
+
+- Human Review/Corrections:
+
+  - Ở password chưa check tất cả kí tự đặc biệt trong tập yêu cầu trong đặc tả. Có khả năng thể hệ thống sẽ không nhận ít nhất 1 trong các ki tự trong tập nên phải kiểm tra từng kí tự.
+  - Sửa cột 3 phần `B2. Xác định biên và giá trị cận biên` từ Giá trị biên thành Giá trị biên và cận biên.
+  - Với các điều kiện `password` có ngưỡng “tối thiểu 1”, bổ sung đủ bộ cận biên: 0, 1, 2
+  - Đối với confirmPassword, giá trị biên và cận biên phải là:
+    - Không rỗng: $length \in \{0; 1\}$
+    - Khớp với password: Khớp hoàn toàn với `password`; khác/dư/thiếu 1 ký tự so với `password`.
+- Final Use in Submission: `[Manual by user]`
+
+### Entry 021
+
+- Time: `2026-07-07 22:22 +07`
+- Tool/Model: `Codex / GPT-5`
+- Prompt: Cập nhật lại skill để output [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) là ở B2. Xác định biên và giá trị cận biên, bảng gồm 3 cột với title lần lượt là Trường, Quy tắc biên, Giá Trị biên và cận biên
+- Output: Đã cập nhật .agents/skills/applying-domain-testing/SKILL.md và .agents/skills/applying-domain-testing/references/boundary-value-analysis.md để bảng B2 dùng đúng 3 cột: Trường, Quy tắc biên, Giá Trị biên và cận biên. Đã chạy quick_validate.py cho skill applying-domain-testing và kết quả là Skill is valid!
 - Human Review/Corrections: `[Manual by user]`
 - Final Use in Submission: `[Manual by user]`
 

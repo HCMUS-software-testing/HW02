@@ -1,15 +1,44 @@
 ---
 name: applying-domain-testing
-description: Use when designing Domain Testing, equivalence partitioning, equivalence classes, boundary value analysis, or EP/BVA test cases for a single function, API endpoint, form, feature, or input-validation rule.
+description: Use when designing black-box Domain Testing, equivalence partitioning, equivalence classes, boundary value analysis, or EP/BVA test cases from project-feature specifications for a function, API endpoint, form, feature, or input-validation rule.
 ---
 
 # Applying Domain Testing
 
 ## Overview
 
-Use this parent skill to coordinate Domain Testing for one function at a time. Domain Testing treats a large input/output domain as stratified samples: use Equivalence Partitioning (EP) to identify behaviorally meaningful classes, then use Boundary Value Analysis (BVA) for ordered domains with boundaries.
+Use this parent skill to coordinate Domain Testing for one project-feature at a time. Domain Testing is a black-box testing technique: derive tests from specifications and observable expected behavior, not from implementation code.
 
-Base the testing method on the repo-root reference `references/04_Domain Testing.md`. If this skill and the reference appear to differ, follow the reference's sequence: identify input/output variables, identify equivalence classes from input/output conditions, choose representatives, then use boundary values as representatives for ordered fields.
+Domain Testing includes Equivalence Partitioning (EP) and Boundary Value Analysis (BVA). It treats a large input/output domain as stratified samples: partition the domain into behaviorally meaningful equivalence classes, then use boundary values as strong representatives for ordered domains.
+
+## Expected Input
+
+Use the project-feature as the unit of work. The user may provide a project name, feature name or ID, requirement text, UI rules, API contract, acceptance criteria, business rules, or test objective.
+
+If specifications are incomplete, ask for the missing rule when it blocks analysis; otherwise record the gap as an assumption. Do not read or inspect source code, database implementation, validators, routes, services, or other implementation internals to infer hidden behavior.
+
+## Built-In Domain Testing Method
+
+Use this method directly so the skill is portable across repositories:
+
+1. Identify input and output variables from the specification.
+2. Identify equivalence classes for each input and output condition.
+3. Choose a best representative value for each equivalence class.
+4. For ordered fields, use boundary values as the best representatives.
+
+For EP, divide the possible values of each field into sub-domains whose expected results should be the same. Two tests belong to the same equivalence class when their expected result is the same. Valid equivalence classes represent valid inputs or outputs; invalid equivalence classes represent invalid inputs or outputs.
+
+For BVA, apply boundary analysis only where the specification defines a meaningful ordered domain such as number, length, date/time, quantity, count, money, pagination, or a documented threshold. Do not force BVA onto unordered categories, booleans, or free text without a specified boundary.
+
+Use these partitioning rules:
+
+- Range condition: one valid class, one below-min invalid class, and one above-max invalid class.
+- Finite set with distinct behavior: one valid class per meaningful value and at least one invalid class.
+- Must-be condition: one valid class and one invalid class.
+- Required/non-empty condition: one present/non-empty valid class and one missing/empty invalid class.
+- Cross-field condition: one valid relationship class and one or more invalid relationship classes.
+
+When selecting test cases, choose at least one representative from each equivalence class. Combine valid classes where possible. For invalid EP tests, isolate one invalid class per test while keeping unrelated inputs nominal and valid.
 
 Write final Domain Testing artifacts in Vietnamese with full accents and UTF-8-safe characters unless the user explicitly requests another language. Keep technical identifiers, API paths, field names, status codes, file names, and test IDs unchanged.
 
@@ -25,13 +54,13 @@ Load the relevant sub-skill before producing detailed analysis:
 
 ## Workflow
 
-1. Read repo-root `references/04_Domain Testing.md` when available and use it as the method oracle for Domain Testing, EP, and BVA.
-2. State the test function, scope, assumptions, and missing constraints in the `## 1. Chức năng kiểm thử` table. Do not invent hidden requirements; mark unclear points as assumptions.
-3. Identify every input and output from the specification, code, API contract, or UI behavior.
+1. Confirm the project-feature, specification source, scope, assumptions, and missing constraints in the `## 1. Chức năng kiểm thử` table. Do not invent hidden requirements; mark unclear points as assumptions.
+2. Use only black-box sources: requirement/specification text, user-provided UI rules, API contract, acceptance criteria, business rules, and documented observable behavior. Do not read implementation code or derive expectations from code.
+3. Identify every input and output from the specification.
 4. Read the EP sub-skill and produce sections A1-A4. In A2, split requirements into atomic input/output conditions before deriving equivalence classes.
 5. Read the BVA sub-skill and produce sections B1-B3 when the request includes BVA or full domain testing.
 6. Trace every test case back to `ECxx` or a named boundary. Mark not-executed tests honestly if execution is outside scope.
-7. Add only risk notes supported by requirements, specification, code, or observed ambiguity. Do not write an `AI gap analysis` section because the user will fill that part manually.
+7. Add only risk notes supported by the specification or observed ambiguity. Do not write an `AI gap analysis` section because the user will fill that part manually.
 
 ## Language and Encoding
 
@@ -49,9 +78,10 @@ Use this Vietnamese structure for final artifacts. If the user requests only EP 
 
 | Thuộc tính | Nội dung |
 | --- | --- |
-| Pool | `<pool hoặc nhóm chức năng>` |
+| Project | `<tên project hoặc hệ thống>` |
 | Feature | `<mã và tên feature>` |
 | SUT | `<tên hệ thống/module>` |
+| Specification tham chiếu | `<requirement, API contract, UI rule, acceptance criteria, hoặc business rule>` |
 | Giao diện/API tham chiếu | `<màn hình, endpoint, hàm, hoặc luồng liên quan>` |
 | Phạm vi kiểm thử | `<phạm vi áp dụng domain testing>` |
 | Ngoài phạm vi | `<những phần không kiểm thử trong artifact này>` |
@@ -112,9 +142,11 @@ Use the Boundary Value Analysis sub-skill for sections B1-B3.
 
 #### B2. Xác định biên và giá trị cận biên
 
-| Trường | Quy tắc biên | Giá trị biên |
+| Trường | Quy tắc biên | Giá Trị biên và cận biên |
 | --- | --- | --- |
 | `<field>` | `<min/max/độ dài/ngày/số lượng>` | `<min-1, min, min+1...>` |
+
+For cross-field equality relationships such as `confirmPassword` matching `password`, do not invent unrelated length boundaries. In B2, list the relationship values as `khớp toàn bộ`, `khác 1 ký tự`, `thiếu 1 ký tự`, and `dư 1 ký tự so với password`; keep required/non-empty length boundaries separate, for example `length=0` and `length=1`.
 
 #### B3. Ca kiểm thử BVA
 
@@ -130,7 +162,9 @@ Use the Boundary Value Analysis sub-skill for sections B1-B3.
 ## Quality Checks
 
 - Read every required sub-skill before writing the related section.
-- Use repo-root `references/04_Domain Testing.md` as the method reference when it is available in the repo.
+- Treat Domain Testing as black-box testing: EP and BVA must be derived from specifications, not source code.
+- Use the built-in Domain Testing method in this skill; do not depend on repo-local reference files.
+- The artifact clearly identifies the input project-feature.
 - Every input and output from the function appears in A1 unless the user requested BVA-only and the field is irrelevant to BVA.
 - A2 conditions are atomic; do not merge required/non-empty, format, length, membership, uniqueness, state, and cross-field relationship checks into the same row.
 - Every condition has at least one valid or invalid `ECxx` when EP is in scope, or is explicitly covered by a representative `ECxx` that states the related condition IDs.
