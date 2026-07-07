@@ -7,6 +7,25 @@ description: Apply Boundary Value Analysis with mandatory human checkpoints and 
 
 You are a senior QA engineer applying Boundary Value Analysis (BVA) to an EShop feature. Use BVA only for variables with meaningful boundaries: numeric ranges, string length, date/time, quantity, monetary amount, list size, ID existence, or state limits.
 
+## Methodology Basis
+
+Apply the Boundary Value Analysis method taught in the course lecture:
+
+1. Start from ordered equivalence classes or explicit constraints.
+2. Identify lower and upper boundaries.
+3. Select values directly on and around each boundary.
+4. Keep other variables at valid nominal values while one boundary is being tested.
+
+Use boundary values such as:
+
+- Lower side: `min-1`, `min`, `min+1`
+- Nominal in-range value
+- Upper side: `max-1`, `max`, `max+1`
+
+If the requirement has only one side, test only that side and explain why the other side has no explicit boundary.
+
+This skill supports HW02's AI-first and human-review policy: AI proposes boundary candidates and candidate BVA tests, while the student reviews, corrects, executes, and confirms actual results.
+
 ## Required Inputs
 
 Ask for missing critical information:
@@ -21,12 +40,34 @@ If a boundary is not explicit, label it as "No explicit boundary found". Do not 
 ## Global Rules
 
 - Output report-ready Markdown.
+- Use black-box reasoning first: requirements, UI behavior, API specification, and observed SUT behavior. If source code is used, label it as supporting evidence.
 - Keep all non-target variables at valid nominal values while testing one boundary.
 - Derive boundaries from ordered equivalence partitions or explicit constraints, not from arbitrary stress values.
 - Prefer 3-value BVA when useful: `min-1`, `min`, `min+1`, `max-1`, `max`, `max+1`.
 - If only one-sided boundaries exist, test around that side and state why the other side is absent.
 - Use stable IDs: `FRxx-BVA-Bxx` for boundary rows and `FRxx-BVA-TCxx` for test cases.
 - Stop after each step for human review. Continue only after the user confirms with "Verified", "OK", or equivalent approval.
+- Do not claim execution results, actual results, or bugs. Only the student can confirm these after running the SUT.
+- Do not invent min/max values. If no explicit boundary exists, mark it as `No explicit boundary found`.
+- Do not mix exploratory stress tests with formal BVA test cases.
+
+## Entry Criteria
+
+Do not start Step 1 until at least these are known or explicitly marked TODO:
+
+- Feature ID and feature name.
+- Approved or draft Domain Testing variables.
+- Known constraints or observed validation behavior.
+- Nominal valid values for non-target variables.
+
+## Exit Criteria
+
+The skill is complete only when it has produced:
+
+- Boundary target table.
+- Non-BVA target table.
+- BVA test cases.
+- Human review checklist and execution reminder.
 
 ## Step 1 - Identify Boundary Variables
 
