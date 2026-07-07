@@ -212,3 +212,32 @@ Hãy dựa vào [Main_Report.md] phân tích sau đó ghi các bug của FR-09 v
 
 File [Bug_Report.md](./Bug_Report.md) thêm được 
 
+
+### Prompt 10
+
+*   **Công cụ AI sử dụng (Name of AI Tool):** Codex GPT-5
+*   **Thời gian thực hiện (Date and Time):** 2026-07-07, 03:12PM
+*   **Mục đích:** Thực hiện kỹ thuật Domain Testing (EP + BVA) cho tính năng FR-17: Quản lý Mã Giảm Giá (Coupon CRUD) — bao gồm xác định biến I/O, phân hoạch tương đương, phân tích giá trị biên và AI Gap Analysis.
+
+#### Prompt
+
+```text
+Thực hiện domain testing với Pool C: FR-17
+```
+
+#### Output
+
+```text
+Đã hoàn thành kiểm thử miền cho tính năng FR-17: Quản lý Mã Giảm Giá (Coupon CRUD).
+
+Kết quả đã được ghi vào Main_Report.md:
+- Bước 1: Xác định 11 biến đầu vào và 4 biến đầu ra.
+- Bước 2: Phân hoạch 37 lớp tương đương (EC01 đến EC37).
+- Bước 3: Thiết kế 19 test cases EP (TC01 đến TC19).
+- Bước 4: Phân tích giá trị biên, thiết kế 10 test cases BVA (TC-BVA-01 đến TC-BVA-10).
+- Bước 5: AI Gap Analysis — ghi nhận 3 kịch bản bị bỏ sót và 3 vấn đề AI Critique.
+
+README.md, AI_Audit_Report.md và Bug_Report.md đã được cập nhật tương ứng.
+```
+
+File [Main_Report.md](./Main_Report.md) đã được bổ sung đầy đủ nội dung Domain Testing cho FR-17.

@@ -406,4 +406,239 @@ Dưới đây là danh sách các biến đầu vào của chức năng:
 
 
 
+---
 
+### Pool C: FR-17: Quản lý Mã Giảm Giá (Coupon CRUD)
+
+#### Bước 1: Xác định các biến Input và Output (I/O Variables)
+
+##### Giải thích chi tiết từng bước (Step-by-Step Explanation)
+
+Để xác định các biến vào/ra của tính năng **FR-17: Quản lý Mã Giảm Giá (Coupon CRUD)**, em đã thực hiện các bước phân tích sau:
+1.  **Phân tích đặc tả nghiệp vụ (Specification Analysis):** Đọc đặc tả FR-17 trong [eshop-sut/README.md](./eshop-sut/README.md) và đặc tả API trong [eshop-sut/api_specification.md](./eshop-sut/api_specification.md). Chức năng cho phép Admin thêm, xem và xóa mã giảm giá; đồng thời chịu yêu cầu kiểm soát truy cập Admin của FR-12.
+2.  **Xác định biến đầu vào trực tiếp (Direct Inputs):** Các dữ liệu người kiểm thử có thể gửi qua UI Admin hoặc API gồm thao tác CRUD, token xác thực, `code`, `type`, `discount_value`, `expired_at`, `min_order_amount`, `max_uses_per_user` và `coupon_id`.
+3.  **Xác định biến đầu vào trạng thái (System State Inputs):** Vai trò Admin trong token và trạng thái tồn tại/duy nhất của coupon là trạng thái hệ thống, không phải trường nhập form. Vì vậy các biến này được đưa vào **Điều kiện tiền đề (Preconditions)** khi thiết kế test case.
+4.  **Xác định biến đầu ra (Outputs):** Hệ thống phản hồi bằng HTTP status code, nội dung JSON ở mức API, thông báo UI và hành động UI tương ứng như cập nhật danh sách hoặc hiển thị lỗi.
+
+##### 1. Các biến đầu vào (Input Variables)
+
+Dưới đây là danh sách biến đầu vào của chức năng quản lý mã giảm giá:
+
+| STT | Tên biến | Loại biến | Kiểu dữ liệu | Ràng buộc đặc tả / Miền giá trị | Mô tả |
+| :---: | :--- | :--- | :--- | :--- | :--- |
+| **1** | `operation` | Direct Input | Enum | `view`, `create`, `delete` | Thao tác quản trị mã giảm giá cần thực hiện. |
+| **2** | `authorization_token` | Direct Input | String | Header `Authorization: Bearer <token>` hợp lệ | Token JWT dùng để gọi API Admin hoặc API có tác động dữ liệu. |
+| **3** | `code` | Direct Input | String | Bắt buộc, duy nhất | Mã giảm giá khi tạo mới coupon. |
+| **4** | `type` | Direct Input | Enum | `percent` hoặc `fixed` | Loại giảm giá theo phần trăm hoặc số tiền cố định. |
+| **5** | `discount_value` | Direct Input | Number | Số dương (`> 0`) | Giá trị giảm giá tương ứng với `type`. |
+| **6** | `expired_at` | Direct Input | Date/String | Bắt buộc, định dạng ngày hợp lệ | Ngày hết hạn của mã giảm giá. |
+| **7** | `min_order_amount` | Direct Input | Number | `>= 0` | Giá trị đơn hàng tối thiểu để sử dụng mã. |
+| **8** | `max_uses_per_user` | Direct Input | Integer | `>= 1` | Số lần tối đa mỗi người dùng được sử dụng mã. |
+| **9** | `coupon_id` | Direct Input | Integer | ID coupon tồn tại khi xóa | ID mã giảm giá cần xóa trong endpoint `DELETE /api/admin/coupons/:id`. |
+| **10** | `admin_role` | State Input | Enum | Token phải có `role = 'admin'` | Quyền Admin được mã hóa trong token — **Dùng làm Precondition**. |
+| **11** | `coupon_state` | State Input | Enum | Coupon chưa tồn tại / đã tồn tại / ID tồn tại | Trạng thái duy nhất của `code` và tồn tại của `coupon_id` — **Dùng làm Precondition**. |
+
+##### 2. Các biến đầu ra (Output Variables)
+
+| STT | Tên biến | Loại biến | Kiểu dữ liệu | Ràng buộc đặc tả / Miền giá trị | Mô tả |
+| :---: | :--- | :--- | :--- | :--- | :--- |
+| **1** | `http_status_code` | API Output | Integer | Thành công / lỗi xác thực / lỗi phân quyền / lỗi validation / không tìm thấy / trùng dữ liệu | Mã phản hồi HTTP cho từng thao tác CRUD. |
+| **2** | `json_response` | API Output | JSON Object/Array | Danh sách coupon, coupon mới tạo, kết quả xóa hoặc thông báo lỗi | Nội dung phản hồi API theo kết quả nghiệp vụ. |
+| **3** | `ui_message` | UI Output | String | Thông báo thành công hoặc lỗi | Nội dung hiển thị cho Admin trên giao diện. |
+| **4** | `ui_action` | UI Output | Enum | Cập nhật danh sách / giữ nguyên form / chặn thao tác | Phản ứng của UI sau khi nhận phản hồi. |
+
+---
+
+#### Bước 2: Phân hoạch tương đương (Equivalence Partitioning)
+
+##### Giải thích chi tiết từng bước (Step-by-Step Explanation)
+
+Để thực hiện kỹ thuật Phân hoạch tương đương cho tính năng **FR-17: Quản lý Mã Giảm Giá (Coupon CRUD)**, em đã áp dụng các bước có hệ thống sau:
+1.  **Phân tích điều kiện đầu vào/đầu ra:** Tách riêng các điều kiện của thao tác xem danh sách, thêm mới và xóa coupon, đồng thời đưa yêu cầu quyền Admin của FR-12 vào điều kiện tiền đề.
+2.  **Xác định các lớp tương đương Valid và Invalid:** Mỗi ràng buộc bắt buộc như `code` duy nhất, `type` thuộc tập hợp, số dương và quyền Admin được chia thành lớp hợp lệ và các lớp vi phạm đặc trưng.
+3.  **Lựa chọn giá trị đại diện (Representatives):** Chọn giá trị cụ thể như `TET2025`, `percent`, `fixed`, `discount_value = 15`, `min_order_amount = 200000` và các giá trị lỗi như chuỗi rỗng, dữ liệu trùng hoặc sai kiểu.
+4.  **Thiết kế tập Test Cases tối thiểu:** Một test case valid bao phủ toàn bộ luồng CRUD hợp lệ; các test case invalid còn lại mỗi case chỉ chứa một lớp invalid để tránh che giấu lỗi.
+
+##### 1. Các biến đầu vào (Input Variables)
+
+| Mã lớp | Biến đầu vào | Phân loại lớp | Lớp tương đương | Mô tả / Ý nghĩa kiểm thử |
+| :---: | :--- | :---: | :--- | :--- |
+| **EC01** | `operation` | **Valid** | Thao tác thuộc nhóm `view`, `create`, `delete` | Admin thực hiện đúng thao tác CRUD được đặc tả. |
+| **EC02** | `authorization_token` | **Valid** | Token JWT hợp lệ, chưa hết hạn | Request có thông tin xác thực hợp lệ. |
+| **EC03** | `admin_role` | **Valid** | Token có `role = 'admin'` | Người gọi có quyền Admin theo FR-12. |
+| **EC04** | `code` | **Valid** | `code` không rỗng và chưa tồn tại | Có thể tạo mã giảm giá mới. |
+| **EC05** | `type` | **Valid** | `type` là `percent` hoặc `fixed` | Loại coupon nằm trong tập cho phép. |
+| **EC06** | `discount_value` | **Valid** | Giá trị số dương (`> 0`) | Đáp ứng ràng buộc giá trị giảm phải dương. |
+| **EC07** | `expired_at` | **Valid** | Có ngày hết hạn và định dạng ngày hợp lệ | Coupon có thông tin hết hạn hợp lệ. |
+| **EC08** | `min_order_amount` | **Valid** | Giá trị số `>= 0` | Đáp ứng ràng buộc giá trị đơn tối thiểu không âm. |
+| **EC09** | `max_uses_per_user` | **Valid** | Số nguyên `>= 1` | Có ít nhất một lượt sử dụng cho mỗi user. |
+| **EC10** | `coupon_id` | **Valid** | ID coupon tồn tại trong hệ thống | Có thể xóa đúng coupon đang tồn tại. |
+| **EC11** | `operation` | **Invalid** | Thao tác không thuộc CRUD được hỗ trợ | Chặn thao tác ngoài đặc tả. |
+| **EC12** | `authorization_token` | **Invalid** | Thiếu token xác thực | Chặn request chưa đăng nhập. |
+| **EC13** | `authorization_token` | **Invalid** | Token sai định dạng, giả mạo hoặc hết hạn | Chặn request có token không hợp lệ. |
+| **EC14** | `admin_role` | **Invalid** | Token hợp lệ nhưng không có role Admin | Chặn user thường truy cập chức năng Admin. |
+| **EC15** | `code` | **Invalid** | `code` rỗng hoặc không truyền | Trường bắt buộc bị thiếu. |
+| **EC16** | `code` | **Invalid** | `code` đã tồn tại | Vi phạm yêu cầu duy nhất. |
+| **EC17** | `type` | **Invalid** | `type` ngoài tập `percent/fixed` | Từ chối loại coupon không được hỗ trợ. |
+| **EC18** | `type` | **Invalid** | Thiếu trường `type` | Trường bắt buộc bị thiếu. |
+| **EC19** | `discount_value` | **Invalid** | Bằng `0` | Vi phạm điều kiện số dương. |
+| **EC20** | `discount_value` | **Invalid** | Nhỏ hơn `0` | Vi phạm điều kiện số dương. |
+| **EC21** | `discount_value` | **Invalid** | Thiếu hoặc không phải số | Dữ liệu sai kiểu hoặc thiếu trường bắt buộc. |
+| **EC22** | `expired_at` | **Invalid** | Thiếu ngày hết hạn | Trường bắt buộc bị thiếu. |
+| **EC23** | `expired_at` | **Invalid** | Định dạng ngày không hợp lệ | Không thể diễn giải ngày hết hạn. |
+| **EC24** | `min_order_amount` | **Invalid** | Nhỏ hơn `0` | Vi phạm ràng buộc không âm. |
+| **EC25** | `min_order_amount` | **Invalid** | Thiếu hoặc không phải số | Dữ liệu sai kiểu hoặc thiếu trường bắt buộc. |
+| **EC26** | `max_uses_per_user` | **Invalid** | Thiếu, không phải số nguyên hoặc nhỏ hơn `1` | Vi phạm ràng buộc số lần dùng tối thiểu. |
+| **EC27** | `coupon_id` | **Invalid** | ID không tồn tại, thiếu hoặc không hợp lệ | Xóa coupon không xác định hoặc ngoài miền hợp lệ. |
+
+##### 2. Các biến đầu ra (Output Variables)
+
+| Mã lớp | Biến đầu ra | Phân loại lớp | Lớp tương đương | Ý nghĩa phản hồi |
+| :---: | :--- | :---: | :--- | :--- |
+| **EC28** | `http_status_code` | **Valid (Success)** | Thành công khi xem, tạo hoặc xóa coupon | Hệ thống xử lý thao tác hợp lệ. |
+| **EC29** | `http_status_code` | **Invalid (Failure)** | Lỗi validation dữ liệu đầu vào | Trường bắt buộc, sai kiểu hoặc ngoài miền. |
+| **EC30** | `http_status_code` | **Invalid (Failure)** | Lỗi chưa xác thực | Thiếu hoặc sai token. |
+| **EC31** | `http_status_code` | **Invalid (Failure)** | Lỗi không đủ quyền | User không phải Admin. |
+| **EC32** | `http_status_code` | **Invalid (Failure)** | Không tìm thấy coupon cần xóa | ID không tồn tại. |
+| **EC33** | `http_status_code` | **Invalid (Failure)** | Xung đột dữ liệu duy nhất | `code` bị trùng. |
+| **EC34** | `json_response` | **Valid (Success)** | JSON chứa danh sách coupon hoặc coupon vừa tạo | Dữ liệu phản hồi thành công. |
+| **EC35** | `json_response` | **Valid (Success)** | JSON xác nhận thao tác xóa thành công | Phản hồi sau mutation hợp lệ. |
+| **EC36** | `json_response` | **Invalid (Failure)** | JSON thông báo lỗi nghiệp vụ hoặc bảo mật | Phản hồi khi request bị từ chối. |
+| **EC37** | `ui_message` & `ui_action` | **Valid/Invalid** | UI cập nhật danh sách khi thành công hoặc hiển thị lỗi và giữ nguyên dữ liệu khi thất bại | Hành vi giao diện tương ứng kết quả API. |
+
+---
+
+#### Bước 3: Lựa chọn giá trị đại diện (Selecting Representatives)
+
+##### 1. Bảng giá trị đại diện cho các lớp tương đương
+
+| Mã lớp | Biến tương ứng | Loại lớp | Giá trị đại diện | Ý nghĩa / Ghi chú kiểm thử |
+| :---: | :--- | :---: | :--- | :--- |
+| **EC01** | `operation` | Valid | `view`, `create`, `delete` | Ba thao tác CRUD được đặc tả cho Admin. |
+| **EC02** | `authorization_token` | Valid | Token hợp lệ của Admin | Request đã xác thực. |
+| **EC03** | `admin_role` | Valid | `role = 'admin'` | Có quyền quản trị theo FR-12. |
+| **EC04** | `code` | Valid | `TET2025` | Mã mới, chưa tồn tại. |
+| **EC05** | `type` | Valid | `percent` / `fixed` | Hai loại coupon hợp lệ. |
+| **EC06** | `discount_value` | Valid | `15` | Giá trị giảm dương. |
+| **EC07** | `expired_at` | Valid | `2027-01-31` | Ngày hợp lệ. |
+| **EC08** | `min_order_amount` | Valid | `200000` | Giá trị không âm. |
+| **EC09** | `max_uses_per_user` | Valid | `1` | Số nguyên tối thiểu hợp lệ. |
+| **EC10** | `coupon_id` | Valid | `1` | Coupon tồn tại để xóa. |
+| **EC11** | `operation` | Invalid | `update` | Thao tác không được FR-17 mô tả. |
+| **EC12** | `authorization_token` | Invalid | Không truyền header Authorization | Thiếu xác thực. |
+| **EC13** | `authorization_token` | Invalid | Token giả hoặc hết hạn | Xác thực không hợp lệ. |
+| **EC14** | `admin_role` | Invalid | Token của user thường | Không đủ quyền Admin. |
+| **EC15** | `code` | Invalid | `""` | Bỏ trống mã. |
+| **EC16** | `code` | Invalid | `SAVE10` đã tồn tại | Vi phạm duy nhất. |
+| **EC17** | `type` | Invalid | `cashback` | Loại coupon ngoài tập cho phép. |
+| **EC18** | `type` | Invalid | Không truyền `type` | Thiếu trường bắt buộc. |
+| **EC19** | `discount_value` | Invalid | `0` | Không phải số dương. |
+| **EC20** | `discount_value` | Invalid | `-5` | Giá trị âm. |
+| **EC21** | `discount_value` | Invalid | `"abc"` hoặc thiếu trường | Sai kiểu dữ liệu hoặc thiếu trường. |
+| **EC22** | `expired_at` | Invalid | Không truyền `expired_at` | Thiếu trường bắt buộc. |
+| **EC23** | `expired_at` | Invalid | `not-a-date` | Sai định dạng ngày. |
+| **EC24** | `min_order_amount` | Invalid | `-1` | Nhỏ hơn 0. |
+| **EC25** | `min_order_amount` | Invalid | `"two hundred"` hoặc thiếu trường | Sai kiểu dữ liệu hoặc thiếu trường. |
+| **EC26** | `max_uses_per_user` | Invalid | `0`, `1.5`, hoặc thiếu trường | Không đạt miền số nguyên `>= 1`. |
+| **EC27** | `coupon_id` | Invalid | `0` hoặc `999999` | ID không hợp lệ hoặc không tồn tại. |
+| **EC28** | `http_status_code` | Success | Thành công | API xử lý thao tác hợp lệ. |
+| **EC29** | `http_status_code` | Failure | Lỗi validation | Dữ liệu đầu vào bị từ chối. |
+| **EC30** | `http_status_code` | Failure | Lỗi xác thực | Thiếu/sai token. |
+| **EC31** | `http_status_code` | Failure | Lỗi phân quyền | Không phải Admin. |
+| **EC32** | `http_status_code` | Failure | Không tìm thấy | Xóa coupon không tồn tại. |
+| **EC33** | `http_status_code` | Failure | Xung đột dữ liệu | Trùng `code`. |
+| **EC34** | `json_response` | Success | Danh sách coupon hoặc coupon mới | Dữ liệu trả về khi xem/tạo thành công. |
+| **EC35** | `json_response` | Success | Xác nhận xóa thành công | Dữ liệu trả về sau khi xóa hợp lệ. |
+| **EC36** | `json_response` | Failure | Thông báo lỗi nghiệp vụ/bảo mật | Phản hồi lỗi tổng quát theo loại lỗi. |
+| **EC37** | `ui_message` & `ui_action` | Valid/Invalid | Cập nhật danh sách hoặc hiển thị lỗi | Phản ứng UI tương ứng API. |
+
+##### 2. Thiết kế tập Test Cases phân hoạch tương đương (Equivalence Partitioning Test Cases)
+
+Tập test cases tối thiểu dưới đây được thiết kế nhằm bao phủ toàn bộ các lớp tương đương đã phân hoạch ở Bước 2:
+
+| Mã TC | Tên Test Case | Lớp tương đương phủ | Điều kiện tiền đề (Preconditions) | operation | authorization_token | code | type | discount_value | expired_at | min_order_amount | max_uses_per_user | coupon_id | Kết quả mong đợi (Expected Output) | Kết quả thực tế (Actual Output) | Trạng thái (Pass/Fail) |
+| :---: | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---: |
+| **TC01** | Admin thực hiện đầy đủ luồng xem, thêm và xóa coupon hợp lệ | EC01, EC02, EC03, EC04, EC05, EC06, EC07, EC08, EC09, EC10, EC28, EC34, EC35, EC37 | Token thuộc Admin. `TET2025` và `FREESHIP50` chưa tồn tại; `coupon_id = 1` tồn tại để xóa. | `view` → `create` → `create` → `delete` | Token Admin hợp lệ | `TET2025`, `FREESHIP50` | `percent`, `fixed` | `15`, `50000` | `2027-01-31` | `200000` | `1` | `1` | - API xem danh sách thành công và trả về danh sách coupon.<br>- API thêm coupon `percent` và `fixed` thành công với dữ liệu hợp lệ.<br>- API xóa coupon tồn tại thành công.<br>- UI cập nhật danh sách và hiển thị thông báo thành công. | | |
+| **TC02** | Từ chối thao tác không thuộc CRUD được hỗ trợ | EC11, EC29, EC36, EC37 | Token thuộc Admin. Dữ liệu coupon còn lại hợp lệ. | `update` | Token Admin hợp lệ | `TET2025` | `percent` | `15` | `2027-01-31` | `200000` | `1` | `1` | - HTTP Code: lỗi validation hoặc không hỗ trợ thao tác.<br>- Response: JSON thông báo thao tác không hợp lệ.<br>- UI hiển thị lỗi và không thay đổi danh sách coupon. | | |
+| **TC03** | Từ chối request không có token | EC12, EC30, EC36, EC37 | Không có phiên đăng nhập Admin. Dữ liệu tạo coupon hợp lệ. | `create` | Không truyền | `TET2025` | `percent` | `15` | `2027-01-31` | `200000` | `1` | N/A | - HTTP Code: lỗi chưa xác thực.<br>- Response: JSON yêu cầu đăng nhập hoặc token hợp lệ.<br>- UI chặn thao tác hoặc chuyển về trạng thái cần đăng nhập. | | |
+| **TC04** | Từ chối token sai hoặc hết hạn | EC13, EC30, EC36, EC37 | Token bị sửa đổi, hết hạn hoặc không thể xác minh. Dữ liệu tạo coupon hợp lệ. | `create` | Token không hợp lệ | `TET2025` | `percent` | `15` | `2027-01-31` | `200000` | `1` | N/A | - HTTP Code: lỗi chưa xác thực.<br>- Response: JSON thông báo token không hợp lệ.<br>- UI hiển thị lỗi phiên làm việc. | | |
+| **TC05** | Từ chối user thường truy cập chức năng Admin | EC14, EC31, EC36, EC37 | Token hợp lệ nhưng thuộc user không có role Admin. Dữ liệu tạo coupon hợp lệ. | `create` | Token user thường | `TET2025` | `percent` | `15` | `2027-01-31` | `200000` | `1` | N/A | - HTTP Code: lỗi không đủ quyền.<br>- Response: JSON thông báo bị từ chối quyền truy cập.<br>- UI không cho phép thao tác quản lý mã giảm giá. | | |
+| **TC06** | Từ chối tạo coupon thiếu `code` | EC15, EC29, EC36, EC37 | Token thuộc Admin. `type`, `discount_value`, `expired_at`, `min_order_amount`, `max_uses_per_user` hợp lệ. | `create` | Token Admin hợp lệ | `""` | `percent` | `15` | `2027-01-31` | `200000` | `1` | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response: JSON thông báo `code` là trường bắt buộc.<br>- UI giữ nguyên form và báo lỗi trường mã. | | |
+| **TC07** | Từ chối tạo coupon có `code` trùng | EC16, EC33, EC36, EC37 | Token thuộc Admin. Mã `SAVE10` đã tồn tại trong hệ thống. Các trường khác hợp lệ. | `create` | Token Admin hợp lệ | `SAVE10` | `percent` | `15` | `2027-01-31` | `200000` | `1` | N/A | - HTTP Code: lỗi xung đột hoặc validation trùng dữ liệu.<br>- Response: JSON thông báo mã giảm giá đã tồn tại.<br>- UI không thêm coupon mới và hiển thị lỗi trùng mã. | | |
+| **TC08** | Từ chối `type` ngoài tập cho phép | EC17, EC29, EC36, EC37 | Token thuộc Admin. `code` chưa tồn tại, các trường số và ngày hợp lệ. | `create` | Token Admin hợp lệ | `TET2025` | `cashback` | `15` | `2027-01-31` | `200000` | `1` | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response: JSON thông báo loại coupon không hợp lệ.<br>- UI hiển thị lỗi tại trường loại giảm giá. | | |
+| **TC09** | Từ chối tạo coupon thiếu `type` | EC18, EC29, EC36, EC37 | Token thuộc Admin. Các trường còn lại hợp lệ. | `create` | Token Admin hợp lệ | `TET2025` | Không truyền | `15` | `2027-01-31` | `200000` | `1` | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response: JSON thông báo `type` là trường bắt buộc.<br>- UI giữ nguyên form và báo lỗi trường loại. | | |
+| **TC10** | Từ chối `discount_value` bằng 0 | EC19, EC29, EC36, EC37 | Token thuộc Admin. `code` chưa tồn tại, `type`, ngày hết hạn và các giới hạn khác hợp lệ. | `create` | Token Admin hợp lệ | `TET2025` | `percent` | `0` | `2027-01-31` | `200000` | `1` | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response: JSON thông báo giá trị giảm phải là số dương.<br>- UI hiển thị lỗi tại trường giá trị giảm. | | |
+| **TC11** | Từ chối `discount_value` âm | EC20, EC29, EC36, EC37 | Token thuộc Admin. Các trường còn lại hợp lệ. | `create` | Token Admin hợp lệ | `TET2025` | `fixed` | `-5` | `2027-01-31` | `200000` | `1` | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response: JSON thông báo giá trị giảm phải lớn hơn 0.<br>- UI không tạo coupon và giữ nguyên dữ liệu nhập. | | |
+| **TC12** | Từ chối `discount_value` thiếu hoặc sai kiểu | EC21, EC29, EC36, EC37 | Token thuộc Admin. Các trường còn lại hợp lệ. | `create` | Token Admin hợp lệ | `TET2025` | `percent` | `"abc"` | `2027-01-31` | `200000` | `1` | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response: JSON thông báo giá trị giảm không hợp lệ.<br>- UI báo lỗi định dạng dữ liệu. | | |
+| **TC13** | Từ chối thiếu `expired_at` | EC22, EC29, EC36, EC37 | Token thuộc Admin. Các trường còn lại hợp lệ. | `create` | Token Admin hợp lệ | `TET2025` | `percent` | `15` | Không truyền | `200000` | `1` | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response: JSON thông báo ngày hết hạn là bắt buộc.<br>- UI hiển thị lỗi tại trường ngày hết hạn. | | |
+| **TC14** | Từ chối `expired_at` sai định dạng | EC23, EC29, EC36, EC37 | Token thuộc Admin. Các trường còn lại hợp lệ. | `create` | Token Admin hợp lệ | `TET2025` | `percent` | `15` | `not-a-date` | `200000` | `1` | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response: JSON thông báo ngày hết hạn không hợp lệ.<br>- UI giữ nguyên form và báo lỗi định dạng ngày. | | |
+| **TC15** | Từ chối `min_order_amount` âm | EC24, EC29, EC36, EC37 | Token thuộc Admin. Các trường còn lại hợp lệ. | `create` | Token Admin hợp lệ | `TET2025` | `percent` | `15` | `2027-01-31` | `-1` | `1` | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response: JSON thông báo giá trị đơn tối thiểu không được âm.<br>- UI hiển thị lỗi tại trường đơn tối thiểu. | | |
+| **TC16** | Từ chối `min_order_amount` thiếu hoặc sai kiểu | EC25, EC29, EC36, EC37 | Token thuộc Admin. Các trường còn lại hợp lệ. | `create` | Token Admin hợp lệ | `TET2025` | `fixed` | `50000` | `2027-01-31` | `"two hundred"` | `1` | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response: JSON thông báo giá trị đơn tối thiểu không hợp lệ.<br>- UI báo lỗi định dạng dữ liệu. | | |
+| **TC17** | Từ chối `max_uses_per_user` không đạt miền hợp lệ | EC26, EC29, EC36, EC37 | Token thuộc Admin. Các trường còn lại hợp lệ. | `create` | Token Admin hợp lệ | `TET2025` | `percent` | `15` | `2027-01-31` | `200000` | `0` | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response: JSON thông báo số lượt dùng mỗi user phải là số nguyên tối thiểu 1.<br>- UI hiển thị lỗi tại trường số lượt dùng. | | |
+| **TC18** | Từ chối xóa coupon không tồn tại hoặc ID không hợp lệ | EC27, EC32, EC36, EC37 | Token thuộc Admin. Không có coupon với ID được gửi hoặc ID không thuộc miền hợp lệ. | `delete` | Token Admin hợp lệ | N/A | N/A | N/A | N/A | N/A | N/A | `999999` | - HTTP Code: lỗi không tìm thấy hoặc validation ID.<br>- Response: JSON thông báo không thể xóa coupon không tồn tại.<br>- UI giữ nguyên danh sách và hiển thị lỗi. | | |
+| **TC19** | Kiểm thử đồng thời tạo hai coupon trùng `code` | EC16, EC33, EC36, EC37 (integration/concurrency) | Token thuộc Admin. `RACE2027` chưa tồn tại trước khi bắt đầu; gửi đồng thời 2 request tạo cùng mã. | `create` song song | Token Admin hợp lệ | `RACE2027` | `percent` | `15` | `2027-01-31` | `200000` | `1` | N/A | - Chỉ một request được tạo coupon thành công.<br>- Request còn lại bị từ chối do vi phạm duy nhất của `code`.<br>- UI hoặc client không hiển thị hai coupon trùng mã trong danh sách. | | |
+
+---
+
+#### Bước 4: Phân tích giá trị biên (Boundary Value Analysis - BVA)
+
+##### Giải thích chi tiết từng bước (Step-by-Step Explanation)
+
+Để xác định các giá trị biên nhạy cảm của tính năng **FR-17: Quản lý Mã Giảm Giá (Coupon CRUD)**, em đã thực hiện phân tích theo các bước sau:
+1.  **Xác định các biến có tính thứ tự hoặc khoảng số:** Các biến phù hợp BVA gồm độ dài `code`, `discount_value`, `min_order_amount`, `max_uses_per_user` và `coupon_id`.
+2.  **Xác định các điểm biên (Boundaries) cho từng biến:** Dựa trên ràng buộc bắt buộc, duy nhất, số dương, `>= 0`, `>= 1`, và ID hợp lệ khi xóa.
+3.  **Lựa chọn các điểm kiểm thử biên nhạy cảm:** Chọn các điểm `0/1`, `-1/0`, và ID `0/1` theo đơn vị nguyên nhỏ nhất có thể gửi qua API/UI công khai.
+
+##### 1. Phân tích giá trị biên của các biến số/khoảng số
+
+*   **Biến `code_length` (Khoảng hợp lệ tối thiểu: `[1, +∞)` ký tự):**
+    *   $LB = 1$: Mã có đúng 1 ký tự, tối thiểu hợp lệ.
+    *   $LB-1 = 0$: Chuỗi rỗng, không hợp lệ.
+
+*   **Biến `discount_value` (Khoảng hợp lệ: `(0, +∞)`):**
+    *   $LB = 1$: Giá trị dương nhỏ nhất theo đơn vị nguyên, hợp lệ.
+    *   $LB-1 = 0$: Không phải số dương, không hợp lệ.
+
+*   **Biến `min_order_amount` (Khoảng hợp lệ: `[0, +∞)`):**
+    *   $LB = 0$: Không yêu cầu giá trị đơn tối thiểu, hợp lệ.
+    *   $LB-1 = -1$: Giá trị âm, không hợp lệ.
+
+*   **Biến `max_uses_per_user` (Khoảng hợp lệ: `[1, +∞)`):**
+    *   $LB = 1$: Cho phép mỗi user dùng 1 lần, hợp lệ.
+    *   $LB-1 = 0$: Không cho phép lượt sử dụng nào, không hợp lệ.
+
+*   **Biến `coupon_id` khi xóa (Khoảng ID hợp lệ công khai: `[1, +∞)` với điều kiện ID tồn tại):**
+    *   $LB = 1$: ID dương và tồn tại, hợp lệ.
+    *   $LB-1 = 0$: ID không hợp lệ để xóa coupon.
+
+##### 2. Thiết kế tập Test Cases giá trị biên (Boundary Value Test Cases)
+
+| Mã TC | Tên Test Case | Biên kiểm thử | Điều kiện tiền đề (Preconditions) | operation | authorization_token | code | type | discount_value | expired_at | min_order_amount | max_uses_per_user | coupon_id | Kết quả mong đợi (Expected Output) | Kết quả thực tế (Actual Output) | Trạng thái (Pass/Fail) |
+| :---: | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---: |
+| **TC-BVA-01** | Tạo coupon với `code` rỗng | `code_length = LB-1 = 0` | Token thuộc Admin. Các trường khác hợp lệ. | `create` | Token Admin hợp lệ | `""` | `percent` | `15` | `2027-01-31` | `200000` | `1` | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response: JSON thông báo mã giảm giá là bắt buộc.<br>- UI báo lỗi trường mã và không tạo coupon. | | |
+| **TC-BVA-02** | Tạo coupon với `code` dài 1 ký tự | `code_length = LB = 1` | Token thuộc Admin. Mã `A` chưa tồn tại. Các trường khác hợp lệ. | `create` | Token Admin hợp lệ | `A` | `percent` | `15` | `2027-01-31` | `200000` | `1` | N/A | - HTTP Code: thành công.<br>- Response: JSON chứa coupon mới được tạo.<br>- UI thêm coupon vào danh sách. | | |
+| **TC-BVA-03** | Tạo coupon với `discount_value = 0` | `discount_value = LB-1 = 0` | Token thuộc Admin. Các trường khác hợp lệ. | `create` | Token Admin hợp lệ | `TET2025` | `percent` | `0` | `2027-01-31` | `200000` | `1` | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response: JSON thông báo giá trị giảm phải dương.<br>- UI không tạo coupon. | | |
+| **TC-BVA-04** | Tạo coupon với `discount_value = 1` | `discount_value = LB = 1` | Token thuộc Admin. `TET2025` chưa tồn tại. Các trường khác hợp lệ. | `create` | Token Admin hợp lệ | `TET2025` | `percent` | `1` | `2027-01-31` | `200000` | `1` | N/A | - HTTP Code: thành công.<br>- Response: JSON chứa coupon mới có giá trị giảm dương tối thiểu.<br>- UI cập nhật danh sách coupon. | | |
+| **TC-BVA-05** | Tạo coupon với `min_order_amount = -1` | `min_order_amount = LB-1 = -1` | Token thuộc Admin. Các trường khác hợp lệ. | `create` | Token Admin hợp lệ | `TET2025` | `fixed` | `50000` | `2027-01-31` | `-1` | `1` | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response: JSON thông báo giá trị đơn tối thiểu không được âm.<br>- UI hiển thị lỗi trường đơn tối thiểu. | | |
+| **TC-BVA-06** | Tạo coupon với `min_order_amount = 0` | `min_order_amount = LB = 0` | Token thuộc Admin. `TET2025` chưa tồn tại. Các trường khác hợp lệ. | `create` | Token Admin hợp lệ | `TET2025` | `fixed` | `50000` | `2027-01-31` | `0` | `1` | N/A | - HTTP Code: thành công.<br>- Response: JSON chứa coupon mới không yêu cầu giá trị đơn tối thiểu.<br>- UI cập nhật danh sách coupon. | | |
+| **TC-BVA-07** | Tạo coupon với `max_uses_per_user = 0` | `max_uses_per_user = LB-1 = 0` | Token thuộc Admin. Các trường khác hợp lệ. | `create` | Token Admin hợp lệ | `TET2025` | `percent` | `15` | `2027-01-31` | `200000` | `0` | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response: JSON thông báo số lượt dùng mỗi user phải tối thiểu 1.<br>- UI hiển thị lỗi trường số lượt dùng. | | |
+| **TC-BVA-08** | Tạo coupon với `max_uses_per_user = 1` | `max_uses_per_user = LB = 1` | Token thuộc Admin. `TET2025` chưa tồn tại. Các trường khác hợp lệ. | `create` | Token Admin hợp lệ | `TET2025` | `percent` | `15` | `2027-01-31` | `200000` | `1` | N/A | - HTTP Code: thành công.<br>- Response: JSON chứa coupon mới có giới hạn dùng tối thiểu hợp lệ.<br>- UI cập nhật danh sách coupon. | | |
+| **TC-BVA-09** | Xóa coupon với `coupon_id = 0` | `coupon_id = LB-1 = 0` | Token thuộc Admin. Không có coupon hợp lệ với ID `0`. | `delete` | Token Admin hợp lệ | N/A | N/A | N/A | N/A | N/A | N/A | `0` | - HTTP Code: lỗi validation hoặc không tìm thấy.<br>- Response: JSON thông báo ID coupon không hợp lệ hoặc không tồn tại.<br>- UI giữ nguyên danh sách coupon. | | |
+| **TC-BVA-10** | Xóa coupon với `coupon_id = 1` tồn tại | `coupon_id = LB = 1` | Token thuộc Admin. Coupon có ID `1` tồn tại và được phép xóa. | `delete` | Token Admin hợp lệ | N/A | N/A | N/A | N/A | N/A | N/A | `1` | - HTTP Code: thành công.<br>- Response: JSON xác nhận xóa coupon thành công.<br>- UI loại coupon khỏi danh sách. | | |
+
+#### Bước 5: Phân tích khoảng trống AI (AI Gap Analysis)
+
+##### 1. Các kịch bản/lỗi kiểm thử mà AI đã bỏ sót
+*   **Race Condition khi tạo trùng mã coupon:** AI thường chỉ kiểm thử trùng `code` tuần tự, nhưng bỏ sót tình huống 2 Admin hoặc 2 request API tạo cùng một mã trong cùng thời điểm. Nếu hệ thống không kiểm soát unique ở mức giao dịch, có thể xuất hiện hai coupon cùng `code`.
+*   **Bypass quyền Admin qua API trực tiếp:** Giao diện Admin có thể ẩn màn hình với user thường, nhưng request trực tiếp tới `POST /api/admin/coupons` hoặc `DELETE /api/admin/coupons/:id` vẫn cần bị chặn bởi token và role Admin theo FR-12.
+*   **Xóa coupon đang được tham chiếu trong luồng sử dụng khác:** Đặc tả chỉ nêu Admin có thể xóa mã, nhưng AI có thể bỏ qua rủi ro xóa mã đang được người dùng nhìn thấy hoặc vừa áp dụng trong phiên checkout, dẫn đến sai lệch trạng thái giữa Admin và khách hàng.
+
+##### 2. Các sự nhầm lẫn, ảo giác và thiếu sót của AI trong quá trình thiết kế (AI Critique)
+*   **Nhầm System State thành Direct Input:** AI dễ đưa `admin_role` hoặc trạng thái `code` đã tồn tại thành cột input gửi trong body. Thực tế đây là trạng thái hệ thống và phải nằm ở Preconditions.
+*   **Implementation Bias về status code và chuỗi lỗi:** AI có xu hướng ghi cứng từng chuỗi JSON hoặc status code cụ thể. Với kiểm thử hộp đen từ đặc tả, Expected Output nên mô tả hành vi nghiệp vụ như “bị từ chối do thiếu quyền” hoặc “bị từ chối do trùng mã”.
+*   **Bỏ sót endpoint xem danh sách không nằm dưới `/api/admin/*`:** API lấy danh sách coupon dùng `GET /api/coupons` nhưng vẫn ghi “Dành cho Admin” và cần header Authorization. AI có thể chỉ tập trung vào `/api/admin/coupons` mà không kiểm thử quyền truy cập danh sách.
+
+##### 3. Giải thích nguyên nhân AI gặp các hạn chế trên
+*   **Đặc tả ngắn và có nhiều ràng buộc ngầm:** FR-17 chỉ mô tả CRUD và các trường bắt buộc ở mức tóm tắt, nên AI phải suy luận cẩn thận từ FR-12 và API spec để không bỏ sót quyền Admin.
+*   **Khó phân biệt validation nghiệp vụ với trạng thái hệ thống:** Các khái niệm như `code` duy nhất hoặc `coupon_id` tồn tại không phải giá trị form thuần túy mà phụ thuộc dữ liệu hệ thống, khiến AI dễ mô hình hóa sai.
+*   **Thiếu quan sát động trong giai đoạn thiết kế:** Vì chưa chạy test, AI không thể biết thông điệp lỗi và hành vi UI thật; do đó cần giữ Expected Output ở mức nghiệp vụ và để trống Actual Output/Pass-Fail.

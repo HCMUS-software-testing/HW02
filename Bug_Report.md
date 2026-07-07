@@ -266,3 +266,14 @@ Dưới đây là danh sách các lỗi phát hiện được đối với các 
 *   **Đường dẫn GitHub Issue:** [GitHub Issue #14](https://github.com/HCMUS-software-testing/HW02/issues/14)
 *   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR09-07](screenshots/BUG-FR09-07-1.png) ![Screenshot BUG-FR09-07](screenshots/BUG-FR09-07-2.png)
 
+---
+
+## Danh sách lỗi tổng hợp - FR-17: Quản lý Mã Giảm Giá (Coupon CRUD)
+
+> ⚠️ **Lưu ý:** Các test case cho FR-17 chưa được thực thi. Section này sẽ được bổ sung sau khi hoàn thành chạy kiểm thử.
+
+*Sau khi thực thi các test cases trong Main_Report.md (phần Pool C: FR-17) và điền kết quả Actual Output, hãy tổng hợp các test case Fail thành các mục BUG theo format sau:*
+
+| Mã Bug | Tên lỗi (Bug Name) | Mã TC phát hiện | Mô tả hành vi lỗi quan sát | Độ nghiêm trọng (Severity) | Trạng thái |
+| :---: | :--- | :---: | :--- | :---: | :---: |
+| **BUG-FR17-01** | *[Tên lỗi]* | *[Mã TC]* | *[Mô tả hành vi]* | *[Critical/High/Medium/Low]* | Open |
