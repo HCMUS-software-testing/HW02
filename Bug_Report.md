@@ -8,7 +8,9 @@
 
 ## 1. Danh sách lỗi tổng hợp (Bug List)
 
-Dưới đây là danh sách các lỗi phát hiện được đối với tính năng **FR-02: Đăng nhập & Khóa tài khoản** dựa trên việc chạy thực tế và đối chiếu hành vi của hệ thống (ở mức Giao diện UI và API phản hồi) với tài liệu đặc tả yêu cầu (Kiểm thử hộp đen - Black-box testing):
+Dưới đây là danh sách các lỗi phát hiện được đối với các tính năng **FR-02** và **FR-09** dựa trên việc chạy thực tế và đối chiếu hành vi của hệ thống (ở mức Giao diện UI và API phản hồi) với tài liệu đặc tả yêu cầu (Kiểm thử hộp đen - Black-box testing):
+
+### 1.1. Pool A: FR-02: Đăng nhập & Khóa tài khoản
 
 | Mã Bug | Tên lỗi (Bug Name) | Mã TC phát hiện | Mô tả hành vi lỗi quan sát | Độ nghiêm trọng (Severity) | Trạng thái |
 | :---: | :--- | :---: | :--- | :---: | :---: |
@@ -20,9 +22,23 @@ Dưới đây là danh sách các lỗi phát hiện được đối với tính
 | **BUG-FR02-06** | Backend API đăng nhập không kiểm tra định dạng email trước khi truy vấn cơ sở dữ liệu | `TC10` | API `/api/login` cho phép gửi định dạng email sai bất kỳ lên server và thực hiện câu lệnh SQL SELECT trực tiếp mà không chặn sớm. | **Medium** | Open |
 | **BUG-FR02-07** | Lỗ hổng Race Condition cho phép gửi song song nhiều request vượt cơ chế khóa | `TC08` | Khi gửi 5 request đăng nhập sai đồng thời qua API trong 1ms, tất cả đều được xử lý thành công (trả về 401) thay vì bị chặn từ lần 3. | **High** | Open |
 
+### 1.2. Pool B: FR-09: Mã Giảm Giá (Coupon)
+
+| Mã Bug | Tên lỗi (Bug Name) | Mã TC phát hiện | Mô tả hành vi lỗi quan sát | Độ nghiêm trọng (Severity) | Trạng thái |
+| :---: | :--- | :---: | :--- | :---: | :---: |
+| **BUG-FR09-01** | Lỗi tính toán sai số tiền được giảm cho coupon loại phần trăm (percent) | `TC01`, `TC-BVA-03`, `TC-BVA-06` | Coupon phần trăm (ví dụ giảm 10% cho đơn 500,000 ₫) bị tính sai công thức khiến giá trị discount bị âm (-4,500,000 ₫) và tổng tiền cuối cùng tăng vọt (5,000,000 ₫). | **High** | Open |
+| **BUG-FR09-02** | So sánh sai biên tối thiểu khiến đơn hàng bằng đúng ngưỡng tối thiểu bị từ chối | `TC-BVA-01` | Đơn hàng có tổng tiền đúng bằng ngưỡng tối thiểu áp dụng mã (300,000 ₫) vẫn bị hệ thống báo lỗi không đủ điều kiện tối thiểu. | **High** | Open |
+| **BUG-FR09-03** | Lỗ hổng API kiểm tra mã giảm giá (`/api/apply-coupon`) không xác thực Token JWT | `TC11` | API `/api/apply-coupon` không yêu cầu xác thực JWT, cho phép bất kỳ ai (kể cả chưa đăng nhập) gọi API thành công. | **Critical** | Open |
+| **BUG-FR09-04** | Hệ thống cho phép giả mạo `user_id` (ID Spoofing) hoặc bỏ trống `user_id` khi áp dụng mã giảm giá | `TC09`, `TC10` | Backend lấy `user_id` trực tiếp từ request body để kiểm tra số lần dùng mà không đối chiếu với token, hoặc bỏ qua kiểm tra nếu bỏ trống `user_id`. | **Critical** | Open |
+| **BUG-FR09-05** | Lỗ hổng Checkout Bypass - API thanh toán (`/api/checkout`) không xác thực lại các điều kiện mã giảm giá | `TC15` | API `/api/checkout` nhận trực tiếp tổng số tiền đã giảm từ body mà không kiểm tra hay validate lại tính hợp lệ của mã giảm giá trên backend. | **Critical** | Open |
+| **BUG-FR09-06** | Lỗi xử lý thông điệp phản hồi không khớp cho dữ liệu đầu vào không hợp lệ (số tiền âm hoặc sai kiểu dữ liệu) | `TC07`, `TC08` | Khi gửi số tiền âm (-50k) hoặc sai kiểu chữ, hệ thống báo lỗi sai nghiệp vụ: "Đơn hàng chưa đủ giá trị tối thiểu..." thay vì báo lỗi định dạng/số tiền không hợp lệ. | **Medium** | Open |
+| **BUG-FR09-07** | Lỗ hổng Race Condition (Double Use) cho phép ghi nhận sử dụng mã giảm giá nhiều lần | `TC14` | Gửi đồng thời các request ghi nhận sử dụng mã (`/api/coupon-usage`) trong cùng 1ms cho phép ghi nhận vượt quá số lần tối đa quy định của coupon. | **High** | Open |
+
 ---
 
 ## 2. Chi tiết các lỗi (Detailed Bug Descriptions)
+
+## Pool A: FR-02: Đăng nhập & Khóa tài khoản
 
 ### BUG-FR02-01: Tài khoản bị tạm khóa sớm sau 2 lần đăng nhập sai liên tiếp (lần thứ 3 bị chặn)
 
@@ -119,4 +135,134 @@ Dưới đây là danh sách các lỗi phát hiện được đối với tính
 *   **Kết quả thực tế (Actual Output):** Cả 5 request song song đều trả về mã lỗi `401 Unauthorized` cùng lúc và không có request nào bị chặn bằng mã `403 Forbidden` trong loạt gửi song song đó. Tài khoản chỉ bị khóa sau khi loạt request này đã thực thi xong.
 *   **Đường dẫn GitHub Issue:** [GitHub Issue #7](https://github.com/HCMUS-software-testing/HW02/issues/7)
 *   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR02-07](screenshots/BUG-FR02-07-1.png) ![Screenshot BUG-FR02-07](screenshots/BUG-FR02-07-2.png)
+
+---
+
+## Pool B: FR-09: Mã Giảm Giá (Coupon)
+
+### BUG-FR09-01: Lỗi tính toán sai số tiền được giảm cho coupon loại phần trăm (percent)
+
+*   **Mô tả lỗi:** Khi áp dụng coupon giảm giá theo tỷ lệ phần trăm (percent), backend tính toán sai công thức chiết khấu dẫn đến việc số tiền giảm bị âm (ví dụ: giảm `-4,500,000` ₫ cho đơn hàng `500,000` ₫ với mã `SAVE10` giảm 10%) và tổng tiền thanh toán cuối cùng bị tăng vọt (lên `5,000,000` ₫).
+*   **Các bước tái hiện (Steps to Reproduce):**
+    1. Đăng nhập vào hệ thống bằng tài khoản khách hàng hợp lệ (ví dụ: `test@eshop.com`).
+    2. Đi tới màn hình **Checkout** (hoặc thêm sản phẩm vào giỏ hàng rồi tới trang thanh toán).
+    3. Tại trường **"Tổng tiền thanh toán (VND)"**, điền giá trị `500000`.
+    4. Tại ô nhập **"Mã Giảm Giá"**, điền mã `SAVE10`.
+    5. Nhấn nút **"Áp dụng"**.
+    6. Quan sát số tiền giảm giá và tổng tiền thanh toán hiển thị trên màn hình.
+*   **Kết quả mong đợi (Expected Output):**
+    *   Hệ thống áp dụng coupon thành công.
+    *   Hiển thị số tiền tiết kiệm: `50,000 ₫`.
+    *   Hiển thị tổng thanh toán sau giảm giá: `450,000 ₫`.
+*   **Kết quả thực tế (Actual Output):**
+    *   Hệ thống báo áp dụng thành công nhưng hiển thị số tiền tiết kiệm bị âm: `-4,500,000 ₫`.
+    *   Tổng thanh toán hiển thị bị tăng vọt lên: `5,000,000 ₫`.
+*   **Đường dẫn GitHub Issue:** [GitHub Issue #8](https://github.com/HCMUS-software-testing/HW02/issues/8)
+*   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR09-01](screenshots/BUG-FR09-01.png)
+
+---
+
+### BUG-FR09-02: So sánh sai biên tối thiểu khiến đơn hàng bằng đúng ngưỡng tối thiểu bị từ chối
+
+*   **Mô tả lỗi:** Theo đặc tả yêu cầu, coupon chỉ được áp dụng khi đơn hàng có tổng trị giá tối thiểu từ `min_order_amount` trở lên (tức là `>=`). Tuy nhiên, khi giá trị đơn hàng bằng đúng ngưỡng tối thiểu (ví dụ `300,000` ₫ đối với mã `SAVE10`), hệ thống vẫn từ chối áp dụng và trả về lỗi không đủ điều kiện đơn hàng tối thiểu.
+*   **Các bước tái hiện (Steps to Reproduce):**
+    1. Mở màn hình **Checkout** của ứng dụng Web.
+    2. Tại ô **"Tổng tiền thanh toán (VND)"**, nhập giá trị `300000` (bằng đúng ngưỡng tối thiểu của mã `SAVE10`).
+    3. Nhập mã `SAVE10` vào ô **"Mã Giảm Giá"**.
+    4. Nhấn nút **"Áp dụng"**.
+*   **Kết quả mong đợi (Expected Output):**
+    *   Hệ thống áp dụng coupon thành công, không báo lỗi.
+*   **Kết quả thực tế (Actual Output):**
+    *   Hệ thống từ chối áp dụng và hiển thị thông báo lỗi màu đỏ: `"Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này"`.
+*   **Đường dẫn GitHub Issue:** [GitHub Issue #9](https://github.com/HCMUS-software-testing/HW02/issues/9)
+*   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR09-02](screenshots/BUG-FR09-02.png)
+
+---
+
+### BUG-FR09-03: Lỗ hổng API kiểm tra mã giảm giá (/api/apply-coupon) không xác thực Token JWT
+
+*   **Mô tả lỗi:** API `/api/apply-coupon` ở backend hoàn toàn không sử dụng middleware xác thực `authenticateToken`. Người dùng chưa đăng nhập (hoặc đã đăng xuất) vẫn có thể gửi yêu cầu và nhận thông tin tính toán coupon thành công trên giao diện.
+*   **Các bước tái hiện (Steps to Reproduce):**
+    1. Không tiến hành đăng nhập tài khoản (hoặc đăng xuất khỏi hệ thống).
+    2. Truy cập trực tiếp trang **Checkout** (`/checkout`).
+    3. Nhập giá trị `500000` vào ô **"Tổng tiền thanh toán (VND)"**.
+    4. Nhập mã `SAVE10` vào ô **"Mã Giảm Giá"** và nhấn **"Áp dụng"**.
+*   **Kết quả mong đợi (Expected Output):**
+    *   Hệ thống chặn hành động và thông báo yêu cầu người dùng đăng nhập (hoặc trả về mã lỗi `401 Unauthorized` / `403 Forbidden`).
+*   **Kết quả thực tế (Actual Output):**
+    *   Giao diện vẫn gửi yêu cầu thành công (không kèm Authorization header) và hiển thị kết quả tính toán giảm giá của coupon bình thường.
+*   **Đường dẫn GitHub Issue:** [GitHub Issue #10](https://github.com/HCMUS-software-testing/HW02/issues/10)
+*   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR09-03](screenshots/BUG-FR09-03.png)
+
+---
+
+### BUG-FR09-04: Hệ thống cho phép giả mạo user_id (ID Spoofing) hoặc bỏ trống user_id khi áp dụng mã giảm giá
+
+*   **Mô tả lỗi:** Backend API `/api/apply-coupon` lấy tham số `user_id` từ request body để truy vấn số lần sử dụng coupon mà không kiểm tra xem ID này có khớp với ID đã mã hóa trong token JWT của user đang đăng nhập hay không. Ngoài ra, nếu người dùng bỏ trống hoặc không truyền `user_id` (ví dụ khi không đăng nhập), backend tự động rẽ nhánh bỏ qua kiểm tra số lần sử dụng tối đa, cho phép một khách hàng áp dụng coupon vô hạn lần.
+*   **Các bước tái hiện (Steps to Reproduce):**
+    1. Chạy file script tự động [scratch_test_bug_fr09_04.js](./scratch_test_bug_fr09_04.js) bằng cách chạy lệnh sau trong terminal tại thư mục gốc của dự án:
+       ```bash
+       node scratch_test_bug_fr09_04.js
+       ```
+    2. Quan sát kết quả phản hồi in ra trên màn hình terminal của cả 2 kịch bản:
+       * **Trường hợp 1 (Bỏ trống user_id):** Backend gửi yêu cầu không có `user_id` để bypass kiểm tra giới hạn sử dụng.
+       * **Trường hợp 2 (Giả mạo user_id):** Đăng nhập User A nhưng truyền `user_id` của User B vào request body.
+*   **Kết quả mong đợi (Expected Output):**
+    *   Hệ thống từ chối áp dụng mã giảm giá, yêu cầu xác thực khớp ID (trả về lỗi `403 Forbidden` hoặc `400 Bad Request`).
+*   **Kết quả thực tế (Actual Output):**
+    *   Hệ thống phản hồi `200 OK` và áp dụng coupon thành công.
+*   **Đường dẫn GitHub Issue:** [GitHub Issue #11](https://github.com/HCMUS-software-testing/HW02/issues/11)
+*   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR09-04](screenshots/BUG-FR09-04-1.png) ![Screenshot BUG-FR09-04](screenshots/BUG-FR09-04-2.png)
+
+---
+
+### BUG-FR09-05: Lỗ hổng Checkout Bypass - API thanh toán (/api/checkout) không xác thực lại các điều kiện mã giảm giá
+
+*   **Mô tả lỗi:** API `/api/checkout` nhận trực tiếp tham số tổng tiền đơn hàng đã giảm (`total_amount`) từ client gửi lên mà hoàn toàn không thực hiện kiểm tra chéo (re-validate) lại tính đúng đắn của giỏ hàng và coupon đã áp dụng ở backend. Ngoài ra, giao diện Checkout cho phép người dùng tự do sửa đổi trực tiếp ô số tiền thanh toán, cho phép tạo đơn hàng thành công với giá trị cực rẻ do người dùng tự nhập mà backend vẫn chấp nhận.
+*   **Các bước tái hiện (Steps to Reproduce):**
+    1. Đăng nhập hệ thống, thêm sản phẩm vào giỏ hàng và đi tới trang **Checkout**.
+    2. Tại ô nhập liệu **"Tổng tiền thanh toán (VND)"**, xóa giá trị cũ của giỏ hàng và nhập vào một con số cực nhỏ tùy ý (ví dụ: `50000` ₫).
+    3. Nhấn nút **"Xác Nhận Thanh Toán"**.
+    4. Kiểm tra thông báo kết quả và giá trị đơn hàng mới tạo trong trang Lịch sử đơn hàng.
+*   **Kết quả mong đợi (Expected Output):**
+    *   Hệ thống từ chối thanh toán do số tiền gửi lên không khớp với tổng tiền thực tế của giỏ hàng (hoặc không đủ điều kiện tối thiểu của mã giảm giá).
+*   **Kết quả thực tế (Actual Output):**
+    *   Giao diện báo thanh toán thành công và đơn hàng mới được tạo trên hệ thống với đúng giá trị `50,000` ₫ mà không gặp bất kỳ sự cản trở nào từ backend.
+*   **Đường dẫn GitHub Issue:** [GitHub Issue #12](https://github.com/HCMUS-software-testing/HW02/issues/12)
+*   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR09-05](screenshots/BUG-FR09-05-1.png) ![Screenshot BUG-FR09-05](screenshots/BUG-FR09-05-2.png)
+
+---
+
+### BUG-FR09-06: Lỗi xử lý thông điệp phản hồi không khớp cho dữ liệu đầu vào không hợp lệ (số tiền âm hoặc sai kiểu dữ liệu)
+
+*   **Mô tả lỗi:** Khi người dùng gửi yêu cầu áp dụng mã giảm giá với các dữ liệu sai định dạng nghiêm trọng ở biến `total_amount` như số tiền âm (`-50000`) hoặc chuỗi ký tự chữ không hợp lệ, hệ thống phản hồi lỗi logic nghiệp vụ gây hiểu lầm là đơn hàng không đủ ngưỡng tối thiểu, thay vì phản hồi lỗi định dạng dữ liệu đầu vào.
+*   **Các bước tái hiện (Steps to Reproduce):**
+    1. Mở trang **Checkout** của ứng dụng Web.
+    2. Tại ô **"Tổng tiền thanh toán (VND)"**, điền giá trị âm `-50000` (hoặc nhập chuỗi ký tự chữ không phải số).
+    3. Nhập mã giảm giá `SAVE10` vào ô **"Mã Giảm Giá"**.
+    4. Nhấn nút **"Áp dụng"**.
+*   **Kết quả mong đợi (Expected Output):**
+    *   Hệ thống báo lỗi định dạng dữ liệu đầu vào hoặc tổng số tiền đơn hàng không hợp lệ.
+*   **Kết quả thực tế (Actual Output):**
+    *   Hệ thống báo lỗi nghiệp vụ không liên quan: `"Đơn hàng chưa đủ giá trị tối thiểu 300,000 ₫ để áp dụng mã này"`.
+*   **Đường dẫn GitHub Issue:** [GitHub Issue #13](https://github.com/HCMUS-software-testing/HW02/issues/13)
+*   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR09-06](screenshots/BUG-FR09-06.png)
+
+---
+
+### BUG-FR09-07: Lỗ hổng Race Condition (Double Use) cho phép ghi nhận sử dụng mã giảm giá nhiều lần
+
+*   **Mô tả lỗi:** Khi gửi đồng thời nhiều request ghi nhận sử dụng mã giảm giá (`POST /api/coupon-usage`) trong cùng 1 mili giây, backend xử lý bất đồng bộ (non-atomic) mà không sử dụng cơ chế transaction khóa bản ghi hoặc unique constraint trên bảng `coupon_usage` ở SQLite. Điều này dẫn đến hệ thống chấp nhận tất cả các yêu cầu và lưu vào database, cho phép người dùng bypass giới hạn sử dụng tối đa của mã giảm giá (ví dụ mã giới hạn dùng 1 lần vẫn bị lưu thành 2 dòng sử dụng).
+*   **Các bước tái hiện (Steps to Reproduce):**
+    *   *Do Race Condition diễn ra trong mili giây nên cần thực hiện qua script tự động gửi request API đồng thời:*
+    1. Sử dụng script kiểm thử `scratch_test_coupon.js` (hoặc các công cụ gửi request đồng thời như JMeter/k6).
+    2. Thực hiện đăng nhập và lấy JWT token hợp lệ của một tài khoản chưa từng sử dụng coupon `SAVE10` (giới hạn 1 lần dùng).
+    3. Gửi đồng thời 2 request POST tới `/api/coupon-usage` trong cùng 1 mili giây với body: `{"coupon_id": 1}`.
+    4. Kiểm tra mã trạng thái HTTP trả về của cả 2 request và truy vấn bảng `coupon_usage` trong cơ sở dữ liệu.
+*   **Kết quả mong đợi (Expected Output):**
+    *   Chỉ có duy nhất 1 request thành công (`200 OK`). Request còn lại phải trả về mã lỗi (`400 Bad Request` hoặc `500 Internal Server Error`).
+*   **Kết quả thực tế (Actual Output):**
+    *   Cả 2 request gửi đồng thời đều thành công (`200 OK`) và CSDL ghi nhận 2 bản ghi sử dụng cho cùng một mã giảm giá của cùng một người dùng.
+*   **Đường dẫn GitHub Issue:** [GitHub Issue #14](https://github.com/HCMUS-software-testing/HW02/issues/14)
+*   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR09-07](screenshots/BUG-FR09-07-1.png) ![Screenshot BUG-FR09-07](screenshots/BUG-FR09-07-2.png)
 
