@@ -12,17 +12,19 @@ description: Phân tích yêu cầu tính năng (functional requirement) để t
 
 ## Core Principles (Quy tắc cốt lõi)
 Dựa theo lý thuyết chuẩn của Phân vùng tương đương (Equivalence Partitioning Theory):
-1. **Chỉ tập trung vào Input Domain**: Mọi phân tích phải hoàn toàn dựa trên dữ liệu đầu vào (dữ liệu người dùng nhập, tham số API, file upload, v.v...).
+1. **Chỉ tập trung vào Input Domain**: Mọi phân tích phải hoàn toàn dựa trên dữ liệu đầu vào (dữ liệu người dùng nhập, tham số API, trạng thái hiện tại tác động lên nghiệp vụ, v.v...).
 2. **Không phân vùng theo Trạng thái UI (No UI State Partitioning)**: Bỏ qua các yếu tố trạng thái giao diện (ví dụ: Nút bấm bị mờ, màu sắc hiển thị) khi xác định điều kiện.
-3. **Không tạo lớp tương đương dựa trên kết quả (No Outcome-based Classes)**: Điều kiện phải là nguyên nhân (input), không phải là hệ quả (success, error_page).
+3. **Không tạo lớp tương đương dựa trên kết quả (No Outcome-based Classes)**: Điều kiện phải là nguyên nhân (input/rule), không phải là hệ quả (success, error_page).
 4. **Không trộn lẫn (No Mixed Concerns)**: Mỗi điều kiện (Condition) chỉ được tập trung vào duy nhất MỘT biến (variable) hoặc một quy tắc độc lập.
+5. **Thể hiện Ràng buộc Nghiệp vụ/Logic (Business Rules / Constraints)**: Một Điều kiện kiểm thử (Test Condition) phải thể hiện một quy tắc kiểm tra hoặc ràng buộc logic cụ thể mà đầu vào phải tuân thủ (ví dụ: quy tắc chuyển đổi trạng thái, điều kiện về định dạng, độ dài, v.v.), CHỨ KHÔNG ĐƯỢC chỉ đơn thuần liệt kê tên biến và các giá trị của nó (ví dụ: Tránh việc viết "C1: Trạng thái hiện tại (pending, confirmed)").
 
 ## How to use it (Workflow)
 Khi thực thi skill này, Agent cần làm theo các bước sau:
 1. **Phân tích yêu cầu**: Đọc kỹ mô tả chức năng người dùng cung cấp. Nhận diện toàn bộ các biến đầu vào (variables) và các ràng buộc (constraints/business rules).
 2. **Trích xuất Điều kiện (Extract Conditions)**: 
    - Tách từng biến đầu vào hoặc từng quy tắc logic thành một Điều kiện riêng biệt.
-   - Đảm bảo vét cạn tất cả các quy tắc đã được mô tả (độ dài, định dạng, ký tự đặc biệt, quan hệ giữa các biến...).
+   - Thể hiện rõ ràng các ràng buộc nghiệp vụ hoặc điều kiện chuyển đổi trạng thái dưới dạng các mệnh đề kiểm tra.
+   - Đảm bảo vét cạn tất cả các quy tắc đã được mô tả (độ dài, định dạng, ký tự đặc biệt, quan hệ giữa các biến, quy tắc chuyển đổi trạng thái...).
 3. **Xuất kết quả (Output Format)**:
    - Trình bày dưới dạng danh sách tuần tự.
    - Định dạng: `C[STT]: [Tên Biến/Yếu tố] [ràng buộc/quy tắc cần kiểm tra]`
