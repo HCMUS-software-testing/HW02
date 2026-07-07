@@ -29,42 +29,42 @@ AI-driven UI automation, Playwright scripts, visual testing tools, or AI agents 
 
 ## 1.2. Theory Alignment
 
-| Source | Requirement / Principle | How this plan satisfies it |
-| :--- | :--- | :--- |
-| Domain Testing lecture | Identify input and output variables | Each feature starts with requirement/rule extraction and records input plus output/state variables |
-| Domain Testing lecture | Identify valid and invalid equivalence classes | `domain_testing` requires valid/invalid partitions and rationale |
-| Domain Testing lecture | Select best representatives | `domain_testing` requires concrete representative values before test cases |
-| Domain Testing lecture | For valid classes, cover as many valid ECs as possible | Combination matrix includes positive scenarios with valid partitions |
-| Domain Testing lecture | For invalid classes, cover one invalid class at a time | The plan and skill use Single Fault Assumption |
-| Domain Testing lecture | Ordered fields typically use boundary values | `bva_testing` derives min/min-1/min+1/max/max+1 values where applicable |
-| ISTQB CT-AI Chapter 11 | AI can assist test case generation | Agent Skills generate structured candidate test cases |
-| ISTQB CT-AI Chapter 11 | AI-generated tests may have a test oracle problem | Human review and manual/verified execution are mandatory |
+| Source                 | Requirement / Principle                                                                       | How this plan satisfies it                                                                                |
+| :--------------------- | :-------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------- |
+| Domain Testing lecture | Identify input and output variables                                                           | Each feature starts with requirement/rule extraction and records input plus output/state variables        |
+| Domain Testing lecture | Identify valid and invalid equivalence classes                                                | `domain_testing` requires valid/invalid partitions and rationale                                          |
+| Domain Testing lecture | Select best representatives                                                                   | `domain_testing` requires concrete representative values before test cases                                |
+| Domain Testing lecture | For valid classes, cover as many valid ECs as possible                                        | Combination matrix includes positive scenarios with valid partitions                                      |
+| Domain Testing lecture | For invalid classes, cover one invalid class at a time                                        | The plan and skill use Single Fault Assumption                                                            |
+| Domain Testing lecture | Ordered fields typically use boundary values                                                  | `bva_testing` derives min/min-1/min+1/max/max+1 values where applicable                                   |
+| ISTQB CT-AI Chapter 11 | AI can assist test case generation                                                            | Agent Skills generate structured candidate test cases                                                     |
+| ISTQB CT-AI Chapter 11 | AI-generated tests may have a test oracle problem                                             | Human review and manual/verified execution are mandatory                                                  |
 | ISTQB CT-AI Chapter 11 | Some activities are less suitable for AI, such as clarifying ambiguity and specifying oracles | The workflow keeps ambiguity resolution, final expected results, and bug confirmation under human control |
 
 ## 2. Assignment Requirements Checklist
 
-| Requirement | Evidence to Prepare | Status |
-| :--- | :--- | :--- |
-| Select 4 features, one from each pool | Feature list in README and main report | Planned |
-| Domain Testing for each feature | Step-by-step domain analysis and test cases | Planned |
-| Boundary Value Analysis for each feature | Boundary table and BVA test cases | Planned |
-| AI-first strategy with human review | Agent Skill demo, checkpoints, AI audit log | Planned |
-| AI gap analysis | Per-feature "AI Gap Analysis" section | Planned |
-| Bug report | Markdown bug table + GitHub Issues + screenshots | Planned |
-| AI Audit Report | Declaration + interaction logs | Planned |
-| AI Critique | 200-300 word critique | Planned |
-| Git commit log | `git_commit_log.txt` | Planned |
-| README | Self-assessment table, test summary, video links | Planned |
-| PDF copies | PDF export of required Markdown reports | Planned |
+| Requirement                              | Evidence to Prepare                              | Status  |
+| :--------------------------------------- | :----------------------------------------------- | :------ |
+| Select 4 features, one from each pool    | Feature list in README and main report           | Planned |
+| Domain Testing for each feature          | Step-by-step domain analysis and test cases      | Planned |
+| Boundary Value Analysis for each feature | Boundary table and BVA test cases                | Planned |
+| AI-first strategy with human review      | Agent Skill demo, checkpoints, AI audit log      | Planned |
+| AI gap analysis                          | Per-feature "AI Gap Analysis" section            | Planned |
+| Bug report                               | Markdown bug table + GitHub Issues + screenshots | Planned |
+| AI Audit Report                          | Declaration + interaction logs                   | Planned |
+| AI Critique                              | 200-300 word critique                            | Planned |
+| Git commit log                           | `git_commit_log.txt`                             | Planned |
+| README                                   | Self-assessment table, test summary, video links | Planned |
+| PDF copies                               | PDF export of required Markdown reports          | Planned |
 
 ## 3. Feature Scope
 
-| Pool | Feature | Surface | Suggested Focus |
-| :--- | :--- | :--- | :--- |
-| A | FR-04 Personal profile management | Web/API | Name, phone, shipping address, auth state |
-| B | FR-08 Checkout | Web/API | Cart state, total amount, shipping address, auth state |
-| C | FR-15 Product management CRUD | Admin/API | Product name, price, description, image URL, category, permissions |
-| D | FR-06 Mobile product detail view | Mobile/API | Product ID, loading states, unavailable product, display data |
+| Pool | Feature                           | Surface    | Suggested Focus                                                    |
+| :--- | :-------------------------------- | :--------- | :----------------------------------------------------------------- |
+| A    | FR-04 Personal profile management | Web/API    | Name, phone, shipping address, auth state                          |
+| B    | FR-08 Checkout                    | Web/API    | Cart state, total amount, shipping address, auth state             |
+| C    | FR-15 Product management CRUD     | Admin/API  | Product name, price, description, image URL, category, permissions |
+| D    | FR-06 Mobile product detail view  | Mobile/API | Product ID, loading states, unavailable product, display data      |
 
 ## 4. Workspace Structure
 
