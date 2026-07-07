@@ -43,6 +43,27 @@
     - C9: Xác nhận mật khẩu mới khớp hoàn toàn với Mật khẩu mới.
 
 #### Equivalence Classes
+- Bước 1: 
+    - E1: Chuỗi email đúng định dạng hợp lệ (vd: chứa đủ phần local, ký tự '@' và domain) - Valid
+    - E2: Chuỗi email sai định dạng (thiếu '@', thiếu phần local hoặc domain) - Invalid
+    - E3: Chuỗi email bị để trống - Invalid
+    - E4: Email đã tồn tại trong cơ sở dữ liệu của hệ thống - Valid
+    - E5: Email chưa từng được đăng ký trong cơ sở dữ liệu của hệ thống - Invalid
+- Bước 2:
+    - E6: Mã OTP trùng khớp hoàn toàn với mã đã gửi - Valid
+    - E7: Mã OTP không trùng khớp với mã đã gửi - Invalid
+    - E8: Mật khẩu mới có độ dài từ 8 ký tự trở lên - Valid
+    - E9: Mật khẩu mới có độ dài ít hơn 8 ký tự - Invalid
+    - E10: Mật khẩu mới có chứa ít nhất 1 chữ cái in hoa (A-Z) - Valid
+    - E11: Mật khẩu mới không chứa bất kỳ chữ cái in hoa nào - Invalid
+    - E12: Mật khẩu mới có chứa ít nhất 1 chữ cái in thường (a-z) - Valid
+    - E13: Mật khẩu mới không chứa bất kỳ chữ cái in thường nào - Invalid
+    - E14: Mật khẩu mới có chứa ít nhất 1 chữ số (0-9) - Valid
+    - E15: Mật khẩu mới không chứa bất kỳ chữ số nào - Invalid
+    - E16: Mật khẩu mới có chứa ít nhất 1 ký tự đặc biệt thuộc tập hợp (@, $, !, %, *, ?, &) - Valid
+    - E17: Mật khẩu mới không chứa bất kỳ ký tự đặc biệt nào thuộc tập hợp cho phép - Invalid
+    - E18: Chuỗi ký tự ở Xác nhận mật khẩu mới trùng khớp hoàn toàn với Mật khẩu mới - Valid
+    - E19: Chuỗi ký tự ở Xác nhận mật khẩu mới khác với Mật khẩu mới - Invalid
 
 #### Test data
 
@@ -80,6 +101,19 @@
 - C8: Đơn hàng ở trạng thái canceled là trạng thái kết thúc, không được phép chuyển sang bất kỳ trạng thái nào khác.
 
 #### Equivalence Classes
+- E1: Trạng thái hiện tại là pending, người thực hiện là Admin yêu cầu chuyển sang confirmed - Valid
+- E2: Trạng thái hiện tại là pending, người thực hiện là User yêu cầu chuyển sang confirmed - Invalid
+- E3: Trạng thái hiện tại là confirmed, người thực hiện là Admin yêu cầu chuyển sang shipping - Valid
+- E4: Trạng thái hiện tại là confirmed, người thực hiện là User yêu cầu chuyển sang shipping - Invalid
+- E5: Trạng thái hiện tại là shipping, người thực hiện là Admin yêu cầu chuyển sang delivered - Valid
+- E6: Trạng thái hiện tại là shipping, người thực hiện là User yêu cầu chuyển sang delivered - Invalid
+- E7: Trạng thái hiện tại là pending, người thực hiện là Admin hoặc User yêu cầu chuyển sang canceled - Valid
+- E8: Trạng thái hiện tại là confirmed, người thực hiện là Admin hoặc User yêu cầu chuyển sang canceled - Valid
+- E9: Trạng thái hiện tại là shipping, người thực hiện là Admin yêu cầu chuyển sang canceled - Valid
+- E10: Trạng thái hiện tại là shipping, người thực hiện là User yêu cầu chuyển sang canceled - Invalid
+- E11: Trạng thái hiện tại là delivered, có yêu cầu chuyển sang trạng thái bất kỳ khác - Invalid
+- E12: Trạng thái hiện tại là canceled, có yêu cầu chuyển sang trạng thái bất kỳ khác - Invalid
+
 
 #### Test data
 
@@ -96,7 +130,17 @@
 - C2: Tên danh mục không được để trống.
 
 #### Equivalence Classes
-
+- Thêm danh mục: 
+    - E1: Người thực hiện có vai trò là Admin - Valid
+    - E2: Người thực hiện không có vai trò là Admin - Invalid
+    - E3: Tên danh mục không bị để trống - Valid
+    - E4: Tên danh mục bị để trống - Invalid
+- Xóa danh mục: 
+    - E1: Người thực hiện có vai trò là Admin - Valid
+    - E2: Người thực hiện không có vai trò là Admin - Invalid
+- Xem chi tiết danh mục:
+    - E1: Người thực hiện có vai trò là Admin - Valid
+    - E2: Người thực hiện không có vai trò là Admin - Invalid
 #### Test data
 
 ### Boundary Value Analysis (BVA)
@@ -122,6 +166,24 @@
 - C9: Xác nhận mật khẩu khớp hoàn toàn với trường Mật khẩu
 
 #### Equivalence Classes
+- E1: Chuỗi họ tên có chứa ký tự hợp lệ (không bị để trống) - Valid
+- E2: Chuỗi họ tên bị để trống (chuỗi rỗng, null hoặc chỉ chứa khoảng trắng) - Invalid
+- E3: Chuỗi email đúng định dạng chuẩn (chứa phần local, ký tự '@', và tên miền hợp lệ) - Valid
+- E4: Chuỗi email sai định dạng chuẩn (thiếu '@', thiếu tên miền, sai cấu trúc) - Invalid
+- E5: Email chưa từng tồn tại trong cơ sở dữ liệu của hệ thống - Valid
+- E6: Email đã được đăng ký và tồn tại trong cơ sở dữ liệu của hệ thống - Invalid
+- E7: Mật khẩu có độ dài từ 8 ký tự trở lên - Valid
+- E8: Mật khẩu có độ dài nhỏ hơn 8 ký tự - Invalid
+- E9: Mật khẩu có chứa ít nhất 1 chữ cái in hoa (A-Z) - Valid
+- E10: Mật khẩu không chứa bất kỳ chữ cái in hoa nào - Invalid
+- E11: Mật khẩu có chứa ít nhất 1 chữ cái in thường (a-z) - Valid
+- E12: Mật khẩu không chứa bất kỳ chữ cái in thường nào - Invalid
+- E13: Mật khẩu có chứa ít nhất 1 chữ số (0-9) - Valid
+- E14: Mật khẩu không chứa bất kỳ chữ số nào - Invalid
+- E15: Mật khẩu có chứa ít nhất 1 ký tự đặc biệt thuộc tập hợp quy định (@, $, !, %, *, ?, &) - Valid
+- E16: Mật khẩu không chứa bất kỳ ký tự đặc biệt nào thuộc tập hợp quy định - Invalid
+- E17: Chuỗi ký tự trong trường Xác nhận mật khẩu trùng khớp hoàn toàn với trường Mật khẩu - Valid
+- E18: Chuỗi ký tự trong trường Xác nhận mật khẩu khác biệt (không khớp) với trường Mật khẩu - Invalid
 
 #### Test data
 
