@@ -205,3 +205,56 @@ Dựa trên mô tả chức năng trong file `report.md`, các biến đầu và
 
 **Nhận xét**:
 - Danh sách equivalence classes này chính xác và không có trường hợp nào bị lặp lại hoặc thiếu.
+
+## Interaction 9
+**AI Tool:** Gemini 3.1 Pro (Low)
+**Date and time:** 2026-07-07 21:40:26 +07:00
+**Prompt:**
+`ep-test-data-generator  Tính năng 3 - Pool A: Quên mật khẩu & Đặt lại mật khẩu (2 bước)`
+
+**Output:**
+### Bước 1: Yêu cầu OTP (Quên mật khẩu)
+
+| Test Case ID | Email | Output | Covered Classes |
+| --- | --- | --- | --- |
+| TC1 | `user_valid@gmail.com` | Hệ thống gửi OTP thành công và chuyển sang giao diện Bước 2 | E1, E4 |
+| TC2 | `user_validgmail.com` | Hệ thống báo lỗi định dạng email không hợp lệ | E2 |
+| TC3 | *(Để trống)* | Hệ thống báo lỗi không được để trống trường email | E3 |
+| TC4 | `unregistered@gmail.com` | Hệ thống báo lỗi email chưa được đăng ký trong hệ thống | E5 |
+
+### Bước 2: Đặt lại mật khẩu
+
+| Test Case ID | OTP | Mật khẩu mới | Xác nhận mật khẩu mới | Output | Covered Classes |
+| --- | --- | --- | --- | --- | --- |
+| TC1 | `123456` | `StrongP@ss1` | `StrongP@ss1` | Đặt lại mật khẩu thành công và hiển thị thông báo | E6, E8, E10, E12, E14, E16, E18 |
+| TC2 | `987654` | `StrongP@ss1` | `StrongP@ss1` | Hệ thống báo lỗi mã OTP không hợp lệ hoặc không chính xác | E7 |
+| TC3 | `123456` | `P@ss123` | `P@ss123` | Hệ thống báo lỗi mật khẩu mới phải từ 8 ký tự trở lên | E9 |
+| TC4 | `123456` | `strongp@ss1` | `strongp@ss1` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in hoa | E11 |
+| TC5 | `123456` | `STRONGP@SS1` | `STRONGP@SS1` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in thường | E13 |
+| TC6 | `123456` | `StrongP@ss` | `StrongP@ss` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ số | E15 |
+| TC7 | `123456` | `StrongPass1` | `StrongPass1` | Hệ thống báo lỗi mật khẩu phải chứa ký tự đặc biệt | E17 |
+| TC8 | `123456` | `StrongP@ss1` | `WrongP@ss99` | Hệ thống báo lỗi mật khẩu xác nhận không trùng khớp | E19 |
+
+**Nhận xét** Thiếu ghi chú rõ ràng mã OTP nhập đúng hay nhập sai. Thiếu ghi chú rõ ràng về việc nhập email đã được đăng ký hay chưa.
+
+## Interaction 10
+**AI Tool:** Gemini 3.1 Pro (Low)
+**Date and time:** 2026-07-07 22:00:22 +07:00
+**Prompt:**
+`ep-test-data-generator  Tính năng 10 - Pool B: Trạng thái Đơn hàng`
+
+**Output:**
+| Test Case ID | Role (Vai trò) | Current State (Trạng thái hiện tại) | Target State (Yêu cầu chuyển) | Output | Covered Classes |
+| --- | --- | --- | --- | --- | --- |
+| TC1 | `Admin` | `pending` | `confirmed` | Đơn hàng chuyển sang `confirmed` thành công | E1 |
+| TC2 | `User` | `pending` | `confirmed` | Báo lỗi không có quyền thay đổi trạng thái | E2 |
+| TC3 | `Admin` | `confirmed` | `shipping` | Đơn hàng chuyển sang `shipping` thành công | E3 |
+| TC4 | `User` | `confirmed` | `shipping` | Báo lỗi không có quyền thay đổi trạng thái | E4 |
+| TC5 | `Admin` | `shipping` | `delivered` | Đơn hàng chuyển sang `delivered` thành công | E5 |
+| TC6 | `User` | `shipping` | `delivered` | Báo lỗi không có quyền thay đổi trạng thái | E6 |
+| TC7 | `User` | `pending` | `canceled` | Đơn hàng chuyển sang `canceled` thành công | E7 |
+| TC8 | `Admin` | `confirmed` | `canceled` | Đơn hàng chuyển sang `canceled` thành công | E8 |
+| TC9 | `Admin` | `shipping` | `canceled` | Đơn hàng chuyển sang `canceled` thành công | E9 |
+| TC10 | `User` | `shipping` | `canceled` | Báo lỗi User không được phép hủy khi đang giao hàng | E10 |
+| TC11 | `User` | `delivered` | `canceled` | Báo lỗi không thể thay đổi từ trạng thái kết thúc | E11 |
+| TC12 | `Admin` | `canceled` | `pending` | Báo lỗi không thể thay đổi từ trạng thái kết thúc | E12 |

@@ -27,7 +27,7 @@ Khi thực thi skill này, Agent cần làm theo các bước sau:
    - Nhắc lại: Các dữ liệu đi kèm của các biến khác trong Test Case này phải là Valid.
 4. **Xuất kết quả (Output Format)**:
    - Trình bày kết quả dưới dạng Bảng Markdown (Markdown Table).
-   - Cấu trúc các cột: `Test Case ID` | `[Tên Biến 1]` | `[Tên Biến 2]` | ... | `Expected Result` | `Covered Classes` |
+   - Cấu trúc các cột: `Test Case ID` | `[Tên Biến 1]` | `[Tên Biến 2]` | ... | `Output` | `Covered Classes` |
    - Phân tách dữ liệu: Mỗi biến đầu vào (variable) phải được trình bày ở một cột riêng biệt, KHÔNG gộp chung tất cả vào một cột "Test Data".
 
 ## AI Behavior Constraints

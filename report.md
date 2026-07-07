@@ -66,6 +66,27 @@
     - E19: Chuỗi ký tự ở Xác nhận mật khẩu mới khác với Mật khẩu mới - Invalid
 
 #### Test data
+**Bước 1: Yêu cầu OTP (Quên mật khẩu)**
+
+| Test Case ID | Email | Output | Covered Classes |
+| --- | --- | --- | --- |
+| TC1 | *(Nhập đúng email đã đăng ký)* | Hệ thống gửi OTP thành công và chuyển sang giao diện Bước 2 | E1, E4 |
+| TC2 | `user_validgmail.com` | Hệ thống báo lỗi định dạng email không hợp lệ | E2 |
+| TC3 | *(Để trống)* | Hệ thống báo lỗi không được để trống trường email | E3 |
+| TC4 | *(Nhập email chưa được đăng ký)* | Hệ thống báo lỗi email chưa được đăng ký trong hệ thống | E5 |
+
+**Bước 2: Đặt lại mật khẩu**
+
+| Test Case ID | OTP | Mật khẩu mới | Xác nhận mật khẩu mới | Output | Covered Classes |
+| --- | --- | --- | --- | --- | --- |
+| TC1 | *(Nhập đúng mã OTP)* | `StrongP@ss1` | `StrongP@ss1` | Đặt lại mật khẩu thành công và hiển thị thông báo | E6, E8, E10, E12, E14, E16, E18 |
+| TC2 | *(Nhập sai mã OTP)* | `StrongP@ss1` | `StrongP@ss1` | Hệ thống báo lỗi mã OTP không hợp lệ hoặc không chính xác | E7 |
+| TC3 | *(Nhập đúng mã OTP)* | `P@ss123` | `P@ss123` | Hệ thống báo lỗi mật khẩu mới phải từ 8 ký tự trở lên | E9 |
+| TC4 | *(Nhập đúng mã OTP)* | `strongp@ss1` | `strongp@ss1` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in hoa | E11 |
+| TC5 | *(Nhập đúng mã OTP)* | `STRONGP@SS1` | `STRONGP@SS1` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in thường | E13 |
+| TC6 | *(Nhập đúng mã OTP)* | `StrongP@ss` | `StrongP@ss` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ số | E15 |
+| TC7 | *(Nhập đúng mã OTP)* | `StrongPass1` | `StrongPass1` | Hệ thống báo lỗi mật khẩu phải chứa ký tự đặc biệt | E17 |
+| TC8 | *(Nhập đúng mã OTP)* | `StrongP@ss1` | `WrongP@ss99` | Hệ thống báo lỗi mật khẩu xác nhận không trùng khớp | E19 |
 
 ### Boundary Value Analysis (BVA)
 
