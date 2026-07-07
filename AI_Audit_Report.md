@@ -258,3 +258,52 @@ Dựa trên mô tả chức năng trong file `report.md`, các biến đầu và
 | TC10 | `User` | `shipping` | `canceled` | Báo lỗi User không được phép hủy khi đang giao hàng | E10 |
 | TC11 | `User` | `delivered` | `canceled` | Báo lỗi không thể thay đổi từ trạng thái kết thúc | E11 |
 | TC12 | `Admin` | `canceled` | `pending` | Báo lỗi không thể thay đổi từ trạng thái kết thúc | E12 |
+
+## Interaction 11
+**AI Tool:** Gemini 3.1 Pro (Low)
+**Date and time:** 2026-07-07 22:15:26 +07:00
+**Prompt:**
+`ep-test-data-generator  Tính năng 14 - Pool C: Quản lý Danh mục`
+
+**Output:**
+### Thêm danh mục
+
+| Test Case ID | Vai trò (Role) | Tên danh mục | Output | Covered Classes |
+| --- | --- | --- | --- | --- |
+| TC1 | `Admin` | `Điện thoại di động` | Thêm danh mục thành công và hiển thị trên danh sách | E1, E3 |
+| TC2 | `User` | `Máy tính xách tay` | Trả về thông báo lỗi từ chối quyền truy cập (Access Denied) | E2 |
+| TC3 | `Admin` | *(Để trống)* | Báo lỗi tên danh mục là bắt buộc, không được để trống | E4 |
+
+### Xóa danh mục
+
+| Test Case ID | Vai trò (Role) | Danh mục mục tiêu | Output | Covered Classes |
+| --- | --- | --- | --- | --- |
+| TC4 | `Admin` | ID: `123` (Có tồn tại) | Xóa danh mục thành công và biến mất khỏi danh sách | E1 |
+| TC5 | `User` | ID: `123` (Có tồn tại) | Trả về thông báo lỗi từ chối quyền truy cập (Access Denied) | E2 |
+
+### Xem chi tiết danh mục
+
+| Test Case ID | Vai trò (Role) | Danh mục mục tiêu | Output | Covered Classes |
+| --- | --- | --- | --- | --- |
+| TC6 | `Admin` | ID: `123` (Có tồn tại) | Hiển thị thông tin chi tiết của danh mục | E1 |
+| TC7 | `User` | ID: `123` (Có tồn tại) | Trả về thông báo lỗi từ chối quyền truy cập (Access Denied) | E2 |
+
+## Interaction 12
+**AI Tool:** Gemini 3.1 Pro (Low)
+**Date and time:** 2026-07-07 22:21:26 +07:00
+**Prompt:**
+`ep-test-data-generator Tính năng 1 - Pool D (Mobile): Đăng ký tài khoản`
+
+**Output:**
+| Test Case ID | Họ tên | Email | Mật khẩu | Xác nhận mật khẩu | Output | Covered Classes |
+| --- | --- | --- | --- | --- | --- | --- |
+| TC1 | `Nguyen Van A` | `newuser@gmail.com` | `StrongP@ss1` | `StrongP@ss1` | Đăng ký thành công và chuyển tới trang Đăng nhập | E1, E3, E5, E7, E9, E11, E13, E15, E17 |
+| TC2 | *(Để trống)* | `newuser@gmail.com` | `StrongP@ss1` | `StrongP@ss1` | Báo lỗi họ tên không được để trống | E2 |
+| TC3 | `Nguyen Van A` | `newusergmail.com` | `StrongP@ss1` | `StrongP@ss1` | Báo lỗi định dạng email không hợp lệ | E4 |
+| TC4 | `Nguyen Van A` | `existeduser@gmail.com` | `StrongP@ss1` | `StrongP@ss1` | Báo lỗi email đã được đăng ký trong hệ thống | E6 |
+| TC5 | `Nguyen Van A` | `newuser@gmail.com` | `P@ss123` | `P@ss123` | Báo lỗi mật khẩu phải có độ dài từ 8 ký tự trở lên | E8 |
+| TC6 | `Nguyen Van A` | `newuser@gmail.com` | `strongp@ss1` | `strongp@ss1` | Báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in hoa | E10 |
+| TC7 | `Nguyen Van A` | `newuser@gmail.com` | `STRONGP@SS1` | `STRONGP@SS1` | Báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in thường | E12 |
+| TC8 | `Nguyen Van A` | `newuser@gmail.com` | `StrongP@ss` | `StrongP@ss` | Báo lỗi mật khẩu phải chứa ít nhất 1 chữ số | E14 |
+| TC9 | `Nguyen Van A` | `newuser@gmail.com` | `StrongPass1` | `StrongPass1` | Báo lỗi mật khẩu phải chứa ký tự đặc biệt | E16 |
+| TC10 | `Nguyen Van A` | `newuser@gmail.com` | `StrongP@ss1` | `WrongP@ss99` | Báo lỗi xác nhận mật khẩu không khớp | E18 |
