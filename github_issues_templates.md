@@ -1,5 +1,5 @@
 # Mẫu GitHub Issues - HW02
-Dưới đây là các tiêu đề và nội dung Markdown đã được biên soạn sẵn cho cả 7 lỗi (Bugs) phát hiện được. Bạn chỉ cần sao chép (copy) và dán (paste) trực tiếp vào trang tạo Issue mới trên GitHub của nhóm bạn, sau đó kéo thả hình ảnh chụp màn hình tương ứng vào mục `[Ảnh chụp minh họa]`.
+Dưới đây là các tiêu đề và nội dung Markdown đã được biên soạn sẵn cho các lỗi (Bugs) phát hiện được. Bạn chỉ cần sao chép (copy) và dán (paste) trực tiếp vào trang tạo Issue mới trên GitHub của nhóm bạn, sau đó kéo thả hình ảnh chụp màn hình tương ứng vào mục `[Ảnh chụp minh họa]`.
 ---
 ## ISSUE #1: BUG-FR02-01
 *   **Tiêu đề Issue (Title):** `[BUG-FR02-01] Tài khoản bị tạm khóa sớm sau 2 lần đăng nhập sai liên tiếp (lần thứ 3 bị chặn)`
@@ -370,3 +370,267 @@ Khi gửi đồng thời nhiều request ghi nhận sử dụng mã giảm giá 
 [Kéo thả ảnh chụp màn hình kiểm thử tại đây]
 ```
 
+
+---
+## ISSUE #15: BUG-FR17-01
+*   **Tiêu đề Issue (Title):** `[BUG-FR17-01] API Admin tạo coupon không kiểm tra role Admin`
+*   **Nhãn (Labels):** `bug`, `security`, `critical-severity`
+### Nội dung Issue (Body):
+```markdown
+### 📝 Mô tả lỗi
+Theo FR-12, các API Admin hoặc API có tác động dữ liệu phải yêu cầu token hợp lệ và role Admin. Tuy nhiên endpoint tạo coupon chấp nhận token của user thường và tạo bản ghi coupon mới.
+
+### 🛠️ Các bước tái hiện (Steps to Reproduce)
+1. Đăng nhập bằng tài khoản user thường `test@eshop.com` để lấy token hợp lệ.
+2. Do giao diện Admin chặn user thường ở màn hình đăng nhập, gửi trực tiếp request `POST /api/admin/coupons` với header `Authorization: Bearer <user_token>`.
+3. Dùng body coupon hợp lệ, ví dụ `code = "TET2025"`, `type = "percent"`, `discount_value = 15`, `expired_at = "2027-01-31"`, `min_order_amount = 200000`, `max_uses_per_user = 1`.
+4. Quan sát response.
+
+### 🎯 Kết quả mong đợi (Expected Output)
+* Server từ chối request với lỗi không đủ quyền (`403 Forbidden` hoặc lỗi phân quyền tương đương) và không tạo coupon.
+
+### 🚫 Kết quả thực tế (Actual Output)
+* Server trả HTTP `200 OK` với body `{"message":"Coupon created","id":5}`.
+
+### 💻 Môi trường kiểm thử
+* **OS:** macOS
+* **SUT Backend:** http://localhost:3000
+
+### 📸 Ảnh chụp minh họa (Bug Screenshot)
+[Kéo thả ảnh chụp màn hình kiểm thử tại đây]
+```
+
+---
+## ISSUE #16: BUG-FR17-02
+*   **Tiêu đề Issue (Title):** `[BUG-FR17-02] API tạo coupon không validate trường code bắt buộc`
+*   **Nhãn (Labels):** `bug`, `high-severity`
+### Nội dung Issue (Body):
+```markdown
+### 📝 Mô tả lỗi
+Endpoint `POST /api/admin/coupons` không chặn `code` rỗng. Vì vậy hệ thống vẫn tạo coupon mới dù mã giảm giá không có giá trị định danh hợp lệ.
+
+### 🛠️ Các bước tái hiện (Steps to Reproduce)
+1. Đăng nhập bằng tài khoản Admin `admin@eshop.com`.
+2. Vì form UI có thuộc tính `required` cho ô mã coupon, gửi trực tiếp request `POST /api/admin/coupons` để kiểm tra validation phía backend.
+3. Dùng body có `code = ""`, các trường còn lại hợp lệ.
+4. Quan sát status code và body response.
+
+### 🎯 Kết quả mong đợi (Expected Output)
+* Server trả lỗi validation, không tạo coupon mới, và thông báo `code` là trường bắt buộc.
+
+### 🚫 Kết quả thực tế (Actual Output)
+* Server trả HTTP `200 OK` với body `{"message":"Coupon created","id":5}`.
+
+### 💻 Môi trường kiểm thử
+* **OS:** macOS
+* **SUT Backend:** http://localhost:3000
+
+### 📸 Ảnh chụp minh họa (Bug Screenshot)
+[Kéo thả ảnh chụp màn hình kiểm thử tại đây]
+```
+
+---
+## ISSUE #17: BUG-FR17-03
+*   **Tiêu đề Issue (Title):** `[BUG-FR17-03] API tạo coupon không validate miền giá trị type`
+*   **Nhãn (Labels):** `bug`, `high-severity`
+### Nội dung Issue (Body):
+```markdown
+### 📝 Mô tả lỗi
+Endpoint tạo coupon không kiểm tra `type` thuộc tập hợp hợp lệ `percent` hoặc `fixed`, đồng thời vẫn chấp nhận request thiếu `type`.
+
+### 🛠️ Các bước tái hiện (Steps to Reproduce)
+1. Đăng nhập bằng tài khoản Admin.
+2. Vì giao diện Admin chỉ cho chọn `percent` hoặc `fixed`, gửi trực tiếp request `POST /api/admin/coupons` để kiểm tra validation phía backend.
+3. Gửi một request với `type = "cashback"`.
+4. Gửi một request khác với body thiếu trường `type`.
+5. Quan sát response của từng request.
+
+### 🎯 Kết quả mong đợi (Expected Output)
+* Server trả lỗi validation và không tạo coupon vì loại coupon không hợp lệ hoặc bị thiếu.
+
+### 🚫 Kết quả thực tế (Actual Output)
+* Cả hai payload invalid đều được tạo coupon thành công với HTTP `200 OK` và body `{"message":"Coupon created","id":5}`.
+
+### 💻 Môi trường kiểm thử
+* **OS:** macOS
+* **SUT Backend:** http://localhost:3000
+
+### 📸 Ảnh chụp minh họa (Bug Screenshot)
+[Kéo thả ảnh chụp màn hình kiểm thử tại đây]
+```
+
+---
+## ISSUE #18: BUG-FR17-04
+*   **Tiêu đề Issue (Title):** `[BUG-FR17-04] API tạo coupon không validate discount_value`
+*   **Nhãn (Labels):** `bug`, `high-severity`
+### Nội dung Issue (Body):
+```markdown
+### 📝 Mô tả lỗi
+Endpoint tạo coupon không kiểm tra giá trị giảm là số dương. Hệ thống vẫn tạo coupon khi `discount_value` bằng 0, âm hoặc là chuỗi sai kiểu dữ liệu.
+
+### 🛠️ Các bước tái hiện (Steps to Reproduce)
+1. Đăng nhập bằng tài khoản Admin.
+2. Trên tab **Mã Giảm Giá**, nhập một coupon mới với các trường hợp lệ, nhưng đặt **Giá trị** bằng `0`, sau đó bấm **Tạo mã**.
+3. Lặp lại thao tác trên với **Giá trị** bằng `-5`.
+4. Với trường hợp sai kiểu dữ liệu (`discount_value = "abc"`), gửi trực tiếp API vì input số trên UI không cho nhập chữ.
+5. Quan sát coupon có được tạo hay không và response của từng request.
+
+### 🎯 Kết quả mong đợi (Expected Output)
+* Server trả lỗi validation và không tạo coupon vì giá trị giảm phải là số dương hợp lệ.
+
+### 🚫 Kết quả thực tế (Actual Output)
+* Các payload invalid vẫn được tạo coupon thành công với HTTP `200 OK` và body `{"message":"Coupon created","id":5}`.
+
+### 💻 Môi trường kiểm thử
+* **OS:** macOS
+* **SUT Frontend/Backend:** http://localhost:3000
+
+### 📸 Ảnh chụp minh họa (Bug Screenshot)
+[Kéo thả ảnh chụp màn hình kiểm thử tại đây]
+```
+
+---
+## ISSUE #19: BUG-FR17-05
+*   **Tiêu đề Issue (Title):** `[BUG-FR17-05] API tạo coupon không validate expired_at`
+*   **Nhãn (Labels):** `bug`, `high-severity`
+### Nội dung Issue (Body):
+```markdown
+### 📝 Mô tả lỗi
+Endpoint tạo coupon không kiểm tra ngày hết hạn là trường bắt buộc và có định dạng ngày hợp lệ. Hệ thống vẫn tạo coupon khi thiếu `expired_at` hoặc truyền giá trị không phải ngày.
+
+### 🛠️ Các bước tái hiện (Steps to Reproduce)
+1. Đăng nhập bằng tài khoản Admin.
+2. Vì form UI dùng input ngày bắt buộc, gửi trực tiếp request `POST /api/admin/coupons` để kiểm tra validation phía backend.
+3. Gửi một request với body thiếu `expired_at`.
+4. Gửi một request khác với `expired_at = "not-a-date"`.
+5. Quan sát response của từng request.
+
+### 🎯 Kết quả mong đợi (Expected Output)
+* Server trả lỗi validation và không tạo coupon vì ngày hết hạn bị thiếu hoặc sai định dạng.
+
+### 🚫 Kết quả thực tế (Actual Output)
+* Các payload invalid vẫn được tạo coupon thành công với HTTP `200 OK` và body `{"message":"Coupon created","id":5}`.
+
+### 💻 Môi trường kiểm thử
+* **OS:** macOS
+* **SUT Backend:** http://localhost:3000
+
+### 📸 Ảnh chụp minh họa (Bug Screenshot)
+[Kéo thả ảnh chụp màn hình kiểm thử tại đây]
+```
+
+---
+## ISSUE #20: BUG-FR17-06
+*   **Tiêu đề Issue (Title):** `[BUG-FR17-06] API tạo coupon không validate min_order_amount`
+*   **Nhãn (Labels):** `bug`, `high-severity`
+### Nội dung Issue (Body):
+```markdown
+### 📝 Mô tả lỗi
+Endpoint tạo coupon không kiểm tra giá trị đơn tối thiểu phải là số không âm. Hệ thống vẫn tạo coupon khi `min_order_amount` âm hoặc sai kiểu dữ liệu.
+
+### 🛠️ Các bước tái hiện (Steps to Reproduce)
+1. Đăng nhập bằng tài khoản Admin.
+2. Trên tab **Mã Giảm Giá**, nhập một coupon mới với các trường hợp lệ, nhưng đặt **Đơn tối thiểu** bằng `-1`, sau đó bấm **Tạo mã**.
+3. Với trường hợp sai kiểu dữ liệu (`min_order_amount = "two hundred"`), gửi trực tiếp API vì input số trên UI không cho nhập chữ.
+4. Quan sát coupon có được tạo hay không và response của từng request.
+
+### 🎯 Kết quả mong đợi (Expected Output)
+* Server trả lỗi validation và không tạo coupon vì giá trị đơn tối thiểu không hợp lệ.
+
+### 🚫 Kết quả thực tế (Actual Output)
+* Các payload invalid vẫn được tạo coupon thành công với HTTP `200 OK` và body `{"message":"Coupon created","id":5}`.
+
+### 💻 Môi trường kiểm thử
+* **OS:** macOS
+* **SUT Frontend/Backend:** http://localhost:3000
+
+### 📸 Ảnh chụp minh họa (Bug Screenshot)
+[Kéo thả ảnh chụp màn hình kiểm thử tại đây]
+```
+
+---
+## ISSUE #21: BUG-FR17-07
+*   **Tiêu đề Issue (Title):** `[BUG-FR17-07] API tạo coupon không validate max_uses_per_user`
+*   **Nhãn (Labels):** `bug`, `high-severity`
+### Nội dung Issue (Body):
+```markdown
+### 📝 Mô tả lỗi
+Endpoint tạo coupon không kiểm tra số lượt dùng tối đa mỗi người phải là số nguyên tối thiểu 1. Hệ thống vẫn tạo coupon khi `max_uses_per_user = 0`.
+
+### 🛠️ Các bước tái hiện (Steps to Reproduce)
+1. Đăng nhập bằng tài khoản Admin.
+2. Vì form UI đặt `min = 1` cho ô số lần dùng tối đa/người, gửi trực tiếp request `POST /api/admin/coupons` để kiểm tra validation phía backend.
+3. Dùng body có `max_uses_per_user = 0`, các trường còn lại hợp lệ.
+4. Quan sát response.
+
+### 🎯 Kết quả mong đợi (Expected Output)
+* Server trả lỗi validation và không tạo coupon vì số lượt dùng tối đa mỗi user phải tối thiểu 1.
+
+### 🚫 Kết quả thực tế (Actual Output)
+* Payload invalid vẫn được tạo coupon thành công với HTTP `200 OK` và body `{"message":"Coupon created","id":5}`.
+
+### 💻 Môi trường kiểm thử
+* **OS:** macOS
+* **SUT Backend:** http://localhost:3000
+
+### 📸 Ảnh chụp minh họa (Bug Screenshot)
+[Kéo thả ảnh chụp màn hình kiểm thử tại đây]
+```
+
+---
+## ISSUE #22: BUG-FR17-08
+*   **Tiêu đề Issue (Title):** `[BUG-FR17-08] Tạo coupon trùng mã trả lỗi 500 và lộ lỗi SQLite`
+*   **Nhãn (Labels):** `bug`, `medium-severity`
+### Nội dung Issue (Body):
+```markdown
+### 📝 Mô tả lỗi
+Ràng buộc unique của `code` có tồn tại, nhưng khi tạo coupon trùng mã hệ thống để lỗi tầng cơ sở dữ liệu trồi thẳng ra response dưới dạng HTTP 500, thay vì trả lỗi nghiệp vụ thân thiện như mã giảm giá đã tồn tại.
+
+### 🛠️ Các bước tái hiện (Steps to Reproduce)
+1. Đăng nhập bằng tài khoản Admin.
+2. Mở tab **Mã Giảm Giá**.
+3. Nhập mã coupon đã tồn tại trong danh sách, ví dụ `SAVE10`, cùng các trường còn lại hợp lệ.
+4. Bấm **Tạo mã** và quan sát thông báo lỗi/response.
+
+### 🎯 Kết quả mong đợi (Expected Output)
+* Server trả lỗi xung đột/validation và thông báo nghiệp vụ rằng mã giảm giá đã tồn tại.
+
+### 🚫 Kết quả thực tế (Actual Output)
+* Server trả HTTP `500 Internal Server Error` với body chứa lỗi `SQLITE_CONSTRAINT: UNIQUE constraint failed: coupons.code`.
+
+### 💻 Môi trường kiểm thử
+* **OS:** macOS
+* **SUT Frontend/Backend:** http://localhost:3000
+
+### 📸 Ảnh chụp minh họa (Bug Screenshot)
+[Kéo thả ảnh chụp màn hình kiểm thử tại đây]
+```
+
+---
+## ISSUE #23: BUG-FR17-09
+*   **Tiêu đề Issue (Title):** `[BUG-FR17-09] Xóa coupon không tồn tại vẫn báo thành công`
+*   **Nhãn (Labels):** `bug`, `high-severity`
+### Nội dung Issue (Body):
+```markdown
+### 📝 Mô tả lỗi
+Endpoint xóa coupon không kiểm tra số dòng bị xóa hoặc trạng thái tồn tại của ID. Vì vậy request xóa ID không tồn tại hoặc ID biên không hợp lệ vẫn được phản hồi như thành công.
+
+### 🛠️ Các bước tái hiện (Steps to Reproduce)
+1. Đăng nhập bằng tài khoản Admin.
+2. Vì giao diện chỉ hiển thị nút xóa cho coupon đang tồn tại trong danh sách, gửi trực tiếp request `DELETE /api/admin/coupons/999999`.
+3. Gửi thêm request `DELETE /api/admin/coupons/0` để kiểm tra biên ID không hợp lệ.
+4. Quan sát response.
+
+### 🎯 Kết quả mong đợi (Expected Output)
+* Server trả lỗi không tìm thấy hoặc lỗi validation ID, và UI/client giữ nguyên danh sách coupon.
+
+### 🚫 Kết quả thực tế (Actual Output)
+* Cả hai request đều trả HTTP `200 OK` với body `{"message":"Coupon deleted"}`.
+
+### 💻 Môi trường kiểm thử
+* **OS:** macOS
+* **SUT Backend:** http://localhost:3000
+
+### 📸 Ảnh chụp minh họa (Bug Screenshot)
+[Kéo thả ảnh chụp màn hình kiểm thử tại đây]
+```

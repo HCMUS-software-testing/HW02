@@ -8,31 +8,45 @@
 
 ## 1. Danh sách lỗi tổng hợp (Bug List)
 
-Dưới đây là danh sách các lỗi phát hiện được đối với các tính năng **FR-02** và **FR-09** dựa trên việc chạy thực tế và đối chiếu hành vi của hệ thống (ở mức Giao diện UI và API phản hồi) với tài liệu đặc tả yêu cầu (Kiểm thử hộp đen - Black-box testing):
+Dưới đây là danh sách các lỗi phát hiện được đối với các tính năng **FR-02**, **FR-09** và **FR-17** dựa trên việc chạy thực tế và đối chiếu hành vi của hệ thống (ở mức Giao diện UI và API phản hồi) với tài liệu đặc tả yêu cầu (Kiểm thử hộp đen - Black-box testing):
 
 ### 1.1. Pool A: FR-02: Đăng nhập & Khóa tài khoản
 
-| Mã Bug | Tên lỗi (Bug Name) | Mã TC phát hiện | Mô tả hành vi lỗi quan sát | Độ nghiêm trọng (Severity) | Trạng thái |
-| :---: | :--- | :---: | :--- | :---: | :---: |
-| **BUG-FR02-01** | Tài khoản bị tạm khóa sớm sau 2 lần đăng nhập sai liên tiếp (lần thứ 3 bị chặn) | `TC05`, `TC-BVA-02`, `TC-BVA-03` | Tài khoản bị khóa ngay sau 2 lần đăng nhập sai liên tiếp (lần thứ 3 bị chặn 403), trong khi đặc tả yêu cầu sai từ 3 lần liên tiếp mới khóa (lần thứ 4 mới bị chặn 403). | **High** | Open |
-| **BUG-FR02-02** | Tài khoản không tự động mở khóa sau 30 giây như đặc tả | `TC-BVA-07` | Khi tài khoản bị tạm khóa, tài khoản vẫn tiếp tục bị khóa và không tự động mở khóa sau thời hạn 30 giây như quy định của đặc tả. | **High** | Open |
-| **BUG-FR02-03** | API đăng nhập thành công trả về trường mật khẩu dưới dạng văn bản rõ (plaintext) | `TC01`, `TC-BVA-01` | Payload phản hồi của API khi đăng nhập thành công chứa thuộc tính mật khẩu người dùng, gây nguy cơ rò rỉ dữ liệu nhạy cảm. | **Critical** | Open |
-| **BUG-FR02-04** | Trường Email trên giao diện Web và Admin không kiểm tra định dạng HTML5 ở client | `TC03` | Trường Email đăng nhập sử dụng thẻ input có type="text" thay vì type="email", cho phép gửi dữ liệu email sai định dạng lên backend. | **High** | Open |
-| **BUG-FR02-05** | Hệ thống không vô hiệu hóa phiên làm việc (JWT Token) cũ khi tài khoản bị tạm khóa | `TC09` | JWT Token cũ đã cấp từ trước vẫn có quyền gọi API lấy dữ liệu nhạy cảm bình thường ngay cả khi tài khoản đã bị khóa ở session khác. | **Critical** | Open |
-| **BUG-FR02-06** | Backend API đăng nhập không kiểm tra định dạng email trước khi truy vấn cơ sở dữ liệu | `TC10` | API `/api/login` cho phép gửi định dạng email sai bất kỳ lên server và thực hiện câu lệnh SQL SELECT trực tiếp mà không chặn sớm. | **Medium** | Open |
-| **BUG-FR02-07** | Lỗ hổng Race Condition cho phép gửi song song nhiều request vượt cơ chế khóa | `TC08` | Khi gửi 5 request đăng nhập sai đồng thời qua API trong 1ms, tất cả đều được xử lý thành công (trả về 401) thay vì bị chặn từ lần 3. | **High** | Open |
+|     Mã Bug      | Tên lỗi (Bug Name)                                                                    |         Mã TC phát hiện          | Mô tả hành vi lỗi quan sát                                                                                                                                              | Độ nghiêm trọng (Severity) | Trạng thái |
+| :-------------: | :------------------------------------------------------------------------------------ | :------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------: | :--------: |
+| **BUG-FR02-01** | Tài khoản bị tạm khóa sớm sau 2 lần đăng nhập sai liên tiếp (lần thứ 3 bị chặn)       | `TC05`, `TC-BVA-02`, `TC-BVA-03` | Tài khoản bị khóa ngay sau 2 lần đăng nhập sai liên tiếp (lần thứ 3 bị chặn 403), trong khi đặc tả yêu cầu sai từ 3 lần liên tiếp mới khóa (lần thứ 4 mới bị chặn 403). |          **High**          |    Open    |
+| **BUG-FR02-02** | Tài khoản không tự động mở khóa sau 30 giây như đặc tả                                |           `TC-BVA-07`            | Khi tài khoản bị tạm khóa, tài khoản vẫn tiếp tục bị khóa và không tự động mở khóa sau thời hạn 30 giây như quy định của đặc tả.                                        |          **High**          |    Open    |
+| **BUG-FR02-03** | API đăng nhập thành công trả về trường mật khẩu dưới dạng văn bản rõ (plaintext)      |       `TC01`, `TC-BVA-01`        | Payload phản hồi của API khi đăng nhập thành công chứa thuộc tính mật khẩu người dùng, gây nguy cơ rò rỉ dữ liệu nhạy cảm.                                              |        **Critical**        |    Open    |
+| **BUG-FR02-04** | Trường Email trên giao diện Web và Admin không kiểm tra định dạng HTML5 ở client      |              `TC03`              | Trường Email đăng nhập sử dụng thẻ input có type="text" thay vì type="email", cho phép gửi dữ liệu email sai định dạng lên backend.                                     |          **High**          |    Open    |
+| **BUG-FR02-05** | Hệ thống không vô hiệu hóa phiên làm việc (JWT Token) cũ khi tài khoản bị tạm khóa    |              `TC09`              | JWT Token cũ đã cấp từ trước vẫn có quyền gọi API lấy dữ liệu nhạy cảm bình thường ngay cả khi tài khoản đã bị khóa ở session khác.                                     |        **Critical**        |    Open    |
+| **BUG-FR02-06** | Backend API đăng nhập không kiểm tra định dạng email trước khi truy vấn cơ sở dữ liệu |              `TC10`              | API `/api/login` cho phép gửi định dạng email sai bất kỳ lên server và thực hiện câu lệnh SQL SELECT trực tiếp mà không chặn sớm.                                       |         **Medium**         |    Open    |
+| **BUG-FR02-07** | Lỗ hổng Race Condition cho phép gửi song song nhiều request vượt cơ chế khóa          |              `TC08`              | Khi gửi 5 request đăng nhập sai đồng thời qua API trong 1ms, tất cả đều được xử lý thành công (trả về 401) thay vì bị chặn từ lần 3.                                    |          **High**          |    Open    |
 
 ### 1.2. Pool B: FR-09: Mã Giảm Giá (Coupon)
 
-| Mã Bug | Tên lỗi (Bug Name) | Mã TC phát hiện | Mô tả hành vi lỗi quan sát | Độ nghiêm trọng (Severity) | Trạng thái |
-| :---: | :--- | :---: | :--- | :---: | :---: |
-| **BUG-FR09-01** | Lỗi tính toán sai số tiền được giảm cho coupon loại phần trăm (percent) | `TC01`, `TC-BVA-03`, `TC-BVA-06` | Coupon phần trăm (ví dụ giảm 10% cho đơn 500,000 ₫) bị tính sai công thức khiến giá trị discount bị âm (-4,500,000 ₫) và tổng tiền cuối cùng tăng vọt (5,000,000 ₫). | **High** | Open |
-| **BUG-FR09-02** | So sánh sai biên tối thiểu khiến đơn hàng bằng đúng ngưỡng tối thiểu bị từ chối | `TC-BVA-01` | Đơn hàng có tổng tiền đúng bằng ngưỡng tối thiểu áp dụng mã (300,000 ₫) vẫn bị hệ thống báo lỗi không đủ điều kiện tối thiểu. | **High** | Open |
-| **BUG-FR09-03** | Lỗ hổng API kiểm tra mã giảm giá (`/api/apply-coupon`) không xác thực Token JWT | `TC11` | API `/api/apply-coupon` không yêu cầu xác thực JWT, cho phép bất kỳ ai (kể cả chưa đăng nhập) gọi API thành công. | **Critical** | Open |
-| **BUG-FR09-04** | Hệ thống cho phép giả mạo `user_id` (ID Spoofing) hoặc bỏ trống `user_id` khi áp dụng mã giảm giá | `TC09`, `TC10` | Backend lấy `user_id` trực tiếp từ request body để kiểm tra số lần dùng mà không đối chiếu với token, hoặc bỏ qua kiểm tra nếu bỏ trống `user_id`. | **Critical** | Open |
-| **BUG-FR09-05** | Lỗ hổng Checkout Bypass - API thanh toán (`/api/checkout`) không xác thực lại các điều kiện mã giảm giá | `TC15` | API `/api/checkout` nhận trực tiếp tổng số tiền đã giảm từ body mà không kiểm tra hay validate lại tính hợp lệ của mã giảm giá trên backend. | **Critical** | Open |
-| **BUG-FR09-06** | Lỗi xử lý thông điệp phản hồi không khớp cho dữ liệu đầu vào không hợp lệ (số tiền âm hoặc sai kiểu dữ liệu) | `TC07`, `TC08` | Khi gửi số tiền âm (-50k) hoặc sai kiểu chữ, hệ thống báo lỗi sai nghiệp vụ: "Đơn hàng chưa đủ giá trị tối thiểu..." thay vì báo lỗi định dạng/số tiền không hợp lệ. | **Medium** | Open |
-| **BUG-FR09-07** | Lỗ hổng Race Condition (Double Use) cho phép ghi nhận sử dụng mã giảm giá nhiều lần | `TC14` | Gửi đồng thời các request ghi nhận sử dụng mã (`/api/coupon-usage`) trong cùng 1ms cho phép ghi nhận vượt quá số lần tối đa quy định của coupon. | **High** | Open |
+|     Mã Bug      | Tên lỗi (Bug Name)                                                                                           |         Mã TC phát hiện          | Mô tả hành vi lỗi quan sát                                                                                                                                           | Độ nghiêm trọng (Severity) | Trạng thái |
+| :-------------: | :----------------------------------------------------------------------------------------------------------- | :------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------: | :--------: |
+| **BUG-FR09-01** | Lỗi tính toán sai số tiền được giảm cho coupon loại phần trăm (percent)                                      | `TC01`, `TC-BVA-03`, `TC-BVA-06` | Coupon phần trăm (ví dụ giảm 10% cho đơn 500,000 ₫) bị tính sai công thức khiến giá trị discount bị âm (-4,500,000 ₫) và tổng tiền cuối cùng tăng vọt (5,000,000 ₫). |          **High**          |    Open    |
+| **BUG-FR09-02** | So sánh sai biên tối thiểu khiến đơn hàng bằng đúng ngưỡng tối thiểu bị từ chối                              |           `TC-BVA-01`            | Đơn hàng có tổng tiền đúng bằng ngưỡng tối thiểu áp dụng mã (300,000 ₫) vẫn bị hệ thống báo lỗi không đủ điều kiện tối thiểu.                                        |          **High**          |    Open    |
+| **BUG-FR09-03** | Lỗ hổng API kiểm tra mã giảm giá (`/api/apply-coupon`) không xác thực Token JWT                              |              `TC11`              | API `/api/apply-coupon` không yêu cầu xác thực JWT, cho phép bất kỳ ai (kể cả chưa đăng nhập) gọi API thành công.                                                    |        **Critical**        |    Open    |
+| **BUG-FR09-04** | Hệ thống cho phép giả mạo `user_id` (ID Spoofing) hoặc bỏ trống `user_id` khi áp dụng mã giảm giá            |          `TC09`, `TC10`          | Backend lấy `user_id` trực tiếp từ request body để kiểm tra số lần dùng mà không đối chiếu với token, hoặc bỏ qua kiểm tra nếu bỏ trống `user_id`.                   |        **Critical**        |    Open    |
+| **BUG-FR09-05** | Lỗ hổng Checkout Bypass - API thanh toán (`/api/checkout`) không xác thực lại các điều kiện mã giảm giá      |              `TC15`              | API `/api/checkout` nhận trực tiếp tổng số tiền đã giảm từ body mà không kiểm tra hay validate lại tính hợp lệ của mã giảm giá trên backend.                         |        **Critical**        |    Open    |
+| **BUG-FR09-06** | Lỗi xử lý thông điệp phản hồi không khớp cho dữ liệu đầu vào không hợp lệ (số tiền âm hoặc sai kiểu dữ liệu) |          `TC07`, `TC08`          | Khi gửi số tiền âm (-50k) hoặc sai kiểu chữ, hệ thống báo lỗi sai nghiệp vụ: "Đơn hàng chưa đủ giá trị tối thiểu..." thay vì báo lỗi định dạng/số tiền không hợp lệ. |         **Medium**         |    Open    |
+| **BUG-FR09-07** | Lỗ hổng Race Condition (Double Use) cho phép ghi nhận sử dụng mã giảm giá nhiều lần                          |              `TC14`              | Gửi đồng thời các request ghi nhận sử dụng mã (`/api/coupon-usage`) trong cùng 1ms cho phép ghi nhận vượt quá số lần tối đa quy định của coupon.                     |          **High**          |    Open    |
+
+### 1.3. Pool C: FR-17: Quản lý Mã Giảm Giá (Coupon CRUD)
+
+|     Mã Bug      | Tên lỗi (Bug Name)                                   |           Mã TC phát hiện           | Mô tả hành vi lỗi quan sát                                                                                                                          | Độ nghiêm trọng (Severity) | Trạng thái |
+| :-------------: | :--------------------------------------------------- | :---------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------: | :--------: |
+| **BUG-FR17-01** | API Admin tạo coupon không kiểm tra role Admin       |               `TC05`                | Token của user thường vẫn gọi `POST /api/admin/coupons` thành công và tạo coupon mới với HTTP 200.                                                  |        **Critical**        |    Open    |
+| **BUG-FR17-02** | API tạo coupon không validate trường `code` bắt buộc |         `TC06`, `TC-BVA-01`         | Backend vẫn tạo coupon khi `code` rỗng, trong khi mã giảm giá là trường bắt buộc và phải định danh được coupon.                                     |          **High**          |    Open    |
+| **BUG-FR17-03** | API tạo coupon không validate miền giá trị `type`    |           `TC08`, `TC09`            | Backend vẫn tạo coupon khi `type` ngoài tập cho phép hoặc thiếu `type`, thay vì chỉ chấp nhận `percent` hoặc `fixed`.                               |          **High**          |    Open    |
+| **BUG-FR17-04** | API tạo coupon không validate `discount_value`       | `TC10`, `TC11`, `TC12`, `TC-BVA-03` | Backend vẫn tạo coupon khi `discount_value` bằng 0, âm hoặc sai kiểu dữ liệu.                                                                       |          **High**          |    Open    |
+| **BUG-FR17-05** | API tạo coupon không validate `expired_at`           |           `TC13`, `TC14`            | Backend vẫn tạo coupon khi thiếu ngày hết hạn hoặc ngày hết hạn sai định dạng.                                                                      |          **High**          |    Open    |
+| **BUG-FR17-06** | API tạo coupon không validate `min_order_amount`     |     `TC15`, `TC16`, `TC-BVA-05`     | Backend vẫn tạo coupon khi giá trị đơn tối thiểu âm hoặc sai kiểu dữ liệu.                                                                          |          **High**          |    Open    |
+| **BUG-FR17-07** | API tạo coupon không validate `max_uses_per_user`    |         `TC17`, `TC-BVA-07`         | Backend vẫn tạo coupon khi số lượt dùng tối đa mỗi user bằng 0, vi phạm miền hợp lệ tối thiểu 1.                                                    |          **High**          |    Open    |
+| **BUG-FR17-08** | Tạo coupon trùng mã trả lỗi 500 và lộ lỗi SQLite     |           `TC07`, `TC19`            | Khi `code` bị trùng, API trả HTTP 500 kèm thông báo `SQLITE_CONSTRAINT`, thay vì lỗi nghiệp vụ/validation về mã đã tồn tại.                         |         **Medium**         |    Open    |
+| **BUG-FR17-09** | Xóa coupon không tồn tại vẫn báo thành công          |         `TC18`, `TC-BVA-09`         | `DELETE /api/admin/coupons/999999` và `DELETE /api/admin/coupons/0` đều trả HTTP 200 với thông báo xóa thành công dù không có coupon hợp lệ bị xóa. |          **High**          |    Open    |
 
 ---
 
@@ -268,12 +282,148 @@ Dưới đây là danh sách các lỗi phát hiện được đối với các 
 
 ---
 
-## Danh sách lỗi tổng hợp - FR-17: Quản lý Mã Giảm Giá (Coupon CRUD)
+## Pool C: FR-17: Quản lý Mã Giảm Giá (Coupon CRUD)
 
-> ⚠️ **Lưu ý:** Các test case cho FR-17 chưa được thực thi. Section này sẽ được bổ sung sau khi hoàn thành chạy kiểm thử.
+### BUG-FR17-01: API Admin tạo coupon không kiểm tra role Admin
 
-*Sau khi thực thi các test cases trong Main_Report.md (phần Pool C: FR-17) và điền kết quả Actual Output, hãy tổng hợp các test case Fail thành các mục BUG theo format sau:*
+*   **Mô tả lỗi:** Theo FR-12, các API Admin hoặc API có tác động dữ liệu phải yêu cầu token hợp lệ và role Admin. Tuy nhiên endpoint tạo coupon chấp nhận token của user thường và tạo bản ghi coupon mới.
+*   **Các bước tái hiện (Steps to Reproduce):**
+    1. Đăng nhập bằng tài khoản user thường `test@eshop.com` để lấy token hợp lệ.
+    2. Do giao diện Admin chặn user thường ở màn hình đăng nhập, gửi trực tiếp request `POST /api/admin/coupons` với header `Authorization: Bearer <user_token>`.
+    3. Dùng body coupon hợp lệ, ví dụ `code = "TET2025"`, `type = "percent"`, `discount_value = 15`, `expired_at = "2027-01-31"`, `min_order_amount = 200000`, `max_uses_per_user = 1`.
+    4. Quan sát response.
+*   **Kết quả mong đợi (Expected Output):** Server từ chối request với lỗi không đủ quyền (`403 Forbidden` hoặc lỗi phân quyền tương đương) và không tạo coupon.
+*   **Kết quả thực tế (Actual Output):** Server trả HTTP 200 với body `{"message":"Coupon created","id":5}`.
+*   **Bằng chứng thực thi:** Test case `TC05`.
+*   **Đường dẫn GitHub Issue:** [GitHub Issue #15](https://github.com/HCMUS-software-testing/HW02/issues/15)
+*   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR17-01-1](screenshots/BUG-FR17-01-1.png) ![Screenshot BUG-FR17-01-2](screenshots/BUG-FR17-01-2.png)
 
-| Mã Bug | Tên lỗi (Bug Name) | Mã TC phát hiện | Mô tả hành vi lỗi quan sát | Độ nghiêm trọng (Severity) | Trạng thái |
-| :---: | :--- | :---: | :--- | :---: | :---: |
-| **BUG-FR17-01** | *[Tên lỗi]* | *[Mã TC]* | *[Mô tả hành vi]* | *[Critical/High/Medium/Low]* | Open |
+---
+
+### BUG-FR17-02: API tạo coupon không validate trường `code` bắt buộc
+
+*   **Mô tả lỗi:** Endpoint `POST /api/admin/coupons` không chặn `code` rỗng. Vì vậy hệ thống vẫn tạo coupon mới dù mã giảm giá không có giá trị định danh hợp lệ.
+*   **Các bước tái hiện (Steps to Reproduce):**
+    1. Đăng nhập bằng tài khoản Admin `admin@eshop.com`.
+    2. Vì form UI có thuộc tính `required` cho ô mã coupon, gửi trực tiếp request `POST /api/admin/coupons` để kiểm tra validation phía backend.
+    3. Dùng body có `code = ""`, các trường còn lại hợp lệ.
+    4. Quan sát status code và body response.
+*   **Kết quả mong đợi (Expected Output):** Server trả lỗi validation, không tạo coupon mới, và thông báo `code` là trường bắt buộc.
+*   **Kết quả thực tế (Actual Output):** Server trả HTTP 200 với body `{"message":"Coupon created","id":5}`.
+*   **Bằng chứng thực thi:** Test case `TC06` và `TC-BVA-01`.
+*   **Đường dẫn GitHub Issue:** [GitHub Issue #16](https://github.com/HCMUS-software-testing/HW02/issues/16)
+*   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR17-02](screenshots/BUG-FR17-02.png)
+
+---
+
+### BUG-FR17-03: API tạo coupon không validate miền giá trị `type`
+
+*   **Mô tả lỗi:** Endpoint tạo coupon không kiểm tra `type` thuộc tập hợp hợp lệ `percent` hoặc `fixed`, đồng thời vẫn chấp nhận request thiếu `type`.
+*   **Các bước tái hiện (Steps to Reproduce):**
+    1. Đăng nhập bằng tài khoản Admin.
+    2. Vì giao diện Admin chỉ cho chọn `percent` hoặc `fixed`, gửi trực tiếp request `POST /api/admin/coupons` để kiểm tra validation phía backend.
+    3. Gửi một request với `type = "cashback"`.
+    4. Gửi một request khác với body thiếu trường `type`.
+    5. Quan sát response của từng request.
+*   **Kết quả mong đợi (Expected Output):** Server trả lỗi validation và không tạo coupon vì loại coupon không hợp lệ hoặc bị thiếu.
+*   **Kết quả thực tế (Actual Output):** Cả hai payload invalid đều được tạo coupon thành công với HTTP 200 và body `{"message":"Coupon created","id":5}`.
+*   **Bằng chứng thực thi:** Test case `TC08` và `TC09`.
+*   **Đường dẫn GitHub Issue:** [GitHub Issue #17](https://github.com/HCMUS-software-testing/HW02/issues/17)
+*   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR17-03](screenshots/BUG-FR17-03.png) 
+
+---
+
+### BUG-FR17-04: API tạo coupon không validate `discount_value`
+
+*   **Mô tả lỗi:** Endpoint tạo coupon không kiểm tra giá trị giảm là số dương. Hệ thống vẫn tạo coupon khi `discount_value` bằng 0, âm hoặc là chuỗi sai kiểu dữ liệu.
+*   **Các bước tái hiện (Steps to Reproduce):**
+    1. Đăng nhập bằng tài khoản Admin.
+    2. Trên tab **Mã Giảm Giá**, nhập một coupon mới với các trường hợp lệ, nhưng đặt **Giá trị** bằng `0`, sau đó bấm **Tạo mã**.
+    3. Lặp lại thao tác trên với **Giá trị** bằng `-5`.
+    4. Với trường hợp sai kiểu dữ liệu (`discount_value = "abc"`), gửi trực tiếp API vì input số trên UI không cho nhập chữ.
+    5. Quan sát coupon có được tạo hay không và response của từng request.
+*   **Kết quả mong đợi (Expected Output):** Server trả lỗi validation và không tạo coupon vì giá trị giảm phải là số dương hợp lệ.
+*   **Kết quả thực tế (Actual Output):** Các payload invalid vẫn được tạo coupon thành công với HTTP 200 và body `{"message":"Coupon created","id":5}`.
+*   **Bằng chứng thực thi:** Test case `TC10`, `TC11`, `TC12` và `TC-BVA-03`.
+*   **Đường dẫn GitHub Issue:** [GitHub Issue #18](https://github.com/HCMUS-software-testing/HW02/issues/18)
+*   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR17-04](screenshots/BUG-FR17-04.png)
+
+---
+
+### BUG-FR17-05: API tạo coupon không validate `expired_at`
+
+*   **Mô tả lỗi:** Endpoint tạo coupon không kiểm tra ngày hết hạn là trường bắt buộc và có định dạng ngày hợp lệ. Hệ thống vẫn tạo coupon khi thiếu `expired_at` hoặc truyền giá trị không phải ngày.
+*   **Các bước tái hiện (Steps to Reproduce):**
+    1. Đăng nhập bằng tài khoản Admin.
+    2. Vì form UI dùng input ngày bắt buộc, gửi trực tiếp request `POST /api/admin/coupons` để kiểm tra validation phía backend.
+    3. Gửi một request với body thiếu `expired_at`.
+    4. Gửi một request khác với `expired_at = "not-a-date"`.
+    5. Quan sát response của từng request.
+*   **Kết quả mong đợi (Expected Output):** Server trả lỗi validation và không tạo coupon vì ngày hết hạn bị thiếu hoặc sai định dạng.
+*   **Kết quả thực tế (Actual Output):** Các payload invalid vẫn được tạo coupon thành công với HTTP 200 và body `{"message":"Coupon created","id":5}`.
+*   **Bằng chứng thực thi:** Test case `TC13` và `TC14`.
+*   **Đường dẫn GitHub Issue:** [GitHub Issue #19](https://github.com/HCMUS-software-testing/HW02/issues/19)
+*   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR17-05](screenshots/BUG-FR17-05.png)
+
+---
+
+### BUG-FR17-06: API tạo coupon không validate `min_order_amount`
+
+*   **Mô tả lỗi:** Endpoint tạo coupon không kiểm tra giá trị đơn tối thiểu phải là số không âm. Hệ thống vẫn tạo coupon khi `min_order_amount` âm hoặc sai kiểu dữ liệu.
+*   **Các bước tái hiện (Steps to Reproduce):**
+    1. Đăng nhập bằng tài khoản Admin.
+    2. Trên tab **Mã Giảm Giá**, nhập một coupon mới với các trường hợp lệ, nhưng đặt **Đơn tối thiểu** bằng `-1`, sau đó bấm **Tạo mã**.
+    3. Với trường hợp sai kiểu dữ liệu (`min_order_amount = "two hundred"`), gửi trực tiếp API vì input số trên UI không cho nhập chữ.
+    4. Quan sát coupon có được tạo hay không và response của từng request.
+*   **Kết quả mong đợi (Expected Output):** Server trả lỗi validation và không tạo coupon vì giá trị đơn tối thiểu không hợp lệ.
+*   **Kết quả thực tế (Actual Output):** Các payload invalid vẫn được tạo coupon thành công với HTTP 200 và body `{"message":"Coupon created","id":5}`.
+*   **Bằng chứng thực thi:** Test case `TC15`, `TC16` và `TC-BVA-05`.
+*   **Đường dẫn GitHub Issue:** [GitHub Issue #20](https://github.com/HCMUS-software-testing/HW02/issues/20)
+*   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR17-06](screenshots/BUG-FR17-06-1.png) ![Screenshot BUG-FR17-06](screenshots/BUG-FR17-06-2.png)
+
+---
+
+### BUG-FR17-07: API tạo coupon không validate `max_uses_per_user`
+
+*   **Mô tả lỗi:** Endpoint tạo coupon không kiểm tra số lượt dùng tối đa mỗi người phải là số nguyên tối thiểu 1. Hệ thống vẫn tạo coupon khi `max_uses_per_user = 0`.
+*   **Các bước tái hiện (Steps to Reproduce):**
+    1. Đăng nhập bằng tài khoản Admin.
+    2. Vì form UI đặt `min = 1` cho ô số lần dùng tối đa/người, gửi trực tiếp request `POST /api/admin/coupons` để kiểm tra validation phía backend.
+    3. Dùng body có `max_uses_per_user = 0`, các trường còn lại hợp lệ.
+    4. Quan sát response.
+*   **Kết quả mong đợi (Expected Output):** Server trả lỗi validation và không tạo coupon vì số lượt dùng tối đa mỗi user phải tối thiểu 1.
+*   **Kết quả thực tế (Actual Output):** Payload invalid vẫn được tạo coupon thành công với HTTP 200 và body `{"message":"Coupon created","id":5}`.
+*   **Bằng chứng thực thi:** Test case `TC17` và `TC-BVA-07`.
+*   **Đường dẫn GitHub Issue:** [GitHub Issue #21](https://github.com/HCMUS-software-testing/HW02/issues/21)
+*   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR17-07](screenshots/BUG-FR17-07.png)
+---
+
+### BUG-FR17-08: Tạo coupon trùng mã trả lỗi 500 và lộ lỗi SQLite
+
+*   **Mô tả lỗi:** Ràng buộc unique của `code` có tồn tại, nhưng khi tạo coupon trùng mã hệ thống để lỗi tầng cơ sở dữ liệu trồi thẳng ra response dưới dạng HTTP 500, thay vì trả lỗi nghiệp vụ thân thiện như mã giảm giá đã tồn tại.
+*   **Các bước tái hiện (Steps to Reproduce):**
+    1. Đăng nhập bằng tài khoản Admin.
+    2. Mở tab **Mã Giảm Giá**.
+    3. Nhập mã coupon đã tồn tại trong danh sách, ví dụ `SAVE10`, cùng các trường còn lại hợp lệ.
+    4. Bấm **Tạo mã** và quan sát thông báo lỗi/response.
+*   **Kết quả mong đợi (Expected Output):** Server trả lỗi xung đột/validation và thông báo nghiệp vụ rằng mã giảm giá đã tồn tại.
+*   **Kết quả thực tế (Actual Output):** Server trả HTTP 500 với body chứa lỗi `SQLITE_CONSTRAINT: UNIQUE constraint failed: coupons.code`.
+*   **Bằng chứng thực thi:** Test case `TC07`; `TC19` cũng quan sát lỗi tương tự ở một request đồng thời.
+*   **Đường dẫn GitHub Issue:** [GitHub Issue #22](https://github.com/HCMUS-software-testing/HW02/issues/22)
+*   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR17-08](screenshots/BUG-FR17-08.png)
+
+---
+
+### BUG-FR17-09: Xóa coupon không tồn tại vẫn báo thành công
+
+*   **Mô tả lỗi:** Endpoint xóa coupon không kiểm tra số dòng bị xóa hoặc trạng thái tồn tại của ID. Vì vậy request xóa ID không tồn tại hoặc ID biên không hợp lệ vẫn được phản hồi như thành công.
+*   **Các bước tái hiện (Steps to Reproduce):**
+    1. Đăng nhập bằng tài khoản Admin.
+    2. Vì giao diện chỉ hiển thị nút xóa cho coupon đang tồn tại trong danh sách, gửi trực tiếp request `DELETE /api/admin/coupons/999999`.
+    3. Gửi thêm request `DELETE /api/admin/coupons/0` để kiểm tra biên ID không hợp lệ.
+    4. Quan sát response.
+*   **Kết quả mong đợi (Expected Output):** Server trả lỗi không tìm thấy hoặc lỗi validation ID, và UI/client giữ nguyên danh sách coupon.
+*   **Kết quả thực tế (Actual Output):** Cả hai request đều trả HTTP 200 với body `{"message":"Coupon deleted"}`.
+*   **Bằng chứng thực thi:** Test case `TC18` và `TC-BVA-09`.
+    *   **Đường dẫn GitHub Issue:** [GitHub Issue #23](https://github.com/HCMUS-software-testing/HW02/issues/23)
+*   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR17-09](screenshots/BUG-FR17-09.png)
