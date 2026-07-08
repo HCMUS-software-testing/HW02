@@ -241,3 +241,24 @@ README.md, AI_Audit_Report.md và Bug_Report.md đã được cập nhật tươ
 ```
 
 File [Main_Report.md](./Main_Report.md) đã được bổ sung đầy đủ nội dung Domain Testing cho FR-17.
+
+### Prompt 11
+
+
+*   **Công cụ AI sử dụng (Name of AI Tool):** Codex GPT-5
+*   **Thời gian thực hiện (Date and Time):** 2026-07-07, 05:00PM
+*   **Mục đích:** Tìm các bug của FR-17 từ [Main_Report.md] và ghi vào [Bug_Report.md]
+
+#### Prompt
+```text
+Dựa vào các test case trong main report của FR-17 hãy phân tích và tổng hợp nó vào Bug Report
+```
+
+#### Output
+
+```text
+Đã cập nhật [Bug_Report.md](/Users/mac/KhoChua/ĐH/Năm3/HK3/Kiểm thử phần mềm/HW02/Bug_Report.md) dựa trên các test case FR-17 trong Main_Report.md.
+Mình đã tổng hợp FR-17 thành 9 bug (BUG-FR17-01 đến BUG-FR17-09) với các thông tin chi tiết về mô tả lỗi, bước tái hiện, kết quả mong đợi, kết quả thực tế
+```
+
+File [Bug_Report.md](./Bug_Report.md) đã được tổng hợp đầy đủ 9 lỗi (Bug) được phát hiện từ 19 kịch bản kiểm thử Miền và 10 kịch bản kiểm thử Giá trị biên của FR-17, bao gồm các lỗi liên quan đến logic tạo, xóa và validate dữ liệu coupon của hệ thống.
