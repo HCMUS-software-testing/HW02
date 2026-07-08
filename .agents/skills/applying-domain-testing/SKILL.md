@@ -59,7 +59,7 @@ Load the relevant sub-skill before producing detailed analysis:
 3. Identify every input and output from the specification.
 4. Read the EP sub-skill and produce sections A1-A4. In A2, split requirements into atomic input/output conditions before deriving equivalence classes.
 5. Read the BVA sub-skill and produce sections B1-B3 when the request includes BVA or full domain testing.
-6. Trace every test case back to `ECxx` or a named boundary. Mark not-executed tests honestly if execution is outside scope.
+6. Trace every test case back to `ECxx` or a named boundary. For executable testcase tables, include blank `Kết quả thực tế` and `Đạt` columns so the student can fill them after running tests. When the same testcase is intended to be executed through both UI/web and API/Postman, the `Kết quả mong đợi` cell must explicitly include both observable outcomes, labeled `Web:` and `API:`; include the expected API status code/body when specified, or state the documented contract gap when the API cannot check a UI-only field such as `confirmPassword`. Mark not-executed tests honestly if execution is outside scope.
 7. Add only risk notes supported by the specification or observed ambiguity. Do not write an `AI gap analysis` section because the user will fill that part manually.
 
 ## Language and Encoding
@@ -86,7 +86,7 @@ Use this Vietnamese structure for final artifacts. If the user requests only EP 
 | Phạm vi kiểm thử | `<phạm vi áp dụng domain testing>` |
 | Ngoài phạm vi | `<những phần không kiểm thử trong artifact này>` |
 | Giả định/ràng buộc thiếu | `<điểm chưa rõ từ requirement; đánh dấu là giả định>` |
-| Trạng thái thực thi | `<đã thực thi/chưa thực thi/cần bổ sung actual result>` |
+| Trạng thái thực thi | `<đã thực thi/chưa thực thi/cần bổ sung Kết quả thực tế và Đạt>` |
 
 ### A. Phân hoạch tương đương
 
@@ -126,9 +126,9 @@ Example:
 
 #### A4. Ca kiểm thử EP
 
-| TC | Mục tiêu | Dữ liệu kiểm thử | Lớp được bao phủ | Kết quả mong đợi |
-| --- | --- | --- | --- | --- |
-| TC01 | `<trọng tâm hợp lệ/không hợp lệ>` | `<giá trị>` | EC01, EC02 | `<kết quả mong đợi>` |
+| TC | Mục tiêu | Dữ liệu kiểm thử | Lớp được bao phủ | Kết quả mong đợi | Kết quả thực tế | Đạt |
+| --- | --- | --- | --- | --- | --- | --- |
+| TC01 | `<trọng tâm hợp lệ/không hợp lệ>` | `<giá trị>` | EC01, EC02 | `Web: <kết quả mong đợi trên giao diện>. API: <status/body hoặc lỗi API mong đợi>.` |  |  |
 
 ### B. Phân tích giá trị biên
 
@@ -150,9 +150,9 @@ For cross-field equality relationships such as `confirmPassword` matching `passw
 
 #### B3. Ca kiểm thử BVA
 
-| TC | Trường | Biên được kiểm thử | Dữ liệu kiểm thử | Kết quả mong đợi |
-| --- | --- | --- | --- | --- |
-| BV01 | `<field>` | `<min-1/min/min+1>` | `<giá trị>` | `<kết quả mong đợi>` |
+| TC | Trường | Biên được kiểm thử | Dữ liệu kiểm thử | Kết quả mong đợi | Kết quả thực tế | Đạt |
+| --- | --- | --- | --- | --- | --- | --- |
+| BV01 | `<field>` | `<min-1/min/min+1>` | `<giá trị>` | `Web: <kết quả mong đợi trên giao diện>. API: <status/body hoặc lỗi API mong đợi>.` |  |  |
 
 ## 5. Ghi chú rủi ro
 
@@ -168,6 +168,8 @@ For cross-field equality relationships such as `confirmPassword` matching `passw
 - Every input and output from the function appears in A1 unless the user requested BVA-only and the field is irrelevant to BVA.
 - A2 conditions are atomic; do not merge required/non-empty, format, length, membership, uniqueness, state, and cross-field relationship checks into the same row.
 - Every condition has at least one valid or invalid `ECxx` when EP is in scope, or is explicitly covered by a representative `ECxx` that states the related condition IDs.
+- A4 and B3 testcase tables include `Kết quả thực tế` and `Đạt` as the final two columns, left blank during design unless the user explicitly provides execution results.
+- If testcase execution scope includes both UI/web and API/Postman, every A4 and B3 `Kết quả mong đợi` value includes both `Web:` and `API:` outcomes; API expected results mention status code/body when the contract specifies them.
 - BVA is applied only to continuous, numeric, date, length, count, or otherwise ordered domains.
 - Boundary dates state the reference date explicitly.
 - Expected results are observable, not vague phrases like "works correctly".

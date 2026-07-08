@@ -10,6 +10,7 @@
 ## Prompt and Output Log
 
 ### Entry 001
+
 - Time: `2026-07-05 22:41 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: Add a skill and a rule so each user prompt session appends an entry to the HW02 AI audit report; leave human review and final use fields manual.
@@ -17,6 +18,7 @@
 - Human Review/Corrections: Skill được tạo trong root của repo nên sinh viên đưa vào `./.agents`.
 
 ### Entry 002
+
 - Time: `2026-07-05 22:58 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: Đưa nội dung references/04_Domain Testing.pdf thành markdown
@@ -25,6 +27,7 @@
 - Final Use in Submission: File markdown không dùng để nộp nhưng sẽ được dùng để build skill domain testing.
 
 ### Entry 003
+
 - Time: `2026-07-05 23:02 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: Cập nhật skill ai audit .agents/skills/ai-audit-entry để luôn đánh số lại phù hợp mỗi khi thêm entry vì user có thể xóa các entry thừa.
@@ -32,6 +35,7 @@
 - Human Review/Corrections: Skill đánh số các entry trong AI audit report đúng thứ tự.
 
 ### Entry 004
+
 - Time: `2026-07-05 23:18 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: User asked to change registration Part A IDs in references/23127075.md from E prefix to EC prefix.
@@ -40,6 +44,7 @@
 - Final Use in Submission: Không dùng trong bài nộp, chỉ để AI đọc.
 
 ### Entry 005
+
 - Time: `2026-07-05 23:31 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: Fix the skill ai-audit to give the Ouput of a Entry is the full output of AI (only summarize if too long or not in a single paragraph). The output might be the content of a file, a code,... or any artifact created by AI.
@@ -47,6 +52,7 @@
 - Human Review/Corrections: Skill đã giúp AI in output cho từng entry trong AI Audit report đúng theo ý muốn của sinh viên.
 
 ### Entry 006
+
 - Time: `2026-07-05 23:50 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) references/04_Domain Testing.md provide the knowledge about Domain Testing, meanwhile, references/23127075.md provide the example of exercises for Domain Testing to let you know how to do domain testing step by step. Based on two mentioned files, create the skills for domain testing including Equivalence partitioning (EP) and Boundary Value Analysis (BVA) for a single given function. Ensure that this skill (or skilss) is reusable and meets the requirements in requirements/2026.HW02.Domain Testing_En.md section 7. Agent Skill
@@ -55,6 +61,7 @@
 - Final Use in Submission: Chỉ dùng để test skill và giữ làm bản dự bị, chưa phải bản cuối.
 
 ### Entry 007
+
 - Time: `2026-07-06 20:24 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) Cập nhật các skill để output đầu ra là tiếng Việt, đảm bảo có dấu, không bị lỗi kí tự. Tuy nhiên, trong ai audit thì với từng entry, prompt và output giữ nguyên ngôn ngữ không cần dịch để tôn trọng tính nguyên bản.
@@ -62,6 +69,7 @@
 - Human Review/Corrections: Output của các skill bây giờ là tiếng Việt đúng yêu cầu bài tập.
 
 ### Entry 008
+
 - Time: `2026-07-06 20:33 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project. The output for this feature will be added into folder ./domain-testing
@@ -243,6 +251,7 @@ Không áp dụng BVA cho role vì role không phải input của chức năng �
 - Final Use in Submission: Chỉ dùng để test skill, chưa phải bản cuối.
 
 ### Entry 009
+
 - Time: `2026-07-06 20:54 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) Cập nhật lại  skill‌ [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) để format lại phần 1 từ Chức năng dưới kiểm thử thành Chức năng kiểm thử. Nội dung phần này trình bày dưới dạng bảng, có format mẫu trong skill. AI gap analysis là phần user điền nên phần 5. chỉ ghi là Ghi chú rủi ro thôi. Phần BVA sẽ gồm 2 bước là xác định các input, output nào có dạng số liên tục rồi step 2 xác định biên, các giá trị cận biên
@@ -366,6 +375,7 @@ Use the following Vietnamese structure for final artifacts.
 ```
 
 ### Entry 010
+
 - Time: `2026-07-06 20:59 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project. The output for this feature will be added into folder ./domain-testing
@@ -538,6 +548,7 @@ Use the following Vietnamese structure for final artifacts.
 - Final Use in Submission: Chỉ dùng để test skill, không phải bản nộp.
 
 ### Entry 011
+
 - Time: `2026-07-06 22:09 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md)  Hãy chia [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) để skill ấy có 2 sub skill là Equivalence partitioning và Boundary value analysis
@@ -545,6 +556,7 @@ Use the following Vietnamese structure for final artifacts.
 - Human Review/Corrections: Skill domain testing đã gồm 2 phần là EP và BVA như yêu cầu.
 
 ### Entry 012
+
 - Time: `2026-07-06 22:24 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Xóa bảng AI tool usage summary trong ai audit report
@@ -552,6 +564,7 @@ Use the following Vietnamese structure for final artifacts.
 - Human Review/Corrections: Đã xóa bản Summary trong AI audit report.
 
 ### Entry 013
+
 - Time: `2026-07-06 22:43 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project. The output for this feature will be added into folder ./domain-testing
@@ -717,12 +730,14 @@ Use the following Vietnamese structure for final artifacts.
 - Final Use in Submission: Chỉ dùng để test skill, không phải bản nộp.
 
 ### Entry 014
+
 - Time: `2026-07-06 23:11 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md)[$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Ở A2. Điều kiện, các điều kiện đang bị gộp quá mức. Hãy cập nhật [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md)  để đảm bảo các điều kiện được chia nhỏ ra.
 - Output: Updated .agents/skills/applying-domain-testing/SKILL.md to require A2 conditions to be atomic, with separate rows for required/non-empty, type, format, length, membership, uniqueness, state, and cross-field relationship checks. Added an example splitting email and password rules into separate C rows. Updated .agents/skills/applying-domain-testing/references/equivalence-partitioning.md to remove the old guidance that encouraged merging implied conditions, and replaced it with instructions to keep A2 conditions visible while documenting coverage relationships in A3/A4. Verified with rg/file checks; quick_validate.py was not available in the repo/PATH during this session.
 
 ### Entry 015
+
 - Time: `2026-07-06 23:17 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project. The output for this feature will be added into folder ./domain-testing
@@ -893,6 +908,7 @@ Ghi chú bao phủ: điều kiện `email` không rỗng (C3) được giữ ri�
 - Human Review/Corrections: Thông qua đợt prompt này, sinh viên nhận ra có mâu thuẫn trong skill apply-domain-testing đó là parent skill yêu cầu tách các Condition, EC ra mức atomic nhưng sub-skill (EP) lại yêu cầu gộp nếu có thể trùng lặp.
 
 ### Entry 016
+
 - Time: `2026-07-06 23:27 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Đồng nhất sub skill EP và parent skill apply domain testing để đảm bảo phần A2. Điều kiện của EP sẽ tách điều kiện nguyên tử để đảm bảo tối ưu khi viết Lớp tương đương và test case.
@@ -969,6 +985,7 @@ List atomic conditions. One row should express one check only. Required/non-empt
 ```
 
 ### Entry 017
+
 - Time: `2026-07-06 23:33 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project (Please read the README in folder eshop-sut for Specification). The output for this feature will be added into folder ./domain-testing
@@ -1169,12 +1186,14 @@ List atomic conditions. One row should express one check only. Required/non-empt
 - Human Review/Corrections: Qua quá trình sửa skill, AI mất context domain testing từ slide môn học.
 
 ### Entry 018
+
 - Time: `2026-07-06 23:41 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Đồng nhất sub skill EP và parent skill apply domain testing để đảm bảo phần A2. Điều kiện của EP sẽ tách điều kiện nguyên tử để đảm bảo tối ưu khi viết Lớp tương đương và test case. Kiến thức phương pháp Domain Testing phải dựa trên references/04_Domain Testing.md.
 - Output: Đã cập nhật .agents/skills/applying-domain-testing/SKILL.md để yêu cầu đọc repo-root references/04_Domain Testing.md làm method oracle, đồng thời nhấn mạnh A2 phải tách điều kiện nguyên tử trước khi lập lớp tương đương. Đã cập nhật .agents/skills/applying-domain-testing/references/equivalence-partitioning.md để bỏ hướng dẫn gộp điều kiện dư thừa, thay bằng quy tắc giữ required/non-empty, type, format, range, length, membership, uniqueness, state và cross-field relationship thành các điều kiện riêng. Đã cập nhật .agents/skills/applying-domain-testing/references/boundary-value-analysis.md để nêu rõ BVA dựa trên repo-root references/04_Domain Testing.md. Đã chạy quick_validate.py và skill hợp lệ; các file Markdown vẫn là UTF-8.
 
 ### Entry 019
+
 - Time: `2026-07-07 10:06 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Đưa nội dung references/04_Domain Testing.md thành các bước thực hiện domain testing vào trong [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) để đảm bảo tính tái sử dụng và portable. Bộ skill nhận input là project - feature, nhấn mạnh Domain testing gồm EP và BVA là blackbox testing, dựa trên các specification, không đọc code.
@@ -1201,6 +1220,7 @@ Mình chỉ sửa các file trong `.agents/skills/applying-domain-testing/`. Wor
 - Human Review/Corrections: Skill không còn phụ thuộc vào file slide của môn học mà có thể xuất thành bộ skill domain testing độc lập.
 
 ### Entry 020
+
 - Time: `2026-07-07 21:42 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project (Please read the specifications including: eshop-sut/README, eshop-sut/api_specification.md,  in the folder eshop-sut). The output for this feature will be added into folder ./domain-testing
@@ -1394,6 +1414,7 @@ Mình chỉ sửa các file trong `.agents/skills/applying-domain-testing/`. Wor
 - Final Use in Submission: `[Manual by user]`
 
 ### Entry 021
+
 - Time: `2026-07-07 22:22 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: Cập nhật lại skill để output [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) là ở B2. Xác định biên và giá trị cận biên, bảng gồm 3 cột với title lần lượt là Trường, Quy tắc biên, Giá Trị biên và cận biên
@@ -1401,8 +1422,8 @@ Mình chỉ sửa các file trong `.agents/skills/applying-domain-testing/`. Wor
 - Human Review/Corrections: `[Manual by user]`
 - Final Use in Submission: `[Manual by user]`
 
-
 ### Entry 022
+
 - Time: `2026-07-07 23:17 +07`
 - Tool/Model: `Codex / GPT-5`
 - Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool B FR-07: Shopping cart (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project (Please read the specifications including: eshop-sut/README, eshop-sut/api_specification.md,  in the folder eshop-sut). The output for this feature will be added into folder ./domain-testing
@@ -1634,6 +1655,16 @@ Mình chỉ sửa các file trong `.agents/skills/applying-domain-testing/`. Wor
 - API specification không nêu status code/thông báo lỗi cụ thể cho token sai hoặc dữ liệu giỏ hàng không hợp lệ, nên expected result của ca lỗi chỉ khẳng định hành vi nghiệp vụ: từ chối thao tác và không cập nhật giỏ hàng sai.
 - Các ca kiểm thử trong artifact này đang ở trạng thái thiết kế; khi thực thi cần bổ sung actual result, status, và evidence path theo yêu cầu báo cáo.
 ```
+
+- Human Review/Corrections: `[Manual by user]`
+- Final Use in Submission: `[Manual by user]`
+
+### Entry 023
+
+- Time: `2026-07-08 12:54 +07`
+- Tool/Model: `Codex / GPT-5`
+- Prompt: Cập nhật các file trong folder domain-testing để các bảng testcase có thêm một cột Kết quả thực tế và Đạt để trống để user test xong ghi vào. Cập nhật lại skill [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) để các bảng testcase sau này có thêm 2 cột đó
+- Output: Đã cập nhật 3 file trong domain-testing để các bảng testcase EP/BVA có thêm hai cột trống Kết quả thực tế và Đạt. Đã cập nhật .agents/skills/applying-domain-testing/SKILL.md để template A4/B3 và quality check yêu cầu hai cột này cho các artifact sau. Đã kiểm tra 6 bảng testcase với 124 dòng bảng, không có lỗi lệch cột; skill validate thành công bằng quick_validate.py.
 - Human Review/Corrections: `[Manual by user]`
 - Final Use in Submission: `[Manual by user]`
 
