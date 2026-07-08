@@ -642,3 +642,228 @@ Tập test cases tối thiểu dưới đây được thiết kế nhằm bao ph
 *   **Đặc tả ngắn và có nhiều ràng buộc ngầm:** FR-17 chỉ mô tả CRUD và các trường bắt buộc ở mức tóm tắt, nên AI phải suy luận cẩn thận từ FR-12 và API spec để không bỏ sót quyền Admin.
 *   **Khó phân biệt validation nghiệp vụ với trạng thái hệ thống:** Các khái niệm như `code` duy nhất hoặc `coupon_id` tồn tại không phải giá trị form thuần túy mà phụ thuộc dữ liệu hệ thống, khiến AI dễ mô hình hóa sai.
 *   **Thiếu quan sát động trong giai đoạn thiết kế:** Ở thời điểm thiết kế, AI chưa thể biết thông điệp lỗi và hành vi UI thật; sau khi thực thi black-box, Actual Output và Pass/Fail được bổ sung dựa trên quan sát UI/API công khai.
+
+---
+
+### Pool D: FR-07: Giỏ hàng (Shopping Cart)
+
+#### Bước 1: Xác định các biến Input và Output (I/O Variables)
+
+##### Giải thích chi tiết từng bước (Step-by-Step Explanation)
+
+Để xác định các biến vào/ra của tính năng **FR-07: Giỏ hàng (Shopping Cart)**, em đã thực hiện các bước phân tích sau:
+1.  **Phân tích đặc tả nghiệp vụ (Specification Analysis):** Đọc phần FR-07 trong [README.md](./eshop-sut/README.md), tính năng giỏ hàng yêu cầu hiển thị danh sách sản phẩm, đơn giá, số lượng có nút `+/-`, thành tiền, thao tác xóa có xác nhận, nút tiếp tục mua sắm, nhãn tổng tiền chính xác và trạng thái giỏ hàng trống rõ ràng. Đọc thêm [api_specification.md](./eshop-sut/api_specification.md), API giỏ hàng gồm `GET /api/cart` và `POST /api/cart`, yêu cầu header Authorization.
+2.  **Xác định biến đầu vào trực tiếp (Direct Inputs):** Các giá trị người dùng hoặc client gửi trực tiếp gồm `authorization_token`, `cart_action`, `product_id`, `product_name`, `unit_price`, `quantity` và `delete_confirmation`.
+3.  **Xác định biến đầu vào trạng thái (System State Inputs):** Một số điều kiện không phải dữ liệu nhập trực tiếp nhưng quyết định nhánh xử lý gồm `cart_state`, `product_already_in_cart` và `current_quantity`. Các biến này được đặt trong cột Preconditions khi thiết kế test case.
+4.  **Xác định biến đầu ra (Outputs):** Hệ thống cần phản hồi ở cả API và UI: HTTP status/JSON, bảng giỏ hàng, số lượng, thành tiền từng dòng, tổng tiền với nhãn `"Tổng cộng"`, dialog xác nhận xóa, điều hướng quay về trang chủ và trạng thái giỏ hàng trống có hình minh họa/thông báo rõ ràng.
+
+##### 1. Các biến đầu vào (Input Variables)
+
+Bao gồm các biến người dùng/client nhập trực tiếp và các biến trạng thái hệ thống ảnh hưởng đến hành vi giỏ hàng:
+
+| STT | Tên biến | Loại biến | Kiểu dữ liệu | Ràng buộc đặc tả / Miền giá trị | Mô tả |
+| :---: | :--- | :--- | :--- | :--- | :--- |
+| **1** | `authorization_token` | Direct Input | String | Header `Authorization: Bearer <token>` bắt buộc cho API giỏ hàng. | Token xác thực người dùng khi gọi API giỏ hàng. |
+| **2** | `cart_action` | Direct Input | Enum | Các hành động hợp lệ: xem giỏ, thêm sản phẩm, tăng/giảm số lượng, xóa sản phẩm, tiếp tục mua sắm. | Thao tác người dùng thực hiện trên giỏ hàng. |
+| **3** | `product_id` | Direct Input | Integer/String | ID sản phẩm phải xác định được sản phẩm cần thêm/cập nhật/xóa. | Định danh sản phẩm trong giỏ hàng. |
+| **4** | `product_name` | Direct Input | String | Tên sản phẩm phải hiển thị trong cột **Sản phẩm**. | Tên sản phẩm được hiển thị trong giỏ. |
+| **5** | `unit_price` | Direct Input | Number | Đơn giá phải là số tiền hợp lệ để tính thành tiền và tổng cộng. | Giá của một đơn vị sản phẩm. |
+| **6** | `quantity` | Direct Input | Integer | Số lượng là số nguyên dương, tối thiểu `1`; UI có nút `+/-` để chỉnh. | Số lượng sản phẩm trong giỏ hàng. |
+| **7** | `delete_confirmation` | Direct Input | Boolean/Enum | Xóa sản phẩm phải có dialog xác nhận trước khi thực hiện. | Quyết định xác nhận hoặc hủy thao tác xóa. |
+| **8** | `cart_state` | State Input | Enum | Giỏ hàng có thể rỗng hoặc có ít nhất một sản phẩm. | Trạng thái dữ liệu giỏ hàng trước thao tác. |
+| **9** | `product_already_in_cart` | State Input | Boolean | Nếu cùng một sản phẩm đã có trong giỏ, thêm tiếp phải tăng số lượng, không tạo dòng mới. | Trạng thái tồn tại của sản phẩm trong giỏ. |
+| **10** | `current_quantity` | State Input | Integer | Số lượng hiện tại tối thiểu là `1`; thao tác giảm không được tạo số lượng nhỏ hơn `1`. | Số lượng hiện tại trước khi bấm nút `+/-`. |
+
+##### 2. Các biến đầu ra (Output Variables)
+
+Bao gồm phản hồi API và các thay đổi quan sát được trên giao diện giỏ hàng:
+
+| STT | Tên biến | Loại biến | Kiểu dữ liệu | Ràng buộc đặc tả / Miền giá trị | Mô tả |
+| :---: | :--- | :--- | :--- | :--- | :--- |
+| **1** | `http_status_code` | API Output | Integer | Thành công khi thao tác hợp lệ; lỗi khi thiếu xác thực hoặc dữ liệu không hợp lệ. | Mã trạng thái HTTP từ API giỏ hàng. |
+| **2** | `api_response_payload` | API Output | JSON Object | Thành công trả dữ liệu giỏ hàng/cập nhật; thất bại trả thông báo lỗi nghiệp vụ. | Nội dung phản hồi API. |
+| **3** | `cart_table` | UI Output | Table | Khi có sản phẩm, hiển thị đủ cột **Sản phẩm**, **Đơn giá**, **Số lượng**, **Thành tiền**, **Thao tác**. | Bảng danh sách sản phẩm trong giỏ. |
+| **4** | `quantity_display` | UI Output | Integer | Hiển thị số lượng hiện tại sau thao tác thêm/tăng/giảm. | Số lượng quan sát trên giao diện. |
+| **5** | `line_total` | UI Output | Number | Thành tiền từng dòng = đơn giá × số lượng. | Giá trị thành tiền theo từng sản phẩm. |
+| **6** | `total_label` | UI Output | String | Nhãn tổng tiền phải là **"Tổng cộng"**, không phải **"Tổng tạm tính"**. | Nhãn tổng tiền của giỏ hàng. |
+| **7** | `delete_confirmation_dialog` | UI Output | Dialog | Phải xuất hiện trước khi xóa sản phẩm. | Hộp thoại xác nhận thao tác xóa. |
+| **8** | `navigation_action` | UI Output | Enum | Nút **Tiếp tục mua sắm** quay về trang chủ. | Hành động điều hướng sau khi bấm nút. |
+| **9** | `empty_cart_state` | UI Output | UI State | Giỏ hàng trống phải có hình minh họa và thông báo rõ ràng. | Trạng thái giao diện khi không có sản phẩm. |
+
+#### Bước 2: Phân hoạch tương đương (Equivalence Partitioning)
+
+##### Giải thích chi tiết từng bước (Step-by-Step Explanation)
+
+Để thực hiện kỹ thuật Phân hoạch tương đương cho tính năng **FR-07: Giỏ hàng (Shopping Cart)**, em đã áp dụng các bước sau:
+1.  **Phân tích điều kiện đầu vào/đầu ra:** Tách các điều kiện theo thao tác giỏ hàng: xác thực API, thêm sản phẩm, cộng dồn sản phẩm đã có, chỉnh số lượng, xóa có xác nhận, tiếp tục mua sắm và hiển thị giỏ trống.
+2.  **Xác định các lớp tương đương Valid và Invalid:** Với `quantity`, phân tách rõ số nguyên dương hợp lệ, rỗng, sai kiểu, bằng `0` và âm. Với trạng thái hệ thống, phân tách giỏ rỗng/không rỗng, sản phẩm đã có/chưa có, và biên giảm số lượng tại `1`.
+3.  **Lựa chọn giá trị đại diện (Representatives):** Chọn các giá trị dễ quan sát như sản phẩm ID `1`, giá `100000`, số lượng `1`, `2`, `0`, `-1` để tính toán thành tiền và tổng cộng.
+4.  **Thiết kế tập Test Cases tối thiểu:** Thiết kế một test case luồng chính, sau đó tách riêng từng lớp lỗi hoặc nhánh nghiệp vụ quan trọng để tránh che giấu lỗi, đồng thời bổ sung các kịch bản UI đặc thù của FR-07.
+
+##### 1. Các biến đầu vào (Input Variables)
+
+| Mã lớp | Biến đầu vào | Phân loại lớp | Lớp tương đương | Mô tả / Ý nghĩa kiểm thử |
+| :---: | :--- | :---: | :--- | :--- |
+| **EC01** | `authorization_token` | **Valid** | Token người dùng hợp lệ | Cho phép truy cập API giỏ hàng. |
+| **EC02** | `authorization_token` | **Invalid** | Token thiếu, hết hạn hoặc sai định dạng | API giỏ hàng phải từ chối truy cập không xác thực. |
+| **EC03** | `cart_action` | **Valid** | Hành động thuộc tập hỗ trợ: view/add/increase/decrease/delete/continue | Người dùng thực hiện thao tác giỏ hàng hợp lệ. |
+| **EC04** | `cart_action` | **Invalid** | Hành động ngoài tập hỗ trợ hoặc endpoint/phương thức không phù hợp | Hệ thống không được xử lý thao tác không xác định. |
+| **EC05** | `product_id` | **Valid** | ID sản phẩm tồn tại/có thể xác định | Sản phẩm được thêm hoặc thao tác đúng dòng. |
+| **EC06** | `product_id` | **Invalid** | ID thiếu, sai định dạng hoặc không xác định được sản phẩm | Hệ thống phải từ chối hoặc không thay đổi giỏ hàng. |
+| **EC07** | `product_name` | **Valid** | Chuỗi tên sản phẩm khác rỗng | Cột **Sản phẩm** hiển thị rõ tên. |
+| **EC08** | `product_name` | **Invalid** | Tên sản phẩm rỗng hoặc thiếu | Không đủ dữ liệu hiển thị dòng giỏ hàng hợp lệ. |
+| **EC09** | `unit_price` | **Valid** | Đơn giá là số tiền dương | Có thể tính thành tiền và tổng cộng. |
+| **EC10** | `unit_price` | **Invalid** | Đơn giá bằng `0`, âm hoặc sai kiểu | Không được chấp nhận giá trị tiền không hợp lệ. |
+| **EC11** | `quantity` | **Valid** | Số nguyên dương `>= 1` | Số lượng hợp lệ theo đặc tả. |
+| **EC12** | `quantity` | **Invalid** | Rỗng hoặc thiếu | Không đủ dữ liệu số lượng. |
+| **EC13** | `quantity` | **Invalid** | Sai kiểu, không phải số nguyên | Vi phạm kiểu dữ liệu của số lượng. |
+| **EC14** | `quantity` | **Invalid** | Bằng `0` | Vi phạm ràng buộc tối thiểu là `1`. |
+| **EC15** | `quantity` | **Invalid** | Nhỏ hơn `0` | Vi phạm miền số nguyên dương. |
+| **EC16** | `delete_confirmation` | **Valid** | Người dùng xác nhận xóa | Cho phép xóa sản phẩm khỏi giỏ. |
+| **EC17** | `delete_confirmation` | **Valid** | Người dùng hủy xóa | Giỏ hàng phải giữ nguyên. |
+| **EC18** | `cart_state` | **Valid** | Giỏ hàng có ít nhất một sản phẩm | Hiển thị bảng giỏ hàng đầy đủ. |
+| **EC19** | `cart_state` | **Valid** | Giỏ hàng trống | Hiển thị empty state đúng đặc tả. |
+| **EC20** | `product_already_in_cart` | **Valid** | Sản phẩm chưa có trong giỏ | Thêm sản phẩm tạo một dòng mới. |
+| **EC21** | `product_already_in_cart` | **Valid** | Sản phẩm đã có trong giỏ | Thêm cùng sản phẩm chỉ tăng số lượng, không tạo dòng mới. |
+| **EC22** | `current_quantity` | **Valid** | Số lượng hiện tại lớn hơn `1` | Bấm giảm vẫn còn số lượng hợp lệ. |
+| **EC23** | `current_quantity` | **Invalid** | Số lượng hiện tại bằng `1` nhưng vẫn cố giảm tiếp | Không được làm số lượng nhỏ hơn `1`. |
+
+##### 2. Các biến đầu ra (Output Variables)
+
+| Mã lớp | Biến đầu ra | Phân loại lớp | Lớp tương đương | Ý nghĩa phản hồi |
+| :---: | :--- | :---: | :--- | :--- |
+| **EC24** | `http_status_code` | **Valid (Success)** | HTTP thành công cho thao tác hợp lệ | API xử lý thao tác giỏ hàng thành công. |
+| **EC25** | `http_status_code` | **Invalid (Failure)** | HTTP lỗi xác thực hoặc validation | API từ chối thao tác không hợp lệ. |
+| **EC26** | `api_response_payload` | **Valid (Success)** | JSON thể hiện giỏ hàng đã được lấy/cập nhật | Client có dữ liệu để render giỏ hàng. |
+| **EC27** | `api_response_payload` | **Invalid (Failure)** | JSON thông báo lỗi nghiệp vụ/xác thực | Client nhận phản hồi lỗi phù hợp. |
+| **EC28** | `cart_table` | **Valid (Success)** | Bảng có đủ cột theo đặc tả | UI giỏ hàng đầy đủ thông tin. |
+| **EC29** | `empty_cart_state` | **Valid (Success)** | Có hình minh họa và thông báo giỏ hàng trống | Người dùng hiểu rõ giỏ hiện không có sản phẩm. |
+| **EC30** | `quantity_display` / `line_total` | **Valid (Success)** | Số lượng và thành tiền cập nhật đúng | Giỏ hàng phản ánh đúng phép tính. |
+| **EC31** | `delete_confirmation_dialog` | **Valid (Success)** | Dialog xác nhận xuất hiện trước khi xóa | Ngăn xóa nhầm sản phẩm. |
+| **EC32** | `navigation_action` | **Valid (Success)** | Điều hướng về trang chủ khi tiếp tục mua sắm | Luồng quay lại mua hàng hoạt động đúng. |
+| **EC33** | `total_label` | **Valid (Success)** | Nhãn tổng tiền hiển thị chính xác `"Tổng cộng"` | Đáp ứng yêu cầu từ đặc tả, tránh nhãn sai. |
+
+---
+
+#### Bước 3: Lựa chọn giá trị đại diện (Selecting Representatives)
+
+##### 1. Bảng giá trị đại diện cho các lớp tương đương
+
+| Mã lớp | Biến tương ứng | Loại lớp | Giá trị đại diện | Ý nghĩa / Ghi chú kiểm thử |
+| :---: | :--- | :---: | :--- | :--- |
+| **EC01** | `authorization_token` | Valid | Token user hợp lệ | Người dùng đã đăng nhập. |
+| **EC02** | `authorization_token` | Invalid | Không truyền token | Kiểm tra yêu cầu xác thực API giỏ hàng. |
+| **EC03** | `cart_action` | Valid | `add_item` | Thao tác giỏ hàng hợp lệ. |
+| **EC04** | `cart_action` | Invalid | `unsupported_action` | Hành động ngoài tập hỗ trợ. |
+| **EC05** | `product_id` | Valid | `1` | Sản phẩm hợp lệ để thêm vào giỏ. |
+| **EC06** | `product_id` | Invalid | Không truyền `id` | Thiếu định danh sản phẩm. |
+| **EC07** | `product_name` | Valid | `Sản phẩm A` | Tên hiển thị hợp lệ. |
+| **EC08** | `product_name` | Invalid | `""` | Tên sản phẩm rỗng. |
+| **EC09** | `unit_price` | Valid | `100000` | Đơn giá dương, dễ tính toán. |
+| **EC10** | `unit_price` | Invalid | `-100000` | Đơn giá âm. |
+| **EC11** | `quantity` | Valid | `1` hoặc `2` | Số lượng nguyên dương. |
+| **EC12** | `quantity` | Invalid | Không truyền `quantity` | Thiếu số lượng. |
+| **EC13** | `quantity` | Invalid | `"abc"` | Sai kiểu dữ liệu. |
+| **EC14** | `quantity` | Invalid | `0` | Ngay dưới miền hợp lệ. |
+| **EC15** | `quantity` | Invalid | `-1` | Số lượng âm. |
+| **EC16** | `delete_confirmation` | Valid | `Confirm` | Xác nhận xóa. |
+| **EC17** | `delete_confirmation` | Valid | `Cancel` | Hủy xóa. |
+| **EC18** | `cart_state` | Valid | Giỏ có 1 sản phẩm | Có thể render bảng giỏ. |
+| **EC19** | `cart_state` | Valid | Giỏ không có sản phẩm | Kiểm tra empty state. |
+| **EC20** | `product_already_in_cart` | Valid | `false` | Thêm dòng mới. |
+| **EC21** | `product_already_in_cart` | Valid | `true` | Cộng dồn số lượng. |
+| **EC22** | `current_quantity` | Valid | `2` | Giảm xuống `1` vẫn hợp lệ. |
+| **EC23** | `current_quantity` | Invalid | `1` rồi bấm giảm | Không được giảm xuống `0`. |
+| **EC24** | `http_status_code` | Valid | HTTP thành công | Thao tác hợp lệ được xử lý. |
+| **EC25** | `http_status_code` | Invalid | HTTP lỗi xác thực/validation | Thao tác không hợp lệ bị từ chối. |
+| **EC26** | `api_response_payload` | Valid | JSON giỏ hàng cập nhật | Dữ liệu đủ để render UI. |
+| **EC27** | `api_response_payload` | Invalid | JSON thông báo lỗi | Dữ liệu lỗi phù hợp nghiệp vụ. |
+| **EC28** | `cart_table` | Valid | Bảng có đủ 5 cột | Đúng yêu cầu hiển thị giỏ hàng. |
+| **EC29** | `empty_cart_state` | Valid | Hình minh họa + thông báo | Đúng yêu cầu khi giỏ trống. |
+| **EC30** | `quantity_display` / `line_total` | Valid | `2 × 100000 = 200000` | Kiểm tra phép tính và hiển thị. |
+| **EC31** | `delete_confirmation_dialog` | Valid | Dialog xác nhận xóa | Đúng yêu cầu bảo vệ thao tác xóa. |
+| **EC32** | `navigation_action` | Valid | Quay về trang chủ | Đúng luồng tiếp tục mua sắm. |
+| **EC33** | `total_label` | Valid | `"Tổng cộng"` | Nhãn tổng tiền đúng đặc tả. |
+
+##### 2. Thiết kế tập Test Cases phân hoạch tương đương (Equivalence Partitioning Test Cases)
+
+Tập test cases dưới đây bao phủ các lớp tương đương đã phân hoạch cho FR-07. Các biến trạng thái như giỏ trống/không trống, sản phẩm đã có trong giỏ và số lượng hiện tại được ghi trong Preconditions thay vì cột Input.
+
+| Mã TC | Tên Test Case | Lớp tương đương phủ | Điều kiện tiền đề (Preconditions) | authorization_token | cart_action | product_id | product_name | unit_price | quantity | delete_confirmation | Kết quả mong đợi (Expected Output) | Kết quả thực tế (Actual Output) | Trạng thái (Pass/Fail) |
+| :---: | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---: |
+| **TC01** | Thêm sản phẩm mới vào giỏ hợp lệ | EC01, EC03, EC05, EC07, EC09, EC11, EC19, EC20, EC24, EC26, EC28, EC30, EC33 | Giỏ hàng đang trống; sản phẩm chưa có trong giỏ. | Token user hợp lệ | `add_item` | `1` | `Sản phẩm A` | `100000` | `1` | N/A | - HTTP Code: thành công.<br>- Response: JSON thể hiện sản phẩm đã được thêm vào giỏ.<br>- UI: Bảng giỏ hàng hiển thị đủ cột, số lượng `1`, thành tiền đúng và nhãn tổng tiền là `"Tổng cộng"`. | | |
+| **TC02** | Thêm cùng một sản phẩm chỉ tăng số lượng | EC01, EC03, EC05, EC07, EC09, EC11, EC18, EC21, EC24, EC26, EC28, EC30 | Giỏ đã có sản phẩm ID `1` với số lượng `1`. | Token user hợp lệ | `add_item` | `1` | `Sản phẩm A` | `100000` | `1` | N/A | - HTTP Code: thành công.<br>- Response/UI: Sản phẩm ID `1` có số lượng tăng lên `2`.<br>- Không tạo thêm dòng sản phẩm trùng trong giỏ. | | |
+| **TC03** | Từ chối truy cập giỏ hàng khi thiếu token | EC02, EC03, EC25, EC27 | Người dùng chưa đăng nhập hoặc không gửi token. | Không truyền token | `view_cart` | N/A | N/A | N/A | N/A | N/A | - HTTP Code: lỗi xác thực.<br>- Response: JSON thông báo cần đăng nhập/xác thực.<br>- UI không hiển thị dữ liệu giỏ hàng riêng tư của người dùng. | | |
+| **TC04** | Từ chối thêm sản phẩm thiếu số lượng | EC01, EC03, EC05, EC07, EC09, EC12, EC25, EC27 | Sản phẩm hợp lệ, người dùng đã đăng nhập. | Token user hợp lệ | `add_item` | `1` | `Sản phẩm A` | `100000` | Không truyền | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response/UI: Thông báo số lượng là bắt buộc và giỏ hàng không thay đổi. | | |
+| **TC05** | Từ chối số lượng sai kiểu | EC01, EC03, EC05, EC07, EC09, EC13, EC25, EC27 | Sản phẩm hợp lệ, người dùng đã đăng nhập. | Token user hợp lệ | `add_item` | `1` | `Sản phẩm A` | `100000` | `"abc"` | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response/UI: Thông báo số lượng không hợp lệ; không thêm/cập nhật giỏ hàng. | | |
+| **TC06** | Từ chối số lượng bằng 0 | EC01, EC03, EC05, EC07, EC09, EC14, EC25, EC27 | Sản phẩm hợp lệ, người dùng đã đăng nhập. | Token user hợp lệ | `add_item` | `1` | `Sản phẩm A` | `100000` | `0` | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response/UI: Số lượng phải tối thiểu là `1`; giỏ hàng không thay đổi. | | |
+| **TC07** | Từ chối số lượng âm | EC01, EC03, EC05, EC07, EC09, EC15, EC25, EC27 | Sản phẩm hợp lệ, người dùng đã đăng nhập. | Token user hợp lệ | `add_item` | `1` | `Sản phẩm A` | `100000` | `-1` | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response/UI: Số lượng phải là số nguyên dương; giỏ hàng không thay đổi. | | |
+| **TC08** | Từ chối sản phẩm thiếu ID | EC01, EC03, EC06, EC07, EC09, EC11, EC25, EC27 | Người dùng đã đăng nhập, dữ liệu sản phẩm còn lại hợp lệ. | Token user hợp lệ | `add_item` | Không truyền | `Sản phẩm A` | `100000` | `1` | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response/UI: Không thêm sản phẩm khi thiếu định danh sản phẩm. | | |
+| **TC09** | Từ chối đơn giá không hợp lệ | EC01, EC03, EC05, EC07, EC10, EC11, EC25, EC27 | Người dùng đã đăng nhập, sản phẩm có ID và tên hợp lệ. | Token user hợp lệ | `add_item` | `1` | `Sản phẩm A` | `-100000` | `1` | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response/UI: Không chấp nhận đơn giá không hợp lệ; thành tiền/tổng cộng không bị tính sai. | | |
+| **TC10** | Từ chối tên sản phẩm rỗng | EC01, EC03, EC05, EC08, EC09, EC11, EC25, EC27 | Người dùng đã đăng nhập, ID và giá hợp lệ. | Token user hợp lệ | `add_item` | `1` | `""` | `100000` | `1` | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response/UI: Không thêm dòng sản phẩm thiếu tên hiển thị. | | |
+| **TC11** | Tăng số lượng bằng nút `+` | EC01, EC03, EC18, EC22, EC24, EC26, EC28, EC30 | Giỏ có sản phẩm ID `1`, số lượng hiện tại `1`. | Token user hợp lệ | `increase_quantity` | `1` | `Sản phẩm A` | `100000` | `2` | N/A | - HTTP Code: thành công nếu có gọi API.<br>- UI: Số lượng tăng từ `1` lên `2`, thành tiền và tổng cộng cập nhật đúng. | | |
+| **TC12** | Giảm số lượng từ 2 xuống 1 bằng nút `-` | EC01, EC03, EC18, EC22, EC24, EC26, EC28, EC30 | Giỏ có sản phẩm ID `1`, số lượng hiện tại `2`. | Token user hợp lệ | `decrease_quantity` | `1` | `Sản phẩm A` | `100000` | `1` | N/A | - HTTP Code: thành công nếu có gọi API.<br>- UI: Số lượng giảm xuống `1`, không tạo số lượng không hợp lệ, thành tiền/tổng cộng cập nhật đúng. | | |
+| **TC13** | Không cho giảm số lượng dưới 1 | EC01, EC03, EC18, EC23, EC25, EC27 | Giỏ có sản phẩm ID `1`, số lượng hiện tại `1`; người dùng bấm `-`. | Token user hợp lệ | `decrease_quantity` | `1` | `Sản phẩm A` | `100000` | `0` | N/A | - Hệ thống không cho số lượng giảm xuống `0` hoặc âm.<br>- UI giữ số lượng tối thiểu `1` hoặc yêu cầu dùng thao tác xóa có xác nhận nếu muốn bỏ sản phẩm. | | |
+| **TC14** | Xóa sản phẩm sau khi xác nhận | EC01, EC03, EC05, EC16, EC18, EC24, EC26, EC31 | Giỏ có sản phẩm ID `1`. | Token user hợp lệ | `delete_item` | `1` | `Sản phẩm A` | `100000` | `1` | `Confirm` | - UI hiển thị dialog xác nhận trước khi xóa.<br>- Sau khi xác nhận, sản phẩm bị loại khỏi giỏ và tổng cộng cập nhật đúng. | | |
+| **TC15** | Hủy thao tác xóa sản phẩm | EC01, EC03, EC05, EC17, EC18, EC31 | Giỏ có sản phẩm ID `1`. | Token user hợp lệ | `delete_item` | `1` | `Sản phẩm A` | `100000` | `1` | `Cancel` | - UI hiển thị dialog xác nhận trước khi xóa.<br>- Khi hủy, sản phẩm vẫn còn trong giỏ, số lượng và tổng cộng không thay đổi. | | |
+| **TC16** | Tiếp tục mua sắm quay về trang chủ | EC01, EC03, EC18, EC32 | Người dùng đang ở màn hình giỏ hàng. | Token user hợp lệ | `continue_shopping` | N/A | N/A | N/A | N/A | N/A | - UI điều hướng về trang chủ khi bấm **Tiếp tục mua sắm**.<br>- Giỏ hàng hiện có không bị xóa ngoài ý muốn. | | |
+| **TC17** | Hiển thị trạng thái giỏ hàng trống | EC01, EC03, EC19, EC29 | Giỏ hàng của người dùng không có sản phẩm. | Token user hợp lệ | `view_cart` | N/A | N/A | N/A | N/A | N/A | - UI không hiển thị bảng rỗng gây khó hiểu.<br>- Có hình minh họa và thông báo rõ ràng rằng giỏ hàng đang trống. | | |
+| **TC18** | Kiểm tra nhãn tổng tiền chính xác | EC01, EC03, EC18, EC28, EC30, EC33 | Giỏ hàng có ít nhất một sản phẩm. | Token user hợp lệ | `view_cart` | N/A | N/A | N/A | N/A | N/A | - UI hiển thị nhãn tổng tiền chính xác là `"Tổng cộng"`.<br>- Không dùng nhãn sai như `"Tổng tạm tính"`. | | |
+| **TC19** | Từ chối thao tác giỏ hàng không hỗ trợ | EC01, EC04, EC25, EC27 | Người dùng đã đăng nhập; giỏ hàng có thể rỗng hoặc không rỗng. | Token user hợp lệ | `unsupported_action` | N/A | N/A | N/A | N/A | N/A | - HTTP Code: lỗi thao tác không hợp lệ nếu gửi qua API/phương thức không hỗ trợ.<br>- Response/UI: Không thay đổi dữ liệu giỏ hàng và thông báo thao tác không hợp lệ. | | |
+
+---
+
+#### Bước 4: Phân tích giá trị biên (Boundary Value Analysis - BVA)
+
+##### Giải thích chi tiết từng bước (Step-by-Step Explanation)
+
+Để xác định các giá trị biên nhạy cảm của tính năng **FR-07: Giỏ hàng (Shopping Cart)**, em đã thực hiện phân tích theo các bước sau:
+1.  **Xác định các biến có tính thứ tự hoặc khoảng số:** Các biến phù hợp BVA gồm `quantity`, `current_quantity` khi bấm nút giảm, và `cart_items_count` để kiểm tra chuyển đổi giữa empty state và bảng giỏ hàng.
+2.  **Xác định các điểm biên (Boundaries) cho từng biến:** Ràng buộc rõ nhất của FR-07 là số lượng tối thiểu `1`; ngoài ra số dòng giỏ hàng có biên quan trọng tại `0` sản phẩm.
+3.  **Lựa chọn các điểm kiểm thử biên nhạy cảm:** Chọn `quantity = 0, 1, 2`, `current_quantity = 1, 2` và `cart_items_count = 0, 1, 2` để kiểm tra ranh giới giữa không hợp lệ/hợp lệ và giữa empty state/bảng giỏ hàng.
+
+##### 1. Phân tích giá trị biên của các biến số/khoảng số
+
+*   **Biến `quantity` (Khoảng hợp lệ: `[1, +∞)`):**
+    *   $LB = 1$: Số lượng tối thiểu hợp lệ.
+    *   $LB+1 = 2$: Số lượng hợp lệ ngay phía trong miền hợp lệ.
+    *   $LB-1 = 0$: Số lượng không hợp lệ ngay dưới biên.
+
+*   **Biến `current_quantity` khi bấm giảm (Khoảng hợp lệ sau thao tác: `[1, +∞)`):**
+    *   $LB = 1$: Nếu đang ở `1`, hệ thống không được giảm tiếp thành `0`.
+    *   $LB+1 = 2$: Nếu đang ở `2`, bấm giảm còn `1` là hợp lệ.
+
+*   **Biến `cart_items_count` (Số dòng sản phẩm trong giỏ, khoảng hợp lệ quan sát được: `[0, +∞)`):**
+    *   $LB = 0$: Giỏ trống, phải hiển thị empty state.
+    *   $LB+1 = 1$: Có một dòng sản phẩm, phải hiển thị bảng giỏ hàng.
+    *   $LB+2 = 2$: Có nhiều dòng sản phẩm, tổng cộng phải cộng đúng nhiều dòng.
+
+##### 2. Thiết kế tập Test Cases giá trị biên (Boundary Value Test Cases)
+
+| Mã TC | Tên Test Case | Biên kiểm thử | Điều kiện tiền đề (Preconditions) | authorization_token | cart_action | product_id | product_name | unit_price | quantity / cart_items_count | delete_confirmation | Kết quả mong đợi (Expected Output) | Kết quả thực tế (Actual Output) | Trạng thái (Pass/Fail) |
+| :---: | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---: |
+| **TC-BVA-01** | Thêm sản phẩm với `quantity = 0` | `quantity = LB-1 = 0` | Người dùng đã đăng nhập; sản phẩm hợp lệ. | Token user hợp lệ | `add_item` | `1` | `Sản phẩm A` | `100000` | `0` | N/A | - HTTP Code: lỗi validation dữ liệu.<br>- Response/UI: Số lượng phải tối thiểu là `1`; giỏ hàng không thay đổi. | | |
+| **TC-BVA-02** | Thêm sản phẩm với `quantity = 1` | `quantity = LB = 1` | Người dùng đã đăng nhập; sản phẩm chưa có trong giỏ. | Token user hợp lệ | `add_item` | `1` | `Sản phẩm A` | `100000` | `1` | N/A | - HTTP Code: thành công.<br>- UI: Sản phẩm được thêm với số lượng tối thiểu hợp lệ, thành tiền đúng. | | |
+| **TC-BVA-03** | Thêm sản phẩm với `quantity = 2` | `quantity = LB+1 = 2` | Người dùng đã đăng nhập; sản phẩm chưa có trong giỏ. | Token user hợp lệ | `add_item` | `1` | `Sản phẩm A` | `100000` | `2` | N/A | - HTTP Code: thành công.<br>- UI: Sản phẩm được thêm với số lượng `2`, thành tiền = đơn giá × `2`. | | |
+| **TC-BVA-04** | Bấm giảm khi `current_quantity = 1` | `current_quantity = LB = 1` | Giỏ có sản phẩm ID `1`, số lượng hiện tại `1`. | Token user hợp lệ | `decrease_quantity` | `1` | `Sản phẩm A` | `100000` | `1 -> không giảm dưới 1` | N/A | - UI không cho số lượng giảm dưới `1`.<br>- Nếu muốn bỏ sản phẩm, người dùng phải dùng thao tác xóa có xác nhận. | | |
+| **TC-BVA-05** | Bấm giảm khi `current_quantity = 2` | `current_quantity = LB+1 = 2` | Giỏ có sản phẩm ID `1`, số lượng hiện tại `2`. | Token user hợp lệ | `decrease_quantity` | `1` | `Sản phẩm A` | `100000` | `2 -> 1` | N/A | - UI/API cập nhật số lượng còn `1`.<br>- Thành tiền và tổng cộng được tính lại đúng. | | |
+| **TC-BVA-06** | Xem giỏ với `cart_items_count = 0` | `cart_items_count = LB = 0` | Giỏ hàng đang trống. | Token user hợp lệ | `view_cart` | N/A | N/A | N/A | `0` | N/A | - UI hiển thị hình minh họa và thông báo giỏ hàng trống rõ ràng. | | |
+| **TC-BVA-07** | Xem giỏ với `cart_items_count = 1` | `cart_items_count = LB+1 = 1` | Giỏ hàng có đúng 1 dòng sản phẩm. | Token user hợp lệ | `view_cart` | N/A | N/A | N/A | `1` | N/A | - UI hiển thị bảng giỏ hàng đủ cột và tổng cộng bằng thành tiền của dòng duy nhất. | | |
+| **TC-BVA-08** | Xem giỏ với `cart_items_count = 2` | `cart_items_count = LB+2 = 2` | Giỏ hàng có 2 dòng sản phẩm khác nhau. | Token user hợp lệ | `view_cart` | N/A | N/A | N/A | `2` | N/A | - UI hiển thị cả 2 dòng sản phẩm.<br>- Tổng cộng bằng tổng thành tiền của tất cả dòng và nhãn vẫn là `"Tổng cộng"`. | | |
+
+#### Bước 5: Phân tích khoảng trống AI (AI Gap Analysis)
+
+##### 1. Các kịch bản/lỗi kiểm thử mà AI đã bỏ sót
+*   **Bypass validation số lượng qua API trực tiếp:** UI có thể dùng nút `+/-` và input số để hạn chế giá trị, nhưng API `POST /api/cart` vẫn cần tự kiểm tra `quantity` rỗng, sai kiểu, bằng `0` hoặc âm.
+*   **Cộng dồn sản phẩm trùng thay vì tạo dòng mới:** AI dễ kiểm tra thêm sản phẩm mới nhưng bỏ qua yêu cầu đặc thù rằng thêm cùng sản phẩm phải tăng số lượng trên dòng hiện có.
+*   **Hành vi xóa cần xác nhận:** AI thường kiểm tra sản phẩm có bị xóa hay không, nhưng bỏ sót điều kiện UI phải hiển thị dialog xác nhận và phải giữ nguyên giỏ khi người dùng hủy.
+
+##### 2. Các sự nhầm lẫn, ảo giác và thiếu sót của AI trong quá trình thiết kế (AI Critique)
+*   **Nhầm State Input thành Direct Input:** Các trạng thái như `cart_state`, `product_already_in_cart` và `current_quantity` không phải trường body độc lập mà là điều kiện tiền đề cần thiết lập qua thao tác black-box.
+*   **Implementation Bias về thông điệp lỗi:** Nếu AI ghi cứng chuỗi JSON cụ thể, test case sẽ phụ thuộc implementation thay vì yêu cầu nghiệp vụ. Expected Output nên mô tả hành vi như "bị từ chối do số lượng không hợp lệ".
+*   **Bỏ sót yêu cầu hiển thị nhỏ nhưng bắt buộc:** Nhãn `"Tổng cộng"` và empty-cart illustration/message là yêu cầu chấm điểm rõ ràng, nhưng AI có thể chỉ tập trung API mà không kiểm tra UI.
+
+##### 3. Giải thích nguyên nhân AI gặp các hạn chế trên
+*   **Đặc tả FR-07 kết hợp cả UI và API:** Một số yêu cầu nằm ở giao diện, một số nằm ở API, nên AI dễ thiên lệch sang một phía nếu prompt không nhắc rõ black-box.
+*   **Luồng giỏ hàng phụ thuộc trạng thái trước đó:** Các ca như sản phẩm đã có trong giỏ hoặc số lượng hiện tại bằng `1` cần precondition, không thể chỉ nhìn một request đơn lẻ.
+*   **Thiếu quan sát thực thi trong giai đoạn thiết kế:** Ở bước thiết kế, Actual Output và Pass/Fail chưa được điền; các lỗi thật chỉ được tổng hợp sau khi chạy test qua UI/API công khai.
