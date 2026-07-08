@@ -1,6 +1,6 @@
 # HW02 AI Audit Requirements Reference
 
-Nguồn chính: `2026.HW02.Domain Testing_En.md`.
+Nguồn chính: `2026.HW02.Domain Testing_En.pdf`.
 
 ## Yêu cầu bắt buộc
 

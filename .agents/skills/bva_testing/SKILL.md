@@ -13,7 +13,7 @@ Trước khi chạy skill, đọc:
 
 - `references/bva_method.md`: quy trình BVA, cách chọn giá trị biên và nguyên tắc chỉ dùng boundary có căn cứ black-box.
 
-Output bám cấu trúc mẫu `23127205.md`:
+Output bám cấu trúc mẫu `23127205.pdf`:
 
 1. Step 1: Xác định input/output có dạng số/liên tục.
 2. Step 2: Xác định biên và cận biên.

@@ -1,6 +1,6 @@
 # Report Style Reference From 23127205
 
-Nguồn tham khảo: `23127205.md`.
+Nguồn tham khảo: `23127205.pdf`.
 
 File này chỉ dùng để định hướng cách trình bày, không dùng làm nguồn business rule cho HW02.
 

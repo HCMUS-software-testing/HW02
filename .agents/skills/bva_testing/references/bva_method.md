@@ -1,6 +1,6 @@
 # Boundary Value Analysis Method Reference
 
-Nguồn chính: `04_Domain Testing.md`.
+Nguồn chính: `04_Domain Testing.pdf`.
 
 ## Mục tiêu
 

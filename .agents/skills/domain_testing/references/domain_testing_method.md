@@ -1,6 +1,6 @@
 # Domain Testing Method Reference
 
-Nguồn chính: `04_Domain Testing.md`.
+Nguồn chính: `04_Domain Testing.pdf`.
 
 ## Quy trình trong bài giảng
 

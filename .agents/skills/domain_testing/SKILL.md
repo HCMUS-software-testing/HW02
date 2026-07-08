@@ -14,7 +14,7 @@ Trước khi chạy skill, đọc:
 - `references/domain_testing_method.md`: quy trình Domain Testing và rule chọn test theo bài giảng.
 - `references/report_style_23127205.md`: cách trình bày theo sample report.
 
-Output phải bám cấu trúc mẫu `23127205.md`:
+Output phải bám cấu trúc mẫu `23127205.pdf`:
 
 1. Step 1: Xác định Input và Output.
 2. Step 2: Xác định Condition.
