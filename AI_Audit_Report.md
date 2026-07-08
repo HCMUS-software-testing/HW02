@@ -262,3 +262,32 @@ Mình đã tổng hợp FR-17 thành 9 bug (BUG-FR17-01 đến BUG-FR17-09) vớ
 ```
 
 File [Bug_Report.md](./Bug_Report.md) đã được tổng hợp đầy đủ 9 lỗi (Bug) được phát hiện từ 19 kịch bản kiểm thử Miền và 10 kịch bản kiểm thử Giá trị biên của FR-17, bao gồm các lỗi liên quan đến logic tạo, xóa và validate dữ liệu coupon của hệ thống.
+
+### Prompt 12
+
+*   **Công cụ AI sử dụng (Name of AI Tool):** Codex GPT-5
+*   **Thời gian thực hiện (Date and Time):** 2026-07-08, 07:51PM
+*   **Mục đích:** Thực hiện kỹ thuật Domain Testing (EP + BVA) cho tính năng FR-07: Giỏ hàng (Shopping Cart) — bao gồm xác định biến I/O, phân hoạch tương đương, phân tích giá trị biên và AI Gap Analysis.
+
+#### Prompt
+
+```text
+Áp dụng domain testing vào Pool D: FR-07
+```
+
+#### Output
+
+```text
+Đã hoàn thành kiểm thử miền cho tính năng FR-07: Giỏ hàng (Shopping Cart).
+
+Kết quả đã được ghi vào Main_Report.md:
+- Bước 1: Xác định 10 biến đầu vào và 9 biến đầu ra.
+- Bước 2: Phân hoạch 33 lớp tương đương (EC01 đến EC33).
+- Bước 3: Thiết kế 19 test cases EP (TC01 đến TC19).
+- Bước 4: Phân tích giá trị biên, thiết kế 8 test cases BVA (TC-BVA-01 đến TC-BVA-08).
+- Bước 5: AI Gap Analysis — ghi nhận 3 kịch bản bị bỏ sót và 3 vấn đề AI Critique.
+
+README.md, AI_Audit_Report.md và Bug_Report.md đã được cập nhật tương ứng.
+```
+
+File [Main_Report.md](./Main_Report.md) đã được bổ sung đầy đủ nội dung Domain Testing cho FR-07.
