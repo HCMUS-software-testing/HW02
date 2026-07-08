@@ -90,6 +90,20 @@
 
 ### Boundary Value Analysis (BVA)
 
+#### Xác định biên
+- B1 (min): Mật khẩu mới có độ dài 8 ký tự - Valid
+- B2 (min-1): Mật khẩu mới có độ dài 7 ký tự - Invalid
+- B3 (min): Mật khẩu mới chứa 1 chữ cái in hoa - Valid
+- B4 (min-1): Mật khẩu mới chứa 0 chữ cái in hoa - Invalid
+- B5 (min): Mật khẩu mới chứa 1 chữ cái in thường - Valid
+- B6 (min-1): Mật khẩu mới chứa 0 chữ cái in thường - Invalid
+- B7 (min): Mật khẩu mới chứa 1 chữ số - Valid
+- B8 (min-1): Mật khẩu mới chứa 0 chữ số - Invalid
+- B9 (min): Mật khẩu mới chứa 1 ký tự đặc biệt - Valid
+- B10 (min-1): Mật khẩu mới chứa 0 ký tự đặc biệt - Invalid
+
+#### Test data
+
 ## 2.2 Tính năng 10 - Pool B: Trạng thái Đơn hàng
 ### Mô tả:
 - Đơn hàng có 5 trạng thái và phải tuân theo sơ đồ chuyển đổi sau:
@@ -137,8 +151,20 @@
 
 
 #### Test data
+| Test Case ID | Role (Vai trò) | Thao tác | Current State (Trạng thái hiện tại) | Target State (Yêu cầu chuyển) | Output | Covered Classes |
+| --- | --- | --- | --- | --- | --- | --- |
+| TC1 | `Admin` | Xác nhận | `pending` | `confirmed` | Đơn hàng chuyển sang `confirmed` thành công | E1 |
+| TC2 | `User` | Xác nhận | `pending` | `confirmed` | Báo lỗi không có quyền thay đổi trạng thái | E2 |
+| TC3 | `Admin` | Giao hàng | `confirmed` | `shipping` | Đơn hàng chuyển sang `shipping` thành công | E3 |
+| TC4 | `User` | Giao hàng | `confirmed` | `shipping` | Báo lỗi không có quyền thay đổi trạng thái | E4 |
+| TC5 | `Admin` | Hoàn tất | `shipping` | `delivered` | Đơn hàng chuyển sang `delivered` thành công | E5 |
+| TC6 | `User` | Hoàn tất | `shipping` | `delivered` | Báo lỗi không có quyền thay đổi trạng thái | E6 |
+| TC7 | `User` | Hủy | `pending` | `canceled` | Đơn hàng chuyển sang `canceled` thành công | E7 |
+| TC8 | `Admin` | Hủy | `confirmed` | `canceled` | Đơn hàng chuyển sang `canceled` thành công | E8 |
+| TC9 | `Admin` | Hủy | `shipping` | `canceled` | Đơn hàng chuyển sang `canceled` thành công | E9 |
+| TC10 | `User` | Hủy | `shipping` | `canceled` | Báo lỗi User không được phép hủy khi đang giao hàng | E10 |
+| TC11 | `User` | Hủy | `delivered` | `canceled` | Báo lỗi không thể thay đổi từ trạng thái kết thúc | E11 |
 
-### Boundary Value Analysis (BVA)
 
 ## 2.3 Tính năng 14 - Pool C: Quản lý Danh mục
 ### Mô tả: 
@@ -169,8 +195,7 @@
     - E4: Danh mục cần xem chưa tồn tại trong hệ thống - Invalid
 
 #### Test data
-
-#### 1. Thêm danh mục
+- Thêm danh mục
 
 | Test Case ID | Vai trò (Role) | Tên danh mục (Category Name) | Output | Covered Classes |
 | --- | --- | --- | --- | --- |
@@ -179,7 +204,7 @@
 | TC3 | `Admin` | *(Để trống)* | Báo lỗi tên danh mục là bắt buộc, không được để trống. | E3 |
 | TC4 | `Admin` | *(đã tồn tại)* | Báo lỗi tên danh mục đã tồn tại trong hệ thống. | E4 |
 
-#### 2. Xóa danh mục
+- Xóa danh mục
 
 | Test Case ID | Vai trò (Role) | Danh mục mục tiêu (Target Category) | Output | Covered Classes |
 | --- | --- | --- | --- | --- |
@@ -187,7 +212,7 @@
 | TC2 | `User` | *(đã tồn tại)* | Báo lỗi hoặc từ chối quyền truy cập do không phải là Admin. | E2 |
 | TC3 | `Admin` | *(chưa tồn tại)* | Báo lỗi không tìm thấy danh mục cần xóa. | E4 |
 
-#### 3. Xem chi tiết danh mục
+- Xem chi tiết danh mục
 
 | Test Case ID | Vai trò (Role) | Danh mục mục tiêu (Target Category) | Output | Covered Classes |
 | --- | --- | --- | --- | --- |
@@ -197,6 +222,10 @@
 
 
 ### Boundary Value Analysis (BVA)
+
+#### Xác định biên
+- B1 (min): Tên danh mục có độ dài 1 ký tự - Valid
+- B2 (min-1): Tên danh mục có độ dài 0 ký tự (để trống) - Invalid
 
 ## 2.4 Tính năng 1 - Pool D (Mobile): Đăng ký tài khoản
 ### Mô tả:
@@ -253,5 +282,19 @@
 | TC10 | `Nguyen Van A` | `newuser@gmail.com` | `StrongP@ss1` | `WrongP@ss99` | Báo lỗi xác nhận mật khẩu không khớp | E18 |
 
 ### Boundary Value Analysis (BVA)
+
+#### Xác định biên
+- B1 (min): Họ tên có độ dài 1 ký tự - Valid
+- B2 (min-1): Họ tên có độ dài 0 ký tự (để trống) - Invalid
+- B3 (min): Mật khẩu có độ dài 8 ký tự - Valid
+- B4 (min-1): Mật khẩu có độ dài 7 ký tự - Invalid
+- B5 (min): Mật khẩu chứa 1 chữ cái in hoa - Valid
+- B6 (min-1): Mật khẩu chứa 0 chữ cái in hoa - Invalid
+- B7 (min): Mật khẩu chứa 1 chữ cái in thường - Valid
+- B8 (min-1): Mật khẩu chứa 0 chữ cái in thường - Invalid
+- B9 (min): Mật khẩu chứa 1 chữ số - Valid
+- B10 (min-1): Mật khẩu chứa 0 chữ số - Invalid
+- B11 (min): Mật khẩu chứa 1 ký tự đặc biệt - Valid
+- B12 (min-1): Mật khẩu chứa 0 ký tự đặc biệt - Invalid
 
 # 3. Test Summary Report

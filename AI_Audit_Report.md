@@ -260,6 +260,9 @@ Dựa trên mô tả chức năng trong file `report.md`, các biến đầu và
 | TC11 | `User` | `delivered` | `canceled` | Báo lỗi không thể thay đổi từ trạng thái kết thúc | E11 |
 | TC12 | `Admin` | `canceled` | `pending` | Báo lỗi không thể thay đổi từ trạng thái kết thúc | E12 |
 
+**Nhận xét**
+- Cần bổ sung về thông tin thao tác của đối tượng để hướng tới output như yêu cầu. Bỏ đi TC12 vì không có cách chuyển tới trạng thái Pending.
+
 ## Interaction 11
 **AI Tool:** Gemini 3.1 Pro (Low)
 **Date and time:** 2026-07-07 22:15:26 +07:00
@@ -352,3 +355,63 @@ Dựa trên mô tả chức năng trong file `report.md`, các biến đầu và
 
 **Nhận xét**
 - Bảng test data này hoàn toàn đúng. Dư thừa ví dụ về ID. Việc danh mục đã tồn tại hay chưa được thể hiện qua mô tả.
+
+## Interaction 14
+**AI Tool:** Gemini 3.5 Flash
+**Date and time:** 2026-07-08 15:26:59 +07:00
+**Prompt:**
+`bva-boundary-generator Tính năng 3 - Pool A: Quên mật khẩu & Đặt lại mật khẩu (2 bước)`
+
+**Output:**
+- B1 (min): Mã OTP có độ dài 6 chữ số - Valid
+- B2 (min-1): Mã OTP có độ dài 5 chữ số - Invalid
+- B3 (max+1): Mã OTP có độ dài 7 chữ số - Invalid
+- B4 (min): Mật khẩu mới có độ dài 8 ký tự - Valid
+- B5 (min-1): Mật khẩu mới có độ dài 7 ký tự - Invalid
+- B6 (min): Mật khẩu mới chứa 1 chữ cái in hoa - Valid
+- B7 (min-1): Mật khẩu mới chứa 0 chữ cái in hoa - Invalid
+- B8 (min): Mật khẩu mới chứa 1 chữ cái in thường - Valid
+- B9 (min-1): Mật khẩu mới chứa 0 chữ cái in thường - Invalid
+- B10 (min): Mật khẩu mới chứa 1 chữ số - Valid
+- B11 (min-1): Mật khẩu mới chứa 0 chữ số - Invalid
+- B12 (min): Mật khẩu mới chứa 1 ký tự đặc biệt - Valid
+- B13 (min-1): Mật khẩu mới chứa 0 ký tự đặc biệt - Invalid
+
+**Nhận xét**:
+- Về mã OTP hoàn toàn sẽ phụ thuộc vào trùng khớp với OTP được sinh ra hay không nên với dữ liệu này không cần xác định giá trị biên.
+
+## Interaction 15
+**AI Tool:** Gemini 3.1 Pro (Low)
+**Date and time:** 2026-07-08 15:38:54 +07:00
+**Prompt:**
+`bva-boundary-generator  Tính năng 14 - Pool C: Quản lý Danh mục`
+
+**Output:**
+- B1 (min): Tên danh mục có độ dài 1 ký tự - Valid
+- B2 (min-1): Tên danh mục có độ dài 0 ký tự (để trống) - Invalid
+
+**Nhận xét:**
+- Danh sách này hoàn toàn đúng.
+
+## Interaction 16
+**AI Tool:** Gemini 3.1 Pro (Low)
+**Date and time:** 2026-07-08 15:42:28 +07:00
+**Prompt:**
+`bva-boundary-generator Tính năng 1 - Pool D (Mobile): Đăng ký tài khoản`
+
+**Output:**
+- B1 (min): Họ tên có độ dài 1 ký tự - Valid
+- B2 (min-1): Họ tên có độ dài 0 ký tự (để trống) - Invalid
+- B3 (min): Mật khẩu có độ dài 8 ký tự - Valid
+- B4 (min-1): Mật khẩu có độ dài 7 ký tự - Invalid
+- B5 (min): Mật khẩu chứa 1 chữ cái in hoa - Valid
+- B6 (min-1): Mật khẩu chứa 0 chữ cái in hoa - Invalid
+- B7 (min): Mật khẩu chứa 1 chữ cái in thường - Valid
+- B8 (min-1): Mật khẩu chứa 0 chữ cái in thường - Invalid
+- B9 (min): Mật khẩu chứa 1 chữ số - Valid
+- B10 (min-1): Mật khẩu chứa 0 chữ số - Invalid
+- B11 (min): Mật khẩu chứa 1 ký tự đặc biệt - Valid
+- B12 (min-1): Mật khẩu chứa 0 ký tự đặc biệt - Invalid
+
+**Nhận xét:**
+- Hoàn toàn chính xác.
