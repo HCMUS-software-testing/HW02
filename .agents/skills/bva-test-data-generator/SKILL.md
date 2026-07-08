@@ -13,7 +13,7 @@ description: Từ danh sách các Giá trị biên (Boundary Values) đầu vào
 ## Core Principles (Quy tắc cốt lõi)
 Dựa theo nguyên tắc thiết kế Test Case của Boundary Value Analysis:
 1. **Mỗi giá trị biên Invalid phải nằm trong một Test Case độc lập**: Để tránh lỗi bị che khuất (Defect Masking), tuyệt đối KHÔNG GỘP nhiều giá trị biên Invalid vào cùng một Test Case.
-2. **Có thể gộp các giá trị biên Valid**: Tùy theo yêu cầu, có thể gộp các giá trị biên Valid với nhau nếu chúng thuộc về các biến độc lập. Tuy nhiên trong BVA, ta thường kiểm tra từng biên Valid độc lập kết hợp với giá trị trung tâm (nominal) của các biến khác.
+2. **Quy tắc gộp các giá trị biên Valid**: Tuyệt đối KHÔNG gộp nhiều giá trị biên Valid của CÙNG MỘT BIẾN vào chung một Test Case. Chỉ có thể gộp các giá trị biên Valid nếu chúng thuộc về các biến hoàn toàn độc lập với nhau. Tốt nhất nên kiểm tra từng biên Valid (kể cả trên cùng một biến) trong các Test Case riêng biệt, kết hợp với các giá trị trung tâm (nominal).
 3. **Cung cấp Test Data thực tế (Concrete Test Data)**: Không viết Test Data dưới dạng mô tả (VD: "Chuỗi 5 ký tự"). Phải cung cấp giá trị dữ liệu cụ thể, có thể nhập được trực tiếp vào hệ thống (VD: "abcde", 100, "2024-01-01").
 
 ## How to use it (Workflow)
@@ -32,5 +32,7 @@ Khi thực thi skill này, Agent cần làm theo các bước sau:
 ## AI Behavior Constraints
 - **Test Data Cụ Thể**: Phải là giá trị thực tế (VD: "A!b2cd", không phải "Mật khẩu 6 ký tự có chữ và số").
 - **Tự động đọc tài liệu (Read Context)**: Bắt buộc sử dụng tool đọc file để tìm và trích xuất danh sách Boundary Values từ workspace hiện tại. KHÔNG bịa ra dữ liệu hoặc tạo cấu trúc ngẫu nhiên.
-- **Tuân thủ quy tắc Không gộp Invalid**: Kiểm tra kỹ các Test Case Invalid. Mỗi Test Case Invalid CHỈ ĐƯỢC CHỨA 1 GIÁ TRỊ BIÊN INVALID duy nhất. Các tham số khác (nếu có) phải là Valid.
+- **Tuân thủ quy tắc Gộp**: 
+  + **ĐỐI VỚI INVALID**: Tối kỵ gộp Invalid. Luôn luôn và tuyệt đối KHÔNG BAO GIỜ được gộp nhiều giá trị biên Invalid (dù là cùng biến hay khác biến) vào chung 1 Test Case. Khi xét 1 biên Invalid, TẤT CẢ các tham số khác BẮT BUỘC phải là Valid thông thường (nominal).
+  + **ĐỐI VỚI VALID**: Tuyệt đối KHÔNG gộp nhiều giá trị biên Valid của CÙNG MỘT BIẾN vào chung 1 Test Case. Chỉ gộp Valid khi chúng thuộc các biến hoàn toàn độc lập.
 - **Zero Fluff**: Không có lời chào hỏi hay dẫn nhập thừa. In trực tiếp ra bảng Markdown.
