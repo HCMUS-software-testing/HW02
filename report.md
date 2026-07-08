@@ -66,7 +66,7 @@
     - E19: Chuỗi ký tự ở Xác nhận mật khẩu mới khác với Mật khẩu mới - Invalid
 
 #### Test data
-**Bước 1: Yêu cầu OTP (Quên mật khẩu)**
+- Bước 1: Yêu cầu OTP (Quên mật khẩu)
 
 | Test Case ID | Email | Output | Covered Classes |
 | --- | --- | --- | --- |
@@ -75,7 +75,7 @@
 | TC3 | *(Để trống)* | Hệ thống báo lỗi không được để trống trường email | E3 |
 | TC4 | *(Nhập email chưa được đăng ký)* | Hệ thống báo lỗi email chưa được đăng ký trong hệ thống | E5 |
 
-**Bước 2: Đặt lại mật khẩu**
+- Bước 2: Đặt lại mật khẩu
 
 | Test Case ID | OTP | Mật khẩu mới | Xác nhận mật khẩu mới | Output | Covered Classes |
 | --- | --- | --- | --- | --- | --- |
@@ -154,15 +154,47 @@
 - Thêm danh mục: 
     - E1: Người thực hiện có vai trò là Admin - Valid
     - E2: Người thực hiện không có vai trò là Admin - Invalid
-    - E3: Tên danh mục không bị để trống - Valid
-    - E4: Tên danh mục bị để trống - Invalid
+    - E3: Tên danh mục bị để trống - Invalid
+    - E4: Tên danh mục đã tồn tại trong hệ thống - Invalid
+    - E5: Tên danh mục chưa tồn tại trong hệ thống - Valid
 - Xóa danh mục: 
     - E1: Người thực hiện có vai trò là Admin - Valid
     - E2: Người thực hiện không có vai trò là Admin - Invalid
+    - E3: Danh mục cần xóa đã tồn tại trong hệ thống - Valid
+    - E4: Danh mục cần xóa chưa tồn tại trong hệ thống - Invalid
 - Xem chi tiết danh mục:
     - E1: Người thực hiện có vai trò là Admin - Valid
     - E2: Người thực hiện không có vai trò là Admin - Invalid
+    - E3: Danh mục cần xem đã tồn tại trong hệ thống - Valid
+    - E4: Danh mục cần xem chưa tồn tại trong hệ thống - Invalid
+
 #### Test data
+
+#### 1. Thêm danh mục
+
+| Test Case ID | Vai trò (Role) | Tên danh mục (Category Name) | Output | Covered Classes |
+| --- | --- | --- | --- | --- |
+| TC1 | `Admin` | *(chưa tồn tại)* | Thêm danh mục thành công và hiển thị trên danh sách. | E1, E5 |
+| TC2 | `User` | *(chưa tồn tại)* | Báo lỗi hoặc từ chối quyền truy cập do không phải là Admin. | E2 |
+| TC3 | `Admin` | *(Để trống)* | Báo lỗi tên danh mục là bắt buộc, không được để trống. | E3 |
+| TC4 | `Admin` | *(đã tồn tại)* | Báo lỗi tên danh mục đã tồn tại trong hệ thống. | E4 |
+
+#### 2. Xóa danh mục
+
+| Test Case ID | Vai trò (Role) | Danh mục mục tiêu (Target Category) | Output | Covered Classes |
+| --- | --- | --- | --- | --- |
+| TC1 | `Admin` | *(đã tồn tại)* | Xóa danh mục thành công và loại bỏ khỏi hệ thống. | E1, E3 |
+| TC2 | `User` | *(đã tồn tại)* | Báo lỗi hoặc từ chối quyền truy cập do không phải là Admin. | E2 |
+| TC3 | `Admin` | *(chưa tồn tại)* | Báo lỗi không tìm thấy danh mục cần xóa. | E4 |
+
+#### 3. Xem chi tiết danh mục
+
+| Test Case ID | Vai trò (Role) | Danh mục mục tiêu (Target Category) | Output | Covered Classes |
+| --- | --- | --- | --- | --- |
+| TC1 | `Admin` | *(đã tồn tại)* | Hiển thị thông tin chi tiết của danh mục tương ứng. | E1, E3 |
+| TC2 | `User` | *(đã tồn tại)* | Báo lỗi hoặc từ chối quyền truy cập do không phải là Admin. | E2 |
+| TC3 | `Admin` | *(chưa tồn tại)* | Báo lỗi không tìm thấy danh mục yêu cầu. | E4 |
+
 
 ### Boundary Value Analysis (BVA)
 
@@ -207,6 +239,18 @@
 - E18: Chuỗi ký tự trong trường Xác nhận mật khẩu khác biệt (không khớp) với trường Mật khẩu - Invalid
 
 #### Test data
+| Test Case ID | Họ tên | Email | Mật khẩu | Xác nhận mật khẩu | Output | Covered Classes |
+| --- | --- | --- | --- | --- | --- | --- |
+| TC1 | `Nguyen Van A` | `newuser@gmail.com` | `StrongP@ss1` | `StrongP@ss1` | Đăng ký thành công và chuyển tới trang Đăng nhập | E1, E3, E5, E7, E9, E11, E13, E15, E17 |
+| TC2 | *(Để trống)* | `newuser@gmail.com` | `StrongP@ss1` | `StrongP@ss1` | Báo lỗi họ tên không được để trống | E2 |
+| TC3 | `Nguyen Van A` | `newusergmail.com` | `StrongP@ss1` | `StrongP@ss1` | Báo lỗi định dạng email không hợp lệ | E4 |
+| TC4 | `Nguyen Van A` | `existeduser@gmail.com` | `StrongP@ss1` | `StrongP@ss1` | Báo lỗi email đã được đăng ký trong hệ thống | E6 |
+| TC5 | `Nguyen Van A` | `newuser@gmail.com` | `P@ss123` | `P@ss123` | Báo lỗi mật khẩu phải có độ dài từ 8 ký tự trở lên | E8 |
+| TC6 | `Nguyen Van A` | `newuser@gmail.com` | `strongp@ss1` | `strongp@ss1` | Báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in hoa | E10 |
+| TC7 | `Nguyen Van A` | `newuser@gmail.com` | `STRONGP@SS1` | `STRONGP@SS1` | Báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in thường | E12 |
+| TC8 | `Nguyen Van A` | `newuser@gmail.com` | `StrongP@ss` | `StrongP@ss` | Báo lỗi mật khẩu phải chứa ít nhất 1 chữ số | E14 |
+| TC9 | `Nguyen Van A` | `newuser@gmail.com` | `StrongPass1` | `StrongPass1` | Báo lỗi mật khẩu phải chứa ký tự đặc biệt | E16 |
+| TC10 | `Nguyen Van A` | `newuser@gmail.com` | `StrongP@ss1` | `WrongP@ss99` | Báo lỗi xác nhận mật khẩu không khớp | E18 |
 
 ### Boundary Value Analysis (BVA)
 

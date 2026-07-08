@@ -176,6 +176,7 @@ Dựa trên mô tả chức năng trong file `report.md`, các biến đầu và
 
 **Nhận xét:**
 - Cần phải phân tách riêng biệt 3 trường hợp thêm, xóa, xem chi tiết.
+- Thiếu trường hợp thêm danh mục đã tồn tại. Xóa, xem chi tiết danh mục chưa tồn tại. Danh mục có chứa ký tự nên được đổi thành danh mục chưa được thêm vào hệ thống.
 
 ## Interaction 8
 **AI Tool:** Gemini 3.1 Pro (Low)
@@ -288,6 +289,10 @@ Dựa trên mô tả chức năng trong file `report.md`, các biến đầu và
 | TC6 | `Admin` | ID: `123` (Có tồn tại) | Hiển thị thông tin chi tiết của danh mục | E1 |
 | TC7 | `User` | ID: `123` (Có tồn tại) | Trả về thông báo lỗi từ chối quyền truy cập (Access Denied) | E2 |
 
+**Nhận xét**:
+- Thay vì là danh mục mục tiêu để ID ví dụ -> nên để là mã danh mục là có tồn tại hoặc không. Thiếu các 
+    
+
 ## Interaction 12
 **AI Tool:** Gemini 3.1 Pro (Low)
 **Date and time:** 2026-07-07 22:21:26 +07:00
@@ -307,3 +312,43 @@ Dựa trên mô tả chức năng trong file `report.md`, các biến đầu và
 | TC8 | `Nguyen Van A` | `newuser@gmail.com` | `StrongP@ss` | `StrongP@ss` | Báo lỗi mật khẩu phải chứa ít nhất 1 chữ số | E14 |
 | TC9 | `Nguyen Van A` | `newuser@gmail.com` | `StrongPass1` | `StrongPass1` | Báo lỗi mật khẩu phải chứa ký tự đặc biệt | E16 |
 | TC10 | `Nguyen Van A` | `newuser@gmail.com` | `StrongP@ss1` | `WrongP@ss99` | Báo lỗi xác nhận mật khẩu không khớp | E18 |
+
+**Nhận xét:**
+- Bảng test data này hoàn toàn đúng.
+
+## Interaction 13
+**AI Tool:** Gemini 3.1 Pro (Low)
+**Date and time:** 2026-07-08 15:05:55 +07:00
+**Prompt:**
+`ep-test-data-generator  Tính năng 14 - Pool C: Quản lý Danh mục`
+
+**Output:**
+### Bảng Dữ liệu Kiểm thử (Test Data) bằng Phân vùng tương đương cho Tính năng 14 - Pool C: Quản lý Danh mục
+
+#### 1. Thêm danh mục
+
+| Test Case ID | Vai trò (Role) | Tên danh mục (Category Name) | Output | Covered Classes |
+| --- | --- | --- | --- | --- |
+| TC1 | `Admin` | `Electronics` *(chưa tồn tại)* | Thêm danh mục thành công và hiển thị trên danh sách. | E1, E5 |
+| TC2 | `User` | `Furniture` *(chưa tồn tại)* | Báo lỗi hoặc từ chối quyền truy cập do không phải là Admin. | E2 |
+| TC3 | `Admin` | *(Để trống)* | Báo lỗi tên danh mục là bắt buộc, không được để trống. | E3 |
+| TC4 | `Admin` | `Books` *(đã tồn tại)* | Báo lỗi tên danh mục đã tồn tại trong hệ thống. | E4 |
+
+#### 2. Xóa danh mục
+
+| Test Case ID | Vai trò (Role) | Danh mục mục tiêu (Target Category) | Output | Covered Classes |
+| --- | --- | --- | --- | --- |
+| TC1 | `Admin` | ID: `12` *(đã tồn tại)* | Xóa danh mục thành công và loại bỏ khỏi hệ thống. | E1, E3 |
+| TC2 | `User` | ID: `12` *(đã tồn tại)* | Báo lỗi hoặc từ chối quyền truy cập do không phải là Admin. | E2 |
+| TC3 | `Admin` | ID: `99` *(chưa tồn tại)* | Báo lỗi không tìm thấy danh mục cần xóa. | E4 |
+
+#### 3. Xem chi tiết danh mục
+
+| Test Case ID | Vai trò (Role) | Danh mục mục tiêu (Target Category) | Output | Covered Classes |
+| --- | --- | --- | --- | --- |
+| TC1 | `Admin` | ID: `15` *(đã tồn tại)* | Hiển thị thông tin chi tiết của danh mục tương ứng. | E1, E3 |
+| TC2 | `User` | ID: `15` *(đã tồn tại)* | Báo lỗi hoặc từ chối quyền truy cập do không phải là Admin. | E2 |
+| TC3 | `Admin` | ID: `100` *(chưa tồn tại)* | Báo lỗi không tìm thấy danh mục yêu cầu. | E4 |
+
+**Nhận xét**
+- Bảng test data này hoàn toàn đúng. Dư thừa ví dụ về ID. Việc danh mục đã tồn tại hay chưa được thể hiện qua mô tả.
