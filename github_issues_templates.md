@@ -26,6 +26,7 @@ Tài khoản bị khóa ngay sau lần nhập sai thứ 2. Do đó ở lần th�
 ### 📸 Ảnh chụp minh họa (Bug Screenshot)
 [Kéo thả ảnh chụp màn hình kiểm thử tại đây]
 ```
+
 ---
 ## ISSUE #2: BUG-FR02-02
 *   **Tiêu đề Issue (Title):** `[BUG-FR02-02] Tài khoản không tự động mở khóa sau 30 giây như đặc tả`
@@ -630,6 +631,285 @@ Endpoint xóa coupon không kiểm tra số dòng bị xóa hoặc trạng thái
 ### 💻 Môi trường kiểm thử
 * **OS:** macOS
 * **SUT Backend:** http://localhost:3000
+
+### 📸 Ảnh chụp minh họa (Bug Screenshot)
+[Kéo thả ảnh chụp màn hình kiểm thử tại đây]
+```
+
+---
+## ISSUE #24: BUG-FR07-01
+*   **Tiêu đề Issue (Title):** `[BUG-FR07-01] API giỏ hàng không gộp sản phẩm trùng`
+*   **Nhãn (Labels):** `bug`, `high-severity`, `api`
+### Nội dung Issue (Body):
+```markdown
+### 📝 Mô tả lỗi
+Khi thêm cùng một sản phẩm vào giỏ nhiều lần qua API, hệ thống tạo nhiều dòng sản phẩm trùng nhau thay vì gộp thành một dòng và tăng số lượng như yêu cầu FR-07.
+
+### 🛠️ Các bước tái hiện (Steps to Reproduce)
+1. Đăng nhập bằng tài khoản user hợp lệ để lấy JWT.
+2. Gửi `POST /api/cart` với sản phẩm hợp lệ `id=6`, `quantity=1`.
+3. Gửi lại `POST /api/cart` với cùng `id=6`, `quantity=1`.
+4. Gửi `GET /api/cart`.
+5. Quan sát danh sách item trong giỏ hàng.
+
+### 🎯 Kết quả mong đợi (Expected Output)
+* Giỏ hàng chỉ có một dòng sản phẩm `id=6`.
+* Số lượng của dòng sản phẩm đó tăng thành `2`.
+
+### 🚫 Kết quả thực tế (Actual Output)
+* API trả `200 OK` cho cả hai lần thêm.
+* `GET /api/cart` trả 2 dòng trùng `id=6`, mỗi dòng có `quantity=1`.
+
+### 💻 Môi trường kiểm thử
+* **OS:** macOS
+* **SUT Backend:** http://localhost:3000
+* **Phương thức kiểm thử:** API public black-box
+
+### 📸 Ảnh chụp minh họa (Bug Screenshot)
+[Kéo thả ảnh chụp màn hình kiểm thử tại đây]
+```
+
+---
+## ISSUE #25: BUG-FR07-02
+*   **Tiêu đề Issue (Title):** `[BUG-FR07-02] API giỏ hàng không validate quantity`
+*   **Nhãn (Labels):** `bug`, `high-severity`, `api`, `validation`
+### Nội dung Issue (Body):
+```markdown
+### 📝 Mô tả lỗi
+API thêm sản phẩm vào giỏ không kiểm tra miền giá trị của `quantity`. Hệ thống vẫn thêm sản phẩm khi thiếu `quantity`, `quantity` sai kiểu, bằng `0` hoặc âm.
+
+### 🛠️ Các bước tái hiện (Steps to Reproduce)
+1. Đăng nhập bằng tài khoản user hợp lệ để lấy JWT.
+2. Gửi `POST /api/cart` với payload thiếu trường `quantity`.
+3. Gửi `POST /api/cart` với `quantity="abc"`.
+4. Gửi `POST /api/cart` với `quantity=0`.
+5. Gửi `POST /api/cart` với `quantity=-1`.
+6. Gửi `GET /api/cart`.
+7. Quan sát dữ liệu item được lưu trong giỏ.
+
+### 🎯 Kết quả mong đợi (Expected Output)
+* API trả lỗi validation cho các giá trị `quantity` không hợp lệ.
+* Giỏ hàng không thay đổi sau các request invalid.
+* `quantity` phải là số nguyên dương, tối thiểu `1`.
+
+### 🚫 Kết quả thực tế (Actual Output)
+* API đều trả `200 OK` với body `{"message":"Added to cart"}`.
+* `GET /api/cart` cho thấy item thiếu `quantity`, item `quantity:"abc"`, item `quantity:0` và item `quantity:-1` đều được lưu.
+
+### 💻 Môi trường kiểm thử
+* **OS:** macOS
+* **SUT Backend:** http://localhost:3000
+* **Phương thức kiểm thử:** API public black-box
+
+### 📸 Ảnh chụp minh họa (Bug Screenshot)
+[Kéo thả ảnh chụp màn hình kiểm thử tại đây]
+```
+
+---
+## ISSUE #26: BUG-FR07-03
+*   **Tiêu đề Issue (Title):** `[BUG-FR07-03] API giỏ hàng không validate dữ liệu sản phẩm bắt buộc`
+*   **Nhãn (Labels):** `bug`, `high-severity`, `api`, `validation`
+### Nội dung Issue (Body):
+```markdown
+### 📝 Mô tả lỗi
+API thêm sản phẩm vào giỏ không kiểm tra đầy đủ dữ liệu sản phẩm bắt buộc. Hệ thống vẫn thêm item khi thiếu `id`, `name` rỗng hoặc `price` âm, dẫn tới dữ liệu giỏ hàng không hợp lệ.
+
+### 🛠️ Các bước tái hiện (Steps to Reproduce)
+1. Đăng nhập bằng tài khoản user hợp lệ để lấy JWT.
+2. Gửi `POST /api/cart` với payload thiếu `id`.
+3. Gửi `POST /api/cart` với `price=-100000`.
+4. Gửi `POST /api/cart` với `name=""`.
+5. Gửi `GET /api/cart`.
+6. Quan sát dữ liệu item được lưu trong giỏ.
+
+### 🎯 Kết quả mong đợi (Expected Output)
+* API trả lỗi validation và không thêm item thiếu hoặc sai dữ liệu bắt buộc.
+* Item trong giỏ phải có định danh sản phẩm hợp lệ, tên hiển thị hợp lệ và đơn giá không âm.
+
+### 🚫 Kết quả thực tế (Actual Output)
+* API đều trả `200 OK` với body `{"message":"Added to cart"}`.
+* Giỏ hàng lưu item không có `id`, item có giá âm và item có tên rỗng.
+
+### 💻 Môi trường kiểm thử
+* **OS:** macOS
+* **SUT Backend:** http://localhost:3000
+* **Phương thức kiểm thử:** API public black-box
+
+### 📸 Ảnh chụp minh họa (Bug Screenshot)
+[Kéo thả ảnh chụp màn hình kiểm thử tại đây]
+```
+
+---
+## ISSUE #27: BUG-FR07-04
+*   **Tiêu đề Issue (Title):** `[BUG-FR07-04] API thao tác giỏ hàng không hỗ trợ trả HTML 404 thay vì JSON lỗi nghiệp vụ`
+*   **Nhãn (Labels):** `bug`, `medium-severity`, `api`
+### Nội dung Issue (Body):
+```markdown
+### 📝 Mô tả lỗi
+Khi gọi các thao tác giỏ hàng không được hỗ trợ, API trả trang HTML 404 mặc định thay vì phản hồi JSON lỗi nghiệp vụ. Điều này làm response không nhất quán với API public và khó xử lý ở client.
+
+### 🛠️ Các bước tái hiện (Steps to Reproduce)
+1. Đăng nhập bằng tài khoản user hợp lệ để lấy JWT.
+2. Gửi request `PUT /api/cart`.
+3. Gửi request `PATCH /api/cart`.
+4. Gửi request `DELETE /api/cart/6`.
+5. Quan sát status code và response body của từng request.
+
+### 🎯 Kết quả mong đợi (Expected Output)
+* API trả lỗi thao tác không hợp lệ ở dạng JSON nghiệp vụ.
+* Dữ liệu giỏ hàng không thay đổi.
+
+### 🚫 Kết quả thực tế (Actual Output)
+* API trả HTTP `404 Not Found`.
+* Response body là trang HTML mặc định như `Cannot PUT /api/cart`, `Cannot PATCH /api/cart`, `Cannot DELETE /api/cart/6`.
+
+### 💻 Môi trường kiểm thử
+* **OS:** macOS
+* **SUT Backend:** http://localhost:3000
+* **Phương thức kiểm thử:** API public black-box
+
+### 📸 Ảnh chụp minh họa (Bug Screenshot)
+[Kéo thả ảnh chụp màn hình kiểm thử tại đây]
+```
+
+---
+## ISSUE #28: BUG-FR07-05
+*   **Tiêu đề Issue (Title):** `[BUG-FR07-05] Mobile cart hiển thị sai nhãn tổng tiền`
+*   **Nhãn (Labels):** `bug`, `medium-severity`, `mobile`
+### Nội dung Issue (Body):
+```markdown
+### 📝 Mô tả lỗi
+Màn hình giỏ hàng trên mobile hiển thị nhãn tổng tiền là `Tổng tạm tính` thay vì nhãn yêu cầu `"Tổng cộng"`. Lỗi xuất hiện cả khi giỏ có một sản phẩm và khi giỏ có nhiều sản phẩm.
+
+### 🛠️ Các bước tái hiện (Steps to Reproduce)
+1. Khởi động backend test local.
+2. Mở mobile UI qua Expo.
+3. Thêm một sản phẩm vào giỏ, ví dụ iPhone 15 Pro Max.
+4. Mở màn hình **Giỏ**.
+5. Quan sát nhãn ở khu vực tổng tiền.
+6. Thêm thêm một sản phẩm khác vào giỏ và quan sát lại nhãn tổng tiền.
+
+### 🎯 Kết quả mong đợi (Expected Output)
+* Khu vực tổng tiền hiển thị nhãn chính xác là `"Tổng cộng"`.
+* Nhãn không được dùng wording khác như `Tổng tạm tính`.
+
+### 🚫 Kết quả thực tế (Actual Output)
+* UI mobile hiển thị `Tổng tạm tính: 30,000,000 ₫` khi giỏ có một sản phẩm.
+* Khi giỏ có nhiều sản phẩm, UI vẫn hiển thị dạng `Tổng tạm tính: ...` thay vì `"Tổng cộng"`.
+
+### 💻 Môi trường kiểm thử
+* **OS:** macOS
+* **SUT Backend:** http://localhost:3000
+* **SUT Mobile:** Expo mobile UI / Expo web quan sát bằng Chrome headless
+* **Ghi chú:** Actual Output được lấy bằng black-box UI execution; phiên test dùng network shim runtime để mobile UI gọi đúng backend local.
+
+### 📸 Ảnh chụp minh họa (Bug Screenshot)
+[Kéo thả ảnh chụp màn hình kiểm thử tại đây]
+```
+
+---
+## ISSUE #29: BUG-FR07-06
+*   **Tiêu đề Issue (Title):** `[BUG-FR07-06] Mobile cart thiếu nút tăng/giảm số lượng bằng +/-`
+*   **Nhãn (Labels):** `bug`, `medium-severity`, `mobile`
+### Nội dung Issue (Body):
+```markdown
+### 📝 Mô tả lỗi
+Màn hình giỏ hàng mobile không cung cấp control tăng/giảm số lượng bằng nút `+` và `-`. UI chỉ hiển thị input số lượng, khiến người dùng không thực hiện được luồng tăng/giảm bằng nút như yêu cầu kiểm thử FR-07.
+
+### 🛠️ Các bước tái hiện (Steps to Reproduce)
+1. Khởi động backend test local.
+2. Mở mobile UI qua Expo.
+3. Thêm một sản phẩm vào giỏ.
+4. Mở màn hình **Giỏ**.
+5. Quan sát khu vực **Số lượng** của dòng sản phẩm.
+6. Tìm các control `+` và `-` để tăng hoặc giảm số lượng.
+
+### 🎯 Kết quả mong đợi (Expected Output)
+* UI có control `+` để tăng số lượng.
+* UI có control `-` để giảm số lượng.
+* Khi số lượng đang là `1`, hệ thống không cho giảm xuống `0` hoặc âm.
+
+### 🚫 Kết quả thực tế (Actual Output)
+* Màn giỏ chỉ hiển thị input số lượng.
+* Không có nút `+` hoặc `-`.
+* Không thể thực hiện thao tác giảm số lượng bằng nút như yêu cầu trong các test case `TC11`, `TC12`, `TC13`, `TC-BVA-04`, `TC-BVA-05`.
+
+### 💻 Môi trường kiểm thử
+* **OS:** macOS
+* **SUT Backend:** http://localhost:3000
+* **SUT Mobile:** Expo mobile UI / Expo web quan sát bằng Chrome headless
+* **Ghi chú:** Actual Output được lấy bằng black-box UI execution; phiên test dùng network shim runtime để mobile UI gọi đúng backend local.
+
+### 📸 Ảnh chụp minh họa (Bug Screenshot)
+[Kéo thả ảnh chụp màn hình kiểm thử tại đây]
+```
+
+---
+## ISSUE #30: BUG-FR07-07
+*   **Tiêu đề Issue (Title):** `[BUG-FR07-07] Xóa sản phẩm trong mobile cart không hiển thị dialog xác nhận`
+*   **Nhãn (Labels):** `bug`, `high-severity`, `mobile`
+### Nội dung Issue (Body):
+```markdown
+### 📝 Mô tả lỗi
+Theo yêu cầu FR-07, khi xóa item khỏi giỏ hàng phải có dialog xác nhận. Trên mobile UI, bấm **Xóa** sẽ xóa sản phẩm ngay lập tức, không hiển thị dialog và không có lựa chọn hủy thao tác.
+
+### 🛠️ Các bước tái hiện (Steps to Reproduce)
+1. Khởi động backend test local.
+2. Mở mobile UI qua Expo.
+3. Thêm một sản phẩm vào giỏ.
+4. Mở màn hình **Giỏ**.
+5. Bấm **Xóa** trên dòng sản phẩm.
+6. Quan sát có dialog xác nhận hay không.
+
+### 🎯 Kết quả mong đợi (Expected Output)
+* UI hiển thị dialog xác nhận trước khi xóa.
+* Người dùng có thể chọn Confirm để xóa hoặc Cancel để giữ nguyên sản phẩm trong giỏ.
+
+### 🚫 Kết quả thực tế (Actual Output)
+* Không có dialog xác nhận.
+* Sản phẩm bị xóa ngay sau khi bấm **Xóa**.
+* Badge chuyển về `Giỏ (0)` và màn hình hiển thị trạng thái giỏ trống.
+
+### 💻 Môi trường kiểm thử
+* **OS:** macOS
+* **SUT Backend:** http://localhost:3000
+* **SUT Mobile:** Expo mobile UI / Expo web quan sát bằng Chrome headless
+* **Ghi chú:** Actual Output được lấy bằng black-box UI execution; phiên test dùng network shim runtime để mobile UI gọi đúng backend local.
+
+### 📸 Ảnh chụp minh họa (Bug Screenshot)
+[Kéo thả ảnh chụp màn hình kiểm thử tại đây]
+```
+
+---
+## ISSUE #31: BUG-FR07-08
+*   **Tiêu đề Issue (Title):** `[BUG-FR07-08] Empty cart trên mobile thiếu hình minh họa`
+*   **Nhãn (Labels):** `bug`, `low-severity`, `mobile`
+### Nội dung Issue (Body):
+```markdown
+### 📝 Mô tả lỗi
+Khi giỏ hàng trống, mobile UI chỉ hiển thị thông báo văn bản và nút tiếp tục mua sắm. Theo yêu cầu FR-07, empty cart phải có hình minh họa và thông báo rõ ràng.
+
+### 🛠️ Các bước tái hiện (Steps to Reproduce)
+1. Khởi động backend test local.
+2. Mở mobile UI qua Expo.
+3. Đảm bảo giỏ hàng đang trống, hoặc thêm một sản phẩm rồi bấm **Xóa**.
+4. Mở màn hình **Giỏ**.
+5. Quan sát nội dung empty cart.
+
+### 🎯 Kết quả mong đợi (Expected Output)
+* UI hiển thị hình minh họa empty-cart.
+* UI hiển thị thông báo rõ ràng rằng giỏ hàng đang trống.
+
+### 🚫 Kết quả thực tế (Actual Output)
+* UI chỉ hiển thị text `Giỏ hàng của bạn đang trống`.
+* UI có nút `Tiếp tục mua sắm`.
+* Không quan sát thấy hình minh họa empty-cart.
+
+### 💻 Môi trường kiểm thử
+* **OS:** macOS
+* **SUT Backend:** http://localhost:3000
+* **SUT Mobile:** Expo mobile UI / Expo web quan sát bằng Chrome headless
+* **Ghi chú:** Actual Output được lấy bằng black-box UI execution; phiên test dùng network shim runtime để mobile UI gọi đúng backend local.
 
 ### 📸 Ảnh chụp minh họa (Bug Screenshot)
 [Kéo thả ảnh chụp màn hình kiểm thử tại đây]
