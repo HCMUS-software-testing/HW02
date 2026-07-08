@@ -427,3 +427,128 @@ Dưới đây là danh sách các lỗi phát hiện được đối với các 
 *   **Bằng chứng thực thi:** Test case `TC18` và `TC-BVA-09`.
     *   **Đường dẫn GitHub Issue:** [GitHub Issue #23](https://github.com/HCMUS-software-testing/HW02/issues/23)
 *   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR17-09](screenshots/BUG-FR17-09.png)
+
+---
+
+## Danh sách lỗi tổng hợp - FR-07: Giỏ hàng (Shopping Cart)
+
+
+|     Mã Bug      | Tên lỗi (Bug Name)                                                         |                 Mã TC phát hiện                  | Mô tả hành vi lỗi quan sát                                                                                                                     | Độ nghiêm trọng (Severity) | Trạng thái |
+| :-------------: | :------------------------------------------------------------------------- | :----------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------: | :--------: |
+| **BUG-FR07-01** | API giỏ hàng không gộp sản phẩm trùng                                      |                      `TC02`                      | Khi thêm cùng một sản phẩm hai lần, `GET /api/cart` trả 2 dòng trùng `id` thay vì tăng số lượng của dòng hiện có.                              |          **High**          |    Open    |
+| **BUG-FR07-02** | API giỏ hàng không validate `quantity`                                     |   `TC04`, `TC05`, `TC06`, `TC07`, `TC-BVA-01`    | API vẫn thêm sản phẩm khi thiếu `quantity`, `quantity` sai kiểu, bằng `0` hoặc âm.                                                             |          **High**          |    Open    |
+| **BUG-FR07-03** | API giỏ hàng không validate dữ liệu sản phẩm bắt buộc                      |              `TC08`, `TC09`, `TC10`              | API vẫn thêm item khi thiếu `id`, `name` rỗng hoặc `price` âm, làm giỏ có dữ liệu không hợp lệ.                                                |          **High**          |    Open    |
+| **BUG-FR07-04** | API thao tác giỏ hàng không hỗ trợ trả HTML 404 thay vì JSON lỗi nghiệp vụ |                      `TC19`                      | `PUT /api/cart`, `PATCH /api/cart`, `DELETE /api/cart/6` trả trang HTML mặc định `Cannot ...` thay vì phản hồi JSON lỗi thao tác không hợp lệ. |         **Medium**         |    Open    |
+| **BUG-FR07-05** | Mobile cart dùng sai nhãn tổng tiền                                        |     `TC01`, `TC18`, `TC-BVA-07`, `TC-BVA-08`     | UI mobile hiển thị `Tổng tạm tính` thay vì nhãn yêu cầu `"Tổng cộng"`.                                                                         |         **Medium**         |    Open    |
+| **BUG-FR07-06** | Mobile cart thiếu control tăng/giảm số lượng bằng `+`/`-`                  | `TC11`, `TC12`, `TC13`, `TC-BVA-04`, `TC-BVA-05` | Màn giỏ chỉ có input số lượng, không có nút `+`/`-` như luồng test yêu cầu; thao tác giảm bằng nút không thể thực hiện.                        |         **Medium**         |    Open    |
+| **BUG-FR07-07** | Xóa sản phẩm trong mobile cart không có dialog xác nhận                    |           `TC14`, `TC15`, `TC-BVA-04`            | Bấm **Xóa** xóa item ngay, không hiển thị dialog nên không có lựa chọn Confirm/Cancel.                                                         |          **High**          |    Open    |
+| **BUG-FR07-08** | Empty cart mobile thiếu hình minh họa                                      |               `TC17`, `TC-BVA-06`                | Khi giỏ trống, UI chỉ hiển thị text `Giỏ hàng của bạn đang trống` và nút tiếp tục mua sắm, không quan sát thấy illustration.                   |          **Low**           |    Open    |
+
+---
+
+### BUG-FR07-01: API giỏ hàng không gộp sản phẩm trùng
+
+*   **Mã TC liên quan:** `TC02`
+*   **Steps to Reproduce:**
+    1. Đăng nhập bằng tài khoản user hợp lệ để lấy JWT.
+    2. Gửi `POST /api/cart` với sản phẩm hợp lệ `id=6`, `quantity=1`.
+    3. Gửi lại `POST /api/cart` với cùng `id=6`, `quantity=1`.
+    4. Gửi `GET /api/cart`.
+*   **Expected Output:** Giỏ hàng chỉ có một dòng sản phẩm `id=6`, số lượng tăng thành `2`.
+*   **Actual Output:** API trả `200 OK` cho cả hai lần thêm, nhưng `GET /api/cart` trả 2 dòng trùng `id=6`, mỗi dòng `quantity=1`.
+*   **Severity:** High
+*   **GitHub Issue:** [BUG-FR07-01](https://github.com/HCMUS-software-testing/HW02/issues/29)
+*   **Screenshot:** ![Screenshot BUG-FR07-01](screenshots/BUG-FR07-01.png)
+
+### BUG-FR07-02: API giỏ hàng không validate `quantity`
+
+*   **Mã TC liên quan:** `TC04`, `TC05`, `TC06`, `TC07`, `TC-BVA-01`
+*   **Steps to Reproduce:**
+    1. Đăng nhập bằng tài khoản user hợp lệ để lấy JWT.
+    2. Gửi `POST /api/cart` với lần lượt các payload: thiếu `quantity`, `quantity="abc"`, `quantity=0`, `quantity=-1`.
+    3. Gửi `GET /api/cart`.
+*   **Expected Output:** API trả lỗi validation và giỏ hàng không thay đổi.
+*   **Actual Output:** API đều trả `200 OK` với body `{"message":"Added to cart"}`; `GET /api/cart` cho thấy item thiếu `quantity`, item `quantity:"abc"`, item `quantity:0` và item `quantity:-1` đều được lưu.
+*   **Severity:** High
+*   **GitHub Issue:** [BUG-FR07-02](https://github.com/HCMUS-software-testing/HW02/issues/30)
+*   **Screenshot:** ![Screenshot BUG-FR07-02](screenshots/BUG-FR07-02.png)
+
+### BUG-FR07-03: API giỏ hàng không validate dữ liệu sản phẩm bắt buộc
+
+*   **Mã TC liên quan:** `TC08`, `TC09`, `TC10`
+*   **Steps to Reproduce:**
+    1. Đăng nhập bằng tài khoản user hợp lệ để lấy JWT.
+    2. Gửi `POST /api/cart` với payload thiếu `id`.
+    3. Gửi `POST /api/cart` với `price=-100000`.
+    4. Gửi `POST /api/cart` với `name=""`.
+    5. Gửi `GET /api/cart`.
+*   **Expected Output:** API trả lỗi validation và không thêm các item thiếu/sai dữ liệu bắt buộc.
+*   **Actual Output:** API đều trả `200 OK` với body `{"message":"Added to cart"}`; giỏ hàng lưu item không có `id`, item có giá âm và item có tên rỗng.
+*   **Severity:** High
+*   **GitHub Issue:** [BUG-FR07-03](https://github.com/HCMUS-software-testing/HW02/issues/31)
+*   **Screenshot:** ![Screenshot BUG-FR07-03](screenshots/BUG-FR07-03.png)
+
+### BUG-FR07-04: API thao tác giỏ hàng không hỗ trợ trả HTML 404 thay vì JSON lỗi nghiệp vụ
+
+*   **Mã TC liên quan:** `TC19`
+*   **Steps to Reproduce:**
+    1. Đăng nhập bằng tài khoản user hợp lệ để lấy JWT.
+    2. Gửi các request không hỗ trợ: `PUT /api/cart`, `PATCH /api/cart`, `DELETE /api/cart/6`.
+*   **Expected Output:** API trả lỗi thao tác không hợp lệ ở dạng JSON nghiệp vụ và không thay đổi giỏ hàng.
+*   **Actual Output:** API trả HTTP `404 Not Found` với trang HTML mặc định như `Cannot PUT /api/cart`, `Cannot PATCH /api/cart`, `Cannot DELETE /api/cart/6`.
+*   **Severity:** Medium
+*   **GitHub Issue:** [BUG-FR07-04](https://github.com/HCMUS-software-testing/HW02/issues/32)
+*   **Screenshot:** ![Screenshot BUG-FR07-04](screenshots/BUG-FR07-04.png)
+
+### BUG-FR07-05: Mobile cart dùng sai nhãn tổng tiền
+
+*   **Mã TC liên quan:** `TC01`, `TC18`, `TC-BVA-07`, `TC-BVA-08`
+*   **Steps to Reproduce:**
+    1. Mở mobile UI qua Expo.
+    2. Thêm một hoặc nhiều sản phẩm vào giỏ.
+    3. Mở màn hình giỏ hàng.
+*   **Expected Output:** Khu vực tổng tiền hiển thị nhãn `"Tổng cộng"`.
+*   **Actual Output:** UI mobile hiển thị `Tổng tạm tính: ...` cho cả giỏ có một item và nhiều item.
+*   **Severity:** Medium
+*   **GitHub Issue:** [BUG-FR07-05](https://github.com/HCMUS-software-testing/HW02/issues/33)
+*   **Screenshot:** ![Screenshot BUG-FR07-05](screenshots/BUG-FR07-05.png)
+
+### BUG-FR07-06: Mobile cart thiếu control tăng/giảm số lượng bằng `+`/`-`
+
+*   **Mã TC liên quan:** `TC11`, `TC12`, `TC13`, `TC-BVA-04`, `TC-BVA-05`
+*   **Steps to Reproduce:**
+    1. Mở mobile UI qua Expo.
+    2. Thêm sản phẩm vào giỏ.
+    3. Mở màn hình giỏ hàng và quan sát khu vực số lượng.
+*   **Expected Output:** Người dùng có thể tăng/giảm số lượng bằng control `+`/`-`, và hệ thống không cho giảm dưới `1`.
+*   **Actual Output:** Màn giỏ chỉ hiển thị input số lượng, không có nút `+` hoặc `-`; không thể thực hiện thao tác giảm số lượng bằng nút như yêu cầu trong test case.
+*   **Severity:** Medium
+*   **GitHub Issue:** [BUG-FR07-06](https://github.com/HCMUS-software-testing/HW02/issues/34)
+*   **Screenshot:** ![Screenshot BUG-FR07-06](screenshots/BUG-FR07-06.png)
+
+### BUG-FR07-07: Xóa sản phẩm trong mobile cart không có dialog xác nhận
+
+*   **Mã TC liên quan:** `TC14`, `TC15`, `TC-BVA-04`
+*   **Steps to Reproduce:**
+    1. Mở mobile UI qua Expo.
+    2. Thêm một sản phẩm vào giỏ.
+    3. Mở màn hình giỏ hàng.
+    4. Bấm **Xóa** trên dòng sản phẩm.
+*   **Expected Output:** UI hiển thị dialog xác nhận trước khi xóa, cho phép người dùng Confirm hoặc Cancel.
+*   **Actual Output:** Không có dialog xác nhận; item bị xóa ngay, badge chuyển về `Giỏ (0)` và màn hình hiển thị giỏ trống.
+*   **Severity:** High
+*   **GitHub Issue:** [BUG-FR07-07](https://github.com/HCMUS-software-testing/HW02/issues/35)
+*   **Screenshot:** ![Screenshot BUG-FR07-07](screenshots/BUG-FR07-07.png)
+
+### BUG-FR07-08: Empty cart mobile thiếu hình minh họa
+
+*   **Mã TC liên quan:** `TC17`, `TC-BVA-06`
+*   **Steps to Reproduce:**
+    1. Mở mobile UI qua Expo.
+    2. Đảm bảo giỏ hàng trống.
+    3. Mở màn hình giỏ hàng.
+*   **Expected Output:** UI hiển thị hình minh họa và thông báo rõ ràng rằng giỏ hàng đang trống.
+*   **Actual Output:** UI chỉ hiển thị text `Giỏ hàng của bạn đang trống` và nút `Tiếp tục mua sắm`; không quan sát thấy hình minh họa.
+*   **Severity:** Low
+*   **GitHub Issue:** [BUG-FR07-08](https://github.com/HCMUS-software-testing/HW02/issues/36)
+*   **Screenshot:** ![Screenshot BUG-FR07-08](screenshots/BUG-FR07-08.png)
