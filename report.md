@@ -126,6 +126,32 @@
 | TC14 | `123456` | `AAAAAAAAa!` | `AAAAAAAAa!` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ số | B11 |
 | TC15 | `123456` | `AAAAAAAAa1` | `AAAAAAAAa1` | Hệ thống báo lỗi mật khẩu phải chứa ký tự đặc biệt | B14 |
 
+### Final Test Suite (Test Execution)
+
+| Test Case ID | Mục tiêu | Đầu vào | Các bước thực hiện | Kết quả mong đợi | Thực tế | Verdict |
+| --- | --- | --- | --- | --- | --- | --- |
+| TC1 | Kiểm tra yêu cầu OTP thành công với email hợp lệ (E1, E4) | Email: `validuser@gmail.com` (đã đăng ký) | 1. Nhập email.<br>2. Bấm "Yêu cầu OTP". | Hệ thống gửi OTP thành công và chuyển sang giao diện Bước 2. | | |
+| TC2 | Kiểm tra lỗi định dạng email không hợp lệ (E2) | Email: `user_validgmail.com` | 1. Nhập email.<br>2. Bấm "Yêu cầu OTP". | Hệ thống báo lỗi định dạng email không hợp lệ. | | |
+| TC3 | Kiểm tra lỗi bỏ trống email (E3) | Email: *(Để trống)* | 1. Để trống email.<br>2. Bấm "Yêu cầu OTP". | Hệ thống báo lỗi không được để trống trường email. | | |
+| TC4 | Kiểm tra lỗi email chưa được đăng ký (E5) | Email: `unknown@gmail.com` (chưa đăng ký) | 1. Nhập email.<br>2. Bấm "Yêu cầu OTP". | Hệ thống báo lỗi email chưa được đăng ký trong hệ thống. | | |
+| TC5 | Kiểm tra đặt lại mật khẩu thành công với độ dài tối thiểu 8 ký tự (B1) | OTP: Đúng<br>MK mới: `Aaaaaaa1!`<br>Xác nhận MK: `Aaaaaaa1!` | 1. Nhập OTP.<br>2. Nhập MK mới và Xác nhận MK.<br>3. Bấm "Đặt lại mật khẩu". | Đặt lại mật khẩu thành công và hiển thị thông báo. | | |
+| TC6 | Kiểm tra đặt lại mật khẩu thành công với độ dài 9 ký tự (B3) | OTP: Đúng<br>MK mới: `Aaaaaaaa1!`<br>Xác nhận MK: `Aaaaaaaa1!` | 1. Nhập thông tin hợp lệ.<br>2. Bấm "Đặt lại mật khẩu". | Đặt lại mật khẩu thành công và hiển thị thông báo. | | |
+| TC7 | Kiểm tra đặt lại mật khẩu thành công với 1 chữ hoa (B4) | OTP: Đúng<br>MK mới: `Aaaaaaaaa1!`<br>Xác nhận MK: `Aaaaaaaaa1!` | 1. Nhập thông tin hợp lệ.<br>2. Bấm "Đặt lại mật khẩu". | Đặt lại mật khẩu thành công. | | |
+| TC8 | Kiểm tra đặt lại mật khẩu thành công với 2 chữ hoa (B6) | OTP: Đúng<br>MK mới: `AAaaaaaaa1!`<br>Xác nhận MK: `AAaaaaaaa1!` | 1. Nhập thông tin hợp lệ.<br>2. Bấm "Đặt lại mật khẩu". | Đặt lại mật khẩu thành công. | | |
+| TC9 | Kiểm tra đặt lại mật khẩu thành công với 1 chữ thường (B7) | OTP: Đúng<br>MK mới: `AAAAAAAAa1!`<br>Xác nhận MK: `AAAAAAAAa1!` | 1. Nhập thông tin hợp lệ.<br>2. Bấm "Đặt lại mật khẩu". | Đặt lại mật khẩu thành công. | | |
+| TC10 | Kiểm tra đặt lại mật khẩu thành công với 2 chữ thường (B9) | OTP: Đúng<br>MK mới: `AAAAAAAAaa1!`<br>Xác nhận MK: `AAAAAAAAaa1!` | 1. Nhập thông tin hợp lệ.<br>2. Bấm "Đặt lại mật khẩu". | Đặt lại mật khẩu thành công. | | |
+| TC11 | Kiểm tra đặt lại mật khẩu thành công với 1 chữ số (B10) | OTP: Đúng<br>MK mới: `AAAAAAAAa1!`<br>Xác nhận MK: `AAAAAAAAa1!` | 1. Nhập thông tin hợp lệ.<br>2. Bấm "Đặt lại mật khẩu". | Đặt lại mật khẩu thành công. | | |
+| TC12 | Kiểm tra đặt lại mật khẩu thành công với 2 chữ số (B12) | OTP: Đúng<br>MK mới: `AAAAAAAAa12!`<br>Xác nhận MK: `AAAAAAAAa12!` | 1. Nhập thông tin hợp lệ.<br>2. Bấm "Đặt lại mật khẩu". | Đặt lại mật khẩu thành công. | | |
+| TC13 | Kiểm tra đặt lại mật khẩu thành công với 1 ký tự đặc biệt (B13) | OTP: Đúng<br>MK mới: `AAAAAAAAa1!`<br>Xác nhận MK: `AAAAAAAAa1!` | 1. Nhập thông tin hợp lệ.<br>2. Bấm "Đặt lại mật khẩu". | Đặt lại mật khẩu thành công. | | |
+| TC14 | Kiểm tra đặt lại mật khẩu thành công với 2 ký tự đặc biệt (B15) | OTP: Đúng<br>MK mới: `AAAAAAAAa1!@`<br>Xác nhận MK: `AAAAAAAAa1!@` | 1. Nhập thông tin hợp lệ.<br>2. Bấm "Đặt lại mật khẩu". | Đặt lại mật khẩu thành công. | | |
+| TC15 | Kiểm tra lỗi nhập sai mã OTP (E7) | OTP: Sai mã<br>MK mới: `Aaaaaaa1!`<br>Xác nhận MK: `Aaaaaaa1!` | 1. Nhập OTP sai.<br>2. Nhập MK hợp lệ.<br>3. Bấm "Đặt lại mật khẩu". | Hệ thống báo lỗi mã OTP không hợp lệ hoặc không chính xác. | | |
+| TC16 | Kiểm tra lỗi xác nhận mật khẩu không khớp (E19) | OTP: Đúng<br>MK mới: `Aaaaaaa1!`<br>Xác nhận MK: `WrongP@ss99` | 1. Nhập OTP đúng.<br>2. Nhập MK và Xác nhận MK khác nhau.<br>3. Bấm "Đặt lại". | Hệ thống báo lỗi mật khẩu xác nhận không trùng khớp. | | |
+| TC17 | Kiểm tra lỗi mật khẩu ngắn hơn 8 ký tự (E9, B2) | OTP: Đúng<br>MK mới: `Aaaaaa1!` (7 ký tự)<br>Xác nhận MK: `Aaaaaa1!` | 1. Nhập OTP đúng.<br>2. Nhập MK 7 ký tự.<br>3. Bấm "Đặt lại". | Hệ thống báo lỗi mật khẩu mới phải từ 8 ký tự trở lên. | | |
+| TC18 | Kiểm tra lỗi mật khẩu thiếu chữ hoa (E11, B5) | OTP: Đúng<br>MK mới: `aaaaaaaa1!`<br>Xác nhận MK: `aaaaaaaa1!` | 1. Nhập OTP đúng.<br>2. Nhập MK không có chữ hoa.<br>3. Bấm "Đặt lại". | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in hoa. | | |
+| TC19 | Kiểm tra lỗi mật khẩu thiếu chữ thường (E13, B8) | OTP: Đúng<br>MK mới: `AAAAAAAA1!`<br>Xác nhận MK: `AAAAAAAA1!` | 1. Nhập OTP đúng.<br>2. Nhập MK không có chữ thường.<br>3. Bấm "Đặt lại". | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in thường. | | |
+| TC20 | Kiểm tra lỗi mật khẩu thiếu chữ số (E15, B11) | OTP: Đúng<br>MK mới: `AAAAAAAAa!`<br>Xác nhận MK: `AAAAAAAAa!` | 1. Nhập OTP đúng.<br>2. Nhập MK không có số.<br>3. Bấm "Đặt lại". | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ số. | | |
+| TC21 | Kiểm tra lỗi mật khẩu thiếu ký tự đặc biệt (E17, B14) | OTP: Đúng<br>MK mới: `AAAAAAAAa1`<br>Xác nhận MK: `AAAAAAAAa1` | 1. Nhập OTP đúng.<br>2. Nhập MK không có KTĐB.<br>3. Bấm "Đặt lại". | Hệ thống báo lỗi mật khẩu phải chứa ký tự đặc biệt. | | |
+
 ## 2.2 Tính năng 10 - Pool B: Trạng thái Đơn hàng
 ### Mô tả:
 - Đơn hàng có 5 trạng thái và phải tuân theo sơ đồ chuyển đổi sau:
@@ -189,6 +215,22 @@
 
 **Ghi chú**: Tính năng này không tồn tại biến dạng số liên tục nên không tồn tại test case trong phần boundary value analysis.
 
+### Test case
+
+| Test Case ID | Mục tiêu | Đầu vào | Các bước thực hiện | Kết quả mong đợi | Thực tế | Verdict |
+|---|---|---|---|---|---|---|
+| TC1 | Kiểm tra Admin xác nhận đơn hàng từ `pending` sang `confirmed` | Vai trò: `Admin`<br>Trạng thái hiện tại: `pending`<br>Thao tác: Xác nhận | 1. Đăng nhập với quyền Admin<br>2. Chọn đơn hàng đang ở trạng thái `pending`<br>3. Thực hiện thao tác Xác nhận | Đơn hàng chuyển sang `confirmed` thành công | | |
+| TC2 | Kiểm tra User không có quyền xác nhận đơn hàng `pending` | Vai trò: `User`<br>Trạng thái hiện tại: `pending`<br>Thao tác: Xác nhận | 1. Đăng nhập với quyền User<br>2. Chọn đơn hàng đang ở trạng thái `pending`<br>3. Thực hiện thao tác Xác nhận | Báo lỗi không có quyền thay đổi trạng thái | | |
+| TC3 | Kiểm tra Admin giao hàng từ `confirmed` sang `shipping` | Vai trò: `Admin`<br>Trạng thái hiện tại: `confirmed`<br>Thao tác: Giao hàng | 1. Đăng nhập với quyền Admin<br>2. Chọn đơn hàng đang ở trạng thái `confirmed`<br>3. Thực hiện thao tác Giao hàng | Đơn hàng chuyển sang `shipping` thành công | | |
+| TC4 | Kiểm tra User không có quyền giao hàng đối với đơn `confirmed` | Vai trò: `User`<br>Trạng thái hiện tại: `confirmed`<br>Thao tác: Giao hàng | 1. Đăng nhập với quyền User<br>2. Chọn đơn hàng đang ở trạng thái `confirmed`<br>3. Thực hiện thao tác Giao hàng | Báo lỗi không có quyền thay đổi trạng thái | | |
+| TC5 | Kiểm tra Admin hoàn tất đơn hàng từ `shipping` sang `delivered` | Vai trò: `Admin`<br>Trạng thái hiện tại: `shipping`<br>Thao tác: Hoàn tất | 1. Đăng nhập với quyền Admin<br>2. Chọn đơn hàng đang ở trạng thái `shipping`<br>3. Thực hiện thao tác Hoàn tất | Đơn hàng chuyển sang `delivered` thành công | | |
+| TC6 | Kiểm tra User không có quyền hoàn tất đơn hàng `shipping` | Vai trò: `User`<br>Trạng thái hiện tại: `shipping`<br>Thao tác: Hoàn tất | 1. Đăng nhập với quyền User<br>2. Chọn đơn hàng đang ở trạng thái `shipping`<br>3. Thực hiện thao tác Hoàn tất | Báo lỗi không có quyền thay đổi trạng thái | | |
+| TC7 | Kiểm tra User hủy đơn hàng `pending` | Vai trò: `User`<br>Trạng thái hiện tại: `pending`<br>Thao tác: Hủy | 1. Đăng nhập với quyền User<br>2. Chọn đơn hàng đang ở trạng thái `pending`<br>3. Thực hiện thao tác Hủy | Đơn hàng chuyển sang `canceled` thành công | | |
+| TC8 | Kiểm tra Admin hủy đơn hàng `confirmed` | Vai trò: `Admin`<br>Trạng thái hiện tại: `confirmed`<br>Thao tác: Hủy | 1. Đăng nhập với quyền Admin<br>2. Chọn đơn hàng đang ở trạng thái `confirmed`<br>3. Thực hiện thao tác Hủy | Đơn hàng chuyển sang `canceled` thành công | | |
+| TC9 | Kiểm tra Admin hủy đơn hàng `shipping` | Vai trò: `Admin`<br>Trạng thái hiện tại: `shipping`<br>Thao tác: Hủy | 1. Đăng nhập với quyền Admin<br>2. Chọn đơn hàng đang ở trạng thái `shipping`<br>3. Thực hiện thao tác Hủy | Đơn hàng chuyển sang `canceled` thành công | | |
+| TC10 | Kiểm tra User không có quyền hủy đơn hàng `shipping` | Vai trò: `User`<br>Trạng thái hiện tại: `shipping`<br>Thao tác: Hủy | 1. Đăng nhập với quyền User<br>2. Chọn đơn hàng đang ở trạng thái `shipping`<br>3. Thực hiện thao tác Hủy | Báo lỗi User không được phép hủy khi đang giao hàng | | |
+| TC11 | Kiểm tra không thể hủy đơn hàng từ trạng thái kết thúc | Vai trò: `User`<br>Trạng thái hiện tại: `delivered`<br>Thao tác: Hủy | 1. Đăng nhập với quyền User<br>2. Chọn đơn hàng đang ở trạng thái `delivered`<br>3. Thực hiện thao tác Hủy | Báo lỗi không thể thay đổi từ trạng thái kết thúc | | |
+
 ## 2.3 Tính năng 14 - Pool C: Quản lý Danh mục
 ### Mô tả: 
 - Admin có thể Thêm / Xem / Xóa danh mục.
@@ -243,20 +285,23 @@
 | TC2 | `User` | *(đã tồn tại)* | Báo lỗi hoặc từ chối quyền truy cập do không phải là Admin. | E2 |
 | TC3 | `Admin` | *(chưa tồn tại)* | Báo lỗi không tìm thấy danh mục yêu cầu. | E4 |
 
+**Ghi chú**: Tính năng này không tồn tại biến dạng số liên tục nên không tồn tại test case trong phần boundary value analysis.
 
-### Boundary Value Analysis (BVA)
+### Test case
 
-#### Xác định biên
-- B1 (min): Tên danh mục có độ dài 1 ký tự - Valid
-- B2 (min-1): Tên danh mục có độ dài 0 ký tự (để trống) - Invalid
-- B3 (min+1): Tên danh mục có độ dài 2 ký tự - Valid
+| Test Case ID | Mục tiêu | Đầu vào | Các bước thực hiện | Kết quả mong đợi | Thực tế | Verdict |
+|---|---|---|---|---|---|---|
+| TC1 | Kiểm tra Thêm danh mục thành công với quyền Admin (E1, E5) | Vai trò: `Admin`<br>Tên danh mục: Tên mới (chưa tồn tại) | 1. Đăng nhập với quyền Admin<br>2. Nhập tên danh mục hợp lệ<br>3. Bấm Thêm | Thêm danh mục thành công và hiển thị trên danh sách. | | |
+| TC2 | Kiểm tra lỗi Thêm danh mục khi không có quyền Admin (E2) | Vai trò: `User`<br>Tên danh mục: Tên mới (chưa tồn tại) | 1. Đăng nhập với quyền User<br>2. Thử thao tác Thêm danh mục | Báo lỗi hoặc từ chối quyền truy cập do không phải là Admin. | | |
+| TC3 | Kiểm tra lỗi Thêm danh mục khi để trống tên (E3) | Vai trò: `Admin`<br>Tên danh mục: *(Để trống)* | 1. Đăng nhập với quyền Admin<br>2. Để trống tên danh mục<br>3. Bấm Thêm | Báo lỗi tên danh mục là bắt buộc, không được để trống. | | |
+| TC4 | Kiểm tra lỗi Thêm danh mục với tên đã tồn tại (E4) | Vai trò: `Admin`<br>Tên danh mục: Đã tồn tại | 1. Đăng nhập với quyền Admin<br>2. Nhập tên danh mục đã có trong hệ thống<br>3. Bấm Thêm | Báo lỗi tên danh mục đã tồn tại trong hệ thống. | | |
+| TC5 | Kiểm tra Xóa danh mục thành công với quyền Admin (E1, E3) | Vai trò: `Admin`<br>Danh mục mục tiêu: Đã tồn tại | 1. Đăng nhập với quyền Admin<br>2. Chọn một danh mục có sẵn<br>3. Bấm Xóa | Xóa danh mục thành công và loại bỏ khỏi hệ thống. | | |
+| TC6 | Kiểm tra lỗi Xóa danh mục khi không có quyền Admin (E2) | Vai trò: `User`<br>Danh mục mục tiêu: Đã tồn tại | 1. Đăng nhập với quyền User<br>2. Thử thao tác Xóa danh mục | Báo lỗi hoặc từ chối quyền truy cập do không phải là Admin. | | |
+| TC7 | Kiểm tra lỗi Xóa danh mục không tồn tại (E4) | Vai trò: `Admin`<br>Danh mục mục tiêu: Chưa tồn tại | 1. Đăng nhập với quyền Admin<br>2. Nhập ID/thao tác xóa danh mục không có thực | Báo lỗi không tìm thấy danh mục cần xóa. | | |
+| TC8 | Kiểm tra Xem chi tiết danh mục thành công với quyền Admin (E1, E3) | Vai trò: `Admin`<br>Danh mục mục tiêu: Đã tồn tại | 1. Đăng nhập với quyền Admin<br>2. Chọn một danh mục có sẵn<br>3. Bấm Xem chi tiết | Hiển thị thông tin chi tiết của danh mục tương ứng. | | |
+| TC9 | Kiểm tra lỗi Xem chi tiết danh mục khi không có quyền Admin (E2) | Vai trò: `User`<br>Danh mục mục tiêu: Đã tồn tại | 1. Đăng nhập với quyền User<br>2. Thử thao tác Xem chi tiết danh mục | Báo lỗi hoặc từ chối quyền truy cập do không phải là Admin. | | |
+| TC10 | Kiểm tra lỗi Xem chi tiết danh mục không tồn tại (E4) | Vai trò: `Admin`<br>Danh mục mục tiêu: Chưa tồn tại | 1. Đăng nhập với quyền Admin<br>2. Nhập ID/thao tác xem danh mục không có thực | Báo lỗi không tìm thấy danh mục yêu cầu. | | |
 
-#### Test data
-| Test Case ID | Vai trò (Role) | Tên danh mục (Category Name) | Output | Covered Boundary Values |
-| --- | --- | --- | --- | --- |
-| TC1 | `Admin` | `A` | Thêm danh mục thành công và hiển thị trên danh sách. | B1 |
-| TC2 | `Admin` | `AB` | Thêm danh mục thành công và hiển thị trên danh sách. | B3 |
-| TC3 | `Admin` | *(Để trống)* | Báo lỗi tên danh mục là bắt buộc, không được để trống. | B2 |
 
 ## 2.4 Tính năng 1 - Pool D (Mobile): Đăng ký tài khoản
 ### Mô tả:
@@ -315,45 +360,39 @@
 ### Boundary Value Analysis (BVA)
 
 #### Xác định biên
-- B1 (min): Họ tên có độ dài 1 ký tự - Valid
-- B2 (min-1): Họ tên có độ dài 0 ký tự (để trống) - Invalid
-- B3 (min+1): Họ tên có độ dài 2 ký tự - Valid
-- B4 (min): Mật khẩu có độ dài 8 ký tự - Valid
-- B5 (min-1): Mật khẩu có độ dài 7 ký tự - Invalid
-- B6 (min+1): Mật khẩu có độ dài 9 ký tự - Valid
-- B7 (min): Mật khẩu chứa 1 chữ cái in hoa - Valid
-- B8 (min-1): Mật khẩu chứa 0 chữ cái in hoa - Invalid
-- B9 (min+1): Mật khẩu chứa 2 chữ cái in hoa - Valid
-- B10 (min): Mật khẩu chứa 1 chữ cái in thường - Valid
-- B11 (min-1): Mật khẩu chứa 0 chữ cái in thường - Invalid
-- B12 (min+1): Mật khẩu chứa 2 chữ cái in thường - Valid
-- B13 (min): Mật khẩu chứa 1 chữ số - Valid
-- B14 (min-1): Mật khẩu chứa 0 chữ số - Invalid
-- B15 (min+1): Mật khẩu chứa 2 chữ số - Valid
-- B16 (min): Mật khẩu chứa 1 ký tự đặc biệt - Valid
-- B17 (min-1): Mật khẩu chứa 0 ký tự đặc biệt - Invalid
-- B18 (min+1): Mật khẩu chứa 2 ký tự đặc biệt - Valid
+- B1 (min): Mật khẩu có độ dài 8 ký tự - Valid
+- B2 (min-1): Mật khẩu có độ dài 7 ký tự - Invalid
+- B3 (min+1): Mật khẩu có độ dài 9 ký tự - Valid
+- B4 (min): Mật khẩu chứa 1 chữ cái in hoa - Valid
+- B5 (min-1): Mật khẩu chứa 0 chữ cái in hoa - Invalid
+- B6 (min+1): Mật khẩu chứa 2 chữ cái in hoa - Valid
+- B7 (min): Mật khẩu chứa 1 chữ cái in thường - Valid
+- B8 (min-1): Mật khẩu chứa 0 chữ cái in thường - Invalid
+- B9 (min+1): Mật khẩu chứa 2 chữ cái in thường - Valid
+- B10 (min): Mật khẩu chứa 1 chữ số - Valid
+- B11 (min-1): Mật khẩu chứa 0 chữ số - Invalid
+- B12 (min+1): Mật khẩu chứa 2 chữ số - Valid
+- B13 (min): Mật khẩu chứa 1 ký tự đặc biệt - Valid
+- B14 (min-1): Mật khẩu chứa 0 ký tự đặc biệt - Invalid
+- B15 (min+1): Mật khẩu chứa 2 ký tự đặc biệt - Valid
 
 #### Test data
 | Test Case ID | Họ tên | Email | Mật khẩu | Xác nhận mật khẩu | Output | Covered Boundary Values |
 | --- | --- | --- | --- | --- | --- | --- |
-| TC1 | `A` | `validuser@gmail.com` | `ABCdef12!@` | `ABCdef12!@` | Đăng ký thành công | B1 |
-| TC2 | `An` | `validuser@gmail.com` | `ABCdef12!@` | `ABCdef12!@` | Đăng ký thành công | B3 |
-| TC3 | *(Để trống)* | `validuser@gmail.com` | `ABCdef12!@` | `ABCdef12!@` | Báo lỗi họ tên không được để trống | B2 |
-| TC4 | `Nguyen Van A` | `validuser@gmail.com` | `Aaaaaaa1!` | `Aaaaaaa1!` | Đăng ký thành công | B4 |
-| TC5 | `Nguyen Van A` | `validuser@gmail.com` | `Aaaaaaaa1!` | `Aaaaaaaa1!` | Đăng ký thành công | B6 |
-| TC6 | `Nguyen Van A` | `validuser@gmail.com` | `Aaaaaaaa12!@` | `Aaaaaaaa12!@` | Đăng ký thành công | B7 |
-| TC7 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa12!@` | `AAaaaaaa12!@` | Đăng ký thành công | B9 |
-| TC8 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa1!@#` | `AAaaaaaa1!@#` | Đăng ký thành công | B10 |
-| TC9 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa12!@` | `AAaaaaaa12!@` | Đăng ký thành công | B12 |
-| TC10 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa123!` | `AAaaaaaa123!` | Đăng ký thành công | B13 |
-| TC11 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa1234` | `AAaaaaaa1234` | Đăng ký thành công | B15 |
-| TC12 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa12!` | `AAaaaaaa12!` | Đăng ký thành công | B16 |
-| TC13 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa12!@` | `AAaaaaaa12!@` | Đăng ký thành công | B18 |
-| TC14 | `Nguyen Van A` | `validuser@gmail.com` | `Aaaaaa1!` | `Aaaaaa1!` | Hệ thống báo lỗi mật khẩu phải từ 8 ký tự trở lên | B5 |
-| TC15 | `Nguyen Van A` | `validuser@gmail.com` | `aaaaaaaa12!@` | `aaaaaaaa12!@` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in hoa | B8 |
-| TC16 | `Nguyen Van A` | `validuser@gmail.com` | `AAAAAAAA12!@` | `AAAAAAAA12!@` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in thường | B11 |
-| TC17 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa!@#$` | `AAaaaaaa!@#$` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ số | B14 |
-| TC18 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa1234` | `AAaaaaaa1234` | Hệ thống báo lỗi mật khẩu phải chứa ký tự đặc biệt | B17 |
+| TC1 | `Nguyen Van A` | `validuser@gmail.com` | `Aaaaaaa1!` | `Aaaaaaa1!` | Đăng ký thành công | B1 |
+| TC2 | `Nguyen Van A` | `validuser@gmail.com` | `Aaaaaaaa1!` | `Aaaaaaaa1!` | Đăng ký thành công | B3 |
+| TC3 | `Nguyen Van A` | `validuser@gmail.com` | `Aaaaaaaa12!@` | `Aaaaaaaa12!@` | Đăng ký thành công | B4 |
+| TC4 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa12!@` | `AAaaaaaa12!@` | Đăng ký thành công | B6 |
+| TC5 | `Nguyen Van A` | `validuser@gmail.com` | `AAAAAAAAa1!@` | `AAAAAAAAa1!@` | Đăng ký thành công | B7 |
+| TC6 | `Nguyen Van A` | `validuser@gmail.com` | `AAAAAAAAaa1!` | `AAAAAAAAaa1!` | Đăng ký thành công | B9 |
+| TC7 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa1!@#` | `AAaaaaaa1!@#` | Đăng ký thành công | B10 |
+| TC8 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa12!@` | `AAaaaaaa12!@` | Đăng ký thành công | B12 |
+| TC9 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa123!` | `AAaaaaaa123!` | Đăng ký thành công | B13 |
+| TC10 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa12!@` | `AAaaaaaa12!@` | Đăng ký thành công | B15 |
+| TC11 | `Nguyen Van A` | `validuser@gmail.com` | `Aaaaaa1!` | `Aaaaaa1!` | Hệ thống báo lỗi mật khẩu phải từ 8 ký tự trở lên | B2 |
+| TC12 | `Nguyen Van A` | `validuser@gmail.com` | `aaaaaaaa12!@` | `aaaaaaaa12!@` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in hoa | B5 |
+| TC13 | `Nguyen Van A` | `validuser@gmail.com` | `AAAAAAAA12!@` | `AAAAAAAA12!@` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in thường | B8 |
+| TC14 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa!@#$` | `AAaaaaaa!@#$` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ số | B11 |
+| TC15 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa1234` | `AAaaaaaa1234` | Hệ thống báo lỗi mật khẩu phải chứa ký tự đặc biệt | B14 |
 
 # 3. Test Summary Report
