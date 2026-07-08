@@ -28,105 +28,10 @@
     - Hai trường mật khẩu phải khớp nhau.
     - OTP chỉ hợp lệ cho email đã yêu cầu, không thể dùng cho email khác.
 
-### Equivalence Partitioning
-#### Điều kiện:
-- Bước 1: 
-    - C1: Email đúng định dạng hợp lệ.
-    - C2: Email đã được đăng ký trong hệ thống.
-- Bước 2:
-    - C3: OTP khớp với mã đã được gửi cho email yêu cầu.
-    - C4: Mật khẩu mới có độ dài >= 8 ký tự.
-    - C5: Mật khẩu mới chứa ít nhất 1 chữ hoa.
-    - C6: Mật khẩu mới chứa ít nhất 1 chữ thường.
-    - C7: Mật khẩu mới chứa ít nhất 1 chữ số.
-    - C8: Mật khẩu mới chứa ít nhất 1 ký tự đặc biệt (@, $, !, %, *, ?, &).
-    - C9: Xác nhận mật khẩu mới khớp hoàn toàn với Mật khẩu mới.
+### Domain Testing
+[Xem nội dung](./domain-testing-fr3.md)
 
-#### Equivalence Classes
-- Bước 1: 
-    - E1: Chuỗi email đúng định dạng hợp lệ (vd: chứa đủ phần local, ký tự '@' và domain) - Valid
-    - E2: Chuỗi email sai định dạng (thiếu '@', thiếu phần local hoặc domain) - Invalid
-    - E3: Chuỗi email bị để trống - Invalid
-    - E4: Email đã tồn tại trong cơ sở dữ liệu của hệ thống - Valid
-    - E5: Email chưa từng được đăng ký trong cơ sở dữ liệu của hệ thống - Invalid
-- Bước 2:
-    - E6: Mã OTP trùng khớp hoàn toàn với mã đã gửi - Valid
-    - E7: Mã OTP không trùng khớp với mã đã gửi - Invalid
-    - E8: Mật khẩu mới có độ dài từ 8 ký tự trở lên - Valid
-    - E9: Mật khẩu mới có độ dài ít hơn 8 ký tự - Invalid
-    - E10: Mật khẩu mới có chứa ít nhất 1 chữ cái in hoa (A-Z) - Valid
-    - E11: Mật khẩu mới không chứa bất kỳ chữ cái in hoa nào - Invalid
-    - E12: Mật khẩu mới có chứa ít nhất 1 chữ cái in thường (a-z) - Valid
-    - E13: Mật khẩu mới không chứa bất kỳ chữ cái in thường nào - Invalid
-    - E14: Mật khẩu mới có chứa ít nhất 1 chữ số (0-9) - Valid
-    - E15: Mật khẩu mới không chứa bất kỳ chữ số nào - Invalid
-    - E16: Mật khẩu mới có chứa ít nhất 1 ký tự đặc biệt thuộc tập hợp (@, $, !, %, *, ?, &) - Valid
-    - E17: Mật khẩu mới không chứa bất kỳ ký tự đặc biệt nào thuộc tập hợp cho phép - Invalid
-    - E18: Chuỗi ký tự ở Xác nhận mật khẩu mới trùng khớp hoàn toàn với Mật khẩu mới - Valid
-    - E19: Chuỗi ký tự ở Xác nhận mật khẩu mới khác với Mật khẩu mới - Invalid
-
-#### Test data
-- Bước 1: Yêu cầu OTP (Quên mật khẩu)
-
-| Test Case ID | Email | Output | Covered Classes |
-| --- | --- | --- | --- |
-| TC1 | *(Nhập đúng email đã đăng ký)* | Hệ thống gửi OTP thành công và chuyển sang giao diện Bước 2 | E1, E4 |
-| TC2 | `user_validgmail.com` | Hệ thống báo lỗi định dạng email không hợp lệ | E2 |
-| TC3 | *(Để trống)* | Hệ thống báo lỗi không được để trống trường email | E3 |
-| TC4 | *(Nhập email chưa được đăng ký)* | Hệ thống báo lỗi email chưa được đăng ký trong hệ thống | E5 |
-
-- Bước 2: Đặt lại mật khẩu
-
-| Test Case ID | OTP | Mật khẩu mới | Xác nhận mật khẩu mới | Output | Covered Classes |
-| --- | --- | --- | --- | --- | --- |
-| TC1 | *(Nhập đúng mã OTP)* | `StrongP@ss1` | `StrongP@ss1` | Đặt lại mật khẩu thành công và hiển thị thông báo | E6, E8, E10, E12, E14, E16, E18 |
-| TC2 | *(Nhập sai mã OTP)* | `StrongP@ss1` | `StrongP@ss1` | Hệ thống báo lỗi mã OTP không hợp lệ hoặc không chính xác | E7 |
-| TC3 | *(Nhập đúng mã OTP)* | `P@ss123` | `P@ss123` | Hệ thống báo lỗi mật khẩu mới phải từ 8 ký tự trở lên | E9 |
-| TC4 | *(Nhập đúng mã OTP)* | `strongp@ss1` | `strongp@ss1` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in hoa | E11 |
-| TC5 | *(Nhập đúng mã OTP)* | `STRONGP@SS1` | `STRONGP@SS1` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in thường | E13 |
-| TC6 | *(Nhập đúng mã OTP)* | `StrongP@ss` | `StrongP@ss` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ số | E15 |
-| TC7 | *(Nhập đúng mã OTP)* | `StrongPass1` | `StrongPass1` | Hệ thống báo lỗi mật khẩu phải chứa ký tự đặc biệt | E17 |
-| TC8 | *(Nhập đúng mã OTP)* | `StrongP@ss1` | `WrongP@ss99` | Hệ thống báo lỗi mật khẩu xác nhận không trùng khớp | E19 |
-
-### Boundary Value Analysis (BVA)
-
-#### Xác định biên
-- B1 (min): Mật khẩu mới có độ dài 8 ký tự - Valid
-- B2 (min-1): Mật khẩu mới có độ dài 7 ký tự - Invalid
-- B3 (min+1): Mật khẩu mới có độ dài 9 ký tự - Valid
-- B4 (min): Mật khẩu mới chứa 1 chữ cái in hoa - Valid
-- B5 (min-1): Mật khẩu mới chứa 0 chữ cái in hoa - Invalid
-- B6 (min+1): Mật khẩu mới chứa 2 chữ cái in hoa - Valid
-- B7 (min): Mật khẩu mới chứa 1 chữ cái in thường - Valid
-- B8 (min-1): Mật khẩu mới chứa 0 chữ cái in thường - Invalid
-- B9 (min+1): Mật khẩu mới chứa 2 chữ cái in thường - Valid
-- B10 (min): Mật khẩu mới chứa 1 chữ số - Valid
-- B11 (min-1): Mật khẩu mới chứa 0 chữ số - Invalid
-- B12 (min+1): Mật khẩu mới chứa 2 chữ số - Valid
-- B13 (min): Mật khẩu mới chứa 1 ký tự đặc biệt - Valid
-- B14 (min-1): Mật khẩu mới chứa 0 ký tự đặc biệt - Invalid
-- B15 (min+1): Mật khẩu mới chứa 2 ký tự đặc biệt - Valid
-
-#### Test data
-| Test Case ID | OTP | Mật khẩu mới | Xác nhận mật khẩu mới | Output | Covered Boundary Values |
-| --- | --- | --- | --- | --- | --- |
-| TC1 | `123456` | `Aaaaaaa1!` | `Aaaaaaa1!` | Đặt lại mật khẩu thành công | B1 |
-| TC2 | `123456` | `Aaaaaaaa1!` | `Aaaaaaaa1!` | Đặt lại mật khẩu thành công | B3 |
-| TC3 | `123456` | `Aaaaaaaaa1!` | `Aaaaaaaaa1!` | Đặt lại mật khẩu thành công | B4 |
-| TC4 | `123456` | `AAaaaaaaa1!` | `AAaaaaaaa1!` | Đặt lại mật khẩu thành công | B6 |
-| TC5 | `123456` | `AAAAAAAAa1!` | `AAAAAAAAa1!` | Đặt lại mật khẩu thành công | B7 |
-| TC6 | `123456` | `AAAAAAAAaa1!` | `AAAAAAAAaa1!` | Đặt lại mật khẩu thành công | B9 |
-| TC7 | `123456` | `AAAAAAAAa1!` | `AAAAAAAAa1!` | Đặt lại mật khẩu thành công | B10 |
-| TC8 | `123456` | `AAAAAAAAa12!` | `AAAAAAAAa12!` | Đặt lại mật khẩu thành công | B12 |
-| TC9 | `123456` | `AAAAAAAAa1!` | `AAAAAAAAa1!` | Đặt lại mật khẩu thành công | B13 |
-| TC10 | `123456` | `AAAAAAAAa1!@` | `AAAAAAAAa1!@` | Đặt lại mật khẩu thành công | B15 |
-| TC11 | `123456` | `Aaaaaa1!` | `Aaaaaa1!` | Hệ thống báo lỗi mật khẩu mới phải từ 8 ký tự trở lên | B2 |
-| TC12 | `123456` | `aaaaaaaa1!` | `aaaaaaaa1!` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in hoa | B5 |
-| TC13 | `123456` | `AAAAAAAA1!` | `AAAAAAAA1!` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in thường | B8 |
-| TC14 | `123456` | `AAAAAAAAa!` | `AAAAAAAAa!` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ số | B11 |
-| TC15 | `123456` | `AAAAAAAAa1` | `AAAAAAAAa1` | Hệ thống báo lỗi mật khẩu phải chứa ký tự đặc biệt | B14 |
-
-### Final Test Suite (Test Execution)
+### Test Cases
 
 | Test Case ID | Mục tiêu | Đầu vào | Các bước thực hiện | Kết quả mong đợi | Thực tế | Verdict |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -172,50 +77,10 @@
     - Khi đơn hàng đã ở trạng thái shipping, User không được phép tự hủy — chỉ Admin mới có thể thao tác.
     - Mọi chuyển đổi không hợp lệ phải trả về lỗi với thông báo phù hợp.
 
-### Equivalence Partitioning
-#### Điều kiện:
-- C1: Chuyển đổi trạng thái từ pending => confirmed khi Admin xác nhận.
-- C2: Chuyển đổi trạng thái từ confirmed => shipping khi Admin giao hàng.
-- C3: Chuyển đổi trạng thái từ shipping => delivered khi Admin hoàn tất.
-- C4: Chuyển đổi trạng thái từ pending => canceled khi User/Admin hủy.
-- C5: Chuyển đổi trạng thái từ confirmed => canceled khi User/Admin hủy.
-- C6: Chuyển đổi trạng thái từ shipping => canceled khi Admin hủy.
-- C7: Đơn hàng ở trạng thái delivered là trạng thái kết thúc, không được phép chuyển sang bất kỳ trạng thái nào khác.
-- C8: Đơn hàng ở trạng thái canceled là trạng thái kết thúc, không được phép chuyển sang bất kỳ trạng thái nào khác.
+### Domain Testing
+[Xem nội dung](./domain-testing-fr10.md)
 
-#### Equivalence Classes
-- E1: Trạng thái hiện tại là pending, người thực hiện là Admin yêu cầu chuyển sang confirmed - Valid
-- E2: Trạng thái hiện tại là pending, người thực hiện là User yêu cầu chuyển sang confirmed - Invalid
-- E3: Trạng thái hiện tại là confirmed, người thực hiện là Admin yêu cầu chuyển sang shipping - Valid
-- E4: Trạng thái hiện tại là confirmed, người thực hiện là User yêu cầu chuyển sang shipping - Invalid
-- E5: Trạng thái hiện tại là shipping, người thực hiện là Admin yêu cầu chuyển sang delivered - Valid
-- E6: Trạng thái hiện tại là shipping, người thực hiện là User yêu cầu chuyển sang delivered - Invalid
-- E7: Trạng thái hiện tại là pending, người thực hiện là Admin hoặc User yêu cầu chuyển sang canceled - Valid
-- E8: Trạng thái hiện tại là confirmed, người thực hiện là Admin hoặc User yêu cầu chuyển sang canceled - Valid
-- E9: Trạng thái hiện tại là shipping, người thực hiện là Admin yêu cầu chuyển sang canceled - Valid
-- E10: Trạng thái hiện tại là shipping, người thực hiện là User yêu cầu chuyển sang canceled - Invalid
-- E11: Trạng thái hiện tại là delivered, có yêu cầu chuyển sang trạng thái bất kỳ khác - Invalid
-- E12: Trạng thái hiện tại là canceled, có yêu cầu chuyển sang trạng thái bất kỳ khác - Invalid
-
-
-#### Test data
-| Test Case ID | Role (Vai trò) | Thao tác | Current State (Trạng thái hiện tại) | Target State (Yêu cầu chuyển) | Output | Covered Classes |
-| --- | --- | --- | --- | --- | --- | --- |
-| TC1 | `Admin` | Xác nhận | `pending` | `confirmed` | Đơn hàng chuyển sang `confirmed` thành công | E1 |
-| TC2 | `User` | Xác nhận | `pending` | `confirmed` | Báo lỗi không có quyền thay đổi trạng thái | E2 |
-| TC3 | `Admin` | Giao hàng | `confirmed` | `shipping` | Đơn hàng chuyển sang `shipping` thành công | E3 |
-| TC4 | `User` | Giao hàng | `confirmed` | `shipping` | Báo lỗi không có quyền thay đổi trạng thái | E4 |
-| TC5 | `Admin` | Hoàn tất | `shipping` | `delivered` | Đơn hàng chuyển sang `delivered` thành công | E5 |
-| TC6 | `User` | Hoàn tất | `shipping` | `delivered` | Báo lỗi không có quyền thay đổi trạng thái | E6 |
-| TC7 | `User` | Hủy | `pending` | `canceled` | Đơn hàng chuyển sang `canceled` thành công | E7 |
-| TC8 | `Admin` | Hủy | `confirmed` | `canceled` | Đơn hàng chuyển sang `canceled` thành công | E8 |
-| TC9 | `Admin` | Hủy | `shipping` | `canceled` | Đơn hàng chuyển sang `canceled` thành công | E9 |
-| TC10 | `User` | Hủy | `shipping` | `canceled` | Báo lỗi User không được phép hủy khi đang giao hàng | E10 |
-| TC11 | `User` | Hủy | `delivered` | `canceled` | Báo lỗi không thể thay đổi từ trạng thái kết thúc | E11 |
-
-**Ghi chú**: Tính năng này không tồn tại biến dạng số liên tục nên không tồn tại test case trong phần boundary value analysis.
-
-### Test case
+### Test Cases
 
 | Test Case ID | Mục tiêu | Đầu vào | Các bước thực hiện | Kết quả mong đợi | Thực tế | Verdict |
 |---|---|---|---|---|---|---|
@@ -236,58 +101,10 @@
 - Admin có thể Thêm / Xem / Xóa danh mục.
 - Tên danh mục là bắt buộc, không được để trống.
 
-### Equivalence Partitioning
-#### Điều kiện:
-- C1:  Người thực hiện các thao tác (thêm, xóa, xem chi tiết) có vai trò là Admin.
-- C2: Tên danh mục không được để trống.
+### Domain Testing
+[Xem nội dung](./domain-testing-fr14.md)
 
-#### Equivalence Classes
-- Thêm danh mục: 
-    - E1: Người thực hiện có vai trò là Admin - Valid
-    - E2: Người thực hiện không có vai trò là Admin - Invalid
-    - E3: Tên danh mục bị để trống - Invalid
-    - E4: Tên danh mục đã tồn tại trong hệ thống - Invalid
-    - E5: Tên danh mục chưa tồn tại trong hệ thống - Valid
-- Xóa danh mục: 
-    - E1: Người thực hiện có vai trò là Admin - Valid
-    - E2: Người thực hiện không có vai trò là Admin - Invalid
-    - E3: Danh mục cần xóa đã tồn tại trong hệ thống - Valid
-    - E4: Danh mục cần xóa chưa tồn tại trong hệ thống - Invalid
-- Xem chi tiết danh mục:
-    - E1: Người thực hiện có vai trò là Admin - Valid
-    - E2: Người thực hiện không có vai trò là Admin - Invalid
-    - E3: Danh mục cần xem đã tồn tại trong hệ thống - Valid
-    - E4: Danh mục cần xem chưa tồn tại trong hệ thống - Invalid
-
-#### Test data
-- Thêm danh mục
-
-| Test Case ID | Vai trò (Role) | Tên danh mục (Category Name) | Output | Covered Classes |
-| --- | --- | --- | --- | --- |
-| TC1 | `Admin` | *(chưa tồn tại)* | Thêm danh mục thành công và hiển thị trên danh sách. | E1, E5 |
-| TC2 | `User` | *(chưa tồn tại)* | Báo lỗi hoặc từ chối quyền truy cập do không phải là Admin. | E2 |
-| TC3 | `Admin` | *(Để trống)* | Báo lỗi tên danh mục là bắt buộc, không được để trống. | E3 |
-| TC4 | `Admin` | *(đã tồn tại)* | Báo lỗi tên danh mục đã tồn tại trong hệ thống. | E4 |
-
-- Xóa danh mục
-
-| Test Case ID | Vai trò (Role) | Danh mục mục tiêu (Target Category) | Output | Covered Classes |
-| --- | --- | --- | --- | --- |
-| TC1 | `Admin` | *(đã tồn tại)* | Xóa danh mục thành công và loại bỏ khỏi hệ thống. | E1, E3 |
-| TC2 | `User` | *(đã tồn tại)* | Báo lỗi hoặc từ chối quyền truy cập do không phải là Admin. | E2 |
-| TC3 | `Admin` | *(chưa tồn tại)* | Báo lỗi không tìm thấy danh mục cần xóa. | E4 |
-
-- Xem chi tiết danh mục
-
-| Test Case ID | Vai trò (Role) | Danh mục mục tiêu (Target Category) | Output | Covered Classes |
-| --- | --- | --- | --- | --- |
-| TC1 | `Admin` | *(đã tồn tại)* | Hiển thị thông tin chi tiết của danh mục tương ứng. | E1, E3 |
-| TC2 | `User` | *(đã tồn tại)* | Báo lỗi hoặc từ chối quyền truy cập do không phải là Admin. | E2 |
-| TC3 | `Admin` | *(chưa tồn tại)* | Báo lỗi không tìm thấy danh mục yêu cầu. | E4 |
-
-**Ghi chú**: Tính năng này không tồn tại biến dạng số liên tục nên không tồn tại test case trong phần boundary value analysis.
-
-### Test case
+### Test Cases
 
 | Test Case ID | Mục tiêu | Đầu vào | Các bước thực hiện | Kết quả mong đợi | Thực tế | Verdict |
 |---|---|---|---|---|---|---|
@@ -311,88 +128,31 @@
 - Phải có trường Xác nhận mật khẩu — hệ thống từ chối nếu hai trường không khớp.
 - Sau khi đăng ký thành công, người dùng được chuyển tới trang Đăng nhập.
 
-### Equivalence Partitioning
-#### Điều kiện:
-- C1: Họ tên không được để trống
-- C2: Email đúng định dạng hợp lệ (ví dụ: user@domain.com)
-- C3: Email là duy nhất trong hệ thống (chưa từng được đăng ký)
-- C4: Mật khẩu có độ dài >= 8 ký tự
-- C5: Mật khẩu chứa ít nhất 1 chữ hoa
-- C6: Mật khẩu chứa ít nhất 1 chữ thường
-- C7: Mật khẩu chứa ít nhất 1 chữ số
-- C8: Mật khẩu chứa ít nhất 1 ký tự đặc biệt (@, $, !, %, *, ?, &)
-- C9: Xác nhận mật khẩu khớp hoàn toàn với trường Mật khẩu
+### Domain Testing
+[Xem nội dung](./domain-testing-fr1.md)
 
-#### Equivalence Classes
-- E1: Chuỗi họ tên có chứa ký tự hợp lệ (không bị để trống) - Valid
-- E2: Chuỗi họ tên bị để trống (chuỗi rỗng, null hoặc chỉ chứa khoảng trắng) - Invalid
-- E3: Chuỗi email đúng định dạng chuẩn (chứa phần local, ký tự '@', và tên miền hợp lệ) - Valid
-- E4: Chuỗi email sai định dạng chuẩn (thiếu '@', thiếu tên miền, sai cấu trúc) - Invalid
-- E5: Email chưa từng tồn tại trong cơ sở dữ liệu của hệ thống - Valid
-- E6: Email đã được đăng ký và tồn tại trong cơ sở dữ liệu của hệ thống - Invalid
-- E7: Mật khẩu có độ dài từ 8 ký tự trở lên - Valid
-- E8: Mật khẩu có độ dài nhỏ hơn 8 ký tự - Invalid
-- E9: Mật khẩu có chứa ít nhất 1 chữ cái in hoa (A-Z) - Valid
-- E10: Mật khẩu không chứa bất kỳ chữ cái in hoa nào - Invalid
-- E11: Mật khẩu có chứa ít nhất 1 chữ cái in thường (a-z) - Valid
-- E12: Mật khẩu không chứa bất kỳ chữ cái in thường nào - Invalid
-- E13: Mật khẩu có chứa ít nhất 1 chữ số (0-9) - Valid
-- E14: Mật khẩu không chứa bất kỳ chữ số nào - Invalid
-- E15: Mật khẩu có chứa ít nhất 1 ký tự đặc biệt thuộc tập hợp quy định (@, $, !, %, *, ?, &) - Valid
-- E16: Mật khẩu không chứa bất kỳ ký tự đặc biệt nào thuộc tập hợp quy định - Invalid
-- E17: Chuỗi ký tự trong trường Xác nhận mật khẩu trùng khớp hoàn toàn với trường Mật khẩu - Valid
-- E18: Chuỗi ký tự trong trường Xác nhận mật khẩu khác biệt (không khớp) với trường Mật khẩu - Invalid
+### Test Cases
 
-#### Test data
-| Test Case ID | Họ tên | Email | Mật khẩu | Xác nhận mật khẩu | Output | Covered Classes |
-| --- | --- | --- | --- | --- | --- | --- |
-| TC1 | `Nguyen Van A` | `newuser@gmail.com` | `StrongP@ss1` | `StrongP@ss1` | Đăng ký thành công và chuyển tới trang Đăng nhập | E1, E3, E5, E7, E9, E11, E13, E15, E17 |
-| TC2 | *(Để trống)* | `newuser@gmail.com` | `StrongP@ss1` | `StrongP@ss1` | Báo lỗi họ tên không được để trống | E2 |
-| TC3 | `Nguyen Van A` | `newusergmail.com` | `StrongP@ss1` | `StrongP@ss1` | Báo lỗi định dạng email không hợp lệ | E4 |
-| TC4 | `Nguyen Van A` | `existeduser@gmail.com` | `StrongP@ss1` | `StrongP@ss1` | Báo lỗi email đã được đăng ký trong hệ thống | E6 |
-| TC5 | `Nguyen Van A` | `newuser@gmail.com` | `P@ss123` | `P@ss123` | Báo lỗi mật khẩu phải có độ dài từ 8 ký tự trở lên | E8 |
-| TC6 | `Nguyen Van A` | `newuser@gmail.com` | `strongp@ss1` | `strongp@ss1` | Báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in hoa | E10 |
-| TC7 | `Nguyen Van A` | `newuser@gmail.com` | `STRONGP@SS1` | `STRONGP@SS1` | Báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in thường | E12 |
-| TC8 | `Nguyen Van A` | `newuser@gmail.com` | `StrongP@ss` | `StrongP@ss` | Báo lỗi mật khẩu phải chứa ít nhất 1 chữ số | E14 |
-| TC9 | `Nguyen Van A` | `newuser@gmail.com` | `StrongPass1` | `StrongPass1` | Báo lỗi mật khẩu phải chứa ký tự đặc biệt | E16 |
-| TC10 | `Nguyen Van A` | `newuser@gmail.com` | `StrongP@ss1` | `WrongP@ss99` | Báo lỗi xác nhận mật khẩu không khớp | E18 |
-
-### Boundary Value Analysis (BVA)
-
-#### Xác định biên
-- B1 (min): Mật khẩu có độ dài 8 ký tự - Valid
-- B2 (min-1): Mật khẩu có độ dài 7 ký tự - Invalid
-- B3 (min+1): Mật khẩu có độ dài 9 ký tự - Valid
-- B4 (min): Mật khẩu chứa 1 chữ cái in hoa - Valid
-- B5 (min-1): Mật khẩu chứa 0 chữ cái in hoa - Invalid
-- B6 (min+1): Mật khẩu chứa 2 chữ cái in hoa - Valid
-- B7 (min): Mật khẩu chứa 1 chữ cái in thường - Valid
-- B8 (min-1): Mật khẩu chứa 0 chữ cái in thường - Invalid
-- B9 (min+1): Mật khẩu chứa 2 chữ cái in thường - Valid
-- B10 (min): Mật khẩu chứa 1 chữ số - Valid
-- B11 (min-1): Mật khẩu chứa 0 chữ số - Invalid
-- B12 (min+1): Mật khẩu chứa 2 chữ số - Valid
-- B13 (min): Mật khẩu chứa 1 ký tự đặc biệt - Valid
-- B14 (min-1): Mật khẩu chứa 0 ký tự đặc biệt - Invalid
-- B15 (min+1): Mật khẩu chứa 2 ký tự đặc biệt - Valid
-
-#### Test data
-| Test Case ID | Họ tên | Email | Mật khẩu | Xác nhận mật khẩu | Output | Covered Boundary Values |
-| --- | --- | --- | --- | --- | --- | --- |
-| TC1 | `Nguyen Van A` | `validuser@gmail.com` | `Aaaaaaa1!` | `Aaaaaaa1!` | Đăng ký thành công | B1 |
-| TC2 | `Nguyen Van A` | `validuser@gmail.com` | `Aaaaaaaa1!` | `Aaaaaaaa1!` | Đăng ký thành công | B3 |
-| TC3 | `Nguyen Van A` | `validuser@gmail.com` | `Aaaaaaaa12!@` | `Aaaaaaaa12!@` | Đăng ký thành công | B4 |
-| TC4 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa12!@` | `AAaaaaaa12!@` | Đăng ký thành công | B6 |
-| TC5 | `Nguyen Van A` | `validuser@gmail.com` | `AAAAAAAAa1!@` | `AAAAAAAAa1!@` | Đăng ký thành công | B7 |
-| TC6 | `Nguyen Van A` | `validuser@gmail.com` | `AAAAAAAAaa1!` | `AAAAAAAAaa1!` | Đăng ký thành công | B9 |
-| TC7 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa1!@#` | `AAaaaaaa1!@#` | Đăng ký thành công | B10 |
-| TC8 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa12!@` | `AAaaaaaa12!@` | Đăng ký thành công | B12 |
-| TC9 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa123!` | `AAaaaaaa123!` | Đăng ký thành công | B13 |
-| TC10 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa12!@` | `AAaaaaaa12!@` | Đăng ký thành công | B15 |
-| TC11 | `Nguyen Van A` | `validuser@gmail.com` | `Aaaaaa1!` | `Aaaaaa1!` | Hệ thống báo lỗi mật khẩu phải từ 8 ký tự trở lên | B2 |
-| TC12 | `Nguyen Van A` | `validuser@gmail.com` | `aaaaaaaa12!@` | `aaaaaaaa12!@` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in hoa | B5 |
-| TC13 | `Nguyen Van A` | `validuser@gmail.com` | `AAAAAAAA12!@` | `AAAAAAAA12!@` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in thường | B8 |
-| TC14 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa!@#$` | `AAaaaaaa!@#$` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ số | B11 |
-| TC15 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa1234` | `AAaaaaaa1234` | Hệ thống báo lỗi mật khẩu phải chứa ký tự đặc biệt | B14 |
+| Test Case ID | Mục tiêu | Đầu vào | Các bước thực hiện | Kết quả mong đợi | Thực tế | Verdict |
+|---|---|---|---|---|---|---|
+| TC1 | Kiểm tra đăng ký thành công với mật khẩu 8 ký tự (E1, E3, E5, E17, B1) | Họ tên: `Nguyen Van A`<br>Email: `validuser@gmail.com`<br>MK: `Aaaaaaa1!`<br>Xác nhận MK: `Aaaaaaa1!` | 1. Nhập thông tin hợp lệ với mật khẩu dài 8 ký tự<br>2. Bấm Đăng ký | Đăng ký thành công và chuyển tới trang Đăng nhập | | |
+| TC2 | Kiểm tra đăng ký thành công với mật khẩu 9 ký tự (B3) | Họ tên: `Nguyen Van A`<br>Email: `validuser@gmail.com`<br>MK: `Aaaaaaaa1!`<br>Xác nhận MK: `Aaaaaaaa1!` | 1. Nhập thông tin hợp lệ<br>2. Bấm Đăng ký | Đăng ký thành công và chuyển tới trang Đăng nhập | | |
+| TC3 | Kiểm tra đăng ký thành công với mật khẩu có 1 chữ hoa (B4) | Họ tên: `Nguyen Van A`<br>Email: `validuser@gmail.com`<br>MK: `Aaaaaaaa12!@`<br>Xác nhận MK: `Aaaaaaaa12!@` | 1. Nhập thông tin hợp lệ<br>2. Bấm Đăng ký | Đăng ký thành công và chuyển tới trang Đăng nhập | | |
+| TC4 | Kiểm tra đăng ký thành công với mật khẩu có 2 chữ hoa (B6) | Họ tên: `Nguyen Van A`<br>Email: `validuser@gmail.com`<br>MK: `AAaaaaaa12!@`<br>Xác nhận MK: `AAaaaaaa12!@` | 1. Nhập thông tin hợp lệ<br>2. Bấm Đăng ký | Đăng ký thành công và chuyển tới trang Đăng nhập | | |
+| TC5 | Kiểm tra đăng ký thành công với mật khẩu có 1 chữ thường (B7) | Họ tên: `Nguyen Van A`<br>Email: `validuser@gmail.com`<br>MK: `AAAAAAAAa1!@`<br>Xác nhận MK: `AAAAAAAAa1!@` | 1. Nhập thông tin hợp lệ<br>2. Bấm Đăng ký | Đăng ký thành công và chuyển tới trang Đăng nhập | | |
+| TC6 | Kiểm tra đăng ký thành công với mật khẩu có 2 chữ thường (B9) | Họ tên: `Nguyen Van A`<br>Email: `validuser@gmail.com`<br>MK: `AAAAAAAAaa1!`<br>Xác nhận MK: `AAAAAAAAaa1!` | 1. Nhập thông tin hợp lệ<br>2. Bấm Đăng ký | Đăng ký thành công và chuyển tới trang Đăng nhập | | |
+| TC7 | Kiểm tra đăng ký thành công với mật khẩu có 1 chữ số (B10) | Họ tên: `Nguyen Van A`<br>Email: `validuser@gmail.com`<br>MK: `AAaaaaaa1!@#`<br>Xác nhận MK: `AAaaaaaa1!@#` | 1. Nhập thông tin hợp lệ<br>2. Bấm Đăng ký | Đăng ký thành công và chuyển tới trang Đăng nhập | | |
+| TC8 | Kiểm tra đăng ký thành công với mật khẩu có 2 chữ số (B12) | Họ tên: `Nguyen Van A`<br>Email: `validuser@gmail.com`<br>MK: `AAaaaaaa12!@`<br>Xác nhận MK: `AAaaaaaa12!@` | 1. Nhập thông tin hợp lệ<br>2. Bấm Đăng ký | Đăng ký thành công và chuyển tới trang Đăng nhập | | |
+| TC9 | Kiểm tra đăng ký thành công với mật khẩu có 1 ký tự đặc biệt (B13) | Họ tên: `Nguyen Van A`<br>Email: `validuser@gmail.com`<br>MK: `AAaaaaaa123!`<br>Xác nhận MK: `AAaaaaaa123!` | 1. Nhập thông tin hợp lệ<br>2. Bấm Đăng ký | Đăng ký thành công và chuyển tới trang Đăng nhập | | |
+| TC10 | Kiểm tra đăng ký thành công với mật khẩu có 2 ký tự đặc biệt (B15) | Họ tên: `Nguyen Van A`<br>Email: `validuser@gmail.com`<br>MK: `AAaaaaaa12!@`<br>Xác nhận MK: `AAaaaaaa12!@` | 1. Nhập thông tin hợp lệ<br>2. Bấm Đăng ký | Đăng ký thành công và chuyển tới trang Đăng nhập | | |
+| TC11 | Kiểm tra lỗi để trống họ tên (E2) | Họ tên: *(Để trống)*<br>Email: `newuser@gmail.com`<br>MK: `StrongP@ss1`<br>Xác nhận MK: `StrongP@ss1` | 1. Nhập thiếu họ tên<br>2. Bấm Đăng ký | Báo lỗi họ tên không được để trống | | |
+| TC12 | Kiểm tra lỗi định dạng email không hợp lệ (E4) | Họ tên: `Nguyen Van A`<br>Email: `newusergmail.com`<br>MK: `StrongP@ss1`<br>Xác nhận MK: `StrongP@ss1` | 1. Nhập sai định dạng email<br>2. Bấm Đăng ký | Báo lỗi định dạng email không hợp lệ | | |
+| TC13 | Kiểm tra lỗi email đã đăng ký (E6) | Họ tên: `Nguyen Van A`<br>Email: `existeduser@gmail.com`<br>MK: `StrongP@ss1`<br>Xác nhận MK: `StrongP@ss1` | 1. Nhập email đã tồn tại<br>2. Bấm Đăng ký | Báo lỗi email đã được đăng ký trong hệ thống | | |
+| TC14 | Kiểm tra lỗi xác nhận mật khẩu không khớp (E18) | Họ tên: `Nguyen Van A`<br>Email: `newuser@gmail.com`<br>MK: `StrongP@ss1`<br>Xác nhận MK: `WrongP@ss99` | 1. Nhập mật khẩu xác nhận sai lệch<br>2. Bấm Đăng ký | Báo lỗi xác nhận mật khẩu không khớp | | |
+| TC15 | Kiểm tra lỗi mật khẩu ngắn hơn 8 ký tự (E8, B2) | Họ tên: `Nguyen Van A`<br>Email: `validuser@gmail.com`<br>MK: `Aaaaaa1!` (7 ký tự)<br>Xác nhận MK: `Aaaaaa1!` | 1. Nhập mật khẩu dài 7 ký tự<br>2. Bấm Đăng ký | Hệ thống báo lỗi mật khẩu phải từ 8 ký tự trở lên | | |
+| TC16 | Kiểm tra lỗi mật khẩu thiếu chữ cái in hoa (E10, B5) | Họ tên: `Nguyen Van A`<br>Email: `validuser@gmail.com`<br>MK: `aaaaaaaa12!@`<br>Xác nhận MK: `aaaaaaaa12!@` | 1. Nhập mật khẩu thiếu chữ hoa<br>2. Bấm Đăng ký | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in hoa | | |
+| TC17 | Kiểm tra lỗi mật khẩu thiếu chữ cái in thường (E12, B8) | Họ tên: `Nguyen Van A`<br>Email: `validuser@gmail.com`<br>MK: `AAAAAAAA12!@`<br>Xác nhận MK: `AAAAAAAA12!@` | 1. Nhập mật khẩu thiếu chữ thường<br>2. Bấm Đăng ký | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in thường | | |
+| TC18 | Kiểm tra lỗi mật khẩu thiếu chữ số (E14, B11) | Họ tên: `Nguyen Van A`<br>Email: `validuser@gmail.com`<br>MK: `AAaaaaaa!@#$`<br>Xác nhận MK: `AAaaaaaa!@#$` | 1. Nhập mật khẩu thiếu chữ số<br>2. Bấm Đăng ký | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ số | | |
+| TC19 | Kiểm tra lỗi mật khẩu thiếu ký tự đặc biệt (E16, B14) | Họ tên: `Nguyen Van A`<br>Email: `validuser@gmail.com`<br>MK: `AAaaaaaa1234`<br>Xác nhận MK: `AAaaaaaa1234` | 1. Nhập mật khẩu thiếu ký tự đặc biệt<br>2. Bấm Đăng ký | Hệ thống báo lỗi mật khẩu phải chứa ký tự đặc biệt | | |
 
 # 3. Test Summary Report
