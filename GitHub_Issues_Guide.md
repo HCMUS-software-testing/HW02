@@ -1,6 +1,6 @@
-# Hướng dẫn tạo GitHub Issues cho các lỗi phát hiện tại FR-04
+# Hướng dẫn tạo GitHub Issues cho các lỗi FR-04
 
-Tài liệu này chứa nội dung soạn sẵn chi tiết dưới dạng tiếng Việt để copy-paste trực tiếp lên mục **GitHub Issues** cho 5 lỗi phát hiện được ở tính năng **FR-04**.
+Tài liệu này cung cấp tiêu đề và nội dung soạn sẵn bằng **100% tiếng Việt thuần** để anh/chị sao chép trực tiếp khi tạo Issues trên GitHub cho 5 lỗi phát hiện được ở tính năng **FR-04 (Personal Profile Management)**. Các đường dẫn ảnh minh chứng thực tế cũng được đồng bộ hóa để hiển thị trực tiếp.
 
 ---
 
@@ -49,7 +49,6 @@ Hệ thống API backend chấp nhận thuộc tính `role: "admin"` truyền l�
 ## Bằng chứng và ảnh chụp màn hình
 - Minh chứng 1: Gửi request PUT chứa thuộc tính role admin
   ![Gửi request PUT chứa thuộc tính role admin](./screenshots/BUG-FR04-01-01.png)
-
 - Minh chứng 2: Kết quả GET profile hiển thị tài khoản đã bị nâng lên admin
   ![Kết quả GET profile hiển thị tài khoản đã bị nâng lên admin](./screenshots/BUG-FR04-01-02.png)
 ```
@@ -79,7 +78,7 @@ Khi thực hiện cập nhật hồ sơ cá nhân qua phương thức PUT, nếu
 2. Gọi request `GET /api/users/me` để lấy thông tin hồ sơ cá nhân hiện tại.
 
 ## Kết quả mong đợi
-- Các trường thông tin không được gửi lên trong body request PUT phải được giữ nguyên giá trị cũ trong cơ sở dữ liệu (Partial Update an sau).
+- Các trường thông tin không được gửi lên trong body request PUT phải được giữ nguyên giá trị cũ trong cơ sở dữ liệu (Partial Update an toàn).
 
 ## Kết quả thực tế
 - API trả về mã trạng thái `200 OK` cập nhật thành công.
@@ -95,7 +94,10 @@ Khi thực hiện cập nhật hồ sơ cá nhân qua phương thức PUT, nếu
 - **Môi trường chạy:** SUT local server (port 3000)
 
 ## Bằng chứng và ảnh chụp màn hình
-*[Kéo thả ảnh chụp màn hình response JSON GET có phone: null sau khi thực hiện gửi PUT khuyết phone vào đây]*
+- Minh chứng 1: Gửi request PUT khuyết trường phone khiến API backend cập nhật thành công
+  ![Gửi request PUT khuyết trường phone](./screenshots/BUG-FR04-02-01.png)
+- Minh chứng 2: Kết quả GET profile cho thấy trường phone đã bị ghi đè thành null
+  ![Kết quả GET profile hiển thị phone bị null](./screenshots/BUG-FR04-02-02.png)
 ```
 
 ---
@@ -140,7 +142,10 @@ API backend `PUT /api/users/me` hoàn toàn thiếu cơ chế kiểm tra tính h
 - **Môi trường chạy:** SUT local server (port 3000)
 
 ## Bằng chứng và ảnh chụp màn hình
-*[Kéo thả ảnh chụp màn hình Postman gửi PUT chuỗi rỗng/chữ và GET trả về các dữ liệu sai trái này vào đây]*
+- Minh chứng 1: Gửi request PUT chứa thông tin rỗng và sai định dạng phone
+  ![Gửi request PUT chứa dữ liệu không hợp lệ](./screenshots/BUG-FR04-03-01.png)
+- Minh chứng 2: Kết quả GET profile cho thấy thông tin không hợp lệ được lưu thành công
+  ![Kết quả GET profile chứa dữ liệu không hợp lệ](./screenshots/BUG-FR04-03-02.png)
 ```
 
 ---
@@ -179,7 +184,8 @@ Khi người dùng xem thông tin cá nhân của mình, API backend trả về 
 - **Môi trường chạy:** SUT local server (port 3000)
 
 ## Bằng chứng và ảnh chụp màn hình
-*[Kéo thả ảnh chụp màn hình JSON response của request GET, khoanh đỏ các trường password, reset_token vào đây]*
+- Minh chứng 1: Response của API GET profile để lộ các trường nhạy cảm như password hash và reset token
+  ![Lộ lọt thông tin nhạy cảm trong response](./screenshots/BUG-FR04-04-01.png)
 ```
 
 ---
@@ -221,5 +227,8 @@ Hành vi này đồng thời làm phát sinh lỗi liên đới:
 - **Môi trường chạy:** SUT frontend-web (port 5173)
 
 ## Bằng chứng và ảnh chụp màn hình
-*[Kéo thả ảnh màn hình giao diện Profile khi nhấn cập nhật số điện thoại có số 0 ở đầu kèm hộp thoại Alert cảnh báo vào đây]*
+- Minh chứng 1: Nhập số điện thoại bắt đầu bằng số 0 hợp lệ và bị Frontend báo lỗi alert
+  ![Frontend chặn cập nhật số điện thoại hợp lệ](./screenshots/BUG-FR04-05-01.png)
+- Minh chứng 2: Hệ thống chỉ chấp nhận lưu khi người dùng nhập số điện thoại không bắt đầu bằng số 0
+  ![Frontend bắt buộc nhập số điện thoại không có số 0 đầu](./screenshots/BUG-FR04-05-02.png)
 ```

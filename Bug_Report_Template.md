@@ -8,11 +8,11 @@ Tài liệu này tổng hợp toàn bộ các lỗi (bug) phát hiện được 
 
 | Mã lỗi | Tính năng | Tiêu đề lỗi | Độ nghiêm trọng | Độ ưu tiên | Trạng thái | Test Case đối chiếu | GitHub Issue Link |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| [BUG-FR04-01](#bug-fr04-01-leo-thang-dac-quyen-qua-mass-assignment) | FR-04 | Leo thang đặc quyền qua thuộc tính role khi cập nhật thông tin cá nhân | Critical | High | Open | FR04-DOM-TC08 | *[TODO: Điền link issue sau khi tạo]* |
-| [BUG-FR04-02](#bug-fr04-02-mat-du-lieu-khi-cap-nhat-mot-phan-data-loss-on-partial-update) | FR-04 | Mất dữ liệu - Cập nhật thiếu trường khi cập nhật thông tin cá nhân sẽ ghi đè giá trị cũ bằng NULL | High | High | Open | FR04-DOM-TC07 | *[TODO: Điền link issue sau khi tạo]* |
-| [BUG-FR04-03](#bug-fr04-03-thieu-kiem-tra-du-lieu-dau-vao-lack-of-input-validation) | FR-04 | Thiếu kiểm duyệt dữ liệu đầu vào khi cập nhật thông tin cá nhân | Medium | Medium | Open | FR04-DOM-TC09, TC10, TC11, TC12, BVA-TC04, TC05, TC06 | *[TODO: Điền link issue sau khi tạo]* |
-| [BUG-FR04-04](#bug-fr04-04-lo-lot-thong-tin-nhay-cam-sensitive-data-exposure) | FR-04 | Lộ lọt thông tin người dùng nhạy cảm khi lấy thông tin cá nhân | High | High | Open | FR04-DOM-TC01 | *[TODO: Điền link issue sau khi tạo]* |
-| [BUG-FR04-05](#bug-fr04-05-loi-dinh-dang-regex-o-frontend-chan-so-dien-thoai-hop-le) | FR-04 | Giao diện người dùng chặn cập nhật các số điện thoại Việt Nam hợp lệ bắt đầu bằng số 0 | High | High | Open | FR04-DOM-TC02, BVA-TC03 | *[TODO: Điền link issue sau khi tạo]* |
+| [BUG-FR04-01](#bug-fr04-01-leo-thang-dac-quyen-qua-mass-assignment) | FR-04 | Leo thang đặc quyền qua thuộc tính role khi cập nhật thông tin cá nhân | Critical | High | Open | FR04-DOM-TC08 | [#24](https://github.com/HCMUS-software-testing/HW02/issues/24) |
+| [BUG-FR04-02](#bug-fr04-02-mat-du-lieu-khi-cap-nhat-mot-phan-data-loss-on-partial-update) | FR-04 | Mất dữ liệu - Cập nhật thiếu trường khi cập nhật thông tin cá nhân sẽ ghi đè giá trị cũ bằng NULL | High | High | Open | FR04-DOM-TC07 | [#25](https://github.com/HCMUS-software-testing/HW02/issues/25) |
+| [BUG-FR04-03](#bug-fr04-03-thieu-kiem-tra-du-lieu-dau-vao-lack-of-input-validation) | FR-04 | Thiếu kiểm duyệt dữ liệu đầu vào khi cập nhật thông tin cá nhân | Medium | Medium | Open | FR04-DOM-TC09, TC10, TC11, TC12, BVA-TC04, TC05, TC06 | [#26](https://github.com/HCMUS-software-testing/HW02/issues/26) |
+| [BUG-FR04-04](#bug-fr04-04-lo-lot-thong-tin-nhay-cam-sensitive-data-exposure) | FR-04 | Lộ lọt thông tin người dùng nhạy cảm khi lấy thông tin cá nhân | High | High | Open | FR04-DOM-TC01 | [#27](https://github.com/HCMUS-software-testing/HW02/issues/27) |
+| [BUG-FR04-05](#bug-fr04-05-loi-dinh-dang-regex-o-frontend-chan-so-dien-thoai-hop-le) | FR-04 | Giao diện người dùng chặn cập nhật các số điện thoại Việt Nam hợp lệ bắt đầu bằng số 0 | High | High | Open | FR04-DOM-TC02, BVA-TC03 | [#28](https://github.com/HCMUS-software-testing/HW02/issues/28) |
 
 ---
 
@@ -59,7 +59,6 @@ Hệ thống API backend chấp nhận thuộc tính `role: "admin"` truyền l�
 #### Bằng chứng và ảnh chụp màn hình
 - Minh chứng 1: Gửi request PUT chứa thuộc tính role admin
   ![Gửi request PUT chứa thuộc tính role admin](./screenshots/BUG-FR04-01-01.png)
-
 - Minh chứng 2: Kết quả GET profile hiển thị tài khoản đã bị nâng lên admin
   ![Kết quả GET profile hiển thị tài khoản đã bị nâng lên admin](./screenshots/BUG-FR04-01-02.png)
 
@@ -84,7 +83,7 @@ Khi thực hiện cập nhật hồ sơ cá nhân qua phương thức PUT, nếu
 2. Gọi request `GET /api/users/me` để lấy thông tin hồ sơ cá nhân hiện tại.
 
 #### Kết quả mong đợi
-- Các trường thông tin không được gửi lên trong body request PUT phải được giữ nguyên giá trị cũ trong cơ sở dữ liệu (Partial Update an toàn).
+- Các trường thông tin không được gửi lên trong body request PUT phải được giữ nguyên giá trị cũ trong cơ sở dữ liệu (Partial Update an sau).
 
 #### Kết quả thực tế
 - API trả về mã trạng thái `200 OK` cập nhật thành công.
@@ -100,7 +99,10 @@ Khi thực hiện cập nhật hồ sơ cá nhân qua phương thức PUT, nếu
 - **Môi trường chạy:** SUT local server (port 3000)
 
 #### Bằng chứng và ảnh chụp màn hình
-_[Kéo thả ảnh chụp màn hình response JSON GET có phone: null sau khi thực hiện gửi PUT khuyết phone vào đây]_
+- Minh chứng 1: Gửi request PUT khuyết trường phone khiến API backend cập nhật thành công
+  ![Gửi request PUT khuyết trường phone](./screenshots/BUG-FR04-02-01.png)
+- Minh chứng 2: Kết quả GET profile cho thấy trường phone đã bị ghi đè thành null
+  ![Kết quả GET profile hiển thị phone bị null](./screenshots/BUG-FR04-02-02.png)
 
 ---
 
@@ -140,7 +142,10 @@ API backend `PUT /api/users/me` hoàn toàn thiếu cơ chế kiểm tra tính h
 - **Môi trường chạy:** SUT local server (port 3000)
 
 #### Bằng chứng và ảnh chụp màn hình
-_[Kéo thả ảnh chụp màn hình Postman gửi PUT chuỗi rỗng/chữ và GET trả về các dữ liệu sai trái này vào đây]_
+- Minh chứng 1: Gửi request PUT chứa thông tin rỗng và sai định dạng phone
+  ![Gửi request PUT chứa dữ liệu không hợp lệ](./screenshots/BUG-FR04-03-01.png)
+- Minh chứng 2: Kết quả GET profile cho thấy thông tin không hợp lệ được lưu thành công
+  ![Kết quả GET profile chứa dữ liệu không hợp lệ](./screenshots/BUG-FR04-03-02.png)
 
 ---
 
@@ -174,7 +179,8 @@ Khi người dùng xem thông tin cá nhân của mình, API backend trả về 
 - **Môi trường chạy:** SUT local server (port 3000)
 
 #### Bằng chứng và ảnh chụp màn hình
-_[Kéo thả ảnh chụp màn hình JSON response của request GET, khoanh đỏ các trường password, reset_token vào đây]_
+- Minh chứng 1: Response của API GET profile để lộ các trường nhạy cảm như password hash và reset token
+  ![Lộ lọt thông tin nhạy cảm trong response](./screenshots/BUG-FR04-04-01.png)
 
 ---
 
@@ -211,4 +217,7 @@ Hành vi này đồng thời làm phát sinh lỗi liên đới:
 - **Môi trường chạy:** SUT frontend-web (port 5173)
 
 #### Bằng chứng và ảnh chụp màn hình
-_[Kéo thả ảnh màn hình giao diện Profile khi nhấn cập nhật số điện thoại có số 0 ở đầu kèm hộp thoại Alert cảnh báo vào đây]_
+- Minh chứng 1: Nhập số điện thoại bắt đầu bằng số 0 hợp lệ và bị Frontend báo lỗi alert
+  ![Frontend chặn cập nhật số điện thoại hợp lệ](./screenshots/BUG-FR04-05-01.png)
+- Minh chứng 2: Hệ thống chỉ chấp nhận lưu khi người dùng nhập số điện thoại không bắt đầu bằng số 0
+  ![Frontend bắt buộc nhập số điện thoại không có số 0 đầu](./screenshots/BUG-FR04-05-02.png)
