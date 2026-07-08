@@ -368,14 +368,19 @@ Dựa trên mô tả chức năng trong file `report.md`, các biến đầu và
 - B3 (max+1): Mã OTP có độ dài 7 chữ số - Invalid
 - B4 (min): Mật khẩu mới có độ dài 8 ký tự - Valid
 - B5 (min-1): Mật khẩu mới có độ dài 7 ký tự - Invalid
-- B6 (min): Mật khẩu mới chứa 1 chữ cái in hoa - Valid
-- B7 (min-1): Mật khẩu mới chứa 0 chữ cái in hoa - Invalid
-- B8 (min): Mật khẩu mới chứa 1 chữ cái in thường - Valid
-- B9 (min-1): Mật khẩu mới chứa 0 chữ cái in thường - Invalid
-- B10 (min): Mật khẩu mới chứa 1 chữ số - Valid
-- B11 (min-1): Mật khẩu mới chứa 0 chữ số - Invalid
-- B12 (min): Mật khẩu mới chứa 1 ký tự đặc biệt - Valid
-- B13 (min-1): Mật khẩu mới chứa 0 ký tự đặc biệt - Invalid
+- B6 (min+1): Mật khẩu mới có độ dài 9 ký tự - Valid
+- B7 (min): Mật khẩu mới chứa 1 chữ cái in hoa - Valid
+- B8 (min-1): Mật khẩu mới chứa 0 chữ cái in hoa - Invalid
+- B9 (min+1): Mật khẩu mới chứa 2 chữ cái in hoa - Valid
+- B10 (min): Mật khẩu mới chứa 1 chữ cái in thường - Valid
+- B11 (min-1): Mật khẩu mới chứa 0 chữ cái in thường - Invalid
+- B12 (min+1): Mật khẩu mới chứa 2 chữ cái in thường - Valid
+- B13 (min): Mật khẩu mới chứa 1 chữ số - Valid
+- B14 (min-1): Mật khẩu mới chứa 0 chữ số - Invalid
+- B15 (min+1): Mật khẩu mới chứa 2 chữ số - Valid
+- B16 (min): Mật khẩu mới chứa 1 ký tự đặc biệt - Valid
+- B17 (min-1): Mật khẩu mới chứa 0 ký tự đặc biệt - Invalid
+- B18 (min+1): Mật khẩu mới chứa 2 ký tự đặc biệt - Valid
 
 **Nhận xét**:
 - Về mã OTP hoàn toàn sẽ phụ thuộc vào trùng khớp với OTP được sinh ra hay không nên với dữ liệu này không cần xác định giá trị biên.
@@ -389,9 +394,10 @@ Dựa trên mô tả chức năng trong file `report.md`, các biến đầu và
 **Output:**
 - B1 (min): Tên danh mục có độ dài 1 ký tự - Valid
 - B2 (min-1): Tên danh mục có độ dài 0 ký tự (để trống) - Invalid
+- B3 (min+1): Tên danh mục có độ dài 2 ký tự - Valid
 
 **Nhận xét:**
-- Danh sách này hoàn toàn đúng.
+- Danh sách biên hoàn toàn đúng
 
 ## Interaction 16
 **AI Tool:** Gemini 3.1 Pro (Low)
@@ -402,16 +408,97 @@ Dựa trên mô tả chức năng trong file `report.md`, các biến đầu và
 **Output:**
 - B1 (min): Họ tên có độ dài 1 ký tự - Valid
 - B2 (min-1): Họ tên có độ dài 0 ký tự (để trống) - Invalid
-- B3 (min): Mật khẩu có độ dài 8 ký tự - Valid
-- B4 (min-1): Mật khẩu có độ dài 7 ký tự - Invalid
-- B5 (min): Mật khẩu chứa 1 chữ cái in hoa - Valid
-- B6 (min-1): Mật khẩu chứa 0 chữ cái in hoa - Invalid
-- B7 (min): Mật khẩu chứa 1 chữ cái in thường - Valid
-- B8 (min-1): Mật khẩu chứa 0 chữ cái in thường - Invalid
-- B9 (min): Mật khẩu chứa 1 chữ số - Valid
-- B10 (min-1): Mật khẩu chứa 0 chữ số - Invalid
-- B11 (min): Mật khẩu chứa 1 ký tự đặc biệt - Valid
-- B12 (min-1): Mật khẩu chứa 0 ký tự đặc biệt - Invalid
+- B3 (min+1): Họ tên có độ dài 2 ký tự - Valid
+- B4 (min): Mật khẩu có độ dài 8 ký tự - Valid
+- B5 (min-1): Mật khẩu có độ dài 7 ký tự - Invalid
+- B6 (min+1): Mật khẩu có độ dài 9 ký tự - Valid
+- B7 (min): Mật khẩu chứa 1 chữ cái in hoa - Valid
+- B8 (min-1): Mật khẩu chứa 0 chữ cái in hoa - Invalid
+- B9 (min+1): Mật khẩu chứa 2 chữ cái in hoa - Valid
+- B10 (min): Mật khẩu chứa 1 chữ cái in thường - Valid
+- B11 (min-1): Mật khẩu chứa 0 chữ cái in thường - Invalid
+- B12 (min+1): Mật khẩu chứa 2 chữ cái in thường - Valid
+- B13 (min): Mật khẩu chứa 1 chữ số - Valid
+- B14 (min-1): Mật khẩu chứa 0 chữ số - Invalid
+- B15 (min+1): Mật khẩu chứa 2 chữ số - Valid
+- B16 (min): Mật khẩu chứa 1 ký tự đặc biệt - Valid
+- B17 (min-1): Mật khẩu chứa 0 ký tự đặc biệt - Invalid
+- B18 (min+1): Mật khẩu chứa 2 ký tự đặc biệt - Valid
 
 **Nhận xét:**
-- Hoàn toàn chính xác.
+- Danh sách biên hoàn toàn đúng.
+
+## Interaction 17
+**AI Tool:** Gemini 3.1 Pro (Low)
+**Date and time:** 2026-07-08 20:20:57 +07:00
+**Prompt:**
+`bva-test-data-generator Tính năng 3 - Pool A: Quên mật khẩu & Đặt lại mật khẩu (2 bước)`
+
+**Output:**
+| Test Case ID | OTP | Mật khẩu mới | Xác nhận mật khẩu mới | Output | Covered Boundary Values |
+| --- | --- | --- | --- | --- | --- |
+| TC1 | `123456` | `Aaaaaaa1!` | `Aaaaaaa1!` | Đặt lại mật khẩu thành công | B1 |
+| TC2 | `123456` | `Aaaaaaaa1!` | `Aaaaaaaa1!` | Đặt lại mật khẩu thành công | B3 |
+| TC3 | `123456` | `Aaaaaaaaa1!` | `Aaaaaaaaa1!` | Đặt lại mật khẩu thành công | B4 |
+| TC4 | `123456` | `AAaaaaaaa1!` | `AAaaaaaaa1!` | Đặt lại mật khẩu thành công | B6 |
+| TC5 | `123456` | `AAAAAAAAa1!` | `AAAAAAAAa1!` | Đặt lại mật khẩu thành công | B7 |
+| TC6 | `123456` | `AAAAAAAAaa1!` | `AAAAAAAAaa1!` | Đặt lại mật khẩu thành công | B9 |
+| TC7 | `123456` | `AAAAAAAAa1!` | `AAAAAAAAa1!` | Đặt lại mật khẩu thành công | B10 |
+| TC8 | `123456` | `AAAAAAAAa12!` | `AAAAAAAAa12!` | Đặt lại mật khẩu thành công | B12 |
+| TC9 | `123456` | `AAAAAAAAa1!` | `AAAAAAAAa1!` | Đặt lại mật khẩu thành công | B13 |
+| TC10 | `123456` | `AAAAAAAAa1!@` | `AAAAAAAAa1!@` | Đặt lại mật khẩu thành công | B15 |
+| TC11 | `123456` | `Aaaaaa1!` | `Aaaaaa1!` | Hệ thống báo lỗi mật khẩu mới phải từ 8 ký tự trở lên | B2 |
+| TC12 | `123456` | `aaaaaaaa1!` | `aaaaaaaa1!` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in hoa | B5 |
+| TC13 | `123456` | `AAAAAAAA1!` | `AAAAAAAA1!` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in thường | B8 |
+| TC14 | `123456` | `AAAAAAAAa!` | `AAAAAAAAa!` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ số | B11 |
+| TC15 | `123456` | `AAAAAAAAa1` | `AAAAAAAAa1` | Hệ thống báo lỗi mật khẩu phải chứa ký tự đặc biệt | B14 |
+
+**Nhận xét:**
+- Bảng Test Data hoàn toàn đúng và tuân thủ chặt chẽ việc không gộp các trường Valid trên cùng một biến.
+
+## Interaction 18
+**AI Tool:** Gemini 3.1 Pro (Low)
+**Date and time:** 2026-07-08 20:28:38 +07:00
+**Prompt:**
+`bva-test-data-generator  Tính năng 14 - Pool C: Quản lý Danh mục`
+
+**Output:**
+| Test Case ID | Vai trò (Role) | Tên danh mục (Category Name) | Output | Covered Boundary Values |
+| --- | --- | --- | --- | --- |
+| TC1 | `Admin` | `A` | Thêm danh mục thành công và hiển thị trên danh sách. | B1 |
+| TC2 | `Admin` | `AB` | Thêm danh mục thành công và hiển thị trên danh sách. | B3 |
+| TC3 | `Admin` | *(Để trống)* | Báo lỗi tên danh mục là bắt buộc, không được để trống. | B2 |
+
+**Nhận xét:**
+- Bảng test data hoàn toàn chính xác, tuân thủ nguyên tắc không gộp các giá trị biên Valid.
+
+## Interaction 19
+**AI Tool:** Gemini 3.1 Pro (Low)
+**Date and time:** 2026-07-08 20:30:00 +07:00
+**Prompt:**
+`bva-test-data-generator Tính năng 1 - Pool D (Mobile): Đăng ký tài khoản`
+
+**Output:**
+| Test Case ID | Họ tên | Email | Mật khẩu | Xác nhận mật khẩu | Output | Covered Boundary Values |
+| --- | --- | --- | --- | --- | --- | --- |
+| TC1 | `A` | `validuser@gmail.com` | `ABCdef12!@` | `ABCdef12!@` | Đăng ký thành công | B1 |
+| TC2 | `An` | `validuser@gmail.com` | `ABCdef12!@` | `ABCdef12!@` | Đăng ký thành công | B3 |
+| TC3 | *(Để trống)* | `validuser@gmail.com` | `ABCdef12!@` | `ABCdef12!@` | Báo lỗi họ tên không được để trống | B2 |
+| TC4 | `Nguyen Van A` | `validuser@gmail.com` | `Aaaaaaa1!` | `Aaaaaaa1!` | Đăng ký thành công | B4 |
+| TC5 | `Nguyen Van A` | `validuser@gmail.com` | `Aaaaaaaa1!` | `Aaaaaaaa1!` | Đăng ký thành công | B6 |
+| TC6 | `Nguyen Van A` | `validuser@gmail.com` | `Aaaaaaaa12!@` | `Aaaaaaaa12!@` | Đăng ký thành công | B7 |
+| TC7 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa12!@` | `AAaaaaaa12!@` | Đăng ký thành công | B9 |
+| TC8 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa1!@#` | `AAaaaaaa1!@#` | Đăng ký thành công | B10 |
+| TC9 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa12!@` | `AAaaaaaa12!@` | Đăng ký thành công | B12 |
+| TC10 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa123!` | `AAaaaaaa123!` | Đăng ký thành công | B13 |
+| TC11 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa1234` | `AAaaaaaa1234` | Đăng ký thành công | B15 |
+| TC12 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa12!` | `AAaaaaaa12!` | Đăng ký thành công | B16 |
+| TC13 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa12!@` | `AAaaaaaa12!@` | Đăng ký thành công | B18 |
+| TC14 | `Nguyen Van A` | `validuser@gmail.com` | `Aaaaaa1!` | `Aaaaaa1!` | Hệ thống báo lỗi mật khẩu phải từ 8 ký tự trở lên | B5 |
+| TC15 | `Nguyen Van A` | `validuser@gmail.com` | `aaaaaaaa12!@` | `aaaaaaaa12!@` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in hoa | B8 |
+| TC16 | `Nguyen Van A` | `validuser@gmail.com` | `AAAAAAAA12!@` | `AAAAAAAA12!@` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in thường | B11 |
+| TC17 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa!@#$` | `AAaaaaaa!@#$` | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ số | B14 |
+| TC18 | `Nguyen Van A` | `validuser@gmail.com` | `AAaaaaaa1234` | `AAaaaaaa1234` | Hệ thống báo lỗi mật khẩu phải chứa ký tự đặc biệt | B17 |
+
+**Nhận xét:**
+- Bảng Test Data hoàn toàn chính xác, tuân thủ nguyên tắc không gộp các giá trị biên Valid và tách riêng Invalid.
