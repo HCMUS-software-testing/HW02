@@ -40,6 +40,8 @@ Use these partitioning rules:
 
 When selecting test cases, choose at least one representative from each equivalence class. Combine valid classes where possible. For invalid EP tests, isolate one invalid class per test while keeping unrelated inputs nominal and valid.
 
+When a representative or expected value depends on runtime system data that is not specified by the black-box sources, do not invent a concrete value. Use a clearly defined symbolic variable instead, such as `X` for the observed unit price of product A, `Y` for product B, `2X` for a line total, or `2X + Y` for a cart total. State in assumptions or test data that the tester must observe `X`/`Y` from the UI/API during setup. Keep concrete values only when they come from the specification, the user-provided test data, or a documented boundary.
+
 Write final Domain Testing artifacts in Vietnamese with full accents and UTF-8-safe characters unless the user explicitly requests another language. Keep technical identifiers, API paths, field names, status codes, file names, and test IDs unchanged.
 
 ## Sub-Skills
@@ -59,8 +61,9 @@ Load the relevant sub-skill before producing detailed analysis:
 3. Identify every input and output from the specification.
 4. Read the EP sub-skill and produce sections A1-A4. In A2, split requirements into atomic input/output conditions before deriving equivalence classes.
 5. Read the BVA sub-skill and produce sections B1-B3 when the request includes BVA or full domain testing.
-6. Trace every test case back to `ECxx` or a named boundary. For executable testcase tables, include blank `Kết quả thực tế` and `Đạt` columns so the student can fill them after running tests. When the same testcase is intended to be executed through both UI/web and API/Postman, the `Kết quả mong đợi` cell must explicitly include both observable outcomes, labeled `Web:` and `API:`; include the expected API status code/body when specified, or state the documented contract gap when the API cannot check a UI-only field such as `confirmPassword`. Mark not-executed tests honestly if execution is outside scope.
-7. Add only risk notes supported by the specification or observed ambiguity. Do not write an `AI gap analysis` section because the user will fill that part manually.
+6. Choose representative test data from the specification or observable setup data. If a value such as price, stock, account balance, catalog id, or server-generated amount is not available from black-box context, define it as a variable (`X`, `Y`, etc.) and express expected calculations symbolically.
+7. Trace every test case back to `ECxx` or a named boundary. For executable testcase tables, include blank `Kết quả thực tế` and `Đạt` columns so the student can fill them after running tests. When the same testcase is intended to be executed through both UI/web and API/Postman, the `Kết quả mong đợi` cell must explicitly include both observable outcomes, labeled `Web:` and `API:`; include the expected API status code/body when specified, or state the documented contract gap when the API cannot check a UI-only field such as `confirmPassword`. Mark not-executed tests honestly if execution is outside scope.
+8. Add only risk notes supported by the specification or observed ambiguity. Do not write an `AI gap analysis` section because the user will fill that part manually.
 
 ## Language and Encoding
 
@@ -165,6 +168,7 @@ For cross-field equality relationships such as `confirmPassword` matching `passw
 - Treat Domain Testing as black-box testing: EP and BVA must be derived from specifications, not source code.
 - Use the built-in Domain Testing method in this skill; do not depend on repo-local reference files.
 - The artifact clearly identifies the input project-feature.
+- Values not supplied by the black-box specification or user-provided setup are not invented; they are represented with defined variables such as `X`/`Y` and tied to observable setup data.
 - Every input and output from the function appears in A1 unless the user requested BVA-only and the field is irrelevant to BVA.
 - A2 conditions are atomic; do not merge required/non-empty, format, length, membership, uniqueness, state, and cross-field relationship checks into the same row.
 - Every condition has at least one valid or invalid `ECxx` when EP is in scope, or is explicitly covered by a representative `ECxx` that states the related condition IDs.

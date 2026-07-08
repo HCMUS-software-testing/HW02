@@ -22,7 +22,7 @@ Partition each atomic input/output condition into classes that should be treated
    - For a required/non-empty rule: one non-empty valid class and one empty/missing invalid class.
    - For uniqueness or state: one class for available state and one for conflicting state.
    - For cross-field constraints: one class for satisfied relationship and one or more invalid relationship classes.
-5. Number classes as `EC01`, `EC02`, etc. Include input/output, class description, valid/invalid status, representative value, and expected result.
+5. Number classes as `EC01`, `EC02`, etc. Include input/output, class description, valid/invalid status, representative value, and expected result. Use concrete representative values only when the specification or user-provided setup supplies them; otherwise use a defined variable tied to observable setup data, for example `price=X` where `X` is the unit price observed for the selected product.
 6. Design EP test cases:
    - Cover as many valid classes as possible in one valid test.
    - For invalid tests, isolate exactly one invalid class while all unrelated inputs use nominal valid values.
@@ -69,4 +69,5 @@ List atomic conditions. Do not combine required/non-empty, type, format, range, 
 - No condition is merged merely because another condition is stricter or often fails first during execution.
 - Expected results are observable through UI text, API status/body, database state, or documented system state.
 - EP is black-box: expected behavior comes from specifications, not source code or implementation internals.
+- Representative values do not invent hidden system data; unspecified runtime values such as prices, balances, stock, ids, or generated totals are symbolic (`X`, `Y`, `X + Y`) unless provided by the black-box specification or user.
 - Use Vietnamese with full accents, while preserving field names, endpoint names, codes, and quoted source text verbatim.

@@ -22,6 +22,7 @@ Apply BVA only to inputs or outputs with meaningful order and boundaries. Do not
    - With only a minimum: test just outside, on, and just inside the lower boundary.
    - With only a maximum: test just inside, on, and just outside the upper boundary.
    - For length boundaries, use concrete sample strings whose lengths are visible.
+   - For monetary or calculated outputs whose base values are not specified, use symbolic observed values such as `price=X`, `quantity=2`, `line_total=2X`, and define `X` in the test setup.
    - For cross-field equality relationships such as `confirmPassword` matching `password`, record relationship values as exact match, differs by 1 character, missing 1 character, and adding 1 extra character compared with `password`; do not add arbitrary `length=2` or other length values unless the specification defines that boundary.
    - For dates, state the reference date explicitly.
 4. Design BVA test cases. Keep unrelated inputs nominal and valid so the expected result focuses on the boundary under test.
@@ -53,9 +54,10 @@ Apply BVA only to inputs or outputs with meaningful order and boundaries. Do not
 
 - BVA includes step B1 before listing values, so the artifact explains why each field is or is not boundary-testable.
 - BVA includes step B2 before test cases, so the artifact separates boundary identification from case design.
-- Boundary values are concrete and executable, not abstract placeholders.
+- Boundary values from the specification are concrete and executable. Unspecified support values needed to compute an expected result may be symbolic only when they are explicitly defined as values observed during black-box setup.
 - Boundary dates include an explicit reference date.
 - BVA is not applied to unordered enums or free-form fields without a documented length, range, count, or ordering rule.
 - Expected results are observable through UI text, API status/body, database state, or documented system state.
 - BVA is black-box: boundaries come from specifications, not source code or implementation internals.
+- BVA does not invent hidden prices, balances, stock, ids, or generated totals; use variables such as `X`/`Y` and formulas such as `2X + Y` when those values must be observed from the SUT.
 - Use Vietnamese with full accents, while preserving field names, endpoint names, codes, and quoted source text verbatim.
