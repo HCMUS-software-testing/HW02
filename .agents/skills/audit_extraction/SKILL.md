@@ -1,52 +1,58 @@
 ---
 name: audit_extraction
-description: Extract a concise HW02 AI Audit Report entry from the current testing session.
+description: Trích xuất một nhật ký tương tác AI (AI Audit Report entry) ngắn gọn cho HW02 bằng tiếng Việt từ session kiểm thử hiện tại.
 ---
 
-# AI Audit Extraction Skill
+# Kỹ năng Trích xuất Nhật ký Tương tác AI (AI Audit Extraction Skill)
 
-You are a technical writer preparing an AI Audit Report entry for HW02. The assignment requires the AI tool name, date/time, user prompt, and AI output. Add human review/corrections because HW02 also requires human review of AI-generated work.
+Bạn là một chuyên viên viết tài liệu kỹ thuật hỗ trợ chuẩn bị nhật ký tương tác AI (AI Audit Report entry) cho bài tập HW02 bằng tiếng Việt.
 
-## Methodology Basis
+Trước khi tạo nhật ký, hãy đọc:
 
-Use the simplified audit format selected for this homework:
+- `references/hw02_audit_requirements.md`
 
-1. Metadata: AI tool, date/time, and task description.
-2. Prompts used.
-3. AI output summary.
-4. Human review and corrections.
+Yêu cầu của bài tập là ghi lại tên công cụ AI, ngày giờ tương tác, prompt của người dùng và phản hồi của AI. Thêm vào đó, cần bổ sung phần rà soát/chỉnh sửa của con người vì bài HW02 yêu cầu quy trình AI-first nhưng được kiểm soát bởi con người (human-reviewed).
 
-Do not include meta conversation about audit formatting, session management, or workflow clarification unless it directly changed a final assignment artifact.
+## Cơ sở phương pháp
 
-## Global Rules
+Sử dụng định dạng nhật ký rút gọn đã được chọn cho bài tập này:
 
-- Output only the Markdown audit entry.
-- Keep the entry concise and evidence-focused.
-- If exact information is unavailable, write `TODO:` instead of inventing it.
-- Include only prompts that caused AI to create, modify, review, or validate an assignment artifact.
-- Summarize AI outputs instead of pasting long generated tables.
-- Record human corrections, rejected assumptions, or final decisions.
+1. Thông tin chung (Metadata): Tên công cụ AI, ngày giờ tương tác, và mô tả nhiệm vụ.
+2. Các prompt đã sử dụng.
+3. Phản hồi của AI / Sản phẩm (Artifact) được tạo ra.
+4. Rà soát và chỉnh sửa của con người (Human review).
 
-## Output Template
+Không đưa vào nhật ký các cuộc trò chuyện mang tính chất thảo luận về quy trình, định dạng audit, hoặc giải thích chung chung, trừ khi chúng trực tiếp tạo ra hoặc thay đổi một tệp nộp bài chính thức.
 
-### AI Interaction Log [N]: [Feature ID / Task]
+## Quy tắc chung
 
-- **Name of the AI tool:** TODO:
-- **Date and time:** TODO:
-- **Task description:** TODO:
+- Chỉ xuất ra nội dung nhật ký tương tác bằng Markdown.
+- Giữ cho nhật ký ngắn gọn, tập trung vào minh chứng thực tế.
+- Nếu không có thông tin chính xác (ví dụ: ngày giờ cụ thể), viết `TODO:` chứ không tự bịa thông tin.
+- Chỉ đưa vào các prompt trực tiếp dẫn đến việc tạo, sửa đổi, rà soát hoặc xác thực sản phẩm bài tập.
+- Tóm tắt phản hồi của AI thay vì dán toàn bộ các bảng dữ liệu dài dòng, nhưng cần xác định rõ sản phẩm nào được tạo ra hoặc cập nhật.
+- Ghi nhận chi tiết những điểm chỉnh sửa của con người, các giả định bị loại bỏ hoặc quyết định cuối cùng của sinh viên.
 
-#### 1. Prompts Used
+## Biểu mẫu đầu ra (Output Template)
 
-- "TODO: Prompt or concise prompt summary."
+### Nhật ký Tương tác AI [N]: [Mã tính năng / Nhiệm vụ]
 
-#### 2. AI Output Summary
+- **Tên công cụ AI:** TODO:
+- **Ngày và giờ:** TODO:
+- **Mô tả nhiệm vụ:** TODO:
 
-- TODO: Summarize the major outputs produced by AI.
-- TODO: Include counts when useful, such as number of variables, partitions, scenarios, or test cases.
-- TODO: Mention updated final artifacts only if they are relevant.
+#### 1. Các Prompt đã sử dụng
 
-#### 3. Human Review and Corrections
+- "TODO: Prompt hoặc tóm tắt prompt ngắn gọn."
 
-- TODO: State what the student accepted, corrected, rejected, or added manually.
+#### 2. Phản hồi của AI / Sản phẩm được tạo ra
 
-Return only the Markdown entry above so it can be copied directly into `AI_Reports/AI_Audit_Report.md`.
+- TODO: Tóm tắt các kết quả đầu ra chính do AI sinh ra.
+- TODO: Thêm số lượng cụ thể khi cần (ví dụ: số lượng biến, phân hoạch, kịch bản hoặc test case).
+- TODO: Nêu rõ các tệp sản phẩm cuối cùng được tạo mới hoặc cập nhật.
+
+#### 3. Rà soát và Chỉnh sửa của con người
+
+- TODO: Nêu rõ sinh viên đã chấp nhận, chỉnh sửa, từ chối hoặc bổ sung thủ công những nội dung gì.
+
+Chỉ trả về nội dung Markdown ở trên để người dùng có thể copy trực tiếp vào tệp `AI_Audit_Report.md`.

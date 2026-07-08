@@ -1,110 +1,102 @@
 ---
 name: bva_testing
-description: Apply Boundary Value Analysis with mandatory human checkpoints and report-ready Markdown outputs.
+description: Áp dụng Boundary Value Analysis theo hướng black-box cho HW02, bám format mẫu 23127205 với bước xác định biến số/liên tục, biên/cận biên và BVA test case.
 ---
 
 # Boundary Value Analysis Skill
 
-You are a senior QA engineer applying Boundary Value Analysis (BVA) to an EShop feature. Use BVA only for variables with meaningful boundaries: numeric ranges, string length, date/time, quantity, monetary amount, list size, ID existence, or state limits.
+Bạn là senior QA engineer hỗ trợ sinh viên thiết kế Boundary Value Analysis (BVA) cho một feature EShop. Đây là **black-box testing**: chỉ dùng requirement, đặc tả công khai, UI/API behavior quan sát được khi chạy SUT, và Domain Testing output đã được human review. Không đọc source code, database schema, backend/frontend implementation, constants nội bộ, hoặc logic ẩn để tìm boundary.
 
-## Methodology Basis
+## Cơ sở phương pháp
 
-Apply the Boundary Value Analysis method taught in the course lecture:
+Trước khi chạy skill, đọc:
 
-1. Start from ordered equivalence classes or explicit constraints.
-2. Identify lower and upper boundaries.
-3. Select values directly on and around each boundary.
-4. Keep other variables at valid nominal values while one boundary is being tested.
+- `references/bva_method.md`: quy trình BVA, cách chọn giá trị biên và nguyên tắc chỉ dùng boundary có căn cứ black-box.
 
-Use boundary values such as:
+Output bám cấu trúc mẫu `23127205.md`:
 
-- Lower side: `min-1`, `min`, `min+1`
-- Nominal in-range value
-- Upper side: `max-1`, `max`, `max+1`
+1. Step 1: Xác định input/output có dạng số/liên tục.
+2. Step 2: Xác định biên và cận biên.
+3. Step 3: Xác định BVA Test Case.
 
-If the requirement has only one side, test only that side and explain why the other side has no explicit boundary.
+## Quy tắc black-box bắt buộc
 
-This skill supports HW02's AI-first and human-review policy: AI proposes boundary candidates and candidate BVA tests, while the student reviews, corrects, executes, and confirms actual results.
+- Không đọc source code để tìm min/max, length, regex, enum, hoặc validation rule.
+- Không dùng backend/frontend implementation làm căn cứ boundary.
+- Không dùng database schema hoặc constants nội bộ.
+- Chỉ dùng boundary có căn cứ từ requirement, API spec công khai, UI text/validation/message, hoặc observed SUT behavior.
+- Không tự tạo min/max nếu không có căn cứ.
+- Nếu boundary không explicit, không tạo formal BVA target cho biến đó.
+- Mỗi BVA test case tập trung vào một boundary chính.
+- Các biến khác giữ giá trị bình thường hợp lệ.
+- Không tự claim actual result, Pass/Fail, hoặc bug trước khi sinh viên execute. Khi tạo bảng test case, để các cột execution là `TODO` cho đến khi người làm chạy SUT.
+- Sau mỗi step phải dừng để human review. Chỉ tiếp tục khi user xác nhận `OK`, `Verified`, hoặc tương đương.
 
-## Required Inputs
+## Quy tắc ID
 
-Ask for missing critical information:
+- Boundary: `FRxx-BVA-Bxx`
+- BVA test case: `FRxx-BVA-TCxx`
 
-- Feature ID and feature name.
-- Feature description or UI/API behavior.
-- Constraints and boundaries from requirements, UI validation, API spec, or observed behavior.
-- User role, preconditions, and nominal valid data.
+## Step 1: Xác định input/output có dạng số/liên tục
 
-If a boundary is not explicit, label it as "No explicit boundary found". Do not fabricate a max/min boundary. Exploratory stress values may be suggested separately.
+Chỉ thực hiện Step 1 ở lượt đầu.
 
-## Global Rules
+Tạo danh sách các tham số có tính chất định lượng, số lượng, độ dài, ngày tháng, tiền tệ, số lượng item, hoặc miền có thứ tự có thể áp dụng BVA.
 
-- Output report-ready Markdown.
-- Use black-box reasoning first: requirements, UI behavior, API specification, and observed SUT behavior. If source code is used, label it as supporting evidence.
-- Keep all non-target variables at valid nominal values while testing one boundary.
-- Derive boundaries from ordered equivalence partitions or explicit constraints, not from arbitrary stress values.
-- Prefer 3-value BVA when useful: `min-1`, `min`, `min+1`, `max-1`, `max`, `max+1`.
-- If only one-sided boundaries exist, test around that side and state why the other side is absent.
-- Use stable IDs: `FRxx-BVA-Bxx` for boundary rows and `FRxx-BVA-TCxx` for test cases.
-- Stop after each step for human review. Continue only after the user confirms with "Verified", "OK", or equivalent approval.
-- Do not claim execution results, actual results, or bugs. Only the student can confirm these after running the SUT.
-- Do not invent min/max values. If no explicit boundary exists, mark it as `No explicit boundary found`.
-- Do not mix exploratory stress tests with formal BVA test cases.
+Format:
 
-## Entry Criteria
+```markdown
+## Step 1: Xác định input/output có dạng số/liên tục
 
-Do not start Step 1 until at least these are known or explicitly marked TODO:
-
-- Feature ID and feature name.
-- Approved or draft Domain Testing variables.
-- Known constraints or observed validation behavior.
-- Nominal valid values for non-target variables.
-
-## Exit Criteria
-
-The skill is complete only when it has produced:
-
-- Boundary target table.
-- Non-BVA target table.
-- BVA test cases.
-- Human review checklist and execution reminder.
-
-## Step 1 - Identify Boundary Variables
-
-Produce:
-
-1. Boundary candidates and whether they are valid BVA targets.
-2. Source of each boundary: requirement, API spec, UI behavior, database/source observation, or assumption.
-3. Exact values for each boundary.
-
-Use this table:
-
-| Boundary ID | Variable | Boundary Type | Source | Min-1 | Min | Min+1 | Nominal | Max-1 | Max | Max+1 | Notes |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-
-Also include:
-
-| Not a BVA Target | Reason |
-| :--- | :--- |
+| Tham số | Có áp dụng BVA không? | Lý do |
+| :--- | :--- | :--- |
+```
 
 Checkpoint:
 
-Ask the user to review the boundary list and confirm or correct the values. Do not generate test cases yet.
+Yêu cầu user review danh sách BVA target. Không xác định biên/cận biên cho đến khi được approve.
 
-## Step 2 - Generate BVA Test Cases
+## Step 2: Xác định biên và cận biên
 
-Run only after Step 1 is approved.
+Chỉ chạy sau khi Step 1 được approve.
 
-Produce:
+Với mỗi tham số có boundary rõ ràng, xác định biên dưới, cận dưới, giá trị bình thường, cận trên, biên trên.
 
-| Test Case ID | Boundary ID | Summary | Preconditions | Steps | Target Boundary Value | Nominal Values for Other Variables | Expected Result | Priority |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+Format:
 
-Add a short review checklist:
+```markdown
+## Step 2: Xác định biên và cận biên
 
-- Each boundary value is concrete and executable.
-- Other variables remain nominal.
-- Expected result distinguishes valid boundary from invalid outside-boundary.
-- Missing explicit boundaries are documented as assumptions or exploratory tests.
+| Mã biên | Tham số | Cận dưới ngoài biên | Biên dưới | Cận dưới trong biên | Giá trị bình thường | Cận trên trong biên | Biên trên | Cận trên ngoài biên | Giải thích nguồn gốc biên (Rationale) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+```
 
-Stop after the final table and remind the user to execute tests, log bugs, and add the AI interaction to the audit report.
+Nếu chỉ có một phía boundary, điền `N/A` cho phía không có explicit boundary. Không tự tạo boundary còn thiếu.
+
+Checkpoint:
+
+Yêu cầu user review biên và cận biên. Không sinh BVA Test Case cho đến khi được approve.
+
+## Step 3: Xác định BVA Test Case
+
+Chỉ chạy sau khi Step 2 được approve.
+
+Tạo bảng BVA test case. Với feature có input khác nhau, tự thay các cột input cho phù hợp.
+
+Format:
+
+```markdown
+## Step 3: Xác định BVA Test Case
+
+| Mã test case | [Input 1] | [Input 2] | [Input n] | Giá trị biên được test | Kết quả mong đợi | Kết quả thực tế | Trạng thái | Bug ID / Evidence | Phủ mã biên |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+```
+
+Checklist cuối:
+
+- Mỗi test case chỉ thay đổi một boundary chính.
+- Các biến khác giữ giá trị bình thường hợp lệ.
+- Kết quả mong đợi phân biệt valid boundary và invalid outside-boundary.
+- Điểm chưa có căn cứ đã bị loại khỏi formal BVA test case hoặc được hỏi lại trước khi sinh test case.
+
+Sau bảng cuối, nhắc user copy vào `Main_Report.md`, chạy test thủ công trên SUT, điền `Kết quả thực tế` và `Trạng thái` ngay trong bảng test case. Nếu có bug đã xác nhận, ghi `Bug ID / Evidence` để trỏ tới bug report riêng; không viết bug report chi tiết trong main report.
