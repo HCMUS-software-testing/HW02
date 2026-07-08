@@ -1,4 +1,4 @@
 interface:
   display_name: "Applying Domain Testing"
-  short_description: "Design black-box EP/BVA for a project-feature."
-  default_prompt: "Use $applying-domain-testing to design black-box Domain Testing for this project-feature from its specification."
+  short_description: "Design black-box EP/BVA artifacts, including split sub-feature files."
+  default_prompt: "Use $applying-domain-testing to design black-box Domain Testing for this project-feature from its specification, splitting large features into independent sub-feature artifacts when useful."

@@ -1,25 +1,25 @@
 ---
 name: applying-domain-testing
-description: Use when designing black-box Domain Testing, equivalence partitioning, equivalence classes, boundary value analysis, or EP/BVA test cases from project-feature specifications for a function, API endpoint, form, feature, or input-validation rule.
+description: Use when designing black-box Domain Testing, equivalence partitioning, boundary value analysis, EP/BVA test cases, or splitting a large project-feature into independent sub-feature testing artifacts from specifications.
 ---
 
 # Applying Domain Testing
 
 ## Overview
 
-Use this parent skill to coordinate Domain Testing for one project-feature at a time. Domain Testing is a black-box testing technique: derive tests from specifications and observable expected behavior, not from implementation code.
+Use this parent skill to coordinate Domain Testing for one project-feature or one clearly scoped sub-feature at a time. Domain Testing is a black-box testing technique: derive tests from specifications and observable expected behavior, not from implementation code.
 
 Domain Testing includes Equivalence Partitioning (EP) and Boundary Value Analysis (BVA). It treats a large input/output domain as stratified samples: partition the domain into behaviorally meaningful equivalence classes, then use boundary values as strong representatives for ordered domains.
 
 ## Expected Input
 
-Use the project-feature as the unit of work. The user may provide a project name, feature name or ID, requirement text, UI rules, API contract, acceptance criteria, business rules, or test objective.
+Use the project-feature as the unit of work. If the project-feature is large, decompose it into independent sub-features before producing detailed artifacts. The user may provide a project name, feature name or ID, requirement text, UI rules, API contract, acceptance criteria, business rules, output folder, file naming preference, or test objective.
 
 If specifications are incomplete, ask for the missing rule when it blocks analysis; otherwise record the gap as an assumption. Do not read or inspect source code, database implementation, validators, routes, services, or other implementation internals to infer hidden behavior.
 
 ## Built-In Domain Testing Method
 
-Use this method directly so the skill is portable across repositories:
+Use this method directly so the skill is portable across repositories. It is the embedded, self-contained restatement of the four-step Domain Testing approach from `references/04_Domain Testing.md`; do not require that repository-local reference to exist when the skill is released elsewhere.
 
 1. Identify input and output variables from the specification.
 2. Identify equivalence classes for each input and output condition.
@@ -44,6 +44,27 @@ When a representative or expected value depends on runtime system data that is n
 
 Write final Domain Testing artifacts in Vietnamese with full accents and UTF-8-safe characters unless the user explicitly requests another language. Keep technical identifiers, API paths, field names, status codes, file names, and test IDs unchanged.
 
+## Decomposing Large Features
+
+When a feature contains multiple observable behaviors, split it into several Markdown artifacts only when each sub-feature can be tested with its own inputs, outputs, setup, and oracle. Good split boundaries include distinct user goals, screens, API endpoints, commands, state transitions, validation groups, or output views. Do not split merely by individual field, equivalence class, or boundary value when the resulting file would not make sense as an executable test unit.
+
+Before writing child artifacts, create a short decomposition map:
+
+| Sub-feature | File | Observable behavior | Scope boundary |
+| --- | --- | --- | --- |
+| `<sub-feature name>` | `<file-name.md>` | `<UI/API/output behavior>` | `<what belongs here and what stays elsewhere>` |
+
+If the user asks for multiple files or an output directory, include a `README.md` or index file in that directory. The index should list the decomposition rationale, shared black-box specification sources, shared setup data or symbolic variables, file list, and traceability from the parent feature to each sub-feature. The index is navigation only; it must not replace the EP/BVA analysis inside each child artifact.
+
+Each child artifact must remain independent and portable:
+
+- Repeat section `## 1. Chức năng kiểm thử` with the parent feature ID/name and the child sub-feature scope.
+- Include the specification sources, UI/API references, assumptions, in-scope items, out-of-scope items, and execution status needed to understand the file without opening siblings.
+- Run the full Domain Testing method inside that child scope: identify inputs/outputs, derive EP classes, select representatives, and apply BVA only to ordered domains.
+- Keep testcase IDs unique within the file; add a sub-feature prefix only when it improves traceability.
+- Express shared runtime data as symbolic variables in every child file that uses them, even if the index also defines them.
+- For cross-sub-feature behavior, document the dependency as a risk or shared setup note. Add cross-feature/integration test cases only when the specification defines an observable rule spanning those sub-features.
+
 ## Sub-Skills
 
 Load the relevant sub-skill before producing detailed analysis:
@@ -56,14 +77,15 @@ Load the relevant sub-skill before producing detailed analysis:
 
 ## Workflow
 
-1. Confirm the project-feature, specification source, scope, assumptions, and missing constraints in the `## 1. Chức năng kiểm thử` table. Do not invent hidden requirements; mark unclear points as assumptions.
-2. Use only black-box sources: requirement/specification text, user-provided UI rules, API contract, acceptance criteria, business rules, and documented observable behavior. Do not read implementation code or derive expectations from code.
-3. Identify every input and output from the specification.
-4. Read the EP sub-skill and produce sections A1-A4. In A2, split requirements into atomic input/output conditions before deriving equivalence classes.
-5. Read the BVA sub-skill and produce sections B1-B3 when the request includes BVA or full domain testing.
-6. Choose representative test data from the specification or observable setup data. If a value such as price, stock, account balance, catalog id, or server-generated amount is not available from black-box context, define it as a variable (`X`, `Y`, etc.) and express expected calculations symbolically.
-7. Trace every test case back to `ECxx` or a named boundary. For executable testcase tables, include blank `Kết quả thực tế` and `Đạt` columns so the student can fill them after running tests. When the same testcase is intended to be executed through both UI/web and API/Postman, the `Kết quả mong đợi` cell must explicitly include both observable outcomes, labeled `Web:` and `API:`; include the expected API status code/body when specified, or state the documented contract gap when the API cannot check a UI-only field such as `confirmPassword`. Mark not-executed tests honestly if execution is outside scope.
-8. Add only risk notes supported by the specification or observed ambiguity. Do not write an `AI gap analysis` section because the user will fill that part manually.
+1. Confirm the parent project-feature, requested output structure, specification source, scope, assumptions, and missing constraints. Do not invent hidden requirements; mark unclear points as assumptions.
+2. Decide whether to keep one artifact or split into sub-feature artifacts. Split only on observable behavior boundaries as described above. If split, create the decomposition map and then apply the remaining workflow separately to each child artifact.
+3. Use only black-box sources: requirement/specification text, user-provided UI rules, API contract, acceptance criteria, business rules, and documented observable behavior. Do not read implementation code or derive expectations from code.
+4. Identify every input and output from the specification for the current artifact's scope.
+5. Read the EP sub-skill and produce sections A1-A4. In A2, split requirements into atomic input/output conditions before deriving equivalence classes.
+6. Read the BVA sub-skill and produce sections B1-B3 when the request includes BVA or full domain testing.
+7. Choose representative test data from the specification or observable setup data. If a value such as price, stock, account balance, catalog id, or server-generated amount is not available from black-box context, define it as a variable (`X`, `Y`, etc.) and express expected calculations symbolically.
+8. Trace every test case back to `ECxx` or a named boundary. For executable testcase tables, include blank `Kết quả thực tế` and `Đạt` columns so the student can fill them after running tests. When the same testcase is intended to be executed through both UI/web and API/Postman, the `Kết quả mong đợi` cell must explicitly include both observable outcomes, labeled `Web:` and `API:`; include the expected API status code/body when specified, or state the documented contract gap when the API cannot check a UI-only field such as `confirmPassword`. Mark not-executed tests honestly if execution is outside scope.
+9. Add only risk notes supported by the specification or observed ambiguity. Do not write an `AI gap analysis` section because the user will fill that part manually.
 
 ## Language and Encoding
 
@@ -76,6 +98,17 @@ Load the relevant sub-skill before producing detailed analysis:
 ## Output Format
 
 Use this Vietnamese structure for final artifacts. If the user requests only EP or only BVA, include section 1, the requested analysis section, and section 5.
+
+For a split feature, use this portable directory pattern unless the user requests another structure:
+
+```text
+<output-dir>/
+  README.md
+  <feature-id>_<sub-feature-slug>_domain_testing.md
+  <feature-id>_<sub-feature-slug>_domain_testing.md
+```
+
+`README.md` should contain the decomposition map, shared references, shared setup variables, and artifact list. Every child Markdown file must use the full structure below and be understandable on its own.
 
 ## 1. Chức năng kiểm thử
 
@@ -179,3 +212,7 @@ For cross-field equality relationships such as `confirmPassword` matching `passw
 - Expected results are observable, not vague phrases like "works correctly".
 - The final artifact uses `## 1. Chức năng kiểm thử`, not `## 1. Chức năng dưới kiểm thử`.
 - Section 5 is `## 5. Ghi chú rủi ro`; do not generate an `AI gap analysis` section.
+- If a large feature is split, the split is based on observable behavior boundaries, and the output directory includes an index/README with a decomposition map.
+- Each split child artifact is independent: it repeats scope, sources, assumptions, test data variables, EP/BVA analysis, executable test cases, and risk notes needed to run that sub-feature without relying on sibling files.
+- The index/README never replaces per-child Domain Testing analysis, and child files do not defer expected behavior to the index or another artifact.
+- The skill remains portable for release: essential Domain Testing rules are embedded here; repository-local references may inform updates but are not required at runtime.

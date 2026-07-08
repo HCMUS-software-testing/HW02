@@ -1716,6 +1716,42 @@ Mình chỉ sửa các file trong `.agents/skills/applying-domain-testing/`. Wor
 - Human Review/Corrections: `[Manual by user]`
 - Final Use in Submission: `[Manual by user]`
 
+
+### Entry 026
+- Time: `2026-07-08 22:58 +07`
+- Tool/Model: `Codex / GPT-5`
+- Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Áp dụng Domain Testing cho Pool C FR-18: Order management (admin) (được đề cập trong tài liệu requirements/2026.HW02.Domain Testing_En.md) áp dụng cho dự án eshop-sut. Chia ra thành nhiều file nếu có các chức năng nhỏ khác nhau. Vui lòng đọc kỹ các tài liệu đặc tả bao gồm: eshop-sut/README, eshop-sut/api_specification.md. Kết quả đầu ra (output) của tính năng này sẽ được thêm vào thư mục ./domain-testing/FR-18_order-management-admin.
+- Output: Đã tạo bộ artifact Domain Testing cho FR-18 trong domain-testing/FR-18_order-management-admin, gồm README.md, FR-18_admin-order-list_domain_testing.md, FR-18_admin-order-status-update_domain_testing.md, và FR-18_admin-shipping-address-safe-display_domain_testing.md. Nội dung chia theo chức năng nhỏ: admin xem toàn bộ đơn hàng, admin cập nhật trạng thái theo FR-10 state machine, và hiển thị an toàn shipping_address. Các artifact dùng tiếng Việt, có EP/BVA, testcase chưa thực thi với cột Kết quả thực tế và Đạt để trống, ghi rõ contract gap/rủi ro đặc tả, và không viết phần AI gap analysis.
+- Human Review/Corrections: `[Manual by user]`
+- Final Use in Submission: `[Manual by user]`
+
+
+### Entry 027
+- Time: `2026-07-08 23:14 +07`
+- Tool/Model: `Codex / GPT-5`
+- Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Áp dụng Domain Testing cho Pool D FR-03: Quên mật khẩu & Đặt lại mật khẩu (2 bước) nhưng cho mobile (được đề cập trong tài liệu requirements/2026.HW02.Domain Testing_En.md) áp dụng cho dự án eshop-sut. Chia ra thành nhiều file nếu có các chức năng nhỏ khác nhau. Vui lòng đọc kỹ các tài liệu đặc tả bao gồm: eshop-sut/README.md, eshop-sut/api_specification.md. Kết quả đầu ra (output) của tính năng này sẽ được thêm vào thư mục ./domain-testing/FR-03_reset-password-mobile.
+- Output: Đã tạo thư mục domain-testing/FR-03_reset-password-mobile với README.md và hai artifact Markdown: FR-03_mobile-forgot-password-request-otp_domain_testing.md cho Bước 1 lấy OTP, FR-03_mobile-reset-password_domain_testing.md cho Bước 2 đặt lại mật khẩu. Các artifact dùng nguồn black-box requirements/2026.HW02.Domain Testing_En.md, eshop-sut/README.md, eshop-sut/api_specification.md; bao gồm EP, BVA, test case Mobile/API, giả định, contract gaps, và cột trống Kết quả thực tế/Đạt để người học điền khi thực thi.
+- Human Review/Corrections: `[Manual by user]`
+- Final Use in Submission: `[Manual by user]`
+
+
+### Entry 028
+- Time: `2026-07-08 23:47 +07`
+- Tool/Model: `Codex / GPT-5`
+- Prompt: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Cập nhật [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md)  để skill có thể tách một chức năng lớn thành các file cho những chức năng nhỏ để dễ dàng hơn trong quá trình kiểm thử. Tuy nhiên phương pháp test vẫn phải bám sát references/04_Domain Testing.md và và đảm bảo tính độc lập, portable, có thể release thành 1 skill tái sử dụng.
+- Output: Đã cập nhật .agents/skills/applying-domain-testing/SKILL.md để hỗ trợ tách feature lớn thành nhiều artifact sub-feature độc lập, thêm decomposition map, README/index cho thư mục output, quy tắc mỗi child artifact vẫn chạy đủ Domain Testing theo EP/BVA, và nhấn mạnh phương pháp bám sát references/04_Domain Testing.md nhưng vẫn self-contained/portable khi release. Đã cập nhật .agents/skills/applying-domain-testing/agents/openai.yaml để metadata phản ánh khả năng split sub-feature files. Đã kiểm tra bằng quick_validate.py và git diff --check.
+- Human Review/Corrections: `[Manual by user]`
+- Final Use in Submission: `[Manual by user]`
+
+
+### Entry 029
+- Time: `2026-07-09 00:04 +07`
+- Tool/Model: `Codex / GPT-5`
+- Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Áp dụng Domain Testing cho Pool B FR-07: Giỏ hàng (Shopping cart) (được đề cập trong tài liệu requirements/2026.HW02.Domain Testing_En.md) - chức năng cập nhật số lượng trong giỏ hàng, xóa sản phẩm trong giỏ hàng, tiếp tục mua hàng từ giỏ hàng, áp dụng cho dự án eshop-sut (Vui lòng đọc kỹ các tài liệu đặc tả bao gồm: eshop-sut/README, eshop-sut/api_specification.md). Kết quả đầu ra (output) của tính năng này sẽ được thêm vào thư mục ./domain-testing/FR-07_shopping-cart.
+- Output: Đã tạo/cập nhật các artifact Domain Testing trong thư mục domain-testing/FR-07_shopping-cart: README.md, FR-07_shopping-cart_update-cart-quantity_domain_testing.md, FR-07_shopping-cart_remove-cart-product_domain_testing.md, và FR-07_shopping-cart_continue-shopping-from-cart_domain_testing.md. Các artifact dùng nguồn black-box từ requirements/2026.HW02.Domain Testing_En.md, eshop-sut/README.md và eshop-sut/api_specification.md; tách theo hành vi quan sát được; dùng biến A_id, N_A, X, B_id, N_B, Y cho dữ liệu runtime không có trong đặc tả; để trống cột Kết quả thực tế/Đạt để sinh viên điền sau khi thực thi.
+- Human Review/Corrections: `[Manual by user]`
+- Final Use in Submission: `[Manual by user]`
+
 ## Integrity Notes
 
 - AI-generated content verified against requirements: `[TODO]`
