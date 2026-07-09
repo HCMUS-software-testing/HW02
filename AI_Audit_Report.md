@@ -14,9 +14,23 @@
 
 #### 1. Các Prompt đã sử dụng
 
-- "Bạn là 1 senior QA/QC có kinh nghiệm lâu năm trong lĩnh vực testing. Hãy giúp em lên kế hoạch chi tiết để em có thể thực hiện giải bài tập này một cách hoàn thiện nhất tuân thủ các yêu vụ trong file pdf..."
-- "Hãy dựa trên plan đã được lên, Hãy giúp em thực hiện giai đoạn 1 là chuẩn bị Agent Skills."
-- "Yêu cầu cập nhật kế hoạch: chia nhỏ Git commits, thêm Traceability Matrix, không nộp các tệp SUT không cần thiết."
+> **Prompt 1:**
+>
+> ```text
+> Bạn là 1 senior QA/QC có kinh nghiệm lâu năm trong lĩnh vực testing. Hãy giúp em lên kế hoạch chi tiết để em có thể thực hiện giải bài tập này một cách hoàn thiện nhất tuân thủ các yêu vụ trong file pdf...
+> ```
+>
+> **Prompt 2:**
+>
+> ```text
+> Hãy dựa trên plan đã được lên, Hãy giúp em thực hiện giai đoạn 1 là chuẩn bị Agent Skills.
+> ```
+>
+> **Prompt 3:**
+>
+> ```text
+> Yêu cầu cập nhật kế hoạch: chia nhỏ Git commits, thêm Traceability Matrix, không nộp các tệp SUT không cần thiết.
+> ```
 
 #### 2. Tóm tắt kết quả của AI
 
@@ -42,16 +56,35 @@
 
 #### 1. Các Prompt đã sử dụng
 
-- "Em đang trong quá trình làm bài tập kiểm thử Domain + boundary testing... Hãy nhận xét phần chuẩn bị của em, và tiến hành chỉnh sửa để hoàn thiện cho phần plan và agent skill."
-- "Thứ nhất, Toàn bộ plan, skill đã match requirement hay chưa. Thứ hai, Agent Skill hiện tại đã có thể cover được hết hay chưa. Và cách để em có thể thực hiện được agent skill này là như thế nào (workflow)"
-- "Em cần làm rõ... AI first, human review nghĩa là chúng ta sẽ cho AI tự động chạy kiểm thử web rồi ghi bug hay chỉ dừng lại ở việc sinh test case... theo như plan hay skill thì đã match với phần lí thuyết ở domain testing pdf chưa và đã thoả mãn được ISTQB hay chưa."
-- "Hãy xuất AI Audit Report theo mẫu audit của bài, chỉ ghi nhận các artifact và quyết định đã được rà soát."
+> **Prompt 1:**
+>
+> ```text
+> Em đang trong quá trình làm bài tập kiểm thử Domain + boundary testing... Hãy nhận xét phần chuẩn bị của em, và tiến hành chỉnh sửa để hoàn thiện cho phần plan và agent skill.
+> ```
+>
+> **Prompt 2:**
+>
+> ```text
+> Thứ nhất, Toàn bộ plan, skill đã match requirement hay chưa. Thứ hai, Agent Skill hiện tại đã có thể cover được hết hay chưa. Và cách để em có thể thực hiện được agent skill này là như thế nào (workflow)
+> ```
+>
+> **Prompt 3:**
+>
+> ```text
+> Em cần làm rõ... AI first, human review nghĩa là chúng ta sẽ cho AI tự động chạy kiểm thử web rồi ghi bug hay chỉ dừng lại ở việc sinh test case... theo như plan hay skill thì đã match với phần lí thuyết ở domain testing pdf chưa và đã thoả mãn được ISTQB hay chưa.
+> ```
+>
+> **Prompt 4:**
+>
+> ```text
+> Hãy xuất AI Audit Report theo mẫu audit của bài, chỉ ghi nhận các artifact và quyết định đã được rà soát.
+> ```
 
 #### 2. Tóm tắt kết quả của AI
 
 - Đã soát xét các yêu cầu của bài tập HW02 và các tài liệu chính sách làm bài tập.
-- Đã soát xét tệp [HW02_Action_Plan.md](./HW02_Action_Plan.md) hiện tại, các tệp Agent Skill và báo cáo AI audit hiện có.
-- Viết lại và tinh chỉnh [HW02_Action_Plan.md](./HW02_Action_Plan.md) để bổ sung checklist yêu cầu, phạm vi tính năng, quy trình cho từng feature, định nghĩa hoàn thành (DoD), yêu cầu AI Audit/Critique, yêu cầu Git log, README, xuất PDF và quy tắc đặt tên tệp nộp bài.
+- Đã soát xét tệp [HW02_Action_Plan.md](./references/development_process/HW02_Action_Plan.md) hiện tại, các tệp Agent Skill và báo cáo AI audit hiện có.
+- Viết lại và tinh chỉnh [HW02_Action_Plan.md](./references/development_process/HW02_Action_Plan.md) để bổ sung checklist yêu cầu, phạm vi tính năng, quy trình cho từng feature, định nghĩa hoàn thành (DoD), yêu cầu AI Audit/Critique, yêu cầu Git log, README, xuất PDF và quy tắc đặt tên tệp nộp bài.
 - Tinh chỉnh các Agent Skills gốc trong thư mục [./.agents/skills](./.agents/skills): [domain_testing/SKILL.md](./.agents/skills/domain_testing/SKILL.md), [bva_testing/SKILL.md](./.agents/skills/bva_testing/SKILL.md), và [audit_extraction/SKILL.md](./.agents/skills/audit_extraction/SKILL.md).
 - Thêm các quy tắc quy trình Agent Skill nghiêm ngặt hơn: dữ liệu đầu vào bắt buộc, thực thi từng bước, các checkpoint phê duyệt bắt buộc của con người, mã ID truy vết ổn định, quy tắc chống ảo tưởng và định dạng đầu ra Markdown sẵn sàng cho báo cáo.
 - Làm rõ rằng các Agent Skills thực sự phải được đặt tại tệp [./.agents/skills](./.agents/skills).
@@ -78,9 +111,23 @@
 
 #### 1. Các Prompt đã sử dụng
 
-- "Clarify and improve the current Agent Skills so they include methodology/reference basis and strict rules before starting feature testing."
-- "Update the Agent Skill documentation so the usage workflow is clearer for demo/video preparation."
-- "Write the skill usage guide in Vietnamese so it is easier to follow during testing and demo recording."
+> **Prompt 1:**
+>
+> ```text
+> Clarify and improve the current Agent Skills so they include methodology/reference basis and strict rules before starting feature testing.
+> ```
+>
+> **Prompt 2:**
+>
+> ```text
+> Update the Agent Skill documentation so the usage workflow is clearer for demo/video preparation.
+> ```
+>
+> **Prompt 3:**
+>
+> ```text
+> Write the skill usage guide in Vietnamese so it is easier to follow during testing and demo recording.
+> ```
 
 #### 2. Tóm tắt kết quả của AI
 
@@ -91,12 +138,12 @@
 - Cập nhật [audit_extraction/SKILL.md](./.agents/skills/audit_extraction/SKILL.md) để khớp với mẫu AI Audit giản lược sử dụng trong báo cáo chính thức.
 - Tạo tệp giới thiệu tiếng Việt [.agents/README.md](./.agents/README.md) để giải thích mục đích, tài liệu tham chiếu lý thuyết, danh sách skill, nguyên tắc kiểm soát, quy trình chạy skill và khuyến nghị demo.
 - Tạo tệp [Agent_Skills_Demo_Guide.md](./Agent_Skills_Demo_Guide.md) bằng tiếng Việt làm kịch bản quay video demo quy trình Agent Skills.
-- Tạo tệp [HW02_FR_Workflow.md](./HW02_FR_Workflow.md) bằng tiếng Việt làm checklist làm việc cho từng tính năng được chọn.
+- Tạo tệp [HW02_FR_Workflow.md](./references/development_process/HW02_FR_Workflow.md) bằng tiếng Việt làm checklist làm việc cho từng tính năng được chọn.
 
 #### 3. Rà soát và Chỉnh sửa của con người
 
 - Em yêu cầu các Agent Skills phải bao gồm cơ sở phương pháp/tài liệu tham chiếu, không chỉ là các prompt vận hành.
-- Em quyết định giữ phần tóm tắt phương pháp bên trong mỗi tệp `SKILL.md` nhưng di chuyển các giải thích chi tiết về cách dùng/demo sang [.agents/README.md](./.agents/README.md), [Agent_Skills_Demo_Guide.md](./Agent_Skills_Demo_Guide.md), và [HW02_FR_Workflow.md](./HW02_FR_Workflow.md).
+- Em quyết định giữ phần tóm tắt phương pháp bên trong mỗi tệp `SKILL.md` nhưng di chuyển các giải thích chi tiết về cách dùng/demo sang [.agents/README.md](./.agents/README.md), [Agent_Skills_Demo_Guide.md](./Agent_Skills_Demo_Guide.md), và [HW02_FR_Workflow.md](./references/development_process/HW02_FR_Workflow.md).
 - Em yêu cầu các tài liệu hướng dẫn viết bằng tiếng Việt để dễ theo dõi và thực hiện trong quá trình kiểm thử thực tế và quay video.
 
 ---
@@ -109,16 +156,25 @@
 
 #### 1. Các Prompt đã sử dụng
 
-- "Re-check the HW02 submission regulation and align the report structure so the feature reports are included in the main report."
-- "Update the workflow and demo guidance so approved skill outputs are copied into `Main_Report.md`, not treated as separate final feature reports."
+> **Prompt 1:**
+>
+> ```text
+> Re-check the HW02 submission regulation and align the report structure so the feature reports are included in the main report.
+> ```
+>
+> **Prompt 2:**
+>
+> ```text
+> Update the workflow and demo guidance so approved skill outputs are copied into `Main_Report.md`, not treated as separate final feature reports.
+> ```
 
 #### 2. Tóm tắt kết quả của AI
 
 - Đọc lại quy định nộp bài HW02 và xác nhận tệp zip yêu cầu phải chứa một báo cáo chính bằng Markdown và PDF, bao gồm báo cáo Domain Testing và BVA.
 - Tạo tệp [Main_Report.md](./Main_Report.md) làm khung báo cáo chính chứa các mục cho FR-04, FR-08, FR-15, và FR-06.
 - Thêm các phần trong [Main_Report.md](./Main_Report.md) cho tổng quan tính năng, xác định yêu cầu/quy tắc, phân tích Domain Testing, BVA, kết quả thực thi, báo cáo lỗi, AI Gap Analysis, tổng hợp kiểm thử, Agent Skills/video demo, tài liệu tham chiếu và phụ lục.
-- Cập nhật [HW02_Action_Plan.md](./HW02_Action_Plan.md) để làm rõ rằng toàn bộ nội dung kiểm thử cuối cùng phải được hợp nhất vào [Main_Report.md](./Main_Report.md).
-- Cập nhật [HW02_FR_Workflow.md](./HW02_FR_Workflow.md) để mỗi đầu ra Domain/BVA được duyệt sẽ được copy vào phần tương ứng của [Main_Report.md](./Main_Report.md).
+- Cập nhật [HW02_Action_Plan.md](./references/development_process/HW02_Action_Plan.md) để làm rõ rằng toàn bộ nội dung kiểm thử cuối cùng phải được hợp nhất vào [Main_Report.md](./Main_Report.md).
+- Cập nhật [HW02_FR_Workflow.md](./references/development_process/HW02_FR_Workflow.md) để mỗi đầu ra Domain/BVA được duyệt sẽ được copy vào phần tương ứng của [Main_Report.md](./Main_Report.md).
 - Cập nhật [.agents/README.md](./.agents/README.md) và [Agent_Skills_Demo_Guide.md](./Agent_Skills_Demo_Guide.md) để phần demo trỏ đến [Main_Report.md](./Main_Report.md) làm điểm đến của báo cáo.
 
 #### 3. Rà soát và Chỉnh sửa của con người
@@ -137,20 +193,29 @@
 
 #### 1. Các Prompt đã sử dụng
 
-- "Review the current reporting preparation and add a bug report template if it is missing."
-- "Clarify how the detailed bug report template should relate to the bug summary in the main report."
+> **Prompt 1:**
+>
+> ```text
+> Review the current reporting preparation and add a bug report template if it is missing.
+> ```
+>
+> **Prompt 2:**
+>
+> ```text
+> Clarify how the detailed bug report template should relate to the bug summary in the main report.
+> ```
 
 #### 2. Tóm tắt kết quả của AI
 
-- Tạo tệp [Bug_Report_Template.md](./Bug_Report_Template.md) cho các lỗi được xác nhận.
+- Tạo tệp [Bug_Report.md](./Bug_Report.md) cho các lỗi được xác nhận.
 - Đưa vào các trường thông tin lỗi bắt buộc: Bug ID, tính năng, tiêu đề, mức độ nghiêm trọng, độ ưu tiên, trạng thái, môi trường, người báo cáo, GitHub Issue, ảnh chụp/bằng chứng, tiền điều kiện, các bước tái hiện, kết quả mong đợi, kết quả thực tế, tham chiếu test case, và ghi chú thêm.
-- Cập nhật [HW02_FR_Workflow.md](./HW02_FR_Workflow.md) để tham chiếu đến [Bug_Report_Template.md](./Bug_Report_Template.md) trong bước ghi nhận lỗi.
-- Cập nhật [Main_Report.md](./Main_Report.md) để làm rõ rằng báo cáo chính nên chứa tóm tắt lỗi và chi tiết lỗi cuối cùng, trong khi [Bug_Report_Template.md](./Bug_Report_Template.md) dùng để viết chi tiết khi tạo GitHub Issue.
+- Cập nhật [HW02_FR_Workflow.md](./references/development_process/HW02_FR_Workflow.md) để tham chiếu đến [Bug_Report.md](./Bug_Report.md) trong bước ghi nhận lỗi.
+- Cập nhật [Main_Report.md](./Main_Report.md) để làm rõ rằng báo cáo chính nên chứa tóm tắt lỗi và chi tiết lỗi cuối cùng, trong khi [Bug_Report.md](./Bug_Report.md) dùng để viết chi tiết khi tạo GitHub Issue.
 
 #### 3. Rà soát và Chỉnh sửa của con người
 
 - Em xác nhận rằng báo cáo lỗi phải dựa trên hành vi thực tế đã kiểm chứng trên SUT, không dựa trên dự đoán của AI.
-- Em làm rõ rằng [Bug_Report_Template.md](./Bug_Report_Template.md) là biểu mẫu dùng để soạn thảo lỗi chi tiết/GitHub Issue, trong khi [Main_Report.md](./Main_Report.md) vẫn là báo cáo chính thức được nộp.
+- Em làm rõ rằng [Bug_Report.md](./Bug_Report.md) là biểu mẫu dùng để soạn thảo lỗi chi tiết/GitHub Issue, trong khi [Main_Report.md](./Main_Report.md) vẫn là báo cáo chính thức được nộp.
 
 ---
 
@@ -162,11 +227,15 @@
 
 #### 1. Các Prompt đã sử dụng
 
-- "Review and update the current HW02 Agent Skills as a senior QA/QC. Ensure the Domain Testing and BVA skills are strictly black-box: they must use only requirement/context, public API/UI behavior, and observable SUT responses to design context, equivalence classes, boundaries, expected results, or test cases. Cross-check the skills against the attached requirement and theory files: [2026.HW02.Domain Testing_En.pdf](./references/2026.HW02.Domain%20Testing_En.pdf), [___2026.Homework.Policies.pdf](./references/___2026.Homework.Policies.pdf), [04_Domain Testing.pdf](./references/04_Domain%20Testing.pdf), [23127205.pdf](./references/23127205.pdf), and [ISTQB_CT-AI_Syllabus_v1.0.pdf](./references/ISTQB_CT-AI_Syllabus_v1.0.pdf). Redesign the skills in Vietnamese using the canonical structure `.agents/skills/[skill_name]/SKILL.md` with a `references/` folder for methodology and report-style evidence. Update the workflow/demo documentation so it matches the final skill structure. Do not include meta discussion in the audit; only record changes that create, modify, or validate final assignment artifacts."
+> **Prompt:**
+>
+> ```text
+> Review and update the current HW02 Agent Skills as a senior QA/QC. Ensure the Domain Testing and BVA skills are strictly black-box: they must use only requirement/context, public API/UI behavior, and observable SUT responses to design context, equivalence classes, boundaries, expected results, or test cases. Cross-check the skills against the attached requirement and theory files: [2026.HW02.Domain Testing_En.pdf](./references/2026.HW02.Domain%20Testing_En.pdf), [___2026.Homework.Policies.pdf](./references/___2026.Homework.Policies.pdf), [04_Domain Testing.pdf](./references/04_Domain%20Testing.pdf), [23127205.pdf](./references/23127205.pdf), and [ISTQB_CT-AI_Syllabus_v1.0.pdf](./references/ISTQB_CT-AI_Syllabus_v1.0.pdf). Redesign the skills in Vietnamese using the canonical structure `.agents/skills/[skill_name]/SKILL.md` with a `references/` folder for methodology and report-style evidence. Update the workflow/demo documentation so it matches the final skill structure. Do not include meta discussion in the audit; only record changes that create, modify, or validate final assignment artifacts.
+> ```
 
 #### 2. Tóm tắt kết quả của AI / Sản phẩm được tạo ra
 
-- Đã đối chiếu các Agent Skills hiện tại với yêu cầu bài tập ([2026.HW02.Domain Testing_En.pdf](./references/2026.HW02.Domain%20Testing_En.pdf)), chính sách làm bài ([___2026.Homework.Policies.pdf](./references/___2026.Homework.Policies.pdf)), bài giảng Domain Testing ([04_Domain Testing.pdf](./references/04_Domain%20Testing.pdf)), mẫu báo cáo ([23127205.pdf](./references/23127205.pdf)) và tài liệu ISTQB CT-AI ([ISTQB_CT-AI_Syllabus_v1.0.pdf](./references/ISTQB_CT-AI_Syllabus_v1.0.pdf)).
+- Đã đối chiếu các Agent Skills hiện tại với yêu cầu bài tập ([2026.HW02.Domain Testing_En.pdf](./references/2026.HW02.Domain%20Testing_En.pdf)), chính sách làm bài ([\_\_\_2026.Homework.Policies.pdf](./references/___2026.Homework.Policies.pdf)), bài giảng Domain Testing ([04_Domain Testing.pdf](./references/04_Domain%20Testing.pdf)), mẫu báo cáo ([23127205.pdf](./references/23127205.pdf)) và tài liệu ISTQB CT-AI ([ISTQB_CT-AI_Syllabus_v1.0.pdf](./references/ISTQB_CT-AI_Syllabus_v1.0.pdf)).
 - Xác nhận Domain Testing và BVA trong bài này phải được thiết kế theo dạng hộp đen hoàn toàn.
 - Cập nhật [domain_testing/SKILL.md](./.agents/skills/domain_testing/SKILL.md) bằng tiếng Việt với các quy tắc black-box chặt chẽ, dữ liệu đầu vào bắt buộc, các checkpoint từng bước, mã ID ổn định và kết quả Test Data/Test Cases cuối cùng.
 - Cập nhật [bva_testing/SKILL.md](./.agents/skills/bva_testing/SKILL.md) bằng tiếng Việt với quy tắc biên black-box, không tự bịa giá trị min/max, thiết kế test đơn lỗi tại biên và các checkpoint rà soát.
@@ -198,7 +267,11 @@
 
 #### 1. Các Prompt đã sử dụng
 
-- "Before starting feature testing, carefully check each requirement in [2026.HW02.Domain Testing_En.pdf](./references/2026.HW02.Domain%20Testing_En.pdf) against the current HW02 repository. Identify any missing or outdated preparation artifacts, then update the necessary files so the project is ready for feature-level Domain Testing and BVA. Keep the Domain/BVA workflow aligned with the sample [23127205.pdf](./references/23127205.pdf) and do not create actual test results or bugs before SUT execution."
+> **Prompt:**
+>
+> ```text
+> Before starting feature testing, carefully check each requirement in [2026.HW02.Domain Testing_En.pdf](./references/2026.HW02.Domain%20Testing_En.pdf) against the current HW02 repository. Identify any missing or outdated preparation artifacts, then update the necessary files so the project is ready for feature-level Domain Testing and BVA. Keep the Domain/BVA workflow aligned with the sample [23127205.pdf](./references/23127205.pdf) and do not create actual test results or bugs before SUT execution.
+> ```
 
 #### 2. Tóm tắt kết quả của AI / Sản phẩm được tạo ra
 
@@ -213,7 +286,7 @@
   - BVA Step 3: BVA Test Data.
 - Loại bỏ các phần không còn phù hợp trong [Main_Report.md](./Main_Report.md) cũ (như ma trận tổ hợp và giá trị đại diện riêng rẽ).
 - Cập nhật [README.md](./README.md) với các placeholder thông tin sinh viên, bảng tính năng đã chọn, bảng tự đánh giá, bảng tóm tắt kết quả test, link video demo, và checklist các sản phẩm nộp bài bắt buộc.
-- Tạo tệp `AI_Reports/AI_Critique.md` (sau đó được di chuyển ra thư mục gốc [./AI_Critique.md](./AI_Critique.md)) làm khung bài viết critique để điền sau khi test xong.
+- Tạo tệp [./AI_Critique.md](./AI_Critique.md) làm khung bài viết critique để điền sau khi test xong.
 - Tạo tệp [git_commit_log.txt](./git_commit_log.txt) làm khung và ghi hướng dẫn xuất log commit Git trước khi nộp bài.
 - Xác nhận các Agent Skills đã sẵn sàng trong [./.agents/skills](./.agents/skills).
 
@@ -233,7 +306,11 @@
 
 #### 1. Các Prompt đã sử dụng
 
-- "Em muốn tối ưu hóa cấu trúc báo cáo Domain Testing và BVA trong `Main_Report.md` cùng bộ Agent Skills (`.agents/skills/`). Cụ thể: 1) Chuyển đổi các bước thiết kế test (xác định Input/Output, Condition, và EP) từ dạng danh sách liệt kê sang dạng bảng (Table) có thêm cột giải thích chi tiết (Rationale) bằng tiếng Việt; 2) Thêm cột 'Giải thích nguồn gốc biên (Rationale)' vào bảng BVA Step 2; 3) Cập nhật đồng bộ toàn bộ đường dẫn và kịch bản demo liên quan sau khi em di chuyển `AI_Audit_Report.md` và `AI_Critique.md` ra thư mục gốc `HW02`."
+> **Prompt:**
+>
+> ```text
+> Em muốn tối ưu hóa cấu trúc báo cáo Domain Testing và BVA trong `Main_Report.md` cùng bộ Agent Skills (`.agents/skills/`). Cụ thể: 1) Chuyển đổi các bước thiết kế test (xác định Input/Output, Condition, và EP) từ dạng danh sách liệt kê sang dạng bảng (Table) có thêm cột giải thích chi tiết (Rationale) bằng tiếng Việt; 2) Thêm cột 'Giải thích nguồn gốc biên (Rationale)' vào bảng BVA Step 2; 3) Cập nhật đồng bộ toàn bộ đường dẫn và kịch bản demo liên quan sau khi em di chuyển `AI_Audit_Report.md` và `AI_Critique.md` ra thư mục gốc `HW02`.
+> ```
 
 #### 2. Phản hồi của AI / Sản phẩm được tạo ra
 
@@ -244,7 +321,7 @@
   - Mục 4.2 (FR-04 Domain Testing): Chuyển đổi toàn bộ Step 1, 2, 3 sang dạng bảng tiếng Việt và điền đầy đủ nội dung giải thích (Rationale) nghiệp vụ của SUT.
   - Mục 4.3 (FR-04 BVA): Thiết kế bảng Step 1 và Step 2 BVA tiếng Việt có giải thích nguồn gốc biên, đồng thời sinh 6 kịch bản kiểm thử biên (TC01 đến TC06) ở Step 3 có phủ các mã biên và để trống cột kết quả thực tế.
   - Mục 5, 6, 7 (FR-08, FR-15, FR-06): Dọn dẹp nội dung nháp trùng lặp, xây dựng các khung bảng rỗng dạng `TODO` để chuẩn bị kiểm thử cho các feature tiếp theo.
-- Cập nhật đồng bộ các đường dẫn tệp tin báo cáo ([./AI_Audit_Report.md](./AI_Audit_Report.md), [./AI_Critique.md](./AI_Critique.md) ở thư mục gốc) và định dạng bảng mới trong các tệp hướng dẫn [HW02_FR_Workflow.md](./HW02_FR_Workflow.md), [Agent_Skills_Demo_Guide.md](./Agent_Skills_Demo_Guide.md), và [README.md](./README.md).
+- Cập nhật đồng bộ các đường dẫn tệp tin báo cáo ([./AI_Audit_Report.md](./AI_Audit_Report.md), [./AI_Critique.md](./AI_Critique.md) ở thư mục gốc) và định dạng bảng mới trong các tệp hướng dẫn [HW02_FR_Workflow.md](./references/development_process/HW02_FR_Workflow.md), [Agent_Skills_Demo_Guide.md](./Agent_Skills_Demo_Guide.md), và [README.md](./README.md).
 
 #### 3. Rà soát và Chỉnh sửa của con người
 
@@ -262,13 +339,47 @@
 
 #### 1. Các Prompt đã sử dụng
 
-- "Đọc và làm theo `HW02/.agents/skills/domain_testing/SKILL.md`. Dùng context FR-04 Personal Profile Management trong `HW02/Feature_Contexts.md`. Chỉ thực hiện Step 1: xác định Input và Output. Chưa tạo Condition, EP hoặc bảng Test Case."
-- "OK. Tiếp tục Step 2: xác định Condition cho FR-04. Giữ đúng nguyên tắc black-box, chỉ dùng requirement/context/API/UI public behavior và không tự kết luận actual result hoặc bug."
-- "OK. Tiếp tục Step 3: xác định miền phân hoạch tương đương (EP) cho FR-04. Mỗi EP phải liên kết với condition tương ứng và phân biệt rõ valid/invalid."
-- "OK. Tiếp tục Step 4: xác định Test Case cho FR-04. Bảng test case phải có mã `FR04-DOM-TCxx`, input cụ thể, expected result, các cột `Kết quả thực tế`, `Trạng thái`, `Bug ID / Evidence` để TODO, và coverage EP."
-- "Đọc và làm theo `HW02/.agents/skills/bva_testing/SKILL.md`. Dùng Domain Testing output đã được review cho FR-04. Chỉ thực hiện Step 1: xác định input/output có thể áp dụng BVA."
-- "OK. Tiếp tục Step 2: xác định biên và cận biên cho FR-04. Không tự tạo boundary nếu không có căn cứ black-box; ghi rõ rationale cho từng boundary."
-- "OK. Tiếp tục Step 3: xác định BVA Test Case cho FR-04. Bảng test case phải có mã `FR04-BVA-TCxx`, giá trị biên được test, expected result, actual/status/evidence để TODO, và coverage mã biên."
+> **Prompt 1:**
+>
+> ```text
+> Đọc và làm theo `HW02/.agents/skills/domain_testing/SKILL.md`. Dùng context FR-04 Personal Profile Management trong `HW02/Feature_Contexts.md`. Chỉ thực hiện Step 1: xác định Input và Output. Chưa tạo Condition, EP hoặc bảng Test Case.
+> ```
+>
+> **Prompt 2:**
+>
+> ```text
+> OK. Tiếp tục Step 2: xác định Condition cho FR-04. Giữ đúng nguyên tắc black-box, chỉ dùng requirement/context/API/UI public behavior và không tự kết luận actual result hoặc bug.
+> ```
+>
+> **Prompt 3:**
+>
+> ```text
+> OK. Tiếp tục Step 3: xác định miền phân hoạch tương đương (EP) cho FR-04. Mỗi EP phải liên kết với condition tương ứng và phân biệt rõ valid/invalid.
+> ```
+>
+> **Prompt 4:**
+>
+> ```text
+> OK. Tiếp tục Step 4: xác định Test Case cho FR-04. Bảng test case phải có mã `FR04-DOM-TCxx`, input cụ thể, expected result, các cột `Kết quả thực tế`, `Trạng thái`, `Bug ID / Evidence` để TODO, và coverage EP.
+> ```
+>
+> **Prompt 5:**
+>
+> ```text
+> Đọc và làm theo `HW02/.agents/skills/bva_testing/SKILL.md`. Dùng Domain Testing output đã được review cho FR-04. Chỉ thực hiện Step 1: xác định input/output có thể áp dụng BVA.
+> ```
+>
+> **Prompt 6:**
+>
+> ```text
+> OK. Tiếp tục Step 2: xác định biên và cận biên cho FR-04. Không tự tạo boundary nếu không có căn cứ black-box; ghi rõ rationale cho từng boundary.
+> ```
+>
+> **Prompt 7:**
+>
+> ```text
+> OK. Tiếp tục Step 3: xác định BVA Test Case cho FR-04. Bảng test case phải có mã `FR04-BVA-TCxx`, giá trị biên được test, expected result, actual/status/evidence để TODO, và coverage mã biên.
+> ```
 
 #### 2. Phản hồi của AI / Sản phẩm được tạo ra
 
@@ -298,18 +409,23 @@
 
 - **Tên công cụ AI:** Antigravity / Gemini 3.5 Flash
 - **Ngày và giờ:** 08-07-2026 23:02:00 +07:00
-- **Mô tả nhiệm vụ:** Thực hiện tinh chỉnh các test case Domain/BVA cho FR-04 (sắp xếp Valid lên trước, tinh gọn ánh xạ phân hoạch đơn lỗi, định dạng N/A thành chuỗi nháy kép rỗng), tái cấu trúc phần AI Gap Analysis theo 3 khía cạnh (Prompt Quality, AI Limits, Inherent Complexity), đồng thời tích hợp và dọn dẹp các tệp báo cáo lỗi (BUG) sang bảng tổng hợp duy nhất tại Bug_Report_Template.md, thiết lập GitHub Issue template và cập nhật tài liệu tham chiếu từ định dạng .md sang .pdf.
+- **Mô tả nhiệm vụ:** Thực hiện tinh chỉnh các test case Domain/BVA cho FR-04 (sắp xếp Valid lên trước, tinh gọn ánh xạ phân hoạch đơn lỗi, định dạng N/A thành chuỗi nháy kép rỗng), tái cấu trúc phần AI Gap Analysis theo 3 khía cạnh (Prompt Quality, AI Limits, Inherent Complexity), đồng thời tích hợp và dọn dẹp các tệp báo cáo lỗi (BUG) sang bảng tổng hợp duy nhất tại Bug_Report.md, thiết lập GitHub Issue template và cập nhật tài liệu tham chiếu từ định dạng .md sang .pdf.
 
 #### 1. Các Prompt đã sử dụng
 
-- "Review and optimize the FR-04 Domain/BVA test tables in Main_Report.md: 1) Sort all valid test cases to the top, followed by invalid ones; 2) Simplify equivalence partition (EP) mappings for invalid test cases to isolate only the targeted invalid class; 3) Standardize all 'N/A' or empty parameters to double quotes '\"\"'; 4) Remove the 'Phủ các lớp EP' column from all BVA tables. Additionally, rewrite Section 4.4 AI Gap Analysis in Main_Report.md into a structured analysis based on 3 core dimensions: Prompt Quality, AI Tool Limitations, and Inherent Complexity. Finally, consolidate all found bugs into a single master summary and detail table inside Bug_Report_Template.md, create a pure Vietnamese GitHub Issue template in .github/ISSUE_TEMPLATE/bug_report.md, and convert all .md references of the assignment documents to .pdf across all report and skill files."
+> **Prompt:**
+>
+> ```text
+> Review and optimize the FR-04 Domain/BVA test tables in Main_Report.md: 1) Sort all valid test cases to the top, followed by invalid ones; 2) Simplify equivalence partition (EP) mappings for invalid test cases to isolate only the targeted invalid class; 3) Standardize all 'N/A' or empty parameters to double quotes '\"\"'; 4) Remove the 'Phủ các lớp EP' column from all BVA tables. Additionally, rewrite Section 4.4 AI Gap Analysis in Main_Report.md into a structured analysis based on 3 core dimensions: Prompt Quality, AI Tool Limitations, and Inherent Complexity. Finally, consolidate all found bugs into a single master summary and detail table inside Bug_Report.md, create a pure Vietnamese GitHub Issue template in .github/ISSUE_TEMPLATE/bug_report.md, and convert all .md references of the assignment documents to .pdf across all report and skill files.
+> ```
 
 #### 2. Phản hồi của AI / Sản phẩm được tạo ra
 
 - Cập nhật [Main_Report.md](./Main_Report.md): Sắp xếp các ca kiểm thử hợp lệ lên đầu ở cả hai bảng Domain Testing và BVA, chuẩn hóa cột EP cho các ca lỗi đơn lẻ chỉ ghi nhận phân hoạch lỗi chính, loại bỏ cột EP trong toàn bộ các bảng BVA, thay thế `N/A` và `Không gửi field` bằng `""`. Tái cấu trúc Section 4.4 AI Gap Analysis thành bài viết phân tích 3 khía cạnh (Chất lượng Prompt, Giới hạn công cụ AI, Độ phức tạp nội tại của chức năng) thay vì chỉ liệt kê danh sách bug đơn thuần.
-- Cập nhật [Bug_Report_Template.md](./Bug_Report_Template.md): Chuyển đổi thành tệp báo cáo lỗi tổng thể gồm bảng tổng hợp các lỗi phát hiện ở đầu và các mục báo cáo chi tiết từng lỗi ở dưới bằng tiếng Việt thuần túy, có tích hợp liên kết neo nội bộ.
+- Cập nhật [Bug_Report.md](./Bug_Report.md): Chuyển đổi thành tệp báo cáo lỗi tổng thể gồm bảng tổng hợp các lỗi phát hiện ở đầu và các mục báo cáo chi tiết từng lỗi ở dưới bằng tiếng Việt thuần túy, có tích hợp liên kết neo nội bộ.
 - Tạo tệp [.github/ISSUE_TEMPLATE/bug_report.md](./.github/ISSUE_TEMPLATE/bug_report.md) làm biểu mẫu báo cáo lỗi chuẩn tiếng Việt trên GitHub.
 - Tạo tệp [GitHub_Issues_Guide.md](./GitHub_Issues_Guide.md) chứa sẵn tiêu đề và nội dung Markdown của 5 lỗi để copy-paste trực tiếp lên GitHub Issues, kèm đường dẫn ảnh bằng chứng screenshots cụ thể.
+- Lưu trữ script thực thi kiểm thử FR-04 tại [test_fr04.js](./references/execution_scripts/test_fr04.js) để làm evidence kỹ thuật cho các kết quả API/UI quan sát được.
 - Xóa bỏ các tệp báo cáo lỗi đơn lẻ `BUG_FR04_*.md` ở thư mục gốc để làm sạch repository.
 - Cập nhật toàn bộ các tham chiếu tài liệu môn học từ đuôi `.md` sang `.pdf` trong [AI_Audit_Report.md](./AI_Audit_Report.md), [Main_Report.md](./Main_Report.md) và các tệp cấu hình của bộ kỹ năng trong thư mục `.agents/skills/`.
 
@@ -329,14 +445,53 @@
 
 #### 1. Các Prompt đã sử dụng
 
-- "Đọc và làm theo `HW02/.agents/skills/domain_testing/SKILL.md`. Dùng context FR-08: Checkout trong `HW02/Feature_Contexts.md`. Chỉ thực hiện Step 1: xác định Input và Output. Chưa tạo Condition, EP hoặc bảng Test Case."
-- "OK. Tiếp tục Step 2: xác định Condition cho FR-08. Giữ đúng nguyên tắc black-box, chỉ dùng requirement/context/API/UI public behavior và không tự kết luận actual result hoặc bug."
-- "OK. Tiếp tục Step 3: xác định miền phân hoạch tương đương (EP) cho FR-08. Mỗi EP phải liên kết với condition tương ứng và phân biệt rõ valid/invalid."
-- "OK. Tiếp tục Step 4: xác định Test Case cho FR-08. Bảng test case phải có mã `FR08-DOM-TCxx`, input cụ thể, expected result, các cột `Kết quả thực tế`, `Trạng thái`, `Bug ID / Evidence` để TODO, và coverage EP."
-- "Đọc và làm theo `HW02/.agents/skills/bva_testing/SKILL.md`. Dùng Domain Testing output đã được duyệt và context FR-08: Checkout trong `HW02/Feature_Contexts.md`. Chỉ thực hiện Step 1. Chưa xác định giá trị biên chi tiết và chưa sinh BVA Test Case."
-- "OK. Tiếp tục Step 2: xác định giá trị biên và cận biên."
-- "OK. Tiếp tục Step 3: xác định BVA Test Case."
-- "Tôi đồng ý cập nhật các nội dung đã duyệt của Step 1, Step 2 và Step 3 vào Main_Report.md."
+> **Prompt 1:**
+>
+> ```text
+> Đọc và làm theo `HW02/.agents/skills/domain_testing/SKILL.md`. Dùng context FR-08: Checkout trong `HW02/Feature_Contexts.md`. Chỉ thực hiện Step 1: xác định Input và Output. Chưa tạo Condition, EP hoặc bảng Test Case.
+> ```
+>
+> **Prompt 2:**
+>
+> ```text
+> OK. Tiếp tục Step 2: xác định Condition cho FR-08. Giữ đúng nguyên tắc black-box, chỉ dùng requirement/context/API/UI public behavior và không tự kết luận actual result hoặc bug.
+> ```
+>
+> **Prompt 3:**
+>
+> ```text
+> OK. Tiếp tục Step 3: xác định miền phân hoạch tương đương (EP) cho FR-08. Mỗi EP phải liên kết với condition tương ứng và phân biệt rõ valid/invalid.
+> ```
+>
+> **Prompt 4:**
+>
+> ```text
+> OK. Tiếp tục Step 4: xác định Test Case cho FR-08. Bảng test case phải có mã `FR08-DOM-TCxx`, input cụ thể, expected result, các cột `Kết quả thực tế`, `Trạng thái`, `Bug ID / Evidence` để TODO, và coverage EP.
+> ```
+>
+> **Prompt 5:**
+>
+> ```text
+> Đọc và làm theo `HW02/.agents/skills/bva_testing/SKILL.md`. Dùng Domain Testing output đã được duyệt và context FR-08: Checkout trong `HW02/Feature_Contexts.md`. Chỉ thực hiện Step 1. Chưa xác định giá trị biên chi tiết và chưa sinh BVA Test Case.
+> ```
+>
+> **Prompt 6:**
+>
+> ```text
+> OK. Tiếp tục Step 2: xác định giá trị biên và cận biên.
+> ```
+>
+> **Prompt 7:**
+>
+> ```text
+> OK. Tiếp tục Step 3: xác định BVA Test Case.
+> ```
+>
+> **Prompt 8:**
+>
+> ```text
+> Tôi đồng ý cập nhật các nội dung đã duyệt của Step 1, Step 2 và Step 3 vào Main_Report.md.
+> ```
 
 #### 2. Phản hồi của AI / Sản phẩm được tạo ra
 
@@ -354,7 +509,7 @@
 #### 3. Rà soát và Chỉnh sửa của con người
 
 - Sinh viên rà soát các biến đầu vào và đầu ra, yêu cầu thêm biến `request_body_completeness` ở phần Domain Testing để kiểm thử cấu trúc body của API checkout.
-- Sinh viên yêu cầu kiểm chứng hành vi thực tế của API SUT đối với các giá trị dị biệt như empty cart hoặc sai lệch `total_amount` bằng một script thử nghiệm (`test_checkout_validation.js`) trước khi chốt kết quả mong đợi.
+- Sinh viên yêu cầu kiểm chứng hành vi thực tế của API SUT đối với các giá trị dị biệt như empty cart hoặc sai lệch `total_amount` bằng script thử nghiệm [test_fr08_checkout.js](./references/execution_scripts/test_fr08_checkout.js) trước khi chốt kết quả mong đợi.
 - Sinh viên kiểm duyệt và đồng ý từng bước của quy trình trước khi cho phép AI cập nhật vào tệp báo cáo chính.
 - Các cột kết quả thực thi và trạng thái được giữ ở `TODO` cho đến khi thực hiện chạy trực tiếp trên ứng dụng.
 
@@ -364,21 +519,30 @@
 
 - **Tên công cụ AI:** Antigravity / Gemini 3.5 Flash
 - **Ngày và giờ:** 09-07-2026 16:10:00 +07:00
-- **Mô tả nhiệm vụ:** Hỗ trợ lập danh sách ca kiểm thử black-box, viết và chạy script test tự động bằng Node.js để gọi các API công khai của Product CRUD (FR-15), hoàn thiện báo cáo BVA và Domain Testing trong Main_Report.md, cập nhật danh sách lỗi phát hiện vào Bug_Report_Template.md.
+- **Mô tả nhiệm vụ:** Hỗ trợ lập danh sách ca kiểm thử black-box, viết và chạy script test tự động bằng Node.js để gọi các API công khai của Product CRUD (FR-15), hoàn thiện báo cáo BVA và Domain Testing trong Main_Report.md, cập nhật danh sách lỗi phát hiện vào Bug_Report.md.
 
 #### 1. Các Prompt đã sử dụng
 
-- "Hãy giúp tôi xây dựng script để kiểm thử các test case FR15 qua API công khai, tìm bug thực tế, đồng thời hoàn thiện BVA cho FR15 - Product Management."
-- "Thực hiện cập nhật BVA cho FR-15 trong Main_Report.md dựa trên dữ liệu thực tế thu được từ file test_fr15.js."
+> **Prompt 1:**
+>
+> ```text
+> Hãy giúp tôi xây dựng script để kiểm thử các test case FR15 qua API công khai, tìm bug thực tế, đồng thời hoàn thiện BVA cho FR15 - Product Management.
+> ```
+>
+> **Prompt 2:**
+>
+> ```text
+> Thực hiện cập nhật BVA cho FR-15 trong Main_Report.md dựa trên dữ liệu thực tế thu được từ file test_fr15.js.
+> ```
 
 #### 2. Phản hồi của AI / Sản phẩm được tạo ra
 
-- Tạo script test tự động [test_fr15.js](./scratch/test_fr15.js) để gọi trực tiếp các API Product CRUD (GET, POST, PUT, DELETE) với các kịch bản kiểm thử phân quyền, BVA, và Domain testing.
+- Tạo script test tự động [test_fr15.js](./references/execution_scripts/test_fr15.js) để gọi trực tiếp các API Product CRUD (GET, POST, PUT, DELETE) với các kịch bản kiểm thử phân quyền, BVA, và Domain testing.
 - Cập nhật [Main_Report.md](./Main_Report.md):
   - Điền kết quả thực tế cho 14 test case Domain Testing của FR-15 (`FR15-DOM-TC01` đến `FR15-DOM-TC14`).
   - Thiết lập bảng BVA Step 1, Step 2 và Step 3 gồm 10 test case BVA (`FR15-BVA-TC01` đến `FR15-BVA-TC10`) phủ các giá trị biên của name length, price và category_id.
   - Viết phần 6.4 AI Gap Analysis cho FR-15 phân tích nguyên nhân khoảng cách giữa lý thuyết thiết kế kiểm thử và thực tế thực thi.
-- Cập nhật [Bug_Report_Template.md](./Bug_Report_Template.md):
+- Cập nhật [Bug_Report.md](./Bug_Report.md):
   - Thêm 4 lỗi mới (`BUG-FR15-01` đến `BUG-FR15-04`) vào bảng tổng hợp danh sách lỗi và viết báo cáo lỗi chi tiết của từng bug này.
 
 #### 3. Rà soát và Chỉnh sửa của con người
@@ -397,10 +561,29 @@
 
 #### 1. Các Prompt đã sử dụng
 
-- "Đọc và làm theo `HW02/.agents/skills/domain_testing/SKILL.md`. Dùng context FR15 Product management CRUD trong `HW02/Feature_Contexts.md`. Chỉ thực hiện Step 1: xác định Input và Output. Chưa tạo Condition, EP hoặc bảng Test Case."
-- "Step 2: xác định Condition cho FR-15."
-- "Step 3: xác định miền phân hoạch tương đương (EP)."
-- "OK. Tiếp tục Step 4: xác định Test Case."
+> **Prompt 1:**
+>
+> ```text
+> Đọc và làm theo `HW02/.agents/skills/domain_testing/SKILL.md`. Dùng context FR15 Product management CRUD trong `HW02/Feature_Contexts.md`. Chỉ thực hiện Step 1: xác định Input và Output. Chưa tạo Condition, EP hoặc bảng Test Case.
+> ```
+>
+> **Prompt 2:**
+>
+> ```text
+> Step 2: xác định Condition cho FR-15.
+> ```
+>
+> **Prompt 3:**
+>
+> ```text
+> Step 3: xác định miền phân hoạch tương đương (EP).
+> ```
+>
+> **Prompt 4:**
+>
+> ```text
+> OK. Tiếp tục Step 4: xác định Test Case.
+> ```
 
 #### 2. Phản hồi của AI / Sản phẩm được tạo ra
 
@@ -427,21 +610,45 @@
 
 #### 1. Các Prompt đã sử dụng
 
-- "Hãy xây dựng script kiểm thử tự động cho các test case FR-15 qua API công khai, ghi nhận kết quả thực tế và hỗ trợ xác định bug."
-- "Dựa trên Domain Testing FR-15 đã được duyệt, hãy hoàn thiện phần BVA, Bug Report và AI Gap Analysis trong các artifact tương ứng."
-- "Rà soát lại FR-15 để phát hiện test case còn thiếu, bug còn thiếu, và cập nhật AI Gap Analysis chi tiết hơn dựa trên kết quả thực thi."
-- "Bổ sung bug giao diện Web Admin: sau khi cập nhật thành công một product, tên của các product khác trên giao diện cũng bị thay đổi."
-- "Bổ sung các bug validation FR-15 đã quan sát được: `name` dài hơn 255 ký tự vẫn được chấp nhận, thiếu `price` vẫn được chấp nhận, và `category_id` ngoài danh sách category vẫn được chấp nhận."
+> **Prompt 1:**
+>
+> ```text
+> Hãy xây dựng script kiểm thử tự động cho các test case FR-15 qua API công khai, ghi nhận kết quả thực tế và hỗ trợ xác định bug.
+> ```
+>
+> **Prompt 2:**
+>
+> ```text
+> Dựa trên Domain Testing FR-15 đã được duyệt, hãy hoàn thiện phần BVA, Bug Report và AI Gap Analysis trong các artifact tương ứng.
+> ```
+>
+> **Prompt 3:**
+>
+> ```text
+> Rà soát lại FR-15 để phát hiện test case còn thiếu, bug còn thiếu, và cập nhật AI Gap Analysis chi tiết hơn dựa trên kết quả thực thi.
+> ```
+>
+> **Prompt 4:**
+>
+> ```text
+> Bổ sung bug giao diện Web Admin: sau khi cập nhật thành công một product, tên của các product khác trên giao diện cũng bị thay đổi.
+> ```
+>
+> **Prompt 5:**
+>
+> ```text
+> Bổ sung các bug validation FR-15 đã quan sát được: `name` dài hơn 255 ký tự vẫn được chấp nhận, thiếu `price` vẫn được chấp nhận, và `category_id` ngoài danh sách category vẫn được chấp nhận.
+> ```
 
 #### 2. Phản hồi của AI / Sản phẩm được tạo ra
 
-- Cập nhật script [test_fr15.js](./scratch/test_fr15.js) để kiểm thử các test case Domain Testing và BVA của FR-15 qua API Product CRUD.
+- Cập nhật script [test_fr15.js](./references/execution_scripts/test_fr15.js) để kiểm thử các test case Domain Testing và BVA của FR-15 qua API Product CRUD.
 - Cập nhật [Main_Report.md](./Main_Report.md):
   - Bổ sung thêm các test case còn thiếu cho FR-15, nâng tổng số test case được thiết kế/thực thi lên 30.
   - Cập nhật kết quả thực tế, trạng thái Pass/Fail và liên kết `BUG-FR15-01` đến `BUG-FR15-05`.
   - Bổ sung các BVA case quan trọng cho `name` length 254/255/256, `price=-1/0/1/2`, missing required fields và category không tồn tại.
   - Cập nhật summary của FR-15 thành 30 designed, 30 executed, 10 passed, 20 failed, 5 confirmed bugs.
-- Cập nhật [Bug_Report_Template.md](./Bug_Report_Template.md):
+- Cập nhật [Bug_Report.md](./Bug_Report.md):
   - Mở rộng `BUG-FR15-02` để bao phủ thiếu field bắt buộc, `name` rỗng/quá dài, `price=0`, `price=-1`, sai kiểu dữ liệu.
   - Bổ sung `BUG-FR15-05` cho lỗi Web Admin update một product làm đổi tên các product khác.
 - Cập nhật phần `6.4 AI Gap Analysis` của FR-15 để nêu rõ các behavior thực tế của SUT, tác động đến test suite, và rủi ro còn lại.
@@ -463,13 +670,47 @@
 
 #### 1. Các Prompt đã sử dụng
 
-- "Rà soát chất lượng AI Gap Analysis hiện tại và cho biết phần nào cần chỉnh để phù hợp với yêu cầu bài."
-- "Đánh giá AI Gap Analysis của FR-04 và FR-08, đảm bảo nội dung đủ chi tiết và đúng mục tiêu phản ánh khoảng cách AI."
-- "Cập nhật AI Gap Analysis để chi tiết hơn, đặc biệt với FR-08 và các behavior thực tế quan sát được."
-- "Cập nhật Feature Overview cho FR-15."
-- "Điều chỉnh Feature Overview của FR-15 để dùng cùng cấu trúc với FR-04 và FR-08."
-- "Cập nhật Bug Report Template cho FR-15, bổ sung điều kiện tiên quyết liên quan đến quyền Admin cho các bug cần bối cảnh Admin."
-- "Chuẩn hóa các bug report FR-15 theo cùng template trình bày với các bug của FR-04 và FR-08."
+> **Prompt 1:**
+>
+> ```text
+> Rà soát chất lượng AI Gap Analysis hiện tại và cho biết phần nào cần chỉnh để phù hợp với yêu cầu bài.
+> ```
+>
+> **Prompt 2:**
+>
+> ```text
+> Đánh giá AI Gap Analysis của FR-04 và FR-08, đảm bảo nội dung đủ chi tiết và đúng mục tiêu phản ánh khoảng cách AI.
+> ```
+>
+> **Prompt 3:**
+>
+> ```text
+> Cập nhật AI Gap Analysis để chi tiết hơn, đặc biệt với FR-08 và các behavior thực tế quan sát được.
+> ```
+>
+> **Prompt 4:**
+>
+> ```text
+> Cập nhật Feature Overview cho FR-15.
+> ```
+>
+> **Prompt 5:**
+>
+> ```text
+> Điều chỉnh Feature Overview của FR-15 để dùng cùng cấu trúc với FR-04 và FR-08.
+> ```
+>
+> **Prompt 6:**
+>
+> ```text
+> Cập nhật Bug Report Template cho FR-15, bổ sung điều kiện tiên quyết liên quan đến quyền Admin cho các bug cần bối cảnh Admin.
+> ```
+>
+> **Prompt 7:**
+>
+> ```text
+> Chuẩn hóa các bug report FR-15 theo cùng template trình bày với các bug của FR-04 và FR-08.
+> ```
 
 #### 2. Phản hồi của AI / Sản phẩm được tạo ra
 
@@ -477,7 +718,7 @@
   - Xóa section FR-08 bị trùng và giữ lại section FR-08 đầy đủ hơn.
   - Viết lại `### 5.4 AI Gap Analysis` cho FR-08 chi tiết hơn, gồm gap do prompt/context, AI assumption, thiếu UI/API interaction test, hậu điều kiện sau checkout, SUT-specific behavior, human review correction và bài học prompt sau.
   - Chuyển `### 6.1 Feature Overview` của FR-15 về đúng format giống FR-04/FR-08: đoạn mô tả ngắn và bảng `Mục / Nội dung`.
-- Cập nhật [Bug_Report_Template.md](./Bug_Report_Template.md):
+- Cập nhật [Bug_Report.md](./Bug_Report.md):
   - Bổ sung điều kiện tiên quyết có Admin hợp lệ cho các bug FR-15 liên quan validation/reference/not found/UI.
   - Chỉnh lại toàn bộ `BUG-FR15-01` đến `BUG-FR15-05` theo format giống FR-04/FR-08: mô tả lỗi, điều kiện tiên quyết, các bước tái hiện, kết quả mong đợi, kết quả thực tế, test case đối chiếu, môi trường và bằng chứng.
 
@@ -498,7 +739,11 @@
 
 #### 1. Các Prompt đã sử dụng
 
-- "Cập nhật ảnh bằng chứng trong Bug Report và tổ chức thư mục screenshots theo từng feature để dễ đối chiếu."
+> **Prompt:**
+>
+> ```text
+> Cập nhật ảnh bằng chứng trong Bug Report và tổ chức thư mục screenshots theo từng feature để dễ đối chiếu.
+> ```
 
 #### 2. Phản hồi của AI / Sản phẩm được tạo ra
 
@@ -507,7 +752,7 @@
   - [screenshots/FR08](./screenshots/FR08)
   - [screenshots/FR15](./screenshots/FR15)
 - Di chuyển ảnh bằng chứng theo prefix bug ID tương ứng (`BUG-FR04-*`, `BUG-FR08-*`, `BUG-FR15-*`).
-- Cập nhật [Bug_Report_Template.md](./Bug_Report_Template.md):
+- Cập nhật [Bug_Report.md](./Bug_Report.md):
   - Đổi toàn bộ link ảnh FR-04 sang `./screenshots/FR04/...`.
   - Bổ sung ảnh minh chứng cho từng bug FR-08 (`BUG-FR08-01` đến `BUG-FR08-06`).
   - Bổ sung ảnh minh chứng cho từng bug FR-15 (`BUG-FR15-01` đến `BUG-FR15-05`).
@@ -518,3 +763,52 @@
 - Sinh viên yêu cầu ảnh screenshot phải được phân theo từng feature để dễ đọc và dễ đối chiếu khi nộp bài.
 - Sinh viên yêu cầu bug report phải cập nhật ảnh trong từng mục bug report, không chỉ để ảnh rời trong thư mục.
 - AI chỉ di chuyển và liên kết các ảnh đã có trong workspace, không tự tạo hoặc bịa ảnh bằng chứng.
+
+---
+
+### Nhật ký Tương tác AI 17: Hoàn thiện FR-06 Mobile, Evidence và Test Summary
+
+- **Tên công cụ AI:** Codex / ChatGPT
+- **Ngày và giờ:** 09-07-2026 22:30:00 +07:00
+- **Mô tả nhiệm vụ:** Hoàn thiện phần FR-06 Mobile Product Detail View trong báo cáo chính, cập nhật kết quả thực thi, tổ chức ảnh bằng chứng theo bug, loại bỏ các test case không phù hợp phạm vi black-box execution và đồng bộ Test Summary.
+
+#### 1. Các Prompt đã sử dụng
+
+> **Prompt:**
+>
+> ```text
+> Hãy đóng vai trò là một Chuyên gia Kiểm thử Phần mềm (Senior QA/QC) và hỗ trợ tôi thực hiện kiểm thử hộp đen (black-box) cho tính năng FR-06 Mobile Product Detail View trên ứng dụng di động Expo:
+> 1. Thiết lập cấu hình ứng dụng di động frontend trỏ về địa chỉ IP backend 172.20.10.13. Đọc hiểu yêu cầu nghiệp vụ của FR-06 từ tài liệu README của eshop-sut để xác định các quy tắc nghiệp vụ.
+> 2. Rà soát danh sách test case thiết kế cho FR-06. Tiến hành loại bỏ các test case không phù hợp với phương pháp black-box (như deep link, network throttling hoặc đọc mã nguồn) để tập trung vào 10 test case cốt lõi kiểm chứng trực quan được trên giao diện mobile (ảnh sản phẩm, tên, giá, mô tả, danh mục, breadcrumb và số lượng quantity >= 1).
+> 3. Thực thi trực tiếp trên ứng dụng di động, ghi nhận kết quả thực tế (Actual Result) cho từng ca kiểm thử. Tổ chức lưu trữ ảnh chụp màn hình bằng chứng lỗi trong thư mục screenshots/FR06 và đặt tên tệp đồng bộ theo ID lỗi (BUG-FR06-xx-xx.png).
+> 4. Tổng hợp báo cáo chi tiết cho 4 lỗi được xác nhận (lỗi không hiện category, chấp nhận quantity = 0, chấp nhận quantity số thập phân, thiếu breadcrumb) vào Bug_Report.md và đồng bộ hóa Test Summary tổng thể trên báo cáo chính (90 test cases, 23 passed, 67 failed, 20 bugs).
+> ```
+
+#### 2. Phản hồi của AI / Sản phẩm được tạo ra
+
+- Đọc lại yêu cầu FR-06 trong `eshop-sut/README.md` và đối chiếu với mobile app để hoàn thiện phần Domain Testing/BVA của FR-06 trong [Main_Report.md](./Main_Report.md).
+- Cấu hình mobile frontend trỏ về API backend theo IP LAN được cung cấp (`172.20.10.13`) để có thể chạy Expo web và quan sát hành vi mobile.
+- Thực hiện kiểm thử mobile product detail và ghi nhận các lỗi thực tế:
+  - `BUG-FR06-01`: màn hình detail không hiển thị category.
+  - `BUG-FR06-02`: quantity dưới tối thiểu vẫn được thêm vào giỏ.
+  - `BUG-FR06-03`: quantity không phải số nguyên vẫn được thêm vào giỏ.
+  - `BUG-FR06-04`: màn hình detail thiếu breadcrumb/navigation context.
+- Capture và tổ chức ảnh bằng chứng trong [screenshots/FR06](./screenshots/FR06), đổi tên ảnh theo mã bug thống nhất như `BUG-FR06-01-01.png`, `BUG-FR06-02-01.png`, `BUG-FR06-03-01.png`, `BUG-FR06-04-01.png`.
+- Cập nhật [Bug_Report.md](./Bug_Report.md):
+  - Bổ sung bảng tổng hợp và báo cáo chi tiết cho `BUG-FR06-01` đến `BUG-FR06-04`.
+  - Cập nhật đường dẫn ảnh bằng chứng FR-06 theo cấu trúc thư mục và tên file mới.
+  - Loại bỏ các bug FR-06 trùng hoặc không đủ căn cứ black-box (`BUG-FR06-05`, `BUG-FR06-06`, `BUG-FR06-07`).
+- Cập nhật [Main_Report.md](./Main_Report.md):
+  - Điền actual output, trạng thái Pass/Fail và evidence cho các test case FR-06 có thể execute trực tiếp từ mobile UI.
+  - Loại bỏ các test case FR-06 cần deep link, proxy/network throttling, dữ liệu seed đặc biệt hoặc suy luận từ source code để tránh trộn black-box execution với white-box/environment test.
+  - Cập nhật `7.4 AI Gap Analysis` để giải thích rõ vì sao các ý tưởng test này được xem là exploratory/out of execution scope.
+  - Cập nhật `Test Summary`: FR-06 còn 10 designed/executed test case, 5 passed, 5 failed, 0 blocked, 0 not executed, 4 confirmed bugs; tổng toàn bài là 90 designed, 90 executed, 23 passed, 67 failed, 0 blocked, 0 not executed, 20 confirmed bugs.
+
+#### 3. Rà soát và Chỉnh sửa của con người
+
+- Sinh viên cung cấp IP LAN của máy chạy backend để AI cấu hình mobile frontend và chạy kiểm thử trên môi trường thực tế.
+- Sinh viên yêu cầu capture cả trạng thái trước và sau khi badge giỏ hàng xuất hiện để chứng minh add-to-cart feedback.
+- Sinh viên yêu cầu bỏ các bug bị trùng hoặc không đủ phù hợp black-box để danh sách lỗi FR-06 gọn và có căn cứ hơn.
+- Sinh viên yêu cầu đổi tên ảnh trong thư mục FR-06 theo từng bug để evidence đồng bộ với Bug Report.
+- Sinh viên rà soát lại các test case chưa execute và quyết định loại bỏ những case cần đọc source code, deep link, proxy hoặc dữ liệu seed đặc biệt khỏi bảng execution thay vì giữ `Blocked`.
+- Sinh viên yêu cầu cập nhật Test Summary để phản ánh trạng thái cuối cùng không còn blocked/not executed.
