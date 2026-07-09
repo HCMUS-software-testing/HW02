@@ -22,9 +22,10 @@ Không sử dụng mã nguồn triển khai, database nội bộ hoặc route/se
 
 - `A_id`, `N_A`, `X`: id, tên và đơn giá của sản phẩm A quan sát được từ UI/API black-box.
 - `B_id`, `N_B`, `Y`: id, tên và đơn giá của sản phẩm B quan sát được từ UI/API black-box.
-- `valid_user_token`: JWT token hợp lệ của user test sau khi đăng nhập.
-- Các testcase cần có sản phẩm trong giỏ nên dựng tiền điều kiện qua UI: đăng nhập, mở chi tiết sản phẩm, nhập số lượng hợp lệ, bấm `Thêm vào giỏ hàng`, rồi vào màn hình `Giỏ hàng`.
+- `valid_user_token`: JWT token hợp lệ của user test sau khi đăng nhập, dùng cho request Postman/API cần xác thực.
+- Các testcase cần có sản phẩm trong giỏ trên Web nên dựng tiền điều kiện qua UI: mở chi tiết sản phẩm, nhập số lượng hợp lệ, bấm `Thêm vào giỏ hàng`, rồi vào màn hình `Giỏ hàng`. Khi quan sát bằng Web UI, màn hình giỏ hiển thị dữ liệu của phiên giao diện và không yêu cầu tester gửi thủ công `Authorization: Bearer <token>`.
+- Khi kiểm thử bằng Postman/API, nếu dựng dữ liệu bằng `POST /api/cart` thì request `POST /api/cart` phải gửi `Authorization: Bearer <valid_user_token>`; request `GET /api/cart` sau đó cũng phải gửi cùng loại bearer token để đọc lại giỏ API.
 
 ## Ghi chú traceability
 
-Các artifact con cùng truy vết về `FR-07: Giỏ hàng`. Trong API specification hiện chỉ có `GET /api/cart` và `POST /api/cart`; không có endpoint cập nhật số lượng, xóa sản phẩm hoặc tiếp tục mua sắm được mô tả riêng. Vì vậy các artifact liên quan đến thao tác trong giỏ ưu tiên oracle trên Web UI và chỉ dùng `GET /api/cart` như bước đối chiếu trạng thái nếu API body thực tế đủ dữ liệu.
+Các artifact con cùng truy vết về `FR-07: Giỏ hàng`. Trong API specification hiện chỉ có `GET /api/cart` và `POST /api/cart`; không có endpoint cập nhật số lượng, xóa sản phẩm hoặc tiếp tục mua sắm được mô tả riêng. Vì vậy các artifact liên quan đến thao tác trong giỏ ưu tiên oracle trên Web UI. `GET /api/cart` chỉ dùng như bước đối chiếu trạng thái cho luồng Postman/API có bearer token; dữ liệu thêm qua Web UI được quan sát trực tiếp trên màn hình giỏ và không mặc định đồng bộ với body `GET /api/cart`.
