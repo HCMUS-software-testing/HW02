@@ -1,0 +1,240 @@
+* commit ff4bce2c42f9fa47d1450f4d7fdfae8b1e8821e9
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Thu Jul 9 11:51:06 2026 +0700
+| 
+|     chores: add all pdf report
+| 
+|  AI_Audit_Report.pdf     | Bin 0 -> 170923 bytes
+|  AI_Critique.pdf         | Bin 0 -> 27962 bytes
+|  README.pdf              | Bin 0 -> 61368 bytes
+|  domain-testing-fr1.pdf  | Bin 0 -> 70466 bytes
+|  domain-testing-fr10.pdf | Bin 0 -> 54454 bytes
+|  domain-testing-fr14.pdf | Bin 0 -> 52416 bytes
+|  domain-testing-fr3.pdf  | Bin 0 -> 69880 bytes
+|  7 files changed, 0 insertions(+), 0 deletions(-)
+| 
+* commit 25a920ec391b978a0b74aad6b14113b1426cd240
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Thu Jul 9 11:49:55 2026 +0700
+| 
+|     docs: add readme, ai critique
+| 
+|  AI_Critique.md |  3 +++
+|  README.md      | 52 +++++++++++++++++++++++++++++++++++++++++++++++++++-
+|  report.md      | 36 ++++++++++++++++++++++++++----------
+|  3 files changed, 80 insertions(+), 11 deletions(-)
+| 
+* commit 1788f4e7b2b09f98dc5fbd1c2b460fb6d384189b
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Thu Jul 9 09:51:24 2026 +0700
+| 
+|     docs(bugreport): add bug report
+| 
+|  .agents/skills/ep-condition-generator/SKILL.md |   2 +-
+|  AI_Audit_Report.md                             |   9 ++
+|  BugReport.md                                   | 122 +++++++++++++++++++++++
+|  Screenshots/bug_poolA_1.png                    | Bin 0 -> 49889 bytes
+|  Screenshots/bug_poolA_2.png                    | Bin 0 -> 59228 bytes
+|  Screenshots/bug_poolA_3.png                    | Bin 0 -> 44085 bytes
+|  Screenshots/bug_poolA_4.png                    | Bin 0 -> 24985 bytes
+|  Screenshots/bug_poolB_1.1.png                  | Bin 0 -> 61260 bytes
+|  Screenshots/bug_poolB_1.2.png                  | Bin 0 -> 61336 bytes
+|  Screenshots/bug_poolB_1.3.png                  | Bin 0 -> 61259 bytes
+|  Screenshots/bug_poolB_2.png                    | Bin 0 -> 23822 bytes
+|  Screenshots/bug_poolC_1.1.png                  | Bin 0 -> 53356 bytes
+|  Screenshots/bug_poolC_1.2.png                  | Bin 0 -> 58377 bytes
+|  Screenshots/bug_poolC_2.png                    | Bin 0 -> 31298 bytes
+|  Screenshots/bug_poolC_3.png                    | Bin 0 -> 34374 bytes
+|  Screenshots/bug_poolC_4.1.png                  | Bin 0 -> 66228 bytes
+|  Screenshots/bug_poolC_4.2.png                  | Bin 0 -> 57059 bytes
+|  Screenshots/bug_poolD_1.jpg                    | Bin 0 -> 97051 bytes
+|  Screenshots/bug_poolD_2.1.jpeg                 | Bin 0 -> 82868 bytes
+|  Screenshots/bug_poolD_2.2.jpeg                 | Bin 0 -> 70755 bytes
+|  Screenshots/bug_poolD_3.jpeg                   | Bin 0 -> 70056 bytes
+|  Screenshots/bug_poolD_4.1.jpeg                 | Bin 0 -> 116616 bytes
+|  Screenshots/bug_poolD_4.2.jpeg                 | Bin 0 -> 70277 bytes
+|  report.md                                      |  34 +++----
+|  24 files changed, 149 insertions(+), 18 deletions(-)
+| 
+* commit fbb7920c7b3270e19b94e04637f08a1cd1ea48c6
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Thu Jul 9 08:42:56 2026 +0700
+| 
+|     docs(report): finish test
+| 
+|  report.md | 55 +++++++++++++++++++++++++++----------------------------
+|  1 file changed, 27 insertions(+), 28 deletions(-)
+| 
+* commit 1a0e2885311615e34df17e3a8922c890c0249ff5
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Wed Jul 8 23:56:03 2026 +0700
+| 
+|     docs(report): add some result of some test cases
+| 
+|  report.md | 70 ++++++++++++++++++++++++++++++-------------------------------
+|  1 file changed, 34 insertions(+), 36 deletions(-)
+| 
+* commit 081a7565bf0b34640b5a019aa0d49d1d27ba5946
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Wed Jul 8 22:11:08 2026 +0700
+| 
+|     docs(report): separate into files
+| 
+|  domain-testing-fr1.md  |  84 +++++++++++++
+|  domain-testing-fr10.md |  43 +++++++
+|  domain-testing-fr14.md |  51 ++++++++
+|  domain-testing-fr3.md  |  98 +++++++++++++++
+|  report.md              | 306 +++++------------------------------------------
+|  5 files changed, 309 insertions(+), 273 deletions(-)
+| 
+* commit 90b06c983ee35569680398b793e44dcf2ab368db
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Wed Jul 8 22:03:45 2026 +0700
+| 
+|     docs(report, ai_report): add test case
+| 
+|  AI_Audit_Report.md | 177 +++++++++++++++++++++++++++++++++++++--------------
+|  report.md          | 133 ++++++++++++++++++++++++--------------
+|  2 files changed, 215 insertions(+), 95 deletions(-)
+| 
+* commit 436392a7de91b21db8a8ef0e71ba85d3822db1f2
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Wed Jul 8 20:46:08 2026 +0700
+| 
+|     docs(agents/skills): add skill merge test case ep and bva to 1 test case sheet
+| 
+|  .agents/skills/test-suite-merger/SKILL.md | 30 +++++++++++++++++++++++++++++
+|  1 file changed, 30 insertions(+)
+| 
+* commit 91aa59d9ab7bf33e71b451986d1b1b94df49b1cc
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Wed Jul 8 20:36:21 2026 +0700
+| 
+|     docs(report, ai_report): fix boundary for each feature. add test data bva
+| 
+|  AI_Audit_Report.md | 127 +++++++++++++++++++++++++++++++++++++++++++--------
+|  report.md          |  95 ++++++++++++++++++++++++++++++--------
+|  2 files changed, 184 insertions(+), 38 deletions(-)
+| 
+* commit 78d743f8a96e8fc9c324c094227d462d3c2f2ec2
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Wed Jul 8 20:35:26 2026 +0700
+| 
+|     docs(agents/skills): add rule do not merge valid boundaries
+| 
+|  .agents/skills/bva-test-data-generator/SKILL.md | 6 ++++--
+|  1 file changed, 4 insertions(+), 2 deletions(-)
+| 
+* commit 787546b07edfd263ca2a8f81f0244292c5ca9986
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Wed Jul 8 19:58:16 2026 +0700
+| 
+|     docs(agents/skills): add skill agent bva test data generator
+| 
+|  .agents/skills/bva-test-data-generator/SKILL.md | 36 +++++++++++++++++++++++
+|  1 file changed, 36 insertions(+)
+| 
+* commit 1843ca325a2bf4d5615d508949854434a152831b
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Wed Jul 8 19:53:38 2026 +0700
+| 
+|     docs(report, ai_report): add boundary for pool a,c,d
+| 
+|  AI_Audit_Report.md | 65 +++++++++++++++++++++++++++++++++++++++++++++++++++-
+|  report.md          | 53 ++++++++++++++++++++++++++++++++++++++----
+|  2 files changed, 112 insertions(+), 6 deletions(-)
+| 
+* commit 77a406fd124494a86eaad60b1ae88d00d612ccd1
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Wed Jul 8 15:26:10 2026 +0700
+| 
+|     docs(agents/skills): add skill agent bva boundary generator
+| 
+|  .agents/skills/bva-boundary-generator/SKILL.md | 43 ++++++++++++++++++++++++
+|  1 file changed, 43 insertions(+)
+| 
+* commit 8f207eba14dda9a27c58e48a88db067d56c59aff
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Wed Jul 8 15:11:11 2026 +0700
+| 
+|     docs(ai-audit-report, report): fix testdata pool c and add test data pool d in report
+| 
+|  AI_Audit_Report.md | 45 +++++++++++++++++++++++++++++++++++++++++++++
+|  report.md          | 52 ++++++++++++++++++++++++++++++++++++++++++++++++----
+|  2 files changed, 93 insertions(+), 4 deletions(-)
+| 
+* commit eac1e2fbd10b1c41a7627f6efb1a9edc420494d2
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Tue Jul 7 23:46:43 2026 +0700
+| 
+|     docs(ai-audit-report): add result of ai for test data pool c- d)
+| 
+|  AI_Audit_Report.md | 49 +++++++++++++++++++++++++++++++++++++++++++++++++
+|  1 file changed, 49 insertions(+)
+| 
+* commit 365097988d5771a12a3f9cac905408175fdba095
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Tue Jul 7 22:06:14 2026 +0700
+| 
+|     docs: change expected result to output in ep-test-data-generator and add test data for feature of pool A-pool B
+| 
+|  .agents/skills/ep-test-data-generator/SKILL.md |  2 +-
+|  AI_Audit_Report.md                             | 53 ++++++++++++++++++++++++
+|  report.md                                      | 21 ++++++++++
+|  3 files changed, 75 insertions(+), 1 deletion(-)
+| 
+* commit cffb9ec8b9a7e808be70ad55ac907b71a5c9d18c
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Tue Jul 7 21:38:21 2026 +0700
+| 
+|     docs(agents/skill): add ep test data generator
+| 
+|  .agents/skills/ep-test-data-generator/SKILL.md | 38 ++++++++++++++++++++++++
+|  1 file changed, 38 insertions(+)
+| 
+* commit 1d692e001387fc5624963e0bae83150f00553f13
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Tue Jul 7 21:18:23 2026 +0700
+| 
+|     docs(report, ai_audit): add equvalence classes for each feature
+| 
+|  AI_Audit_Report.md | 106 ++++++++++++++++++++++++++++++++++++++++++++++++++-
+|  report.md          |  64 ++++++++++++++++++++++++++++++-
+|  2 files changed, 168 insertions(+), 2 deletions(-)
+| 
+* commit 7749bbab3325ffb17d9f193c30e2199498d29463
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Tue Jul 7 20:32:20 2026 +0700
+| 
+|     docs(agents/skill): add equivalence classes generator
+| 
+|  .../skills/equivalence-classes-generator/SKILL.md | 43 +++++++++++++++++++++
+|  1 file changed, 43 insertions(+)
+| 
+* commit e3c35798103822bbcfb67b4b9e9886cbf81dd064
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Tue Jul 7 20:12:46 2026 +0700
+| 
+|     docs(ai_audit, report): add condition for each feature
+| 
+|  AI_Audit_Report.md | 103 ++++++++++++++++++++++++++++++++++++++++
+|  report.md          | 130 +++++++++++++++++++++++++++++++++++++++++++++++++++
+|  2 files changed, 233 insertions(+)
+| 
+* commit 4f497ee63488323b1afcc3954de98e69b7213ee3
+| Author: Melyenn <thiduyen310@gmail.com>
+| Date:   Tue Jul 7 19:18:07 2026 +0700
+| 
+|     fix(agents/skill): ep-condition generator
+| 
+|  .agents/skills/ep-condition-generator/SKILL.md | 8 +++++---
+|  1 file changed, 5 insertions(+), 3 deletions(-)
+| 
+* commit 2a155c657339ac1cb3160e1170dd5668031ef86e
+  Author: Melyenn <thiduyen310@gmail.com>
+  Date:   Tue Jul 7 19:05:27 2026 +0700
+  
+      docs(agents/skill): add ep-condition generator
+  
+   .agents/skills/ep-condition-generator/SKILL.md | 41 ++++++++++++++++++++++++
+   1 file changed, 41 insertions(+)
