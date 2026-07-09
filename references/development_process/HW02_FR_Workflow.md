@@ -313,7 +313,7 @@ git commit -m "Execute tests and document results for FR-xx"
 
 Với mỗi confirmed bug:
 
-1. Tạo bug report riêng theo `Bug_Report_Template.md`.
+1. Tạo bug report riêng theo `Bug_Report.md`.
 2. Tạo GitHub Issue nếu requirement yêu cầu.
 3. Attach screenshot/evidence.
 4. Link Bug ID/GitHub Issue/evidence vào cột `Bug ID / Evidence` của test case tương ứng trong `Main_Report.md`.
@@ -338,7 +338,7 @@ GitHub Issue link:
 Bạn có thể copy format chi tiết từ:
 
 ```text
-Bug_Report_Template.md
+Bug_Report.md
 ```
 
 Commit gợi ý:

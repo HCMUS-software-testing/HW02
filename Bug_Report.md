@@ -6,29 +6,51 @@ Tài liệu này tổng hợp các lỗi (bug) phát hiện được trong quá 
 
 ## 1. Bảng tổng hợp danh sách lỗi
 
-| Mã lỗi                                                                                                              | Tính năng | Tiêu đề lỗi                                                                                       | Độ nghiêm trọng | Độ ưu tiên | Trạng thái | Test Case đối chiếu                                   | GitHub Issue Link                                               |
-| :------------------------------------------------------------------------------------------------------------------ | :-------- | :------------------------------------------------------------------------------------------------ | :-------------- | :--------- | :--------- | :---------------------------------------------------- | :-------------------------------------------------------------- |
-| [BUG-FR04-01](#bug-fr04-01-leo-thang-dac-quyen-qua-mass-assignment)                                                 | FR-04     | Leo thang đặc quyền qua thuộc tính role khi cập nhật thông tin cá nhân                            | Critical        | High       | Open       | FR04-DOM-TC08                                         | [#24](https://github.com/HCMUS-software-testing/HW02/issues/24) |
-| [BUG-FR04-02](#bug-fr04-02-mat-du-lieu-khi-cap-nhat-mot-phan-data-loss-on-partial-update)                           | FR-04     | Mất dữ liệu - Cập nhật thiếu trường khi cập nhật thông tin cá nhân sẽ ghi đè giá trị cũ bằng NULL | High            | High       | Open       | FR04-DOM-TC07                                         | [#25](https://github.com/HCMUS-software-testing/HW02/issues/25) |
-| [BUG-FR04-03](#bug-fr04-03-thieu-kiem-tra-du-lieu-dau-vao-lack-of-input-validation)                                 | FR-04     | Thiếu kiểm duyệt dữ liệu đầu vào khi cập nhật thông tin cá nhân                                   | Medium          | Medium     | Open       | FR04-DOM-TC09, TC10, TC11, TC12, BVA-TC04, TC05, TC06 | [#26](https://github.com/HCMUS-software-testing/HW02/issues/26) |
-| [BUG-FR04-04](#bug-fr04-04-lo-lot-thong-tin-nhay-cam-sensitive-data-exposure)                                       | FR-04     | Lộ lọt thông tin người dùng nhạy cảm khi lấy thông tin cá nhân                                    | High            | High       | Open       | FR04-DOM-TC01                                         | [#27](https://github.com/HCMUS-software-testing/HW02/issues/27) |
-| [BUG-FR04-05](#bug-fr04-05-loi-dinh-dang-regex-o-frontend-chan-so-dien-thoai-hop-le)                                | FR-04     | Giao diện người dùng chặn cập nhật các số điện thoại Việt Nam hợp lệ bắt đầu bằng số 0            | High            | High       | Open       | FR04-DOM-TC02, BVA-TC03                               | [#28](https://github.com/HCMUS-software-testing/HW02/issues/28) |
-| [BUG-FR08-01](#bug-fr08-01-checkout-khong-xoa-gio-hang-sau-khi-thanh-toan-thanh-cong)                               | FR-08     | Checkout không xóa giỏ hàng sau khi thanh toán thành công                                             | High            | High       | Open       | FR08-DOM-TC01, TC13, TC14                             | Chưa tạo                                                        |
-| [BUG-FR08-02](#bug-fr08-02-backend-tin-total_amount-tu-client-va-tao-order-voi-tong-tien-khong-hop-le)              | FR-08     | Backend tin `total_amount` từ client và tạo order với tổng tiền không hợp lệ                       | Critical        | High       | Open       | FR08-DOM-TC05, TC06, TC07, TC08, TC09                 | Chưa tạo                                                        |
-| [BUG-FR08-03](#bug-fr08-03-backend-khong-kiem-tra-shipping_address-khi-checkout)                                    | FR-08     | Backend không kiểm tra `shipping_address` khi checkout                                             | Medium          | Medium     | Open       | FR08-DOM-TC10, TC11, TC12                             | Chưa tạo                                                        |
-| [BUG-FR08-04](#bug-fr08-04-o-nhap-tong-tien-thanh-toan-tren-giao-dien-checkout-cho-phep-nguoi-dung-tu-do-chinh-sua) | FR-08     | Ô nhập Tổng tiền thanh toán trên giao diện Checkout cho phép người dùng tự do chỉnh sửa           | High            | High       | Open       | FR08-DOM-TC06                                         | Chưa tạo                                                        |
-| [BUG-FR08-05](#bug-fr08-05-backend-api-cart-va-checkout-chap-nhan-san-pham-co-so-luong-hoac-don-gia-bang-0)         | FR-08     | Backend API cart và checkout chấp nhận sản phẩm có số lượng hoặc đơn giá bằng 0                       | High            | High       | Open       | FR08-BVA-TC10, FR08-BVA-TC16                          | Chưa tạo                                                        |
-| [BUG-FR08-06](#bug-fr08-06-he-thong-cho-phep-dat-hang-checkout-voi-gio-hang-rong)                                   | FR-08     | Hệ thống cho phép đặt hàng (checkout) với giỏ hàng rỗng                                               | High            | High       | Open       | FR08-DOM-TC04, FR08-BVA-TC13                          | Chưa tạo                                                        |
-| [BUG-FR15-01](#bug-fr15-01-api-products-thieu-xac-thuc-phan-quyen-va-cho-phep-guest-truy-cap-crud)                  | FR-15     | API /api/products hoàn toàn thiếu xác thực và phân quyền cho các thao tác CRUD                    | Critical        | High       | Open       | FR15-DOM-TC04, TC05, TC06                             | Chưa tạo                                                        |
-| [BUG-FR15-02](#bug-fr15-02-api-products-backend-khong-validate-du-lieu-dau-vao-khi-them-sua-san-pham)               | FR-15     | API /api/products không thực hiện validate bất kỳ trường dữ liệu nào của sản phẩm                  | Critical        | High       | Open       | FR15-DOM-TC10..TC17, BVA-TC03, TC05, TC06, TC07                | Chưa tạo                                                 |
-| [BUG-FR15-03](#bug-fr15-03-backend-chap-nhan-imageUrl-va-category_id-khong-hop-le-khi-them-sua-san-pham)            | FR-15     | API chấp nhận category_id không tồn tại và imageUrl không đúng định dạng URL                      | High            | High       | Open       | FR15-BVA-TC10                                         | Chưa tạo                                                        |
-| [BUG-FR15-04](#bug-fr15-04-api-productsid-cap-nhat-xoa-id-khong-ton-tai-van-bao-thanh-cong)                         | FR-15     | API /api/products/:id cập nhật hoặc xóa ID sản phẩm không tồn tại vẫn báo thành công               | High            | High       | Open       | FR15-DOM-TC07, TC08, TC09                             | Chưa tạo                                                        |
-| [BUG-FR15-05](#bug-fr15-05-giao-dien-admin-cap-nhat-mot-san-pham-lam-doi-ten-tat-ca-san-pham-khac)                 | FR-15     | Giao diện Admin cập nhật một sản phẩm làm đổi tên tất cả sản phẩm khác                             | High            | High       | Open       | FR15-DOM-TC19                                         | Chưa tạo                                                        |
-| ---
+### 1.1 FR-04 - Personal Profile Management
+
+| Mã lỗi                                                                                    | Tính năng | Tiêu đề lỗi                                                                                       | Độ nghiêm trọng | Độ ưu tiên | Trạng thái | Test Case đối chiếu                                   | GitHub Issue Link                                               |
+| :---------------------------------------------------------------------------------------- | :-------- | :------------------------------------------------------------------------------------------------ | :-------------- | :--------- | :--------- | :---------------------------------------------------- | :-------------------------------------------------------------- |
+| [BUG-FR04-01](#bug-fr04-01-leo-thang-dac-quyen-qua-mass-assignment)                       | FR-04     | Leo thang đặc quyền qua thuộc tính role khi cập nhật thông tin cá nhân                            | Critical        | High       | Open       | FR04-DOM-TC08                                         | [#24](https://github.com/HCMUS-software-testing/HW02/issues/24) |
+| [BUG-FR04-02](#bug-fr04-02-mat-du-lieu-khi-cap-nhat-mot-phan-data-loss-on-partial-update) | FR-04     | Mất dữ liệu - Cập nhật thiếu trường khi cập nhật thông tin cá nhân sẽ ghi đè giá trị cũ bằng NULL | High            | High       | Open       | FR04-DOM-TC07                                         | [#25](https://github.com/HCMUS-software-testing/HW02/issues/25) |
+| [BUG-FR04-03](#bug-fr04-03-thieu-kiem-tra-du-lieu-dau-vao-lack-of-input-validation)       | FR-04     | Thiếu kiểm duyệt dữ liệu đầu vào khi cập nhật thông tin cá nhân                                   | Medium          | Medium     | Open       | FR04-DOM-TC09, TC10, TC11, TC12, BVA-TC04, TC05, TC06 | [#26](https://github.com/HCMUS-software-testing/HW02/issues/26) |
+| [BUG-FR04-04](#bug-fr04-04-lo-lot-thong-tin-nhay-cam-sensitive-data-exposure)             | FR-04     | Lộ lọt thông tin người dùng nhạy cảm khi lấy thông tin cá nhân                                    | High            | High       | Open       | FR04-DOM-TC01                                         | [#27](https://github.com/HCMUS-software-testing/HW02/issues/27) |
+| [BUG-FR04-05](#bug-fr04-05-loi-dinh-dang-regex-o-frontend-chan-so-dien-thoai-hop-le)      | FR-04     | Giao diện người dùng chặn cập nhật các số điện thoại Việt Nam hợp lệ bắt đầu bằng số 0            | High            | High       | Open       | FR04-DOM-TC02, BVA-TC03                               | [#28](https://github.com/HCMUS-software-testing/HW02/issues/28) |
+
+### 1.2 FR-08 - Checkout
+
+| Mã lỗi                                                                                                              | Tính năng | Tiêu đề lỗi                                                                             | Độ nghiêm trọng | Độ ưu tiên | Trạng thái | Test Case đối chiếu                   | GitHub Issue Link                                               |
+| :------------------------------------------------------------------------------------------------------------------ | :-------- | :-------------------------------------------------------------------------------------- | :-------------- | :--------- | :--------- | :------------------------------------ | :-------------------------------------------------------------- |
+| [BUG-FR08-01](#bug-fr08-01-checkout-khong-xoa-gio-hang-sau-khi-thanh-toan-thanh-cong)                               | FR-08     | Checkout không xóa giỏ hàng sau khi thanh toán thành công                               | High            | High       | Open       | FR08-DOM-TC01, TC13, TC14             | [#41](https://github.com/HCMUS-software-testing/HW02/issues/41) |
+| [BUG-FR08-02](#bug-fr08-02-backend-tin-total_amount-tu-client-va-tao-order-voi-tong-tien-khong-hop-le)              | FR-08     | Backend tin `total_amount` từ client và tạo order với tổng tiền không hợp lệ            | Critical        | High       | Open       | FR08-DOM-TC05, TC06, TC07, TC08, TC09 | [#47](https://github.com/HCMUS-software-testing/HW02/issues/47) |
+| [BUG-FR08-03](#bug-fr08-03-backend-khong-kiem-tra-shipping_address-khi-checkout)                                    | FR-08     | Backend không kiểm tra `shipping_address` khi checkout                                  | Medium          | Medium     | Open       | FR08-DOM-TC10, TC11, TC12             | [#50](https://github.com/HCMUS-software-testing/HW02/issues/50) |
+| [BUG-FR08-04](#bug-fr08-04-o-nhap-tong-tien-thanh-toan-tren-giao-dien-checkout-cho-phep-nguoi-dung-tu-do-chinh-sua) | FR-08     | Ô nhập Tổng tiền thanh toán trên giao diện Checkout cho phép người dùng tự do chỉnh sửa | High            | High       | Open       | FR08-DOM-TC06                         | [#54](https://github.com/HCMUS-software-testing/HW02/issues/54) |
+| [BUG-FR08-05](#bug-fr08-05-backend-api-cart-va-checkout-chap-nhan-san-pham-co-so-luong-hoac-don-gia-bang-0)         | FR-08     | Backend API cart và checkout chấp nhận sản phẩm có số lượng hoặc đơn giá bằng 0         | High            | High       | Open       | FR08-BVA-TC10, FR08-BVA-TC16          | [#55](https://github.com/HCMUS-software-testing/HW02/issues/55) |
+| [BUG-FR08-06](#bug-fr08-06-he-thong-cho-phep-dat-hang-checkout-voi-gio-hang-rong)                                   | FR-08     | Hệ thống cho phép đặt hàng (checkout) với giỏ hàng rỗng                                 | High            | High       | Open       | FR08-DOM-TC04, FR08-BVA-TC13          | [#56](https://github.com/HCMUS-software-testing/HW02/issues/56) |
+
+### 1.3 FR-15 - Product Management CRUD
+
+| Mã lỗi                                                                                                   | Tính năng | Tiêu đề lỗi                                                                          | Độ nghiêm trọng | Độ ưu tiên | Trạng thái | Test Case đối chiếu                             | GitHub Issue Link                                               |
+| :------------------------------------------------------------------------------------------------------- | :-------- | :----------------------------------------------------------------------------------- | :-------------- | :--------- | :--------- | :---------------------------------------------- | :-------------------------------------------------------------- |
+| [BUG-FR15-01](#bug-fr15-01-api-products-thieu-xac-thuc-phan-quyen-va-cho-phep-guest-truy-cap-crud)       | FR-15     | API /api/products hoàn toàn thiếu xác thực và phân quyền cho các thao tác CRUD       | Critical        | High       | Open       | FR15-DOM-TC04, TC05, TC06                       | [#78](https://github.com/HCMUS-software-testing/HW02/issues/78) |
+| [BUG-FR15-02](#bug-fr15-02-api-products-backend-khong-validate-du-lieu-dau-vao-khi-them-sua-san-pham)    | FR-15     | API /api/products không thực hiện validate bất kỳ trường dữ liệu nào của sản phẩm    | Critical        | High       | Open       | FR15-DOM-TC10..TC17, BVA-TC03, TC05, TC06, TC07 | [#79](https://github.com/HCMUS-software-testing/HW02/issues/79) |
+| [BUG-FR15-03](#bug-fr15-03-backend-chap-nhan-imageUrl-va-category_id-khong-hop-le-khi-them-sua-san-pham) | FR-15     | API chấp nhận category_id không tồn tại và imageUrl không đúng định dạng URL         | High            | High       | Open       | FR15-BVA-TC10                                   | [#80](https://github.com/HCMUS-software-testing/HW02/issues/80) |
+| [BUG-FR15-04](#bug-fr15-04-api-productsid-cap-nhat-xoa-id-khong-ton-tai-van-bao-thanh-cong)              | FR-15     | API /api/products/:id cập nhật hoặc xóa ID sản phẩm không tồn tại vẫn báo thành công | High            | High       | Open       | FR15-DOM-TC07, TC08, TC09                       | [#81](https://github.com/HCMUS-software-testing/HW02/issues/81) |
+| [BUG-FR15-05](#bug-fr15-05-giao-dien-admin-cap-nhat-mot-san-pham-lam-doi-ten-tat-ca-san-pham-khac)       | FR-15     | Giao diện Admin cập nhật một sản phẩm làm đổi tên tất cả sản phẩm khác               | High            | High       | Open       | FR15-DOM-TC19                                   | [#82](https://github.com/HCMUS-software-testing/HW02/issues/82) |
+
+### 1.4 FR-06 - Mobile Product Detail View
+
+| Mã lỗi                                                                                                         | Tính năng | Tiêu đề lỗi                                                                        | Độ nghiêm trọng | Độ ưu tiên | Trạng thái | Test Case đối chiếu          | GitHub Issue Link                                               |
+| :------------------------------------------------------------------------------------------------------------- | :-------- | :--------------------------------------------------------------------------------- | :-------------- | :--------- | :--------- | :--------------------------- | :-------------------------------------------------------------- |
+| [BUG-FR06-01](#bug-fr06-01-mobile-product-detail-khong-hien-thi-danh-muc-san-pham)                             | FR-06     | Mobile product detail không hiển thị danh mục sản phẩm                             | Medium          | Medium     | Open       | FR06-DOM-TC01                | [#72](https://github.com/HCMUS-software-testing/HW02/issues/72) |
+| [BUG-FR06-02](#bug-fr06-02-mobile-detail-chap-nhan-quantity0-va-van-them-san-pham-vao-gio)                     | FR-06     | Mobile detail chấp nhận quantity=0 và vẫn thêm sản phẩm vào giỏ                    | High            | High       | Open       | FR06-DOM-TC05, FR06-BVA-TC01 | [#73](https://github.com/HCMUS-software-testing/HW02/issues/73) |
+| [BUG-FR06-03](#bug-fr06-03-mobile-detail-chap-nhan-quantity-khong-phai-so-nguyen-va-van-them-san-pham-vao-gio) | FR-06     | Mobile detail chấp nhận quantity không phải số nguyên và vẫn thêm sản phẩm vào giỏ | High            | High       | Open       | FR06-DOM-TC06                | [#75](https://github.com/HCMUS-software-testing/HW02/issues/75) |
+| [BUG-FR06-04](#bug-fr06-04-mobile-product-detail-thieu-breadcrumb-trang-con)                                   | FR-06     | Mobile product detail thiếu breadcrumb trang con                                   | Medium          | Medium     | Open       | FR06-DOM-TC13                | [#77](https://github.com/HCMUS-software-testing/HW02/issues/77) |
 
 ## 2. Chi tiết từng lỗi (Report)
 
-### BUG-FR04-01: Leo thang đặc quyền qua Mass Assignment
+### 2.1 FR-04 - Personal Profile Management
+
+#### BUG-FR04-01: Leo thang đặc quyền qua Mass Assignment
 
 #### Mô tả lỗi
 
@@ -82,7 +104,7 @@ Hệ thống API backend chấp nhận thuộc tính `role: "admin"` truyền l�
 
 ---
 
-### BUG-FR04-02: Mất dữ liệu khi cập nhật một phần (Data Loss on Partial Update)
+#### BUG-FR04-02: Mất dữ liệu khi cập nhật một phần (Data Loss on Partial Update)
 
 #### Mô tả lỗi
 
@@ -132,7 +154,7 @@ Khi thực hiện cập nhật hồ sơ cá nhân qua phương thức PUT, nếu
 
 ---
 
-### BUG-FR04-03: Thiếu kiểm tra dữ liệu đầu vào (Lack of Input Validation)
+#### BUG-FR04-03: Thiếu kiểm tra dữ liệu đầu vào (Lack of Input Validation)
 
 #### Mô tả lỗi
 
@@ -183,7 +205,7 @@ API backend `PUT /api/users/me` hoàn toàn thiếu cơ chế kiểm tra tính h
 
 ---
 
-### BUG-FR04-04: Lộ lọt thông tin nhạy cảm (Sensitive Data Exposure)
+#### BUG-FR04-04: Lộ lọt thông tin nhạy cảm (Sensitive Data Exposure)
 
 #### Mô tả lỗi
 
@@ -226,7 +248,7 @@ Khi người dùng xem thông tin cá nhân của mình, API backend trả về 
 
 ---
 
-### BUG-FR04-05: Lỗi định dạng Regex ở Frontend chặn số điện thoại hợp lệ
+#### BUG-FR04-05: Lỗi định dạng Regex ở Frontend chặn số điện thoại hợp lệ
 
 #### Mô tả lỗi
 
@@ -275,7 +297,9 @@ Hành vi này đồng thời làm phát sinh lỗi liên đới:
 
 ---
 
-### BUG-FR08-01: Checkout không xóa giỏ hàng sau khi thanh toán thành công
+### 2.2 FR-08 - Checkout
+
+#### BUG-FR08-01: Checkout không xóa giỏ hàng sau khi thanh toán thành công
 
 #### Mô tả lỗi
 
@@ -337,7 +361,7 @@ Theo đặc tả nghiệp vụ, sau khi người dùng tiến hành thanh toán 
 
 ---
 
-### BUG-FR08-02: Backend tin `total_amount` từ client và tạo order với tổng tiền không hợp lệ
+#### BUG-FR08-02: Backend tin `total_amount` từ client và tạo order với tổng tiền không hợp lệ
 
 #### Mô tả lỗi
 
@@ -407,7 +431,7 @@ FR-08 yêu cầu backend phải tự tính lại tổng tiền từ giỏ hàng 
 
 ---
 
-### BUG-FR08-03: Backend không kiểm tra `shipping_address` khi checkout
+#### BUG-FR08-03: Backend không kiểm tra `shipping_address` khi checkout
 
 #### Mô tả lỗi
 
@@ -475,7 +499,7 @@ API checkout không kiểm tra trường địa chỉ giao hàng. Hệ thống v
 
 ---
 
-### BUG-FR08-04: Ô nhập Tổng tiền thanh toán trên giao diện Checkout cho phép người dùng tự do chỉnh sửa
+#### BUG-FR08-04: Ô nhập Tổng tiền thanh toán trên giao diện Checkout cho phép người dùng tự do chỉnh sửa
 
 #### Mô tả lỗi
 
@@ -521,7 +545,7 @@ Trên màn hình xác nhận thanh toán (Checkout), số tiền "Tổng tiền 
 
 ---
 
-### BUG-FR08-05: Backend API cart và checkout chấp nhận sản phẩm có số lượng hoặc đơn giá bằng 0
+#### BUG-FR08-05: Backend API cart và checkout chấp nhận sản phẩm có số lượng hoặc đơn giá bằng 0
 
 #### Mô tả lỗi
 
@@ -588,7 +612,7 @@ API backend không kiểm duyệt thông tin sản phẩm khi thêm vào giỏ h
 
 ---
 
-### BUG-FR08-06: Hệ thống cho phép đặt hàng (checkout) với giỏ hàng rỗng
+#### BUG-FR08-06: Hệ thống cho phép đặt hàng (checkout) với giỏ hàng rỗng
 
 #### Mô tả lỗi
 
@@ -641,7 +665,9 @@ Quy trình nghiệp vụ mua sắm yêu cầu giỏ hàng của khách hàng ph�
 
 ---
 
-### BUG-FR15-01: API /api/products thiếu xác thực phân quyền và cho phép Guest truy cập CRUD
+### 2.3 FR-15 - Product Management CRUD
+
+#### BUG-FR15-01: API /api/products thiếu xác thực phân quyền và cho phép Guest truy cập CRUD
 
 #### Mô tả lỗi
 
@@ -702,7 +728,7 @@ Các API thay đổi dữ liệu sản phẩm bao gồm `POST /api/products`, `P
 
 ---
 
-### BUG-FR15-02: API /api/products backend không validate dữ liệu đầu vào khi thêm/sửa sản phẩm
+#### BUG-FR15-02: API /api/products backend không validate dữ liệu đầu vào khi thêm/sửa sản phẩm
 
 #### Mô tả lỗi
 
@@ -760,7 +786,7 @@ API backend `POST /api/products` và `PUT /api/products/:id` thiếu cơ chế k
 
 ---
 
-### BUG-FR15-03: Backend chấp nhận imageUrl và category_id không hợp lệ khi thêm/sửa sản phẩm
+#### BUG-FR15-03: Backend chấp nhận imageUrl và category_id không hợp lệ khi thêm/sửa sản phẩm
 
 #### Mô tả lỗi
 
@@ -817,7 +843,7 @@ API backend của Product CRUD không kiểm tra tính toàn vẹn tham chiếu 
 
 ---
 
-### BUG-FR15-04: API /api/products/:id cập nhật/xóa ID không tồn tại vẫn báo thành công
+#### BUG-FR15-04: API /api/products/:id cập nhật/xóa ID không tồn tại vẫn báo thành công
 
 #### Mô tả lỗi
 
@@ -866,7 +892,7 @@ Khi gửi yêu cầu cập nhật (`PUT`) hoặc xóa (`DELETE`) một sản ph�
 
 ---
 
-### BUG-FR15-05: Giao diện Admin cập nhật một sản phẩm làm đổi tên tất cả sản phẩm khác
+#### BUG-FR15-05: Giao diện Admin cập nhật một sản phẩm làm đổi tên tất cả sản phẩm khác
 
 #### Mô tả lỗi
 
@@ -914,3 +940,201 @@ Trên giao diện Web Admin của Product Management, khi Admin cập nhật m�
   ![Danh sách product trước khi cập nhật một product](./screenshots/FR15/BUG-FR15-05-01.png)
 - Minh chứng 2: Sau update, tên các product khác trên giao diện cũng bị đổi
   ![Sau update, tên các product khác trên giao diện cũng bị đổi](./screenshots/FR15/BUG-FR15-05-02.png)
+
+---
+
+### 2.4 FR-06 - Mobile Product Detail View
+
+#### BUG-FR06-01: Mobile product detail không hiển thị danh mục sản phẩm
+
+#### Mô tả lỗi
+
+Theo README/SRS, màn hình chi tiết sản phẩm trên mobile phải hiển thị đầy đủ ảnh lớn, tên, giá, mô tả và danh mục. Tuy nhiên, màn hình Product Detail chỉ hiển thị ảnh, tên, giá và mô tả; không có thông tin danh mục sản phẩm.
+
+#### Điều kiện tiên quyết
+
+- Backend API đang chạy tại `http://172.20.10.13:3000`.
+- Frontend Mobile được chạy qua Expo Web tại `http://localhost:19006`.
+- Danh sách sản phẩm có ít nhất một sản phẩm tồn tại, ví dụ `iPhone 15 Pro Max`.
+
+#### Các bước tái hiện
+
+1. Mở Mobile app.
+2. Từ danh sách sản phẩm, chọn `Xem chi tiết` cho sản phẩm `iPhone 15 Pro Max`.
+3. Quan sát các trường thông tin hiển thị trên màn hình detail.
+
+#### Kết quả mong đợi
+
+- Màn hình detail hiển thị đầy đủ ảnh lớn, tên, giá, mô tả và danh mục sản phẩm.
+
+#### Kết quả thực tế
+
+- Màn hình detail không hiển thị danh mục sản phẩm.
+- Chỉ thấy ảnh lớn, tên sản phẩm, giá, mô tả và ô nhập số lượng.
+
+#### Test Case đối chiếu
+
+- **Mã Test Case:** FR06-DOM-TC01
+- **Phương pháp thiết kế:** Domain Testing / UI Observation
+
+#### Môi trường
+
+- **Hệ điều hành:** Windows 11
+- **Trình duyệt / Công cụ:** Chrome Headless mobile emulation / Expo Web
+- **Môi trường chạy:** Backend local port 3000, Expo Web port 19006
+
+#### Bằng chứng
+
+- Minh chứng 1: Product detail hiển thị thiếu danh mục sản phẩm
+  ![Product detail thiếu danh mục sản phẩm](./screenshots/FR06/BUG-FR06-01-01.png)
+
+---
+
+#### BUG-FR06-02: Mobile detail chấp nhận quantity=0 và vẫn thêm sản phẩm vào giỏ
+
+#### Mô tả lỗi
+
+Theo README/SRS, ô nhập số lượng trên màn hình chi tiết sản phẩm chỉ được nhận số nguyên dương và tối thiểu là `1`. Tuy nhiên, khi người dùng nhập `quantity=0` rồi bấm `Thêm vào giỏ hàng`, mobile app vẫn thêm sản phẩm vào giỏ thay vì từ chối dữ liệu không hợp lệ.
+
+#### Điều kiện tiên quyết
+
+- Backend API đang chạy tại `http://172.20.10.13:3000`.
+- Frontend Mobile được chạy qua Expo Web tại `http://localhost:19006`.
+- Người dùng đang ở màn hình chi tiết của một sản phẩm tồn tại.
+
+#### Các bước tái hiện
+
+1. Mở Mobile app.
+2. Từ danh sách sản phẩm, chọn `Xem chi tiết` cho sản phẩm `iPhone 15 Pro Max`.
+3. Nhập `0` vào ô `Số lượng`.
+4. Bấm `Thêm vào giỏ hàng`.
+5. Quan sát badge giỏ hàng và trạng thái trên màn hình.
+
+#### Kết quả mong đợi
+
+- Hệ thống từ chối `quantity=0`.
+- Sản phẩm không được thêm vào giỏ.
+- Giao diện hiển thị lỗi hoặc phản hồi phù hợp cho người dùng.
+
+#### Kết quả thực tế
+
+- Sản phẩm vẫn được thêm vào giỏ.
+- Badge giỏ hàng tăng lên `Giỏ (1)`.
+- Quantity bị normalize về `1` sau khi thêm, che khuất dữ liệu không hợp lệ ban đầu.
+
+#### Test Case đối chiếu
+
+- **Mã Test Case:** FR06-DOM-TC05, FR06-BVA-TC01
+- **Phương pháp thiết kế:** Domain Testing & Boundary Value Analysis
+
+#### Môi trường
+
+- **Hệ điều hành:** Windows 11
+- **Trình duyệt / Công cụ:** Chrome Headless mobile emulation / Expo Web
+- **Môi trường chạy:** Backend local port 3000, Expo Web port 19006
+
+#### Bằng chứng
+
+- Minh chứng 1: Nhập `quantity=0` trước khi bấm thêm vào giỏ
+  ![Nhập quantity bằng 0](./screenshots/FR06/BUG-FR06-02-01.png)
+- Minh chứng 2: Sau khi bấm thêm, giỏ hàng tăng lên dù quantity ban đầu bằng 0
+  ![Quantity 0 vẫn được thêm vào giỏ](./screenshots/FR06/BUG-FR06-02-02.png)
+
+---
+
+#### BUG-FR06-03: Mobile detail chấp nhận quantity không phải số nguyên và vẫn thêm sản phẩm vào giỏ
+
+#### Mô tả lỗi
+
+Theo README/SRS, ô nhập số lượng trên màn hình chi tiết sản phẩm chỉ được nhận số nguyên dương. Tuy nhiên, mobile app vẫn cho nhập chuỗi không phải số nguyên (`abc`) và khi bấm `Thêm vào giỏ hàng`, sản phẩm vẫn được thêm vào giỏ thay vì bị chặn.
+
+#### Điều kiện tiên quyết
+
+- Backend API đang chạy tại `http://172.20.10.13:3000`.
+- Frontend Mobile được chạy qua Expo Web tại `http://localhost:19006`.
+- Người dùng đang ở màn hình chi tiết của một sản phẩm tồn tại.
+
+#### Các bước tái hiện
+
+1. Mở Mobile app.
+2. Từ danh sách sản phẩm, chọn `Xem chi tiết` cho sản phẩm `iPhone 15 Pro Max`.
+3. Nhập `abc` vào ô `Số lượng`.
+4. Bấm `Thêm vào giỏ hàng`.
+5. Quan sát badge giỏ hàng và trạng thái trên màn hình.
+
+#### Kết quả mong đợi
+
+- Hệ thống từ chối giá trị không phải số nguyên dương.
+- Sản phẩm không được thêm vào giỏ.
+- Giao diện hiển thị lỗi hoặc phản hồi phù hợp cho người dùng.
+
+#### Kết quả thực tế
+
+- App vẫn cho nhập `abc`.
+- Sau khi bấm thêm, sản phẩm vẫn được thêm vào giỏ.
+- Badge giỏ hàng tăng lên thay vì giữ nguyên.
+
+#### Test Case đối chiếu
+
+- **Mã Test Case:** FR06-DOM-TC06
+- **Phương pháp thiết kế:** Domain Testing
+
+#### Môi trường
+
+- **Hệ điều hành:** Windows 11
+- **Trình duyệt / Công cụ:** Chrome Headless mobile emulation / Expo Web
+- **Môi trường chạy:** Backend local port 3000, Expo Web port 19006
+
+#### Bằng chứng
+
+- Minh chứng 1: Nhập `quantity=abc` trước khi bấm thêm vào giỏ
+  ![Nhập quantity không phải số nguyên](./screenshots/FR06/BUG-FR06-03-01.png)
+- Minh chứng 2: Sau khi bấm thêm, giỏ hàng vẫn tăng dù quantity không hợp lệ
+  ![Quantity không phải số nguyên vẫn được thêm vào giỏ](./screenshots/FR06/BUG-FR06-03-02.png)
+
+---
+
+#### BUG-FR06-04: Mobile product detail thiếu breadcrumb trang con
+
+#### Mô tả lỗi
+
+Theo GUI requirement FR-23, breadcrumb bắt buộc có ở các trang con, bao gồm Chi tiết sản phẩm. Tuy nhiên, màn hình Mobile Product Detail không hiển thị breadcrumb hoặc ngữ cảnh điều hướng tương đương để người dùng biết đang ở trang con nào.
+
+#### Điều kiện tiên quyết
+
+- Backend API đang chạy tại `http://172.20.10.13:3000`.
+- Frontend Mobile được chạy qua Expo Web tại `http://localhost:19006`.
+- Người dùng mở chi tiết một sản phẩm tồn tại từ danh sách sản phẩm.
+
+#### Các bước tái hiện
+
+1. Mở Mobile app.
+2. Từ danh sách sản phẩm, chọn `Xem chi tiết` cho sản phẩm `iPhone 15 Pro Max`.
+3. Quan sát khu vực đầu màn hình và phần nội dung detail.
+
+#### Kết quả mong đợi
+
+- Màn hình detail có breadcrumb hoặc navigation context cho trang con, ví dụ `Trang chủ > Chi tiết sản phẩm`.
+
+#### Kết quả thực tế
+
+- Màn hình detail chỉ hiển thị navbar chung và nội dung sản phẩm.
+- Không có breadcrumb hoặc ngữ cảnh trang con.
+
+#### Test Case đối chiếu
+
+- **Mã Test Case:** FR06-DOM-TC13
+- **Phương pháp thiết kế:** Domain Testing / GUI Requirement Observation
+
+#### Môi trường
+
+- **Hệ điều hành:** Windows 11
+- **Trình duyệt / Công cụ:** Chrome Headless mobile emulation / Expo Web
+- **Môi trường chạy:** Backend local port 3000, Expo Web port 19006
+
+#### Bằng chứng
+
+- Minh chứng 1: Product detail không có breadcrumb trang con
+  ![Product detail thiếu breadcrumb](./screenshots/FR06/BUG-FR06-04-01.png)
+
+---
