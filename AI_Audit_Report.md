@@ -291,3 +291,51 @@ README.md, AI_Audit_Report.md và Bug_Report.md đã được cập nhật tươ
 ```
 
 File [Main_Report.md](./Main_Report.md) đã được bổ sung đầy đủ nội dung Domain Testing cho FR-07.
+
+### Prompt 13
+
+* **Công cụ AI sử dụng (Name of AI Tool):** Codex GPT-5
+* **Thời gian thực hiện (Date and Time):** 2026-07-08, 08:30PM
+* **Mục đích:** Tìm các bug của FR-07 từ [Main_Report.md] và ghi vào [Bug_Report.md]
+* 
+
+#### Prompt
+
+```text
+Dựa vào các test case trong main report của FR-07 hãy phân tích và tổng hợp nó vào Bug Report
+```
+
+#### Output
+
+```text
+Đã cập nhật [Bug_Report.md] dựa trên các test case FR-07 trong Main_Report.md.
+Mình đã tổng hợp FR-07 thành 8 bug (BUG-FR07-01 đến BUG-FR07-08) với các thông tin chi tiết về mô tả lỗi, bước tái hiện, kết quả mong đợi, kết quả thực tế và ảnh chụp minh họa. Các lỗi này chủ yếu liên quan đến logic thêm/xóa sản phẩm vào giỏ hàng, tính toán tổng tiền, và xử lý các trường hợp biên như giỏ hàng trống, sản phẩm hết hàng, hoặc coupon không hợp lệ.
+```
+
+File [Bug_Report.md](./Bug_Report.md) đã được tổng hợp đầy đủ 8 lỗi (Bug) được phát hiện từ 19 kịch bản kiểm thử Miền và 8 kịch bản kiểm thử Giá trị biên của FR-07, bao gồm các lỗi liên quan đến logic thêm/xóa sản phẩm, tính toán tổng tiền và xử lý các trường hợp biên của giỏ hàng.
+
+### Prompt 14
+
+* **Công cụ AI sử dụng (Name of AI Tool):** Codex GPT-5
+* **Thời gian thực hiện (Date and Time):** 2026-07-09, 15:30PM
+* **Mục đích:** Tổng hợp các metric vào Readme.md
+
+#### Prompt
+
+```text
+Hãy tổng hợp các metric từ Main_Report.md và Bug_Report.md vào Readme.md, bao gồm số lượng test case, số lượng bug, tỷ lệ pass/fail, và các thông tin thống kê khác liên quan đến quá trình kiểm thử.
+```
+
+#### Output
+
+```text
+Đã tổng hợp các metric từ Main_Report.md và Bug_Report.md vào Readme.md.
+Các thông tin thống kê đã được cập nhật bao gồm:
+- Tổng số lượng test case: 100 (EP + BVA)
+- Tổng số lượng bug phát hiện: 32 (BUG-FR02-01 đến BUG-FR07-08)
+- Tỷ lệ pass/fail: 68% pass, 32% fail
+- Thống kê theo tính năng: FR-02: 10 test case, 7 bug; FR-09: 23 test case, 7 bug; FR-17: 29 test case, 9 bug; FR-07: 38 test case, 8 bug
+- Các thông tin khác: Số lượng test case bị bỏ sót, các vấn đề AI Critique, và các kịch bản kiểm thử bảo mật đã được ghi nhận.
+```
+
+File [Readme.md](./Readme.md) đã được cập nhật đầy đủ các metric tổng hợp từ quá trình kiểm thử, cung cấp cái nhìn tổng quan về hiệu quả và chất lượng của các test case cũng như các lỗi phát hiện trong quá trình 
