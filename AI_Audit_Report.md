@@ -529,6 +529,9 @@ Dựa trên mô tả chức năng trong file `report.md`, các biến đầu và
 | TC10 | Kiểm tra User không có quyền hủy đơn hàng `shipping` | Vai trò: `User`<br>Trạng thái hiện tại: `shipping`<br>Thao tác: Hủy | 1. Đăng nhập với quyền User<br>2. Chọn đơn hàng đang ở trạng thái `shipping`<br>3. Thực hiện thao tác Hủy | Báo lỗi User không được phép hủy khi đang giao hàng | | |
 | TC11 | Kiểm tra không thể hủy đơn hàng từ trạng thái kết thúc | Vai trò: `User`<br>Trạng thái hiện tại: `delivered`<br>Thao tác: Hủy | 1. Đăng nhập với quyền User<br>2. Chọn đơn hàng đang ở trạng thái `delivered`<br>3. Thực hiện thao tác Hủy | Báo lỗi không thể thay đổi từ trạng thái kết thúc | | |
 
+**Nhận xét:**
+- AI sinh bảng test case hợp lí tuy nhiên một vài bước thực hiện của các test case liên quan phân quyền bị không thể thực hiện (nên sử dụng postman để kiểm thay vì UI)
+
 ## Interaction 20
 **AI Tool:** Gemini 3.1 Pro (Low)
 **Date and time:** 2026-07-08 21:50:59 +07:00
@@ -550,6 +553,9 @@ Dựa trên mô tả chức năng trong file `report.md`, các biến đầu và
 | TC8 | Kiểm tra Xem chi tiết danh mục thành công với quyền Admin (E1, E3) | Vai trò: `Admin`<br>Danh mục mục tiêu: Đã tồn tại | 1. Đăng nhập với quyền Admin<br>2. Chọn một danh mục có sẵn<br>3. Bấm Xem chi tiết | Hiển thị thông tin chi tiết của danh mục tương ứng. | | |
 | TC9 | Kiểm tra lỗi Xem chi tiết danh mục khi không có quyền Admin (E2) | Vai trò: `User`<br>Danh mục mục tiêu: Đã tồn tại | 1. Đăng nhập với quyền User<br>2. Thử thao tác Xem chi tiết danh mục | Báo lỗi hoặc từ chối quyền truy cập do không phải là Admin. | | |
 | TC10 | Kiểm tra lỗi Xem chi tiết danh mục không tồn tại (E4) | Vai trò: `Admin`<br>Danh mục mục tiêu: Chưa tồn tại | 1. Đăng nhập với quyền Admin<br>2. Nhập ID/thao tác xem danh mục không có thực | Báo lỗi không tìm thấy danh mục yêu cầu. | | |
+
+**Nhận xét**
+- AI sinh bảng test case hợp lí tuy nhiên một vài bước thực hiện của các test case liên quan phân quyền bị không thể thực hiện (nên sử dụng postman để kiểm thay vì UI)
 
 ## Interaction 21
 **AI Tool:** Gemini 3.1 Pro (Low)
@@ -583,3 +589,6 @@ Dựa trên mô tả chức năng trong file `report.md`, các biến đầu và
 | TC17 | Kiểm tra lỗi mật khẩu thiếu chữ cái in thường (E12, B8) | Họ tên: `Nguyen Van A`<br>Email: `validuser@gmail.com`<br>MK: `AAAAAAAA12!@`<br>Xác nhận MK: `AAAAAAAA12!@` | 1. Nhập mật khẩu thiếu chữ thường<br>2. Bấm Đăng ký | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in thường | | |
 | TC18 | Kiểm tra lỗi mật khẩu thiếu chữ số (E14, B11) | Họ tên: `Nguyen Van A`<br>Email: `validuser@gmail.com`<br>MK: `AAaaaaaa!@#$`<br>Xác nhận MK: `AAaaaaaa!@#$` | 1. Nhập mật khẩu thiếu chữ số<br>2. Bấm Đăng ký | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ số | | |
 | TC19 | Kiểm tra lỗi mật khẩu thiếu ký tự đặc biệt (E16, B14) | Họ tên: `Nguyen Van A`<br>Email: `validuser@gmail.com`<br>MK: `AAaaaaaa1234`<br>Xác nhận MK: `AAaaaaaa1234` | 1. Nhập mật khẩu thiếu ký tự đặc biệt<br>2. Bấm Đăng ký | Hệ thống báo lỗi mật khẩu phải chứa ký tự đặc biệt | | |
+
+**Nhận xét:**
+- Bảng test case hợp lí

@@ -7,7 +7,7 @@ description: Phân tích yêu cầu tính năng (functional requirement) để t
 
 ## When to use this skill
 - Sử dụng khi người dùng yêu cầu phân tích điều kiện kiểm thử cho một tính năng (feature) cụ thể.
-- Lệnh kích hoạt ví dụ: `ep-condition-generator cho tính năng [Tên tính năng]`.
+- Lệnh kích hoạt ví dụ: `ep-condition-generator [Tên tính năng]`.
 - Chú ý: Lệnh gọi skill sẽ KHÔNG truyền trực tiếp nội dung mô tả chức năng vào câu lệnh. Agent bắt buộc phải TỰ ĐỘNG đọc file tài liệu (ví dụ: `report.md` hoặc file chứa mô tả yêu cầu) của feature đó để lấy nội dung phân tích.
 
 ## Core Principles (Quy tắc cốt lõi)
