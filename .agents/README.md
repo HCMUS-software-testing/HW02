@@ -27,7 +27,9 @@ Mỗi skill có `references/` riêng để trace về tài liệu môn học và
 
 - `domain_testing/references/domain_testing_method.md`
 - `domain_testing/references/report_style_23127205.md`
+- `domain_testing/references/main_report_writeback.md`
 - `bva_testing/references/bva_method.md`
+- `bva_testing/references/main_report_writeback.md`
 - `audit_extraction/references/hw02_audit_requirements.md`
 
 ## Nguyên tắc kiểm soát
@@ -85,5 +87,7 @@ Trong video nên show:
 - `bva_testing` skill và boundary table đã review.
 - Các cột execution nằm trong bảng Domain Test Case và BVA Test Case của `Main_Report.md`.
 - `audit_extraction` skill và audit entry cuối cùng.
+- [Agent_Skills_Demo_Guide.md](../Agent_Skills_Demo_Guide.md) để theo kịch bản quay demo và test execution trực tiếp.
+- [references/execution_scripts](../references/execution_scripts) để show phần actual execution trên SUT/API.
 
 Điểm quan trọng khi demo không phải là tự động hóa toàn bộ. Điểm quan trọng là AI đi theo đúng kỹ thuật kiểm thử từng bước và sinh viên kiểm soát các checkpoint.
