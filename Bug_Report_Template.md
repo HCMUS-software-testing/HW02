@@ -19,7 +19,12 @@ Tài liệu này tổng hợp các lỗi (bug) phát hiện được trong quá 
 | [BUG-FR08-04](#bug-fr08-04-o-nhap-tong-tien-thanh-toan-tren-giao-dien-checkout-cho-phep-nguoi-dung-tu-do-chinh-sua) | FR-08     | Ô nhập Tổng tiền thanh toán trên giao diện Checkout cho phép người dùng tự do chỉnh sửa           | High            | High       | Open       | FR08-DOM-TC06                                         | Chưa tạo                                                        |
 | [BUG-FR08-05](#bug-fr08-05-backend-api-cart-va-checkout-chap-nhan-san-pham-co-so-luong-hoac-don-gia-bang-0)         | FR-08     | Backend API cart và checkout chấp nhận sản phẩm có số lượng hoặc đơn giá bằng 0                       | High            | High       | Open       | FR08-BVA-TC10, FR08-BVA-TC16                          | Chưa tạo                                                        |
 | [BUG-FR08-06](#bug-fr08-06-he-thong-cho-phep-dat-hang-checkout-voi-gio-hang-rong)                                   | FR-08     | Hệ thống cho phép đặt hàng (checkout) với giỏ hàng rỗng                                               | High            | High       | Open       | FR08-DOM-TC04, FR08-BVA-TC13                          | Chưa tạo                                                        |
----
+| [BUG-FR15-01](#bug-fr15-01-api-products-thieu-xac-thuc-phan-quyen-va-cho-phep-guest-truy-cap-crud)                  | FR-15     | API /api/products hoàn toàn thiếu xác thực và phân quyền cho các thao tác CRUD                    | Critical        | High       | Open       | FR15-DOM-TC04, TC05, TC06                             | Chưa tạo                                                        |
+| [BUG-FR15-02](#bug-fr15-02-api-products-backend-khong-validate-du-lieu-dau-vao-khi-them-sua-san-pham)               | FR-15     | API /api/products không thực hiện validate bất kỳ trường dữ liệu nào của sản phẩm                  | Critical        | High       | Open       | FR15-DOM-TC10..TC17, BVA-TC03, TC05, TC06, TC07                | Chưa tạo                                                 |
+| [BUG-FR15-03](#bug-fr15-03-backend-chap-nhan-imageUrl-va-category_id-khong-hop-le-khi-them-sua-san-pham)            | FR-15     | API chấp nhận category_id không tồn tại và imageUrl không đúng định dạng URL                      | High            | High       | Open       | FR15-BVA-TC10                                         | Chưa tạo                                                        |
+| [BUG-FR15-04](#bug-fr15-04-api-productsid-cap-nhat-xoa-id-khong-ton-tai-van-bao-thanh-cong)                         | FR-15     | API /api/products/:id cập nhật hoặc xóa ID sản phẩm không tồn tại vẫn báo thành công               | High            | High       | Open       | FR15-DOM-TC07, TC08, TC09                             | Chưa tạo                                                        |
+| [BUG-FR15-05](#bug-fr15-05-giao-dien-admin-cap-nhat-mot-san-pham-lam-doi-ten-tat-ca-san-pham-khac)                 | FR-15     | Giao diện Admin cập nhật một sản phẩm làm đổi tên tất cả sản phẩm khác                             | High            | High       | Open       | FR15-DOM-TC19                                         | Chưa tạo                                                        |
+| ---
 
 ## 2. Chi tiết từng lỗi (Report)
 
@@ -71,9 +76,9 @@ Hệ thống API backend chấp nhận thuộc tính `role: "admin"` truyền l�
 #### Bằng chứng và ảnh chụp màn hình
 
 - Minh chứng 1: Gửi request PUT chứa thuộc tính role admin
-  ![Gửi request PUT chứa thuộc tính role admin](./screenshots/BUG-FR04-01-01.png)
+  ![Gửi request PUT chứa thuộc tính role admin](./screenshots/FR04/BUG-FR04-01-01.png)
 - Minh chứng 2: Kết quả GET profile hiển thị tài khoản đã bị nâng lên admin
-  ![Kết quả GET profile hiển thị tài khoản đã bị nâng lên admin](./screenshots/BUG-FR04-01-02.png)
+  ![Kết quả GET profile hiển thị tài khoản đã bị nâng lên admin](./screenshots/FR04/BUG-FR04-01-02.png)
 
 ---
 
@@ -121,9 +126,9 @@ Khi thực hiện cập nhật hồ sơ cá nhân qua phương thức PUT, nếu
 #### Bằng chứng và ảnh chụp màn hình
 
 - Minh chứng 1: Gửi request PUT khuyết trường phone khiến API backend cập nhật thành công
-  ![Gửi request PUT khuyết trường phone](./screenshots/BUG-FR04-02-01.png)
+  ![Gửi request PUT khuyết trường phone](./screenshots/FR04/BUG-FR04-02-01.png)
 - Minh chứng 2: Kết quả GET profile cho thấy trường phone đã bị ghi đè thành null
-  ![Kết quả GET profile hiển thị phone bị null](./screenshots/BUG-FR04-02-02.png)
+  ![Kết quả GET profile hiển thị phone bị null](./screenshots/FR04/BUG-FR04-02-02.png)
 
 ---
 
@@ -172,9 +177,9 @@ API backend `PUT /api/users/me` hoàn toàn thiếu cơ chế kiểm tra tính h
 #### Bằng chứng và ảnh chụp màn hình
 
 - Minh chứng 1: Gửi request PUT chứa thông tin rỗng và sai định dạng phone
-  ![Gửi request PUT chứa dữ liệu không hợp lệ](./screenshots/BUG-FR04-03-01.png)
+  ![Gửi request PUT chứa dữ liệu không hợp lệ](./screenshots/FR04/BUG-FR04-03-01.png)
 - Minh chứng 2: Kết quả GET profile cho thấy thông tin không hợp lệ được lưu thành công
-  ![Kết quả GET profile chứa dữ liệu không hợp lệ](./screenshots/BUG-FR04-03-02.png)
+  ![Kết quả GET profile chứa dữ liệu không hợp lệ](./screenshots/FR04/BUG-FR04-03-02.png)
 
 ---
 
@@ -217,7 +222,7 @@ Khi người dùng xem thông tin cá nhân của mình, API backend trả về 
 #### Bằng chứng và ảnh chụp màn hình
 
 - Minh chứng 1: Response của API GET profile để lộ các trường nhạy cảm như password hash và reset token
-  ![Lộ lọt thông tin nhạy cảm trong response](./screenshots/BUG-FR04-04-01.png)
+  ![Lộ lọt thông tin nhạy cảm trong response](./screenshots/FR04/BUG-FR04-04-01.png)
 
 ---
 
@@ -264,9 +269,9 @@ Hành vi này đồng thời làm phát sinh lỗi liên đới:
 #### Bằng chứng và ảnh chụp màn hình
 
 - Minh chứng 1: Nhập số điện thoại bắt đầu bằng số 0 hợp lệ và bị Frontend báo lỗi alert
-  ![Frontend chặn cập nhật số điện thoại hợp lệ](./screenshots/BUG-FR04-05-01.png)
+  ![Frontend chặn cập nhật số điện thoại hợp lệ](./screenshots/FR04/BUG-FR04-05-01.png)
 - Minh chứng 2: Hệ thống chỉ chấp nhận lưu khi người dùng nhập số điện thoại không bắt đầu bằng số 0
-  ![Frontend bắt buộc nhập số điện thoại không có số 0 đầu](./screenshots/BUG-FR04-05-02.png)
+  ![Frontend bắt buộc nhập số điện thoại không có số 0 đầu](./screenshots/FR04/BUG-FR04-05-02.png)
 
 ---
 
@@ -323,6 +328,12 @@ Theo đặc tả nghiệp vụ, sau khi người dùng tiến hành thanh toán 
 #### Bằng chứng
 
 - Response trả về thành công `200 OK` cho request checkout, nhưng khi gửi request GET `/api/cart` sau đó, danh sách giỏ hàng vẫn trả về danh sách các sản phẩm trước đó thay vì giỏ hàng trống `[]`.
+- Minh chứng 1: Thêm sản phẩm nominal vào giỏ hàng trước checkout
+  ![Thêm sản phẩm nominal vào giỏ hàng trước checkout](./screenshots/FR08/BUG-FR08-01-01.png)
+- Minh chứng 2: Checkout trả về thành công
+  ![Checkout trả về thành công](./screenshots/FR08/BUG-FR08-01-02.png)
+- Minh chứng 3: Giỏ hàng vẫn còn sản phẩm sau checkout
+  ![Giỏ hàng vẫn còn sản phẩm sau checkout](./screenshots/FR08/BUG-FR08-01-03.png)
 
 ---
 
@@ -387,6 +398,12 @@ FR-08 yêu cầu backend phải tự tính lại tổng tiền từ giỏ hàng 
 #### Bằng chứng
 
 - API trả về `200 OK` cho tất cả các trường hợp gửi giá trị `total_amount` sai lệch. Danh sách đơn hàng (`GET /api/orders/my-orders`) hiển thị đơn hàng đã được lưu thành công với các tổng tiền không hợp lệ tương ứng.
+- Minh chứng 1: Checkout vẫn thành công khi `total_amount` không hợp lệ
+  ![Checkout vẫn thành công khi total_amount không hợp lệ](./screenshots/FR08/BUG-FR08-02-01.png)
+- Minh chứng 2: Order được tạo với tổng tiền sai lệch
+  ![Order được tạo với tổng tiền sai lệch](./screenshots/FR08/BUG-FR08-02-02.png)
+- Minh chứng 3: Danh sách order ghi nhận giá trị `total_amount` từ client
+  ![Danh sách order ghi nhận giá trị total_amount từ client](./screenshots/FR08/BUG-FR08-02-03.png)
 
 ---
 
@@ -449,6 +466,12 @@ API checkout không kiểm tra trường địa chỉ giao hàng. Hệ thống v
 #### Bằng chứng
 
 - API chấp nhận tạo đơn hàng thành công với mã `200 OK`. Khi truy vấn lại thông tin đơn hàng, trường `shipping_address` lưu các giá trị `null`, `""` hoặc `"   "`.
+- Minh chứng 1: Checkout với `shipping_address` rỗng vẫn thành công
+  ![Checkout với shipping_address rỗng vẫn thành công](./screenshots/FR08/BUG-FR08-03-01.png)
+- Minh chứng 2: Checkout với `shipping_address` không hợp lệ vẫn tạo order
+  ![Checkout với shipping_address không hợp lệ vẫn tạo order](./screenshots/FR08/BUG-FR08-03-02.png)
+- Minh chứng 3: Order lưu địa chỉ giao hàng không hợp lệ
+  ![Order lưu địa chỉ giao hàng không hợp lệ](./screenshots/FR08/BUG-FR08-03-03.png)
 
 ---
 
@@ -491,6 +514,10 @@ Trên màn hình xác nhận thanh toán (Checkout), số tiền "Tổng tiền 
 #### Bằng chứng
 
 - Trường hiển thị Tổng tiền thanh toán trên giao diện Checkout được định nghĩa bằng thẻ input số hoạt động bình thường, cho phép nhập liệu tự do.
+- Minh chứng 1: Trường tổng tiền thanh toán hiển thị dưới dạng ô nhập
+  ![Trường tổng tiền thanh toán hiển thị dưới dạng ô nhập](./screenshots/FR08/BUG-FR08-04-01.png)
+- Minh chứng 2: Người dùng có thể sửa tổng tiền thanh toán
+  ![Người dùng có thể sửa tổng tiền thanh toán](./screenshots/FR08/BUG-FR08-04-02.png)
 
 ---
 
@@ -552,6 +579,12 @@ API backend không kiểm duyệt thông tin sản phẩm khi thêm vào giỏ h
 #### Bằng chứng
 
 - Phản hồi `200 OK` nhận được từ API giỏ hàng khi gửi request thêm sản phẩm có số lượng/đơn giá bằng 0. Gọi API checkout thành công và tạo đơn hàng có tổng giá trị bằng 0đ thành công.
+- Minh chứng 1: API cart chấp nhận sản phẩm có `price=0` hoặc `quantity=0`
+  ![API cart chấp nhận sản phẩm có price hoặc quantity bằng 0](./screenshots/FR08/BUG-FR08-05-01.png)
+- Minh chứng 2: Checkout với cart item không hợp lệ vẫn thành công
+  ![Checkout với cart item không hợp lệ vẫn thành công](./screenshots/FR08/BUG-FR08-05-02.png)
+- Minh chứng 3: Order được tạo với tổng tiền bằng 0
+  ![Order được tạo với tổng tiền bằng 0](./screenshots/FR08/BUG-FR08-05-03.png)
 
 ---
 
@@ -599,3 +632,285 @@ Quy trình nghiệp vụ mua sắm yêu cầu giỏ hàng của khách hàng ph�
 #### Bằng chứng
 
 - Phản hồi `200 OK` nhận được từ API checkout với request thanh toán giỏ hàng rỗng, tạo đơn hàng mới có tổng giá trị bằng 0đ thành công.
+- Minh chứng 1: Giỏ hàng đang trống trước checkout
+  ![Giỏ hàng đang trống trước checkout](./screenshots/FR08/BUG-FR08-06-01.png)
+- Minh chứng 2: Checkout giỏ hàng rỗng vẫn trả về thành công
+  ![Checkout giỏ hàng rỗng vẫn trả về thành công](./screenshots/FR08/BUG-FR08-06-02.png)
+- Minh chứng 3: Order vẫn được tạo với tổng tiền bằng 0
+  ![Order vẫn được tạo với tổng tiền bằng 0](./screenshots/FR08/BUG-FR08-06-03.png)
+
+---
+
+### BUG-FR15-01: API /api/products thiếu xác thực phân quyền và cho phép Guest truy cập CRUD
+
+#### Mô tả lỗi
+
+Các API thay đổi dữ liệu sản phẩm bao gồm `POST /api/products`, `PUT /api/products/:id`, và `DELETE /api/products/:id` hoàn toàn thiếu middleware xác thực (`authenticateToken`), cho phép khách vãng lai (Guest) hoặc người dùng thông thường không có quyền Admin thực hiện Thêm, Sửa, Xóa sản phẩm tùy ý trên hệ thống.
+
+#### Điều kiện tiên quyết
+
+- Backend SUT đang chạy cục bộ và Product APIs truy cập được.
+- Có ít nhất một category hợp lệ trong hệ thống để gửi `category_id` khi tạo/cập nhật product.
+- Không gửi header `Authorization`, hoặc sử dụng token không hợp lệ/non-admin token.
+- Với update/delete, có ít nhất một product test tồn tại để thao tác.
+
+#### Các bước tái hiện
+
+1. Gửi request `POST http://localhost:3000/api/products` không kèm header `Authorization` với body:
+   ```json
+   {
+     "name": "Guest Created Product",
+     "price": 150000,
+     "description": "Created by Guest",
+     "imageUrl": "https://example.com/guest.png",
+     "category_id": 1
+   }
+   ```
+2. Gửi request `PUT http://localhost:3000/api/products/1` không kèm header `Authorization` để cập nhật một product đang tồn tại.
+3. Gửi request `DELETE http://localhost:3000/api/products/2` không kèm header `Authorization` để xóa một product đang tồn tại.
+4. Lặp lại các request trên với token không hợp lệ hoặc non-admin token.
+
+#### Kết quả mong đợi
+
+- Hệ thống từ chối yêu cầu và trả về lỗi `401 Unauthorized` hoặc `403 Forbidden`.
+- Dữ liệu sản phẩm trong database không bị thay đổi.
+
+#### Kết quả thực tế
+
+- Tất cả các API trên đều trả về `200 OK` và thực hiện thêm/sửa/xóa thành công sản phẩm trong cơ sở dữ liệu SQLite.
+
+#### Test Case đối chiếu
+
+- **Mã Test Case:** FR15-DOM-TC04, FR15-DOM-TC05, FR15-DOM-TC06
+- **Phương pháp thiết kế:** Domain Testing (Xác thực và Phân quyền)
+
+#### Môi trường
+
+- **Hệ điều hành:** Windows 11
+- **Trình duyệt / Công cụ:** Postman / API Client / Node.js
+- **Môi trường chạy:** SUT local server (port 3000)
+
+#### Bằng chứng
+
+- Guest hoặc user không có quyền Admin gửi `POST`/`PUT`/`DELETE` tới Product APIs vẫn nhận phản hồi `200 OK`. Product được tạo/cập nhật/xóa thành công mặc dù request không có quyền Admin.
+- Minh chứng 1: Guest tạo product không token vẫn thành công
+  ![Guest tạo product không token vẫn thành công](./screenshots/FR15/BUG-FR15-01-01.png)
+- Minh chứng 2: Guest cập nhật product không token vẫn thành công
+  ![Guest cập nhật product không token vẫn thành công](./screenshots/FR15/BUG-FR15-01-02.png)
+- Minh chứng 3: Guest xóa product không token vẫn thành công
+  ![Guest xóa product không token vẫn thành công](./screenshots/FR15/BUG-FR15-01-03.png)
+
+---
+
+### BUG-FR15-02: API /api/products backend không validate dữ liệu đầu vào khi thêm/sửa sản phẩm
+
+#### Mô tả lỗi
+
+API backend `POST /api/products` và `PUT /api/products/:id` thiếu cơ chế kiểm duyệt dữ liệu đầu vào (input validation). Hệ thống chấp nhận lưu sai kiểu dữ liệu, thiếu các field bắt buộc (`name`, `price`, `category_id`), tên sản phẩm rỗng `""`, tên sản phẩm dài 256 ký tự (vượt mức tối đa 255), đơn giá bằng 0 hoặc số âm `-1` vào database SQLite.
+
+#### Điều kiện tiên quyết
+
+- Backend SUT đang chạy cục bộ và Product APIs truy cập được.
+- Admin đã đăng nhập và có JWT Token hợp lệ để gọi API.
+- Có ít nhất một category hợp lệ trong hệ thống, ví dụ category lấy từ `GET /api/categories`.
+- Với testcase update, cần có ít nhất một product test tồn tại trước khi gửi `PUT /api/products/:id`.
+
+#### Các bước tái hiện
+
+1. Gửi request `POST http://localhost:3000/api/products` kèm header `Authorization: Bearer <admin_token>` với body chứa tên rỗng và đơn giá âm:
+   ```json
+   {
+     "name": "",
+     "price": -1000,
+     "description": "Invalid input product",
+     "imageUrl": "https://example.com/invalid.png",
+     "category_id": 1
+   }
+   ```
+2. Gửi request `POST http://localhost:3000/api/products` kèm cùng header admin token với body chứa tên sản phẩm dài 256 ký tự `A...A`.
+3. Gửi request `POST http://localhost:3000/api/products` kèm cùng header admin token, thiếu từng field bắt buộc như `name`, `price`, hoặc `category_id`.
+4. Gửi request `PUT http://localhost:3000/api/products/<existing_product_id>` kèm cùng header admin token với dữ liệu sai kiểu hoặc thiếu field bắt buộc.
+
+#### Kết quả mong đợi
+
+- Server từ chối request, trả về mã lỗi `400 Bad Request` kèm theo các thông báo lỗi validation (ví dụ: "Name is required", "Price must be greater than 0").
+
+#### Kết quả thực tế
+
+- Server trả về `200 OK` và lưu thành công sản phẩm có tên rỗng, đơn giá âm, tên quá dài, sai kiểu dữ liệu, hoặc thiếu field bắt buộc vào cơ sở dữ liệu.
+
+#### Test Case đối chiếu
+
+- **Mã Test Case:** FR15-DOM-TC10, FR15-DOM-TC11, FR15-DOM-TC12, FR15-DOM-TC13, FR15-DOM-TC14, FR15-DOM-TC15, FR15-DOM-TC16, FR15-DOM-TC17, FR15-BVA-TC03, FR15-BVA-TC05, FR15-BVA-TC06, FR15-BVA-TC07
+- **Phương pháp thiết kế:** Domain Testing & Boundary Value Analysis
+
+#### Môi trường
+
+- **Hệ điều hành:** Windows 11
+- **Trình duyệt / Công cụ:** Postman / API Client / Node.js
+- **Môi trường chạy:** SUT local server (port 3000)
+
+#### Bằng chứng
+
+- API trả `200 OK` và tạo product cho các request thiếu `name`, thiếu `price`, thiếu `category_id`, `name=""`, `name` 256 ký tự, `price=0`, `price=-1`, hoặc sai kiểu dữ liệu.
+- Minh chứng 1: API chấp nhận dữ liệu product không hợp lệ
+  ![API chấp nhận dữ liệu product không hợp lệ](./screenshots/FR15/BUG-FR15-02-01.png)
+- Minh chứng 2: Product không hợp lệ vẫn được lưu thành công
+  ![Product không hợp lệ vẫn được lưu thành công](./screenshots/FR15/BUG-FR15-02-02.png)
+
+---
+
+### BUG-FR15-03: Backend chấp nhận imageUrl và category_id không hợp lệ khi thêm/sửa sản phẩm
+
+#### Mô tả lỗi
+
+API backend của Product CRUD không kiểm tra tính toàn vẹn tham chiếu (referential integrity) của `category_id` (chấp nhận một ID danh mục không tồn tại trong bảng categories) và chấp nhận định dạng `imageUrl` không hợp lệ.
+
+#### Điều kiện tiên quyết
+
+- Backend SUT đang chạy cục bộ và Product APIs truy cập được.
+- Admin đã đăng nhập và có JWT Token hợp lệ để gọi API.
+- Xác nhận `category_id = 999` không tồn tại bằng cách gọi `GET /api/categories` trước khi gửi request tạo/cập nhật product.
+- Với testcase update, cần có ít nhất một product test tồn tại trước khi gửi `PUT /api/products/:id`.
+
+#### Các bước tái hiện
+
+1. Gửi request `GET http://localhost:3000/api/categories` để xác nhận không có category nào có ID = `999`.
+2. Gửi request `POST http://localhost:3000/api/products` kèm header `Authorization: Bearer <admin_token>` với `category_id` = 999:
+   ```json
+   {
+     "name": "Invalid Category Product",
+     "price": 100000,
+     "description": "Invalid Category ID",
+     "imageUrl": "https://example.com/valid.png",
+     "category_id": 999
+   }
+   ```
+3. Gọi `GET http://localhost:3000/api/products` hoặc `GET http://localhost:3000/api/products/<new_product_id>` để kiểm tra product vừa được lưu.
+
+#### Kết quả mong đợi
+
+- Hệ thống từ chối tạo sản phẩm do category không tồn tại, trả về mã lỗi `400 Bad Request` hoặc lỗi vi phạm ràng buộc khóa ngoại (Foreign Key Constraint).
+
+#### Kết quả thực tế
+
+- API trả về `200 OK` và lưu thành công sản phẩm mới với `category_id = 999`.
+
+#### Test Case đối chiếu
+
+- **Mã Test Case:** FR15-BVA-TC10
+- **Phương pháp thiết kế:** Boundary Value Analysis
+
+#### Môi trường
+
+- **Hệ điều hành:** Windows 11
+- **Trình duyệt / Công cụ:** Postman / API Client / Node.js
+- **Môi trường chạy:** SUT local server (port 3000)
+
+#### Bằng chứng
+
+- Dữ liệu sản phẩm trong DB liên kết đến danh mục `999` vốn không hề tồn tại trên hệ thống.
+- Minh chứng 1: Category ID không tồn tại trong danh sách category
+  ![Category ID không tồn tại trong danh sách category](./screenshots/FR15/BUG-FR15-03-01.png)
+- Minh chứng 2: Product vẫn được tạo với `category_id=999`
+  ![Product vẫn được tạo với category_id không tồn tại](./screenshots/FR15/BUG-FR15-03-02.png)
+
+---
+
+### BUG-FR15-04: API /api/products/:id cập nhật/xóa ID không tồn tại vẫn báo thành công
+
+#### Mô tả lỗi
+
+Khi gửi yêu cầu cập nhật (`PUT`) hoặc xóa (`DELETE`) một sản phẩm bằng ID không tồn tại trên hệ thống (ví dụ: `9999`), API backend không kiểm duyệt sự tồn tại của sản phẩm trước khi thực thi truy vấn và vẫn trả về trạng thái thành công `200 OK`.
+
+#### Điều kiện tiên quyết
+
+- Backend SUT đang chạy cục bộ và Product APIs truy cập được.
+- Admin đã đăng nhập và có JWT Token hợp lệ để gọi API.
+- Xác nhận không tồn tại sản phẩm nào có ID là `9999`, ví dụ gọi `GET /api/products/9999` hoặc kiểm tra danh sách product trước khi test.
+
+#### Các bước tái hiện
+
+1. Gửi request `GET http://localhost:3000/api/products/9999` hoặc kiểm tra danh sách product để xác nhận product ID `9999` không tồn tại.
+2. Gửi request `PUT http://localhost:3000/api/products/9999` kèm header `Authorization: Bearer <admin_token>` với body cập nhật thông tin sản phẩm.
+3. Gửi request `DELETE http://localhost:3000/api/products/9999` kèm header `Authorization: Bearer <admin_token>`.
+
+#### Kết quả mong đợi
+
+- Hệ thống trả về lỗi `404 Not Found` kèm thông điệp "Product not found".
+
+#### Kết quả thực tế
+
+- Cả hai API đều trả về trạng thái `200 OK` với thông điệp: `"Product updated"` và `"Product deleted"`.
+
+#### Test Case đối chiếu
+
+- **Mã Test Case:** FR15-DOM-TC07, FR15-DOM-TC08, FR15-DOM-TC09
+- **Phương pháp thiết kế:** Domain Testing (Negative Cases)
+
+#### Môi trường
+
+- **Hệ điều hành:** Windows 11
+- **Trình duyệt / Công cụ:** Postman / API Client / Node.js
+- **Môi trường chạy:** SUT local server (port 3000)
+
+#### Bằng chứng
+
+- API PUT và DELETE trả về `200 OK` thành công mặc dù không có dòng nào được thay đổi trong database.
+- Minh chứng 1: Xác nhận product ID không tồn tại
+  ![Xác nhận product ID không tồn tại](./screenshots/FR15/BUG-FR15-04-01.png)
+- Minh chứng 2: Update product ID không tồn tại vẫn báo thành công
+  ![Update product ID không tồn tại vẫn báo thành công](./screenshots/FR15/BUG-FR15-04-02.png)
+- Minh chứng 3: Delete product ID không tồn tại vẫn báo thành công
+  ![Delete product ID không tồn tại vẫn báo thành công](./screenshots/FR15/BUG-FR15-04-03.png)
+
+---
+
+### BUG-FR15-05: Giao diện Admin cập nhật một sản phẩm làm đổi tên tất cả sản phẩm khác
+
+#### Mô tả lỗi
+
+Trên giao diện Web Admin của Product Management, khi Admin cập nhật một sản phẩm bất kỳ và thao tác cập nhật thành công, tên của các sản phẩm khác trong danh sách cũng bị đổi theo. Hành vi này vi phạm rule FR-15: khi sửa một sản phẩm, chỉ sản phẩm đó bị thay đổi, các sản phẩm khác phải giữ nguyên.
+
+#### Điều kiện tiên quyết
+
+- Admin đã đăng nhập vào Web Admin.
+- Backend và frontend-admin đang chạy.
+- Danh sách sản phẩm có ít nhất hai sản phẩm khác nhau, ví dụ product A và product B.
+- Ghi nhận tên ban đầu của product A và product B trước khi thao tác cập nhật.
+
+#### Các bước tái hiện
+
+1. Truy cập màn hình quản lý sản phẩm trên Web Admin.
+2. Chọn một sản phẩm bất kỳ, ví dụ product A.
+3. Cập nhật một field bất kỳ của product A, chẳng hạn tên, giá, mô tả, ảnh hoặc danh mục.
+4. Lưu thay đổi và quan sát lại danh sách sản phẩm sau khi hệ thống báo cập nhật thành công.
+
+#### Kết quả mong đợi
+
+- Chỉ product A được cập nhật theo dữ liệu Admin vừa nhập.
+- Tên của các sản phẩm khác, ví dụ product B, phải giữ nguyên như trước khi update.
+
+#### Kết quả thực tế
+
+- Sau khi cập nhật product A thành công, tên của tất cả các sản phẩm khác trên giao diện cũng bị đổi theo.
+- API-level isolation test (`FR15-DOM-TC18`) cho thấy product B vẫn giữ nguyên khi kiểm qua API, nên lỗi này được ghi nhận ở tầng giao diện Web Admin hoặc state/rendering của frontend.
+
+#### Test Case đối chiếu
+
+- **Mã Test Case:** FR15-DOM-TC19
+- **Phương pháp thiết kế:** Domain Testing / UI Observation
+
+#### Môi trường
+
+- **Hệ điều hành:** Windows 11
+- **Trình duyệt / Công cụ:** Web Admin UI
+- **Môi trường chạy:** SUT local frontend-admin và backend local server
+
+#### Bằng chứng
+
+- Quan sát thủ công trên giao diện: cập nhật một product bất kỳ thành công nhưng tên các product khác trong danh sách cũng bị đổi theo.
+- Minh chứng 1: Danh sách product trước khi cập nhật một product
+  ![Danh sách product trước khi cập nhật một product](./screenshots/FR15/BUG-FR15-05-01.png)
+- Minh chứng 2: Sau update, tên các product khác trên giao diện cũng bị đổi
+  ![Sau update, tên các product khác trên giao diện cũng bị đổi](./screenshots/FR15/BUG-FR15-05-02.png)
