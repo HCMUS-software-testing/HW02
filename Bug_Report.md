@@ -19,7 +19,7 @@ Dưới đây là danh sách các lỗi phát hiện được đối với các 
 | **BUG-FR02-03** | API đăng nhập thành công trả về trường mật khẩu dưới dạng văn bản rõ (plaintext)      |       `TC01`, `TC-BVA-01`        | Payload phản hồi của API khi đăng nhập thành công chứa thuộc tính mật khẩu người dùng, gây nguy cơ rò rỉ dữ liệu nhạy cảm.                                              |        **Critical**        |    Open    |
 | **BUG-FR02-04** | Trường Email trên giao diện Web và Admin không kiểm tra định dạng HTML5 ở client      |              `TC03`              | Trường Email đăng nhập sử dụng thẻ input có type="text" thay vì type="email", cho phép gửi dữ liệu email sai định dạng lên backend.                                     |          **High**          |    Open    |
 | **BUG-FR02-05** | Hệ thống không vô hiệu hóa phiên làm việc (JWT Token) cũ khi tài khoản bị tạm khóa    |              `TC09`              | JWT Token cũ đã cấp từ trước vẫn có quyền gọi API lấy dữ liệu nhạy cảm bình thường ngay cả khi tài khoản đã bị khóa ở session khác.                                     |        **Critical**        |    Open    |
-| **BUG-FR02-06** | Backend API đăng nhập không kiểm tra định dạng email trước khi truy vấn cơ sở dữ liệu |              `TC10`              | API `/api/login` cho phép gửi định dạng email sai bất kỳ lên server và thực hiện câu lệnh SQL SELECT trực tiếp mà không chặn sớm.                                       |         **Medium**         |    Open    |
+| **BUG-FR02-06** | API đăng nhập không phản hồi rõ ràng cho email sai định dạng khi gọi trực tiếp |              `TC10`              | Khi gửi trực tiếp email sai định dạng tới `/api/login`, API vẫn trả lỗi đăng nhập chung thay vì lỗi validation định dạng email theo yêu cầu kiểm tra input.               |         **Low**            |    Open    |
 | **BUG-FR02-07** | Lỗ hổng Race Condition cho phép gửi song song nhiều request vượt cơ chế khóa          |              `TC08`              | Khi gửi 5 request đăng nhập sai đồng thời qua API trong 1ms, tất cả đều được xử lý thành công (trả về 401) thay vì bị chặn từ lần 3.                                    |          **High**          |    Open    |
 
 ### 1.2. Pool B: FR-09: Mã Giảm Giá (Coupon)
@@ -29,10 +29,10 @@ Dưới đây là danh sách các lỗi phát hiện được đối với các 
 | **BUG-FR09-01** | Lỗi tính toán sai số tiền được giảm cho coupon loại phần trăm (percent)                                      | `TC01`, `TC-BVA-03`, `TC-BVA-06` | Coupon phần trăm (ví dụ giảm 10% cho đơn 500,000 ₫) bị tính sai công thức khiến giá trị discount bị âm (-4,500,000 ₫) và tổng tiền cuối cùng tăng vọt (5,000,000 ₫). |          **High**          |    Open    |
 | **BUG-FR09-02** | So sánh sai biên tối thiểu khiến đơn hàng bằng đúng ngưỡng tối thiểu bị từ chối                              |           `TC-BVA-01`            | Đơn hàng có tổng tiền đúng bằng ngưỡng tối thiểu áp dụng mã (300,000 ₫) vẫn bị hệ thống báo lỗi không đủ điều kiện tối thiểu.                                        |          **High**          |    Open    |
 | **BUG-FR09-03** | Lỗ hổng API kiểm tra mã giảm giá (`/api/apply-coupon`) không xác thực Token JWT                              |              `TC11`              | API `/api/apply-coupon` không yêu cầu xác thực JWT, cho phép bất kỳ ai (kể cả chưa đăng nhập) gọi API thành công.                                                    |        **Critical**        |    Open    |
-| **BUG-FR09-04** | Hệ thống cho phép giả mạo `user_id` (ID Spoofing) hoặc bỏ trống `user_id` khi áp dụng mã giảm giá            |          `TC09`, `TC10`          | Backend lấy `user_id` trực tiếp từ request body để kiểm tra số lần dùng mà không đối chiếu với token, hoặc bỏ qua kiểm tra nếu bỏ trống `user_id`.                   |        **Critical**        |    Open    |
+| **BUG-FR09-04** | Hệ thống cho phép giả mạo `user_id` (ID Spoofing) hoặc bỏ trống `user_id` khi áp dụng mã giảm giá            |          `TC09`, `TC10`          | API vẫn chấp nhận request khi `user_id` trong body không khớp người dùng đang đăng nhập, hoặc khi thiếu `user_id`, thay vì ràng buộc theo JWT hợp lệ.               |        **Critical**        |    Open    |
 | **BUG-FR09-05** | Lỗ hổng Checkout Bypass - API thanh toán (`/api/checkout`) không xác thực lại các điều kiện mã giảm giá      |              `TC15`              | API `/api/checkout` nhận trực tiếp tổng số tiền đã giảm từ body mà không kiểm tra hay validate lại tính hợp lệ của mã giảm giá trên backend.                         |        **Critical**        |    Open    |
 | **BUG-FR09-06** | Lỗi xử lý thông điệp phản hồi không khớp cho dữ liệu đầu vào không hợp lệ (số tiền âm hoặc sai kiểu dữ liệu) |          `TC07`, `TC08`          | Khi gửi số tiền âm (-50k) hoặc sai kiểu chữ, hệ thống báo lỗi sai nghiệp vụ: "Đơn hàng chưa đủ giá trị tối thiểu..." thay vì báo lỗi định dạng/số tiền không hợp lệ. |         **Medium**         |    Open    |
-| **BUG-FR09-07** | Lỗ hổng Race Condition (Double Use) cho phép ghi nhận sử dụng mã giảm giá nhiều lần                          |              `TC14`              | Gửi đồng thời các request ghi nhận sử dụng mã (`/api/coupon-usage`) trong cùng 1ms cho phép ghi nhận vượt quá số lần tối đa quy định của coupon.                     |          **High**          |    Open    |
+| **BUG-FR09-07** | Lỗ hổng Race Condition (Double Apply) cho phép áp dụng mã giới hạn 1 lần nhiều lần                          |              `TC14`              | Gửi đồng thời các request áp dụng mã qua endpoint công khai `/api/apply-coupon` trong cùng 1ms đều được chấp nhận, thay vì chỉ cho phép một request thành công.        |          **High**          |    Open    |
 
 ### 1.3. Pool C: FR-17: Quản lý Mã Giảm Giá (Coupon CRUD)
 
@@ -120,20 +120,20 @@ Dưới đây là danh sách các lỗi phát hiện được đối với các 
     2.  Ở Thiết bị B, thực hiện đăng nhập sai 2 lần liên tiếp để đưa tài khoản vào trạng thái tạm khóa.
     3.  Ở Thiết bị A, sử dụng JWT Token đã lấy ở bước 1 để gửi request `GET /api/users/me` (đây là endpoint yêu cầu xác thực).
 *   **Kết quả mong đợi (Expected Output):** Server từ chối request và trả về mã lỗi `401 Unauthorized` hoặc `403 Forbidden` vì tài khoản tương ứng đang bị khóa.
-*   **Kết quả thực tế (Actual Output):** Backend API vẫn trả về `200 OK` kèm theo toàn bộ thông tin cá nhân và mật khẩu chưa mã hóa của tài khoản, bất chấp việc tài khoản này đang bị khóa trong CSDL.
+*   **Kết quả thực tế (Actual Output):** API vẫn trả về `200 OK` kèm theo toàn bộ thông tin cá nhân và mật khẩu chưa mã hóa của tài khoản, bất chấp trạng thái tài khoản đang bị khóa theo luồng kiểm thử.
 *   **Đường dẫn GitHub Issue:** [GitHub Issue #5](https://github.com/HCMUS-software-testing/HW02/issues/5)
 *   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR02-05](screenshots/BUG-FR02-05-1.png) ![Screenshot BUG-FR02-05](screenshots/BUG-FR02-05-2.png)
 
 ---
 
-### BUG-FR02-06: Backend API đăng nhập không kiểm tra định dạng email trước khi truy vấn cơ sở dữ liệu
+### BUG-FR02-06: API đăng nhập không phản hồi rõ ràng cho email sai định dạng khi gọi trực tiếp
 
-*   **Mô tả lỗi:** Endpoint `/api/login` ở backend không kiểm tra tính hợp lệ của định dạng email đầu vào mà trực tiếp sử dụng chuỗi nhận được để thực hiện câu lệnh SQL tìm kiếm tài khoản. Điều này làm lãng phí tài nguyên xử lý của cơ sở dữ liệu đối với các truy vấn rác hoặc sai định dạng.
+*   **Mô tả lỗi:** Khi gọi trực tiếp endpoint `/api/login` với email sai định dạng, API không trả lỗi validation định dạng email. Hệ thống phản hồi lỗi đăng nhập chung, khiến phía API không thể hiện rõ ràng yêu cầu kiểm tra email hợp lệ như đặc tả.
 *   **Các bước tái hiện (Steps to Reproduce):**
     1.  Dùng Postman hoặc cURL gửi trực tiếp request POST tới `http://localhost:3000/api/login` với body: `{"email": "notanemail", "password": "Test1234!"}`.
     2.  Kiểm tra response trả về từ server.
-*   **Kết quả mong đợi (Expected Output):** Server từ chối nhanh và trả về mã lỗi `400 Bad Request` hoặc `401 Unauthorized` kèm mô tả lỗi email sai định dạng, không cần thực hiện truy vấn xuống CSDL SQLite.
-*   **Kết quả thực tế (Actual Output):** Server không validate định dạng email, vẫn cho chạy câu lệnh truy vấn SQL SELECT để tìm chuỗi `'notanemail'`, sau đó trả về lỗi đăng nhập sai thông tin chung `401 Unauthorized`.
+*   **Kết quả mong đợi (Expected Output):** Server từ chối input sai định dạng và trả về mã lỗi `400 Bad Request` hoặc `401 Unauthorized` kèm thông báo phù hợp về email không hợp lệ.
+*   **Kết quả thực tế (Actual Output):** Server trả lỗi đăng nhập chung `401 Unauthorized` cho chuỗi `'notanemail'`, không có phản hồi validation riêng cho định dạng email sai.
 *   **Đường dẫn GitHub Issue:** [GitHub Issue #6](https://github.com/HCMUS-software-testing/HW02/issues/6)
 *   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR02-06](screenshots/BUG-FR02-06.png)
 
@@ -141,7 +141,7 @@ Dưới đây là danh sách các lỗi phát hiện được đối với các 
 
 ### BUG-FR02-07: Lỗ hổng Race Condition cho phép gửi song song nhiều request vượt cơ chế khóa
 
-*   **Mô tả lỗi:** Do backend không thực hiện cơ chế khóa bản ghi (row locking) hoặc xử lý giao dịch đồng thời (atomic transactions) khi kiểm tra và cập nhật trạng thái đăng nhập sai của tài khoản trong CSDL SQLite. Người dùng/kẻ tấn công có thể gửi song song nhiều request đăng nhập cùng lúc để bypass (vượt qua) bộ lọc kiểm tra khóa.
+*   **Mô tả lỗi:** Khi gửi nhiều request đăng nhập sai song song trong thời gian rất ngắn, hệ thống không chặn kịp theo ngưỡng khóa tài khoản. Đây là hành vi quan sát được qua API công khai và cho thấy cơ chế xử lý đồng thời của luồng đăng nhập chưa đáp ứng đặc tả khóa sau 3 lần sai liên tiếp.
 *   **Các bước tái hiện (Steps to Reproduce):**
     1.  Sử dụng kịch bản Node.js `scratch_test_race.js` gửi đồng thời 5 request đăng nhập sai mật khẩu của cùng 1 tài khoản trong cùng 1 mili giây.
     2.  Quan sát mã phản hồi HTTP trả về từ server cho cả 5 request.
@@ -195,7 +195,7 @@ Dưới đây là danh sách các lỗi phát hiện được đối với các 
 
 ### BUG-FR09-03: Lỗ hổng API kiểm tra mã giảm giá (/api/apply-coupon) không xác thực Token JWT
 
-*   **Mô tả lỗi:** API `/api/apply-coupon` ở backend hoàn toàn không sử dụng middleware xác thực `authenticateToken`. Người dùng chưa đăng nhập (hoặc đã đăng xuất) vẫn có thể gửi yêu cầu và nhận thông tin tính toán coupon thành công trên giao diện.
+*   **Mô tả lỗi:** API `/api/apply-coupon` vẫn trả kết quả tính toán coupon thành công khi request không có JWT hợp lệ. Người dùng chưa đăng nhập (hoặc đã đăng xuất) vẫn có thể gửi yêu cầu và nhận thông tin giảm giá, trái với điều kiện C4 của đặc tả.
 *   **Các bước tái hiện (Steps to Reproduce):**
     1. Không tiến hành đăng nhập tài khoản (hoặc đăng xuất khỏi hệ thống).
     2. Truy cập trực tiếp trang **Checkout** (`/checkout`).
@@ -212,14 +212,14 @@ Dưới đây là danh sách các lỗi phát hiện được đối với các 
 
 ### BUG-FR09-04: Hệ thống cho phép giả mạo user_id (ID Spoofing) hoặc bỏ trống user_id khi áp dụng mã giảm giá
 
-*   **Mô tả lỗi:** Backend API `/api/apply-coupon` lấy tham số `user_id` từ request body để truy vấn số lần sử dụng coupon mà không kiểm tra xem ID này có khớp với ID đã mã hóa trong token JWT của user đang đăng nhập hay không. Ngoài ra, nếu người dùng bỏ trống hoặc không truyền `user_id` (ví dụ khi không đăng nhập), backend tự động rẽ nhánh bỏ qua kiểm tra số lần sử dụng tối đa, cho phép một khách hàng áp dụng coupon vô hạn lần.
+*   **Mô tả lỗi:** API `/api/apply-coupon` vẫn áp dụng coupon thành công khi `user_id` trong request body không khớp với người dùng đang đăng nhập, hoặc khi thiếu `user_id`. Từ góc nhìn hộp đen, API chưa ràng buộc chặt điều kiện sử dụng coupon với JWT hợp lệ của chính người dùng.
 *   **Các bước tái hiện (Steps to Reproduce):**
     1. Chạy file script tự động [scratch_test_bug_fr09_04.js](./scratch_test_bug_fr09_04.js) bằng cách chạy lệnh sau trong terminal tại thư mục gốc của dự án:
        ```bash
        node scratch_test_bug_fr09_04.js
        ```
     2. Quan sát kết quả phản hồi in ra trên màn hình terminal của cả 2 kịch bản:
-       * **Trường hợp 1 (Bỏ trống user_id):** Backend gửi yêu cầu không có `user_id` để bypass kiểm tra giới hạn sử dụng.
+       * **Trường hợp 1 (Bỏ trống user_id):** Gửi yêu cầu không có `user_id`.
        * **Trường hợp 2 (Giả mạo user_id):** Đăng nhập User A nhưng truyền `user_id` của User B vào request body.
 *   **Kết quả mong đợi (Expected Output):**
     *   Hệ thống từ chối áp dụng mã giảm giá, yêu cầu xác thực khớp ID (trả về lỗi `403 Forbidden` hoặc `400 Bad Request`).
@@ -232,7 +232,7 @@ Dưới đây là danh sách các lỗi phát hiện được đối với các 
 
 ### BUG-FR09-05: Lỗ hổng Checkout Bypass - API thanh toán (/api/checkout) không xác thực lại các điều kiện mã giảm giá
 
-*   **Mô tả lỗi:** API `/api/checkout` nhận trực tiếp tham số tổng tiền đơn hàng đã giảm (`total_amount`) từ client gửi lên mà hoàn toàn không thực hiện kiểm tra chéo (re-validate) lại tính đúng đắn của giỏ hàng và coupon đã áp dụng ở backend. Ngoài ra, giao diện Checkout cho phép người dùng tự do sửa đổi trực tiếp ô số tiền thanh toán, cho phép tạo đơn hàng thành công với giá trị cực rẻ do người dùng tự nhập mà backend vẫn chấp nhận.
+*   **Mô tả lỗi:** API `/api/checkout` vẫn tạo đơn thành công với `total_amount` do client gửi lên sau khi người dùng sửa tổng tiền/giỏ hàng, thay vì từ chối hoặc tự tính lại theo giỏ hàng và điều kiện coupon hiện tại như đặc tả FR-08/FR-09. Giao diện Checkout cũng cho phép người dùng sửa trực tiếp ô số tiền thanh toán.
 *   **Các bước tái hiện (Steps to Reproduce):**
     1. Đăng nhập hệ thống, thêm sản phẩm vào giỏ hàng và đi tới trang **Checkout**.
     2. Tại ô nhập liệu **"Tổng tiền thanh toán (VND)"**, xóa giá trị cũ của giỏ hàng và nhập vào một con số cực nhỏ tùy ý (ví dụ: `50000` ₫).
@@ -241,7 +241,7 @@ Dưới đây là danh sách các lỗi phát hiện được đối với các 
 *   **Kết quả mong đợi (Expected Output):**
     *   Hệ thống từ chối thanh toán do số tiền gửi lên không khớp với tổng tiền thực tế của giỏ hàng (hoặc không đủ điều kiện tối thiểu của mã giảm giá).
 *   **Kết quả thực tế (Actual Output):**
-    *   Giao diện báo thanh toán thành công và đơn hàng mới được tạo trên hệ thống với đúng giá trị `50,000` ₫ mà không gặp bất kỳ sự cản trở nào từ backend.
+    *   Giao diện báo thanh toán thành công và đơn hàng mới được tạo trên hệ thống với đúng giá trị `50,000` ₫ mà không gặp lỗi validation.
 *   **Đường dẫn GitHub Issue:** [GitHub Issue #12](https://github.com/HCMUS-software-testing/HW02/issues/12)
 *   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR09-05](screenshots/BUG-FR09-05-1.png) ![Screenshot BUG-FR09-05](screenshots/BUG-FR09-05-2.png)
 
@@ -264,19 +264,19 @@ Dưới đây là danh sách các lỗi phát hiện được đối với các 
 
 ---
 
-### BUG-FR09-07: Lỗ hổng Race Condition (Double Use) cho phép ghi nhận sử dụng mã giảm giá nhiều lần
+### BUG-FR09-07: Lỗ hổng Race Condition (Double Apply) cho phép áp dụng mã giới hạn 1 lần nhiều lần
 
-*   **Mô tả lỗi:** Khi gửi đồng thời nhiều request ghi nhận sử dụng mã giảm giá (`POST /api/coupon-usage`) trong cùng 1 mili giây, backend xử lý bất đồng bộ (non-atomic) mà không sử dụng cơ chế transaction khóa bản ghi hoặc unique constraint trên bảng `coupon_usage` ở SQLite. Điều này dẫn đến hệ thống chấp nhận tất cả các yêu cầu và lưu vào database, cho phép người dùng bypass giới hạn sử dụng tối đa của mã giảm giá (ví dụ mã giới hạn dùng 1 lần vẫn bị lưu thành 2 dòng sử dụng).
+*   **Mô tả lỗi:** Khi gửi đồng thời nhiều request áp dụng mã giảm giá qua endpoint công khai `POST /api/apply-coupon` trong cùng 1 mili giây, hệ thống chấp nhận nhiều request thành công cho cùng một mã giới hạn 1 lần. Hành vi này cho phép người dùng vượt qua ràng buộc số lần sử dụng tối đa theo đặc tả.
 *   **Các bước tái hiện (Steps to Reproduce):**
     *   *Do Race Condition diễn ra trong mili giây nên cần thực hiện qua script tự động gửi request API đồng thời:*
     1. Sử dụng script kiểm thử `scratch_test_coupon.js` (hoặc các công cụ gửi request đồng thời như JMeter/k6).
     2. Thực hiện đăng nhập và lấy JWT token hợp lệ của một tài khoản chưa từng sử dụng coupon `SAVE10` (giới hạn 1 lần dùng).
-    3. Gửi đồng thời 2 request POST tới `/api/coupon-usage` trong cùng 1 mili giây với body: `{"coupon_id": 1}`.
-    4. Kiểm tra mã trạng thái HTTP trả về của cả 2 request và truy vấn bảng `coupon_usage` trong cơ sở dữ liệu.
+    3. Gửi đồng thời 2 request `POST /api/apply-coupon` trong cùng 1 mili giây với body hợp lệ: `{"code":"SAVE10","total_amount":500000,"user_id":1}`.
+    4. Kiểm tra mã trạng thái HTTP và response body trả về của cả 2 request.
 *   **Kết quả mong đợi (Expected Output):**
     *   Chỉ có duy nhất 1 request thành công (`200 OK`). Request còn lại phải trả về mã lỗi (`400 Bad Request` hoặc `500 Internal Server Error`).
 *   **Kết quả thực tế (Actual Output):**
-    *   Cả 2 request gửi đồng thời đều thành công (`200 OK`) và CSDL ghi nhận 2 bản ghi sử dụng cho cùng một mã giảm giá của cùng một người dùng.
+    *   Cả 2 request gửi đồng thời đều thành công (`200 OK`), cùng trả về kết quả áp dụng mã giảm giá thành công cho mã giới hạn 1 lần.
 *   **Đường dẫn GitHub Issue:** [GitHub Issue #14](https://github.com/HCMUS-software-testing/HW02/issues/14)
 *   **Ảnh chụp minh họa (Bug Screenshot):** ![Screenshot BUG-FR09-07](screenshots/BUG-FR09-07-1.png) ![Screenshot BUG-FR09-07](screenshots/BUG-FR09-07-2.png)
 
@@ -416,7 +416,7 @@ Dưới đây là danh sách các lỗi phát hiện được đối với các 
 
 ### BUG-FR17-09: Xóa coupon không tồn tại vẫn báo thành công
 
-*   **Mô tả lỗi:** Endpoint xóa coupon không kiểm tra số dòng bị xóa hoặc trạng thái tồn tại của ID. Vì vậy request xóa ID không tồn tại hoặc ID biên không hợp lệ vẫn được phản hồi như thành công.
+*   **Mô tả lỗi:** Endpoint xóa coupon phản hồi thành công ngay cả khi ID không tồn tại hoặc ID nằm ngoài miền hợp lệ. Từ góc nhìn API client, hệ thống không phân biệt thao tác xóa thật với thao tác xóa không tác động dữ liệu.
 *   **Các bước tái hiện (Steps to Reproduce):**
     1. Đăng nhập bằng tài khoản Admin.
     2. Vì giao diện chỉ hiển thị nút xóa cho coupon đang tồn tại trong danh sách, gửi trực tiếp request `DELETE /api/admin/coupons/999999`.
@@ -438,7 +438,7 @@ Dưới đây là danh sách các lỗi phát hiện được đối với các 
 | **BUG-FR07-01** | API giỏ hàng không gộp sản phẩm trùng                                      |                      `TC02`                      | Khi thêm cùng một sản phẩm hai lần, `GET /api/cart` trả 2 dòng trùng `id` thay vì tăng số lượng của dòng hiện có.                              |          **High**          |    Open    |
 | **BUG-FR07-02** | API giỏ hàng không validate `quantity`                                     |   `TC04`, `TC05`, `TC06`, `TC07`, `TC-BVA-01`    | API vẫn thêm sản phẩm khi thiếu `quantity`, `quantity` sai kiểu, bằng `0` hoặc âm.                                                             |          **High**          |    Open    |
 | **BUG-FR07-03** | API giỏ hàng không validate dữ liệu sản phẩm bắt buộc                      |              `TC08`, `TC09`, `TC10`              | API vẫn thêm item khi thiếu `id`, `name` rỗng hoặc `price` âm, làm giỏ có dữ liệu không hợp lệ.                                                |          **High**          |    Open    |
-| **BUG-FR07-04** | API thao tác giỏ hàng không hỗ trợ trả HTML 404 thay vì JSON lỗi nghiệp vụ |                      `TC19`                      | `PUT /api/cart`, `PATCH /api/cart`, `DELETE /api/cart/6` trả trang HTML mặc định `Cannot ...` thay vì phản hồi JSON lỗi thao tác không hợp lệ. |         **Medium**         |    Open    |
+| **BUG-FR07-04** | API giỏ hàng trả HTML 404 cho phương thức ngoài hợp đồng API |                      `TC19`                      | Khi kiểm tra robust API với các phương thức ngoài spec (`PUT/PATCH/DELETE /api/cart`), hệ thống trả trang HTML mặc định thay vì phản hồi lỗi API nhất quán.              |         **Low**            |    Open    |
 | **BUG-FR07-05** | Mobile cart dùng sai nhãn tổng tiền                                        |     `TC01`, `TC18`, `TC-BVA-07`, `TC-BVA-08`     | UI mobile hiển thị `Tổng tạm tính` thay vì nhãn yêu cầu `"Tổng cộng"`.                                                                         |         **Medium**         |    Open    |
 | **BUG-FR07-06** | Mobile cart thiếu control tăng/giảm số lượng bằng `+`/`-`                  | `TC11`, `TC12`, `TC13`, `TC-BVA-04`, `TC-BVA-05` | Màn giỏ chỉ có input số lượng, không có nút `+`/`-` như luồng test yêu cầu; thao tác giảm bằng nút không thể thực hiện.                        |         **Medium**         |    Open    |
 | **BUG-FR07-07** | Xóa sản phẩm trong mobile cart không có dialog xác nhận                    |           `TC14`, `TC15`, `TC-BVA-04`            | Bấm **Xóa** xóa item ngay, không hiển thị dialog nên không có lựa chọn Confirm/Cancel.                                                         |          **High**          |    Open    |
@@ -488,15 +488,15 @@ Dưới đây là danh sách các lỗi phát hiện được đối với các 
 *   **GitHub Issue:** [BUG-FR07-03](https://github.com/HCMUS-software-testing/HW02/issues/31)
 *   **Screenshot:** ![Screenshot BUG-FR07-03](screenshots/BUG-FR07-03.png)
 
-### BUG-FR07-04: API thao tác giỏ hàng không hỗ trợ trả HTML 404 thay vì JSON lỗi nghiệp vụ
+### BUG-FR07-04: API giỏ hàng trả HTML 404 cho phương thức ngoài hợp đồng API
 
 *   **Mã TC liên quan:** `TC19`
 *   **Steps to Reproduce:**
     1. Đăng nhập bằng tài khoản user hợp lệ để lấy JWT.
     2. Gửi các request không hỗ trợ: `PUT /api/cart`, `PATCH /api/cart`, `DELETE /api/cart/6`.
-*   **Expected Output:** API trả lỗi thao tác không hợp lệ ở dạng JSON nghiệp vụ và không thay đổi giỏ hàng.
+*   **Expected Output:** Vì các phương thức này không nằm trong API spec chính thức, hệ thống nên từ chối nhất quán và không thay đổi giỏ hàng; phản hồi lỗi nên phù hợp với API client.
 *   **Actual Output:** API trả HTTP `404 Not Found` với trang HTML mặc định như `Cannot PUT /api/cart`, `Cannot PATCH /api/cart`, `Cannot DELETE /api/cart/6`.
-*   **Severity:** Medium
+*   **Severity:** Low
 *   **GitHub Issue:** [BUG-FR07-04](https://github.com/HCMUS-software-testing/HW02/issues/32)
 *   **Screenshot:** ![Screenshot BUG-FR07-04](screenshots/BUG-FR07-04.png)
 
