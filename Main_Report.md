@@ -355,77 +355,226 @@ FR-08 Checkout cho phép customer đã đăng nhập thực hiện thanh toán/�
 | **FR08-BVA-TC13** | Token hợp lệ | Cart rỗng (0 sản phẩm)                                  | `0`          | `123 Le Loi, TP.HCM` | `cart_state` có 0 sản phẩm                   | Hệ thống từ chối checkout, báo lỗi giỏ hàng rỗng; không tạo order.         | API trả về `200 OK`, tạo order thành công với tổng tiền 0đ ngay cả khi giỏ hàng rỗng.             | Failed     | [BUG-FR08-06](./Bug_Report_Template.md) | FR08-BVA-B05 |
 | **FR08-BVA-TC14** | Token hợp lệ | Cart có 1 sản phẩm nominal                              | `200000`     | `123 Le Loi, TP.HCM` | `cart_state` có 1 sản phẩm                   | Checkout thành công; order được tạo.                                       | API trả về `200 OK`, tạo order thành công nhưng giỏ hàng sau checkout không được xóa.             | Failed     | [BUG-FR08-01](./Bug_Report_Template.md) | FR08-BVA-B05 |
 | **FR08-BVA-TC15** | Token hợp lệ | Cart có 2 sản phẩm khác nhau                            | `200000`     | `123 Le Loi, TP.HCM` | `cart_state` có 2 sản phẩm                   | Checkout thành công; order được tạo.                                       | API trả về `200 OK`, tạo order thành công nhưng giỏ hàng sau checkout không được xóa.             | Failed     | [BUG-FR08-01](./Bug_Report_Template.md) | FR08-BVA-B05 |
-| **FR08-BVA-TC16** | Token hợp lệ | Cart có product `{ id: 1, price: 0, quantity: 2 }`      | `0`          | `123 Le Loi, TP.HCM` | `cart_item.price = 0`                        | Hệ thống từ chối thêm vào giỏ hàng hoặc báo lỗi checkout; không tạo order. | API trả về `200 OK`, chấp nhận sản phẩm đơn giá bằng 0đ và cho phép tạo đơn hàng thành công.      | Failed     | [BUG-FR08-05](./Bug_Report_Template.md) | FR08-BVA-B06 |
+| **FR08-BVA-TC16** | Token hợp lệ | Cart có product `{ id: 1, price: 0, quantity: 2 }`      | `0`          | `123 Le Loi, TP.HCM` | `cart_item.price = 0`                        | Hệ thống từ chối thêm vào giỏ hàng hoặc báo lỗi checkout; không tạo order. | API trả về `200 OK`, chấp nhận sản phẩm đơn hàng bằng 0đ và cho phép tạo đơn hàng thành công.      | Failed     | [BUG-FR08-05](./Bug_Report_Template.md) | FR08-BVA-B06 |
 | **FR08-BVA-TC17** | Token hợp lệ | Cart có product `{ id: 1, price: 1, quantity: 2 }`      | `2`          | `123 Le Loi, TP.HCM` | `cart_item.price = 1` VNĐ                    | Checkout thành công; order được tạo.                                       | API trả về `200 OK`, tạo order thành công nhưng giỏ hàng sau checkout không được xóa.             | Failed     | [BUG-FR08-01](./Bug_Report_Template.md) | FR08-BVA-B06 |
 | **FR08-BVA-TC18** | Token hợp lệ | Cart có product `{ id: 1, price: 2, quantity: 2 }`      | `4`          | `123 Le Loi, TP.HCM` | `cart_item.price = 2` VNĐ                    | Checkout thành công; order được tạo.                                       | API trả về `200 OK`, tạo order thành công nhưng giỏ hàng sau checkout không được xóa.             | Failed     | [BUG-FR08-01](./Bug_Report_Template.md) | FR08-BVA-B06 |
 
+
 ### 5.4 AI Gap Analysis
 
-Phân tích khoảng cách (AI Gap Analysis) đánh giá sự khác biệt giữa thiết kế lý thuyết và hành vi thực tế của SUT qua BVA và Domain Testing.
+Phần AI Gap Analysis của FR-08 tập trung vào khoảng cách giữa thiết kế kiểm thử ban đầu, các giả định hợp lý của AI theo requirement, và hành vi thực tế quan sát được khi chạy SUT qua API/Web.
 
-- **Khoảng cách do prompt/context:** Prompt ban đầu chưa nhấn mạnh các quy tắc kiểm thử biên và sự thiếu sót validation của backend, dẫn đến các expected result ban đầu còn mang tính giả định. Khi đối chiếu với observed behavior của SUT, ta thấy rõ sự chênh lệch lớn giữa thiết kế bảo mật/kiểm duyệt lý thuyết và mã thực tế của SUT.
-- **Khoảng cách do giới hạn AI:** AI thiết kế ban đầu có xu hướng tin tưởng hệ thống sẽ tự động chặn các giá trị biên sai như `total_amount = 0` hay `quantity = 0`. Tuy nhiên khi thực thi bằng script kiểm thử API thực tế, backend SUT hoàn toàn không validate các giá trị này, chấp nhận mọi request thanh toán lỗi.
-- **Khoảng cách do SUT-specific behavior:**
-  1. **Lỗi UI/API Integration:** Giao diện Web Frontend của Checkout không hề render trường nhập địa chỉ giao hàng (`shipping_address`) và gửi request checkout thiếu trường này, trong khi API backend vẫn trả về `200 OK` và ghi đè giá trị địa chỉ thành `null`/`undefined`.
-  2. **Lỗi logic tiền tệ:** Frontend Checkout thiết lập trường nhập tổng tiền thanh toán là một ô input số có thể chỉnh sửa tự do (`editableTotal`), cho phép người dùng thay đổi tùy ý số tiền trước khi gửi lên API backend, và backend tin tưởng 100% số tiền client gửi lên.
-  3. **Lỗi giỏ hàng:** Cả frontend và backend đều không thực hiện xóa giỏ hàng sau khi checkout thành công, cho phép người dùng giữ nguyên sản phẩm cũ và tiếp tục checkout nhiều lần hoặc checkout giỏ hàng rỗng.
-- **Human review correction:** Sinh viên thực hiện kiểm duyệt từng bước thiết kế BVA, bổ sung kiểm thử biên cho đơn giá và số lượng sản phẩm trong giỏ hàng (phát hiện ra việc SUT nhận đơn giá và số lượng bằng 0), đồng thời cập nhật toàn bộ actual results từ script API kiểm thử thực tế và ánh xạ đến các mã lỗi \`BUG-FR08-01\` tới \`BUG-FR08-06\` trong báo cáo lỗi.
+- **Khoảng cách do context/prompt ban đầu:** Context FR-08 mô tả checkout request gồm `total_amount` và `shipping_address`, nhưng chưa có rule explicit về min/max, cart rỗng, server có tự tính lại tổng tiền hay không, hoặc cart có cần được clear sau checkout. Vì vậy thiết kế ban đầu dễ dừng ở happy path: cart có item, `total_amount` khớp, địa chỉ có nội dung và checkout tạo order.
+- **Khoảng cách do AI giả định hệ thống được validate tốt:** AI có xu hướng kỳ vọng backend sẽ từ chối `total_amount = 0`, số âm, sai kiểu, thiếu `shipping_address`, cart rỗng, hoặc cart item có `quantity = 0` / `price = 0`. Khi execute bằng script API, SUT lại trả `200 OK` và tạo order cho nhiều dữ liệu sai, cho thấy expected result lý thuyết khác xa behavior thực tế.
+- **Khoảng cách do thiếu kiểm thử tương tác UI/API:** Nếu chỉ nhìn API spec, khó thấy frontend Checkout cho người dùng sửa trực tiếp tổng tiền thanh toán và có thể gửi dữ liệu không đáng tin lên backend. Human review và thao tác UI giúp phát hiện bug UI/API integration: tổng tiền là input có thể chỉnh sửa, `shipping_address` không được xử lý đúng, còn backend tin dữ liệu client gửi.
+- **Khoảng cách do trạng thái hậu điều kiện:** AI ban đầu dễ xác nhận checkout thành công ngay khi API trả success hoặc order được tạo. Tuy nhiên khi kiểm tra thêm hậu trạng thái, cart không được xóa sau checkout, khiến người dùng có thể checkout lặp lại hoặc tiếp tục giữ dữ liệu cũ. Đây là khoảng trống quan trọng giữa "order created" và "checkout workflow completed correctly".
+- **Các SUT-specific behavior đã quan sát được:**
+  1. Backend tin trực tiếp `total_amount` từ client, kể cả thiếu field, sai lệch với cart, bằng `0`, âm hoặc sai kiểu.
+  2. Backend không validate `shipping_address`, vẫn tạo order khi thiếu, rỗng hoặc chỉ gồm whitespace.
+  3. Backend cho checkout với cart rỗng và tạo order tổng tiền `0`.
+  4. API cart/checkout chấp nhận cart item có `quantity = 0` hoặc `price = 0`.
+  5. Cart không được clear sau checkout thành công.
+  6. Frontend Checkout cho phép chỉnh sửa tổng tiền, làm tăng rủi ro client-side tampering.
+- **Human review correction:** Sau review, test suite được bổ sung thêm các case BVA/negative quan trọng: `total_amount = 0/-1/"abc"`, thiếu `total_amount`, thiếu/rỗng/whitespace `shipping_address`, cart rỗng, `quantity = 0`, `price = 0`, và kiểm tra cart state sau checkout. Các kết quả thực thi được map sang `BUG-FR08-01` đến `BUG-FR08-06`.
+- **Bài học cho prompt sau:** Với các feature xử lý giao dịch như checkout, prompt cần yêu cầu AI kiểm tra cả request validation, server-side recomputation, state transition sau success, khả năng client tampering, và consistency giữa UI/API. Nếu chỉ yêu cầu EP/BVA trên input field, AI có thể bỏ sót lỗi workflow và hậu điều kiện.
 
 ## 6. FR-15 - Product Management CRUD
 
 ### 6.1 Feature Overview
 
-TODO
+FR-15 Product Management CRUD cho phép Admin quản lý sản phẩm trong hệ thống EShop thông qua Web Admin và Product APIs. Tính năng được kiểm thử theo hướng black-box, tập trung vào phân quyền Admin, thao tác create/update/delete product, dữ liệu product body, category hợp lệ, và trạng thái product list/detail sau khi thao tác.
+
+| Mục                      | Nội dung                                                                                                                                                                                                                                                                 |
+| :----------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Feature ID               | FR-15                                                                                                                                                                                                                                                                    |
+| Feature name             | Product management CRUD                                                                                                                                                                                                                                                  |
+| Pool                     | C                                                                                                                                                                                                                                                                        |
+| Surface                  | Admin Web/API                                                                                                                                                                                                                                                            |
+| User role                | Admin                                                                                                                                                                                                                                                                    |
+| Preconditions            | Admin có tài khoản hợp lệ, đã đăng nhập và có authentication token hợp lệ. Product APIs và Web Admin có thể truy cập được. Có ít nhất một category hợp lệ; với update/delete path cần có ít nhất một test product tồn tại.                                               |
+| API liên quan            | `GET /api/products`, `GET /api/products/:id`, `POST /api/products`, `PUT /api/products/:id`, `DELETE /api/products/:id`, `GET /api/categories`                                                                                                                           |
+| Input chính              | Authentication/admin state, CRUD operation, `product_id`, `name`, `price`, `description`, `imageUrl`, `category_id`, mức đầy đủ của request body, trạng thái category list và target product.                                                                            |
+| Output/state chính       | Product được tạo/cập nhật/xóa, product list/detail phản ánh thay đổi, validation error, unauthorized/forbidden error, not found error, trạng thái giao diện Admin sau update.                                                                                            |
+| Out of scope             | Quản lý category CRUD, upload file ảnh thật, inventory/stock management, discount/price promotion, search/filter/sort nâng cao, concurrent update/delete giữa nhiều Admin nếu không được kiểm thử riêng.                                                                  |
+| Điểm cần verify trên SUT | `name` bắt buộc và tối đa 255 ký tự; `price` bắt buộc và phải lớn hơn 0; `category_id` phải thuộc danh sách category có sẵn; hành vi khi thiếu field bắt buộc; phân quyền Admin cho `POST`/`PUT`/`DELETE`; update một product không làm ảnh hưởng product khác trên UI. |
 
 ### 6.2 Domain Testing / EP
 
 #### Step 1: Xác định Input và Output
 
 | Tham số / Biến | Loại (Input/Output/State) | Kiểu dữ liệu & Định dạng | Mô tả & Hành vi trên SUT | Cơ sở lý do lựa chọn (Rationale) |
-| :------------- | :------------------------ | :----------------------- | :----------------------- | :------------------------------- |
-| TODO           | TODO                      | TODO                     | TODO                     | TODO                             |
+| :--- | :--- | :--- | :--- | :--- |
+| `auth_state` | State | Enum / trạng thái phiên | Trạng thái xác thực/phân quyền khi gọi Admin Product CRUD: admin hợp lệ, non-admin, thiếu token, token sai/hết hạn. | Context nêu product CRUD cần admin access và cần verify hành vi với non-admin/unauthenticated user. |
+| `crud_operation` | Input | Enum | Thao tác quản lý product: create, update, delete; ngoài ra có thể dùng list/detail để quan sát kết quả. | Feature FR-15 là Product management CRUD, trong đó rule có căn cứ nêu bao gồm create, update, delete product. |
+| `product_id` | Input | Path parameter | ID product dùng cho `GET /api/products/:id`, `PUT /api/products/:id`, `DELETE /api/products/:id`. | Update/delete/detail cần định danh product mục tiêu; context nêu cần có test product tồn tại cho update/delete paths. |
+| `name` | Input | String | Tên product trong request body khi create/update. | Product body công khai gồm `name`; giá trị nominal: `Test Product HW02`. |
+| `price` | Input | Number | Giá product trong request body khi create/update. | Product body công khai gồm `price`; giá trị nominal: `100000`. Requirement/API spec chưa nêu min/max cụ thể. |
+| `description` | Input | String | Mô tả product trong request body khi create/update. | Product body công khai gồm `description`; giá trị nominal: `Test product description`. |
+| `imageUrl` | Input | String / URL-like text | Đường dẫn ảnh product trong request body khi create/update. | Product body công khai gồm `imageUrl`; giá trị nominal: `https://example.com/product.png`. Requirement/API spec chưa nêu format URL bắt buộc. |
+| `category_id` | Input | Number / ID reference | ID category gắn với product khi create/update. | Product body công khai gồm `category_id`; precondition yêu cầu có ít nhất một product category cho create/update paths. |
+| `request_body_completeness` | Input | Object shape / mức đầy đủ body | Mức đầy đủ của request body khi create/update: đủ field, thiếu field có vẻ required, hoặc có field ngoài scope. | Context liệt kê đây là candidate input cần xem xét; body product gồm 5 field công khai, nhưng required/optional cụ thể cần verify trước khi kết luận rule. |
+| `category_list_state` | State | Collection state | Trạng thái có category khả dụng từ `GET /api/categories` để dùng trong create/update. | Precondition nêu cần có ít nhất một product category; API liên quan có `GET /api/categories`. |
+| `target_product_state` | State | Entity state | Trạng thái product mục tiêu cho update/delete: có ít nhất một test product tồn tại. | Precondition nêu update/delete test paths cần có ít nhất một test product tồn tại. |
+| `created_product` | Output | Entity / persisted state | Product được tạo sau thao tác create thành công. | Candidate output/state nêu "Product được tạo"; đây là kết quả quan sát chính của create. |
+| `updated_product` | Output | Entity / persisted state | Product được cập nhật sau thao tác update thành công. | Candidate output/state nêu "Product được cập nhật"; đây là kết quả quan sát chính của update. |
+| `deleted_product_state` | Output/State | Entity availability state | Product bị xóa hoặc không còn truy cập được sau delete. | Candidate output/state nêu "Product bị xóa hoặc không còn truy cập được sau delete". |
+| `product_list_or_detail` | Output | List / entity response | Product list/detail phản ánh thay đổi sau create/update/delete. | Context nêu `GET /api/products` và `GET /api/products/:id`; candidate output/state nêu list/detail phản ánh thay đổi thành công. |
+| `validation_error` | Output | Error response / UI message | Lỗi validation được hiển thị hoặc trả về khi dữ liệu product không được chấp nhận. | Candidate output/state nêu validation error; chi tiết rule validation chưa được xác định ở Step 1. |
+| `unauthorized_or_forbidden_error` | Output | Error response / UI message | Lỗi unauthorized/forbidden khi user không đủ quyền hoặc thiếu/sai token. | Context nêu admin access cho product CRUD cần verify; candidate output/state nêu unauthorized/forbidden error. |
+| `not_found_error` | Output | Error response / UI message | Lỗi not found khi product ID mục tiêu không tồn tại hoặc không truy cập được. | Context nêu cần kiểm chứng delete behavior với product ID không tồn tại; candidate output/state nêu not found error. |
 
 #### Step 2: Xác định Condition (Điều kiện)
 
 | Mã điều kiện (ID) | Tham số tương ứng | Mô tả điều kiện | Cơ sở lý thuyết / Luật nghiệp vụ (Rationale) |
-| :---------------- | :---------------- | :-------------- | :------------------------------------------- |
-| TODO              | TODO              | TODO            | TODO                                         |
+| :--- | :--- | :--- | :--- |
+| C1 | `auth_state` | User thực hiện Product CRUD phải có quyền Admin hợp lệ. | Context FR-15 nêu Product CRUD ảnh hưởng dữ liệu cần admin access; đây là điều kiện phân quyền chính của Admin Web/API. |
+| C2 | `crud_operation` | Thao tác quản lý product thuộc nhóm create, update, delete. | Requirement có căn cứ nêu Product management bao gồm create, update, delete product. |
+| C3 | `product_id` | Với update/delete/detail, request cần xác định product mục tiêu bằng `product_id`. | API công khai có `GET /api/products/:id`, `PUT /api/products/:id`, `DELETE /api/products/:id`; update/delete cần product mục tiêu tồn tại theo precondition. |
+| C4 | `name` | Khi create/update product, request body có field `name` dạng string. | Product body công khai gồm `name`; chưa có căn cứ về min/max length nên không đưa điều kiện độ dài. |
+| C5 | `price` | Khi create/update product, request body có field `price` dạng number. | Product body công khai gồm `price` với giá trị nominal `100000`; chưa có căn cứ về min/max hoặc miền giá trị cụ thể. |
+| C6 | `description` | Khi create/update product, request body có field `description` dạng string. | Product body công khai gồm `description`; context chưa nêu constraint bắt buộc về độ dài/nội dung. |
+| C7 | `imageUrl` | Khi create/update product, request body có field `imageUrl` dạng string. | Product body công khai gồm `imageUrl`; requirement/API spec chưa nêu format URL bắt buộc nên chưa xem format URL là condition chính thức. |
+| C8 | `category_id` | Khi create/update product, request body có field `category_id` để gắn product với category. | Product body công khai gồm `category_id`; precondition nêu cần có ít nhất một product category cho create/update test paths. |
+| C9 | `request_body_completeness` | Request body cho create/update cần có các field bắt buộc và dùng các field product được API công khai hỗ trợ. | Context nêu body product gồm `name`, `price`, `description`, `imageUrl`, `category_id`; README công khai nêu `name`, `price`, `category_id` là bắt buộc. |
+| C10 | `category_list_state` | Có category khả dụng để chọn/gửi `category_id` trong create/update. | Preconditions nêu có ít nhất một product category; API liên quan có `GET /api/categories`. |
+| C11 | `target_product_state` | Có test product tồn tại trước khi thực hiện update/delete path hợp lệ. | Preconditions nêu với update/delete test paths, cần có ít nhất một test product tồn tại. |
+| C12 | `created_product` | Sau create thành công, hệ thống tạo product mới và có thể quan sát lại qua list/detail. | Candidate output/state nêu Product được tạo và product list/detail phản ánh thay đổi thành công. |
+| C13 | `updated_product` | Sau update thành công, dữ liệu product được cập nhật và có thể quan sát lại qua list/detail. | Candidate output/state nêu Product được cập nhật và product list/detail phản ánh thay đổi thành công. |
+| C14 | `deleted_product_state` | Sau delete thành công, product bị xóa hoặc không còn truy cập được như product còn tồn tại. | Candidate output/state nêu Product bị xóa hoặc không còn truy cập được sau delete. |
+| C15 | `validation_error` | Với dữ liệu product không được chấp nhận, hệ thống hiển thị/trả về validation error. | Candidate output/state nêu validation error; chi tiết rule validation chưa có căn cứ nên chưa tách min/max/format. |
+| C16 | `unauthorized_or_forbidden_error` | Với thiếu quyền hoặc thiếu/sai token, hệ thống hiển thị/trả về unauthorized/forbidden error. | Context nêu cần verify behavior với non-admin và unauthenticated user; admin access là rule có căn cứ từ README/context. |
+| C17 | `not_found_error` | Với product mục tiêu không tồn tại, hệ thống hiển thị/trả về not found error hoặc trạng thái tương đương. | Context nêu cần kiểm chứng delete behavior với product ID không tồn tại; candidate output/state có not found error. |
+| C18 | `updated_product` / `product_list_or_detail` | Khi update một product, chỉ product mục tiêu bị thay đổi; các product khác giữ nguyên. | README công khai của FR-15 nêu khi sửa một sản phẩm, chỉ sản phẩm đó bị thay đổi, các sản phẩm khác giữ nguyên. |
 
 #### Step 3: Xác định miền phân hoạch tương đương (EP)
 
 | Mã phân hoạch (ID) | Mã điều kiện đối chiếu | Loại phân hoạch (Hợp lệ / Không hợp lệ) | Mô tả phân hoạch & Giá trị đại diện | Lý do lựa chọn & Biên (Rationale) |
-| :----------------- | :--------------------- | :-------------------------------------- | :---------------------------------- | :-------------------------------- |
-| TODO               | TODO                   | TODO                                    | TODO                                | TODO                              |
+| :--- | :--- | :--- | :--- | :--- |
+| E1 | C1 | Hợp lệ (Valid) | User là Admin đã đăng nhập với token hợp lệ. | FR-15 là Admin Web/API; Product CRUD cần admin access. |
+| E2 | C1, C16 | Không hợp lệ (Invalid) | Thiếu token authentication. | CRUD ảnh hưởng dữ liệu cần xác thực; context yêu cầu verify unauthenticated behavior. |
+| E3 | C1, C16 | Không hợp lệ (Invalid) | Token sai/hết hạn. | Cùng nhóm lỗi authentication không hợp lệ, cần trả unauthorized/forbidden tương ứng. |
+| E4 | C1, C16 | Không hợp lệ (Invalid) | User đã đăng nhập nhưng không phải Admin. | Context nêu cần verify behavior với non-admin user. |
+| E5 | C2 | Hợp lệ (Valid) | Thao tác `create` product bằng `POST /api/products`. | Requirement có căn cứ nêu Product management bao gồm create. |
+| E6 | C2 | Hợp lệ (Valid) | Thao tác `update` product bằng `PUT /api/products/:id`. | Requirement có căn cứ nêu Product management bao gồm update. |
+| E7 | C2 | Hợp lệ (Valid) | Thao tác `delete` product bằng `DELETE /api/products/:id`. | Requirement có căn cứ nêu Product management bao gồm delete. |
+| E8 | C3, C11 | Hợp lệ (Valid) | `product_id` trỏ tới product đang tồn tại, ví dụ test product đã tạo trước đó. | Preconditions nêu update/delete cần có ít nhất một test product tồn tại. |
+| E9 | C3, C17 | Không hợp lệ (Invalid) | `product_id` không tồn tại. | Context nêu cần kiểm chứng delete behavior với product ID không tồn tại; output kỳ vọng thuộc nhóm not found/error tương đương. |
+| E10 | C3, C17 | Không hợp lệ (Invalid) | `product_id` sai định dạng, ví dụ không phải ID hợp lệ theo API path. | Context liệt kê product id sai format là candidate input; đây là lớp request không định danh được product hợp lệ. |
+| E11 | C4 | Hợp lệ (Valid) | `name` là string, ví dụ `Test Product HW02`. | Product body công khai gồm `name`; chưa có căn cứ min/max nên chỉ phân hoạch theo type/có giá trị mẫu. |
+| E12 | C4, C15 | Không hợp lệ (Invalid) | `name` không phải string. | Body mẫu thể hiện `name` là string; sai kiểu dữ liệu thuộc nhóm validation error. |
+| E13 | C5 | Hợp lệ (Valid) | `price` là number, ví dụ `100000`. | Product body công khai gồm `price` với giá trị number nominal. |
+| E14 | C5, C15 | Không hợp lệ (Invalid) | `price` không phải number. | Body mẫu thể hiện `price` là number; sai kiểu dữ liệu thuộc nhóm validation error. |
+| E15 | C6 | Hợp lệ (Valid) | `description` là string, ví dụ `Test product description`. | Product body công khai gồm `description`; chưa có căn cứ min/max/nội dung bắt buộc. |
+| E16 | C6, C15 | Không hợp lệ (Invalid) | `description` không phải string. | Body mẫu thể hiện `description` là string; sai kiểu dữ liệu thuộc nhóm validation error. |
+| E17 | C7 | Hợp lệ (Valid) | `imageUrl` là string, ví dụ `https://example.com/product.png`. | Product body công khai gồm `imageUrl`; chưa có căn cứ bắt buộc validate URL format. |
+| E18 | C7, C15 | Không hợp lệ (Invalid) | `imageUrl` không phải string. | Body mẫu thể hiện `imageUrl` là string; sai kiểu dữ liệu thuộc nhóm validation error. |
+| E19 | C8, C10 | Hợp lệ (Valid) | `category_id` là ID number dùng category khả dụng, ví dụ `1`. | Body công khai gồm `category_id`; precondition nêu có ít nhất một category cho create/update. |
+| E20 | C8, C15 | Không hợp lệ (Invalid) | `category_id` sai type, ví dụ string/object thay vì number ID. | Body mẫu thể hiện `category_id` là number; sai kiểu dữ liệu thuộc nhóm validation error. |
+| E21 | C9 | Hợp lệ (Valid) | Request body create/update có đủ các field công khai: `name`, `price`, `description`, `imageUrl`, `category_id`. | API spec/context cung cấp body mẫu với các field này; dùng làm request hợp lệ nominal. |
+| E22 | C12 | Hợp lệ (Valid) | Sau create hợp lệ, product mới xuất hiện trong list/detail. | Candidate output/state nêu product được tạo và list/detail phản ánh thay đổi. |
+| E23 | C13 | Hợp lệ (Valid) | Sau update hợp lệ, product detail/list phản ánh dữ liệu đã cập nhật. | Candidate output/state nêu product được cập nhật và list/detail phản ánh thay đổi. |
+| E24 | C14 | Hợp lệ (Valid) | Sau delete hợp lệ, product không còn truy cập được như product tồn tại. | Candidate output/state nêu product bị xóa hoặc không còn truy cập được sau delete. |
+| E25 | C15 | Không hợp lệ (Invalid) | Request có dữ liệu sai kiểu ở một field product và hệ thống trả/hiển thị validation error. | Gom nhóm output cho các EP invalid về type như `name`, `price`, `description`, `imageUrl`, `category_id`. |
+| E26 | C16 | Không hợp lệ (Invalid) | Request Product CRUD không đủ quyền và hệ thống trả/hiển thị unauthorized/forbidden error. | Output tương ứng với các EP auth invalid: thiếu token, token sai/hết hạn, non-admin. |
+| E27 | C17 | Không hợp lệ (Invalid) | Request trỏ tới product không tồn tại/sai định danh và hệ thống trả/hiển thị not found/error tương đương. | Output tương ứng với `product_id` không tìm được hoặc không hợp lệ. |
+| E28 | C9, C15 | Không hợp lệ (Invalid) | Request body thiếu field bắt buộc `name`. | README công khai nêu tên sản phẩm là bắt buộc; thiếu `name` phải bị validation error. |
+| E29 | C9, C15 | Không hợp lệ (Invalid) | Request body thiếu field bắt buộc `price`. | README công khai nêu giá là bắt buộc và phải là số dương. |
+| E30 | C9, C15 | Không hợp lệ (Invalid) | Request body thiếu field bắt buộc `category_id`. | README công khai nêu danh mục là bắt buộc và phải chọn từ danh sách có sẵn. |
+| E31 | C18 | Hợp lệ (Valid) | Update product A không làm thay đổi product B. | FR-15 README nêu khi sửa một sản phẩm, chỉ sản phẩm đó bị thay đổi, các sản phẩm khác giữ nguyên. |
+| E32 | C18 | Không hợp lệ (Invalid) | Sau khi update một product trên Web Admin, tên các product khác cũng bị đổi theo. | Vi phạm rule isolation của FR-15: khi sửa một sản phẩm, chỉ sản phẩm đó bị thay đổi; đây là lỗi quan sát được trên giao diện Admin. |
+
+Các rule không đưa vào EP chính thức vì chưa có căn cứ đủ rõ: max `price`, format bắt buộc của `imageUrl`, min/max length của `description`.
 
 #### Step 4: Xác định Test Case
 
-| Mã test case | [Input 1] | [Input 2] | [Input n] | Kết quả mong đợi | Kết quả thực tế | Trạng thái | Bug ID / Evidence | Phủ các lớp EP |
-| :----------- | :-------- | :-------- | :-------- | :--------------- | :-------------- | :--------- | :---------------- | :------------- |
-| TODO         | TODO      | TODO      | TODO      | TODO             | TODO            | TODO       | TODO              | TODO           |
+| Mã test case | Auth state | Operation | Product ID | Request body / Test data | Kết quả mong đợi | Kết quả thực tế | Trạng thái | Bug ID / Evidence | Phủ các lớp EP |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| FR15-DOM-TC01 | Admin token hợp lệ | Create | N/A | `name="Test Product HW02"`, `price=100000`, `description="Test product description"`, `imageUrl="https://example.com/product.png"`, `category_id=1` | Product mới được tạo thành công và có thể quan sát trong list/detail. | API trả về 200 OK, tạo product thành công và trả về ID mới. | Pass | `""` | E1, E5, E11, E13, E15, E17, E19, E21, E22 |
+| FR15-DOM-TC02 | Admin token hợp lệ | Update | ID product tồn tại | `name="Test Product HW02 Updated"`, `price=100000`, `description="Updated product description"`, `imageUrl="https://example.com/product.png"`, `category_id=1` | Product được cập nhật thành công và list/detail phản ánh dữ liệu mới. | API trả về 200 OK, thông báo "Product updated". | Pass | `""` | E1, E6, E8, E11, E13, E15, E17, E19, E21, E23 |
+| FR15-DOM-TC03 | Admin token hợp lệ | Delete | ID product tồn tại | N/A | Product bị xóa thành công hoặc không còn truy cập được như product tồn tại. | API trả về 200 OK, thông báo "Product deleted". | Pass | `""` | E1, E7, E8, E24 |
+| FR15-DOM-TC04 | Thiếu token | Create | N/A | Body hợp lệ như TC01 | Hệ thống trả/hiển thị unauthorized hoặc forbidden error; product không được tạo. | API trả về 200 OK, tạo product thành công (bỏ qua phân quyền). | Failed | [BUG-FR15-01](#bug-fr15-01-api-products-thieu-xac-thuc-phan-quyen-va-cho-phep-guest-truy-cap-crud) | E2, E5, E26 |
+| FR15-DOM-TC05 | Token sai/hết hạn | Update | ID product tồn tại | Body hợp lệ như TC02 | Hệ thống trả/hiển thị unauthorized hoặc forbidden error; product không được cập nhật. | API trả về 200 OK, cập nhật product thành công (bỏ qua phân quyền). | Failed | [BUG-FR15-01](#bug-fr15-01-api-products-thieu-xac-thuc-phan-quyen-va-cho-phep-guest-truy-cap-crud) | E3, E6, E8, E26 |
+| FR15-DOM-TC06 | Non-admin token | Delete | ID product tồn tại | N/A | Hệ thống trả/hiển thị unauthorized hoặc forbidden error; product không bị xóa. | API trả về 200 OK, xóa product thành công (bỏ qua phân quyền). | Failed | [BUG-FR15-01](#bug-fr15-01-api-products-thieu-xac-thuc-phan-quyen-va-cho-phep-guest-truy-cap-crud) | E4, E7, E8, E26 |
+| FR15-DOM-TC07 | Admin token hợp lệ | Update | ID product không tồn tại | Body hợp lệ như TC02 | Hệ thống trả/hiển thị not found hoặc error tương đương; không cập nhật product nào. | API trả về 200 OK, thông báo "Product updated" dù ID không tồn tại. | Failed | [BUG-FR15-04](#bug-fr15-04-api-productsid-cap-nhat-xoa-id-khong-ton-tai-van-bao-thanh-cong) | E1, E6, E9, E27 |
+| FR15-DOM-TC08 | Admin token hợp lệ | Delete | ID product không tồn tại | N/A | Hệ thống trả/hiển thị not found hoặc error tương đương; không xóa product nào. | API trả về 200 OK, thông báo "Product deleted" dù ID không tồn tại. | Failed | [BUG-FR15-04](#bug-fr15-04-api-productsid-cap-nhat-xoa-id-khong-ton-tai-van-bao-thanh-cong) | E1, E7, E9, E27 |
+| FR15-DOM-TC09 | Admin token hợp lệ | Update | Product ID sai định dạng | Body hợp lệ như TC02 | Hệ thống trả/hiển thị not found/error tương đương hoặc từ chối request sai định danh. | API trả về 200 OK, thông báo "Product updated" (SQLite chấp nhận ID dạng chuỗi). | Failed | [BUG-FR15-04](#bug-fr15-04-api-productsid-cap-nhat-xoa-id-khong-ton-tai-van-bao-thanh-cong) | E1, E6, E10, E27 |
+| FR15-DOM-TC10 | Admin token hợp lệ | Create | N/A | `name=12345`, các field còn lại hợp lệ như TC01 | Hệ thống trả/hiển thị validation error; product không được tạo. | API trả về 200 OK, tạo product thành công với tên dạng số. | Failed | [BUG-FR15-02](#bug-fr15-02-api-products-backend-khong-validate-du-lieu-dau-vao-khi-them-sua-san-pham) | E1, E5, E12, E25 |
+| FR15-DOM-TC11 | Admin token hợp lệ | Create | N/A | `price="100000"`, các field còn lại hợp lệ như TC01 | Hệ thống trả/hiển thị validation error; product không được tạo. | API trả về 200 OK, tạo product thành công với giá dạng chuỗi. | Failed | [BUG-FR15-02](#bug-fr15-02-api-products-backend-khong-validate-du-lieu-dau-vao-khi-them-sua-san-pham) | E1, E5, E14, E25 |
+| FR15-DOM-TC12 | Admin token hợp lệ | Create | N/A | `description=999`, các field còn lại hợp lệ như TC01 | Hệ thống trả/hiển thị validation error; product không được tạo. | API trả về 200 OK, tạo product thành công với mô tả dạng số. | Failed | [BUG-FR15-02](#bug-fr15-02-api-products-backend-khong-validate-du-lieu-dau-vao-khi-them-sua-san-pham) | E1, E5, E16, E25 |
+| FR15-DOM-TC13 | Admin token hợp lệ | Create | N/A | `imageUrl=999`, các field còn lại hợp lệ như TC01 | Hệ thống trả/hiển thị validation error; product không được tạo. | API trả về 200 OK, tạo product thành công với link ảnh dạng số. | Failed | [BUG-FR15-02](#bug-fr15-02-api-products-backend-khong-validate-du-lieu-dau-vao-khi-them-sua-san-pham) | E1, E5, E18, E25 |
+| FR15-DOM-TC14 | Admin token hợp lệ | Create | N/A | `category_id="1"`, các field còn lại hợp lệ như TC01 | Hệ thống trả/hiển thị validation error; product không được tạo. | API trả về 200 OK, tạo product thành công với category_id dạng chuỗi. | Failed | [BUG-FR15-02](#bug-fr15-02-api-products-backend-khong-validate-du-lieu-dau-vao-khi-them-sua-san-pham) | E1, E5, E20, E25 |
+| FR15-DOM-TC15 | Admin token hợp lệ | Create | N/A | Thiếu field `name`, các field còn lại hợp lệ | Hệ thống trả/hiển thị validation error; product không được tạo. | API trả về `200 OK`, tạo product thành công dù thiếu `name`. | Failed | [BUG-FR15-02](#bug-fr15-02-api-products-backend-khong-validate-du-lieu-dau-vao-khi-them-sua-san-pham) | E1, E5, E28, E25 |
+| FR15-DOM-TC16 | Admin token hợp lệ | Create | N/A | Thiếu field `price`, các field còn lại hợp lệ | Hệ thống trả/hiển thị validation error; product không được tạo. | API trả về `200 OK`, tạo product thành công dù thiếu `price`. | Failed | [BUG-FR15-02](#bug-fr15-02-api-products-backend-khong-validate-du-lieu-dau-vao-khi-them-sua-san-pham) | E1, E5, E29, E25 |
+| FR15-DOM-TC17 | Admin token hợp lệ | Create | N/A | Thiếu field `category_id`, các field còn lại hợp lệ | Hệ thống trả/hiển thị validation error; product không được tạo. | API trả về `200 OK`, tạo product thành công dù thiếu `category_id`. | Failed | [BUG-FR15-02](#bug-fr15-02-api-products-backend-khong-validate-du-lieu-dau-vao-khi-them-sua-san-pham) | E1, E5, E30, E25 |
+| FR15-DOM-TC18 | Admin token hợp lệ | Update | ID product A tồn tại | Tạo product A và product B; update product A; GET lại product B | Product A được cập nhật, product B giữ nguyên dữ liệu ban đầu. | API trả về `200 OK`; product B vẫn giữ `name`, `price`, `description`, `imageUrl`, `category_id` ban đầu. | Pass | `""` | E1, E6, E8, E23, E31 |
+| FR15-DOM-TC19 | Admin đăng nhập trên Web Admin | Update qua UI | ID product A tồn tại | Trên giao diện Admin, cập nhật bất kỳ field nào của product A; quan sát lại danh sách product | Chỉ product A thay đổi; tên các product khác giữ nguyên. | Sau khi cập nhật thành công product A, tên của tất cả các product khác trên giao diện cũng bị đổi theo. | Failed | [BUG-FR15-05](#bug-fr15-05-giao-dien-admin-cap-nhat-mot-san-pham-lam-doi-ten-tat-ca-san-pham-khac) | E6, E8, E32 |
+
+Checklist:
+
+- Các valid EP chính đã được cover qua TC01, TC02, TC03, TC18.
+- Các invalid EP được tách theo single fault chính: auth, product id, hoặc sai type từng field.
+- Các required-field invalid cases được bổ sung sau khi đối chiếu README công khai của SUT.
+- Web Admin update isolation được bổ sung bằng TC19 vì API isolation pass nhưng UI hiển thị/cập nhật sai.
 
 ### 6.3 Boundary Value Analysis
 
 #### Step 1: Xác định input/output có dạng số/liên tục
 
 | Tham số | Có áp dụng BVA không? | Lý do |
-| :------ | :-------------------- | :---- |
-| TODO    | TODO                  | TODO  |
+| :--- | :--- | :--- |
+| `name` | Có | README công khai của SUT nêu tên sản phẩm bắt buộc và tối đa 255 ký tự, nên có boundary theo độ dài chuỗi. |
+| `price` | Có | README công khai của SUT nêu giá bắt buộc và phải là số dương (`> 0`), nên có boundary dưới tại ngưỡng chuyển từ không hợp lệ sang hợp lệ. |
+| `category_id` | Có giới hạn | README công khai nêu danh mục bắt buộc và phải chọn từ danh sách có sẵn; đây là boundary/trạng thái hợp lệ theo sự tồn tại của category, không phải numeric min/max đầy đủ. |
+| `description` | Không | Requirement/API spec chưa nêu min/max length hoặc boundary rõ ràng cho mô tả. |
+| `imageUrl` | Không | Requirement/API spec chưa nêu boundary độ dài hoặc format URL bắt buộc cho Product CRUD. |
+| `product_id` | Không áp dụng BVA chính thức | Product ID tồn tại/không tồn tại đã được cover trong Domain Testing; không có numeric range công khai để xác định min/max ID. |
 
 #### Step 2: Xác định biên và cận biên
 
 | Mã biên | Tham số | Cận dưới ngoài biên | Biên dưới | Cận dưới trong biên | Giá trị bình thường | Cận trên trong biên | Biên trên | Cận trên ngoài biên | Giải thích nguồn gốc biên (Rationale) |
-| :------ | :------ | :------------------ | :-------- | :------------------ | :------------------ | :------------------ | :-------- | :------------------ | :------------------------------------ |
-| TODO    | TODO    | TODO                | TODO      | TODO                | TODO                | TODO                | TODO      | TODO                | TODO                                  |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| FR15-BVA-B01 | `name` length | `0` ký tự (`""`) | `1` ký tự | `2` ký tự | `Test Product HW02` | `254` ký tự | `255` ký tự | `256` ký tự | README công khai nêu tên sản phẩm bắt buộc và tối đa 255 ký tự. |
+| FR15-BVA-B02 | `price` | `-1` | `0` là giá trị không hợp lệ sát biên | `1` | `100000` | N/A | N/A | N/A | README công khai nêu giá phải là số dương (`> 0`), nên giá hợp lệ nhỏ nhất là `1` với dữ liệu integer; không có upper bound công khai. |
+| FR15-BVA-B03 | `category_id` existence | Category ID không tồn tại, ví dụ `999` | Category được chọn từ danh sách có sẵn | Category ID tồn tại, ví dụ `1` | `1` | N/A | N/A | N/A | README công khai nêu danh mục bắt buộc và phải chọn từ danh sách có sẵn; test tập trung vào ranh giới tồn tại/không tồn tại của tham chiếu category. |
 
 #### Step 3: Xác định BVA Test Case
 
-| Mã test case | [Input 1] | [Input 2] | [Input n] | Giá trị biên được test | Kết quả mong đợi | Kết quả thực tế | Trạng thái | Bug ID / Evidence | Phủ mã biên |
-| :----------- | :-------- | :-------- | :-------- | :--------------------- | :--------------- | :-------------- | :--------- | :---------------- | :---------- |
-| TODO         | TODO      | TODO      | TODO      | TODO                   | TODO             | TODO            | TODO       | TODO              | TODO        |
+| Mã test case | Auth state | Operation | Request body / Test data | Giá trị biên được test | Kết quả mong đợi | Kết quả thực tế | Trạng thái | Bug ID / Evidence | Phủ mã biên |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| FR15-BVA-TC01 | Admin token hợp lệ | Create | `name="A"`, `price=100000`, `description="Desc"`, `imageUrl="https://example.com/product.png"`, `category_id=1` | `name` length = 1 | Product được tạo thành công. | API trả về `200 OK`, tạo product thành công. | Pass | `""` | FR15-BVA-B01 |
+| FR15-BVA-TC02 | Admin token hợp lệ | Create | `name="AB"`, các field còn lại hợp lệ như TC01 | `name` length = 2 | Product được tạo thành công. | API trả về `200 OK`, tạo product thành công. | Pass | `""` | FR15-BVA-B01 |
+| FR15-BVA-TC03 | Admin token hợp lệ | Create | `name=""`, các field còn lại hợp lệ như TC01 | `name` length = 0 | Hệ thống trả validation error; product không được tạo. | API trả về `200 OK`, tạo product thành công với tên rỗng. | Failed | [BUG-FR15-02](#bug-fr15-02-api-products-backend-khong-validate-du-lieu-dau-vao-khi-them-sua-san-pham) | FR15-BVA-B01 |
+| FR15-BVA-TC11 | Admin token hợp lệ | Create | `name` gồm 254 ký tự `A`, các field còn lại hợp lệ như TC01 | `name` length = 254 | Product được tạo thành công. | API trả về `200 OK`, tạo product thành công. | Pass | `""` | FR15-BVA-B01 |
+| FR15-BVA-TC04 | Admin token hợp lệ | Create | `name` gồm 255 ký tự `A`, các field còn lại hợp lệ như TC01 | `name` length = 255 | Product được tạo thành công. | API trả về `200 OK`, tạo product thành công. | Pass | `""` | FR15-BVA-B01 |
+| FR15-BVA-TC05 | Admin token hợp lệ | Create | `name` gồm 256 ký tự `A`, các field còn lại hợp lệ như TC01 | `name` length = 256 | Hệ thống trả validation error; product không được tạo. | API trả về `200 OK`, tạo product thành công với tên vượt quá 255 ký tự. | Failed | [BUG-FR15-02](#bug-fr15-02-api-products-backend-khong-validate-du-lieu-dau-vao-khi-them-sua-san-pham) | FR15-BVA-B01 |
+| FR15-BVA-TC06 | Admin token hợp lệ | Create | `name="Negative Price Product"`, `price=-1`, các field còn lại hợp lệ | `price = -1` | Hệ thống trả validation error; product không được tạo. | API trả về `200 OK`, tạo product thành công với giá âm. | Failed | [BUG-FR15-02](#bug-fr15-02-api-products-backend-khong-validate-du-lieu-dau-vao-khi-them-sua-san-pham) | FR15-BVA-B02 |
+| FR15-BVA-TC07 | Admin token hợp lệ | Create | `name="Zero Price Product"`, `price=0`, các field còn lại hợp lệ | `price = 0` | Hệ thống trả validation error; product không được tạo. | API trả về `200 OK`, tạo product thành công với giá bằng 0. | Failed | [BUG-FR15-02](#bug-fr15-02-api-products-backend-khong-validate-du-lieu-dau-vao-khi-them-sua-san-pham) | FR15-BVA-B02 |
+| FR15-BVA-TC08 | Admin token hợp lệ | Create | `name="Min Price Product"`, `price=1`, các field còn lại hợp lệ | `price = 1` | Product được tạo thành công. | API trả về `200 OK`, tạo product thành công. | Pass | `""` | FR15-BVA-B02 |
+| FR15-BVA-TC09 | Admin token hợp lệ | Create | `name="Low Price Product"`, `price=2`, các field còn lại hợp lệ | `price = 2` | Product được tạo thành công. | API trả về `200 OK`, tạo product thành công. | Pass | `""` | FR15-BVA-B02 |
+| FR15-BVA-TC10 | Admin token hợp lệ | Create | `name="Invalid Category Product"`, `price=100000`, `description="Desc"`, `imageUrl="https://example.com/product.png"`, `category_id=999` | `category_id` không tồn tại | Hệ thống trả validation error hoặc từ chối category không có trong danh sách; product không được tạo. | API trả về `200 OK`, tạo product thành công với `category_id=999`. | Failed | [BUG-FR15-03](#bug-fr15-03-backend-chap-nhan-imageurl-va-category_id-khong-hop-le-khi-them-sua-san-pham) | FR15-BVA-B03 |
+
+Checklist:
+
+- Mỗi test case chỉ thay đổi một boundary chính; các field còn lại giữ giá trị nominal hợp lệ.
+- Boundary được lấy từ README/API spec công khai, không dùng source code hoặc database schema.
+- Các boundary chưa có căn cứ như max `price`, min/max `description`, min/max `imageUrl` không được đưa vào bảng chính.
 
 ### 6.4 AI Gap Analysis
 
-TODO
+Phân tích khoảng cách (AI Gap Analysis) cho FR-15 cho thấy khác biệt lớn giữa thiết kế kiểm thử black-box dựa trên requirement và hành vi thực tế của API Product CRUD.
+
+- **Khoảng cách do prompt/context ban đầu:** Context FR-15 trong `Feature_Contexts.md` chỉ nêu body mẫu và ghi rõ nhiều constraint cần kiểm chứng, nên thiết kế Domain Testing ban đầu cố tình không đưa min/max hoặc required-field rule vào bảng chính. Sau khi rà soát thêm README công khai của SUT, các rule `name` bắt buộc tối đa 255 ký tự, `price > 0`, `category_id` bắt buộc từ danh sách có sẵn mới có đủ căn cứ để chuyển thành BVA và Domain negative cases.
+- **Khoảng cách do nguồn thông tin bị phân tán:** API specification mô tả endpoint/body, còn README mô tả business rule chi tiết hơn. Nếu agent chỉ đọc API spec hoặc chỉ dùng context rút gọn, các test quan trọng như thiếu `name`, thiếu `price`, thiếu `category_id`, `name` dài 256 ký tự và `price=0` rất dễ bị xem là ngoài scope.
+- **Khoảng cách do giới hạn AI trong chọn test:** AI có xu hướng dừng ở dữ liệu nominal (`name="Test Product HW02"`, `price=100000`, `category_id=1`) và các sai kiểu dữ liệu rõ ràng. Rà soát sau giúp bổ sung các lỗi bắt buộc/biên: missing required fields, `name` length 254/255/256, `price=-1/0/1/2`, và category không tồn tại.
+- **Khoảng cách do cần execution thực tế:** Trước khi chạy script, expected result chỉ là thiết kế kiểm thử. Khi thực thi `HW02/scratch/test_fr15.js`, SUT cho thấy backend trả `200 OK` cho hầu hết negative cases, biến các giả thuyết validation/security thành bug xác nhận.
+- **SUT-specific behavior đã quan sát được:**
+  1. **Thiếu xác thực/phân quyền Product CRUD:** `POST /api/products`, `PUT /api/products/:id`, `DELETE /api/products/:id` trả `200 OK` khi thiếu token, token sai, hoặc non-admin token.
+  2. **Thiếu validation dữ liệu sản phẩm:** Backend chấp nhận sai type, thiếu field bắt buộc, `name=""`, `name` dài 256 ký tự, `price=0`, `price=-1` và vẫn tạo/cập nhật product.
+  3. **Thiếu kiểm tra category tồn tại:** Backend chấp nhận `category_id=999` dù không phải category được chọn từ danh sách có sẵn.
+  4. **Sai trạng thái thành công với product ID không tồn tại:** Update/delete ID không tồn tại hoặc sai định dạng vẫn trả thông báo thành công.
+  5. **API update isolation pass nhưng UI update isolation fail:** Test API bổ sung cho thấy khi update product A, product B vẫn giữ nguyên dữ liệu backend. Tuy nhiên khi thao tác trên Web Admin, sau khi cập nhật thành công một product, tên các product khác trên giao diện cũng bị đổi theo. Điều này cho thấy bug nằm ở tầng giao diện/state management hoặc mapping dữ liệu UI, không phải ở API update isolation đã kiểm qua `GET /api/products/:id`.
+- **Tác động đến test suite:** Sau rà soát, FR-15 tăng từ 24 lên 30 test case được thiết kế/thực thi: Domain thêm 5 case (`FR15-DOM-TC15` tới `FR15-DOM-TC19`), BVA thêm 1 case (`FR15-BVA-TC11`). Các failure API missing-field được gom vào `BUG-FR15-02`; bug UI update isolation được tách riêng thành `BUG-FR15-05`.
+- **Rủi ro còn lại:** Chưa kiểm thử tự động bằng browser automation cho toàn bộ Web Admin workflow, concurrency khi nhiều admin sửa/xóa cùng product, và persistence cleanup sau nhiều negative cases. Các rủi ro này nên tách thành exploratory/UI/integration tests nếu còn thời gian.
 
 ## 7. FR-06 - Mobile Product Detail View
 
@@ -489,7 +638,7 @@ TODO
 | :------ | -------: | -------: | -----: | -----: | ------: | -----------: | ------------------: |
 | FR-04   |     TODO |     TODO |   TODO |   TODO |    TODO |         TODO |                TODO |
 | FR-08   |     TODO |     TODO |   TODO |   TODO |    TODO |         TODO |                TODO |
-| FR-15   |     TODO |     TODO |   TODO |   TODO |    TODO |         TODO |                TODO |
+| FR-15   |       30 |       30 |     10 |     20 |       0 |            0 |                   5 |
 | FR-06   |     TODO |     TODO |   TODO |   TODO |    TODO |         TODO |                TODO |
 | Total   |     TODO |     TODO |   TODO |   TODO |    TODO |         TODO |                TODO |
 
