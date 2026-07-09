@@ -13,8 +13,8 @@ Partition each atomic input/output condition into classes that should be treated
 ## Workflow
 
 1. Identify all inputs and outputs relevant to the function.
-2. Convert each rule into atomic conditions. Include type, required/optional, format, range, length, membership set, uniqueness, state, and cross-field constraints as separate rows in A2.
-3. Do not merge conditions because they look redundant. For example, keep `email không rỗng` separate from `email đúng định dạng`, and keep `password không rỗng` separate from `password có độ dài tối thiểu 8 ký tự`. If a representative value for one invalid class also violates another condition, state that relationship in A3/A4 and add a cleaner representative when needed.
+2. Convert each rule into atomic conditions. Include type, required/optional, format, range, length, membership set, uniqueness, state, and cross-field constraints as separate rows in section 2.2.
+3. Do not merge conditions because they look redundant. For example, keep `email không rỗng` separate from `email đúng định dạng`, and keep `password không rỗng` separate from `password có độ dài tối thiểu 8 ký tự`. If a representative value for one invalid class also violates another condition, state that relationship in sections 2.3/2.4 and add a cleaner representative when needed.
 4. Create equivalence classes:
    - For a range: one valid class, one lower-than-min invalid class, and one higher-than-max invalid class.
    - For a finite set with distinct behavior: one valid class per meaningful value plus invalid class(es).
@@ -31,39 +31,39 @@ Partition each atomic input/output condition into classes that should be treated
 
 ## Output Sections
 
-### A. Phân hoạch tương đương
+## 2. Phân hoạch tương đương
 
-#### A1. Đầu vào và đầu ra
+### 2.1. Đầu vào và đầu ra
 
-| Loại | Tên | Mô tả |
-| --- | --- | --- |
-| Đầu vào | `<input>` | `<ý nghĩa/nguồn quy tắc>` |
-| Đầu ra | `<output>` | `<thành công/lỗi/trạng thái>` |
+| Loại      | Tên         | Mô tả                              |
+| ---------- | ------------ | ------------------------------------ |
+| Đầu vào | `<input>`  | `<ý nghĩa/nguồn quy tắc>`      |
+| Đầu ra   | `<output>` | `<thành công/lỗi/trạng thái>` |
 
-#### A2. Điều kiện
+### 2.2. Điều kiện
 
 List atomic conditions. Do not combine required/non-empty, type, format, range, length, membership, uniqueness, state, or cross-field checks into one row.
 
-| Mã | Đầu vào/Đầu ra | Điều kiện |
-| --- | --- | --- |
-| C1 | `<field>` | `<quy tắc>` |
+| Mã | Đầu vào/Đầu ra | Điều kiện   |
+| --- | ------------------- | -------------- |
+| C1  | `<field>`         | `<quy tắc>` |
 
-#### A3. Lớp tương đương
+### 2.3. Lớp tương đương
 
-| EC | Đầu vào/Đầu ra | Lớp tương đương | Hợp lệ? | Giá trị đại diện | Kết quả mong đợi |
-| --- | --- | --- | --- | --- | --- |
-| EC01 | `<field>` | `<mô tả lớp>` | Có/Không | `<giá trị>` | `<kết quả mong đợi>` |
+| EC   | Đầu vào/Đầu ra | Lớp tương đương | Hợp lệ?  | Giá trị đại diện | Kết quả mong đợi       |
+| ---- | ------------------- | --------------------- | ---------- | --------------------- | -------------------------- |
+| EC01 | `<field>`         | `<mô tả lớp>`    | Có/Không | `<giá trị>`       | `<kết quả mong đợi>` |
 
-#### A4. Ca kiểm thử EP
+### 2.4. Ca kiểm thử EP
 
-| TC | Mục tiêu | Dữ liệu kiểm thử | Lớp được bao phủ | Kết quả mong đợi |
-| --- | --- | --- | --- | --- |
-| TC01 | `<trọng tâm hợp lệ/không hợp lệ>` | `<giá trị>` | EC01, EC02 | `<kết quả mong đợi>` |
+| TC   | Mục tiêu                                 | Dữ liệu kiểm thử | Lớp được bao phủ | Kết quả mong đợi       |
+| ---- | ------------------------------------------ | -------------------- | --------------------- | -------------------------- |
+| TC01 | `<trọng tâm hợp lệ/không hợp lệ>` | `<giá trị>`      | EC01, EC02            | `<kết quả mong đợi>` |
 
 ## Quality Checks
 
-- Every input and output from the function appears in A1.
-- A2 conditions are atomic and match the parent skill's A2 rule.
+- Every input and output from the function appears in section 2.1.
+- Section 2.2 conditions are atomic and match the parent skill's section 2.2 rule.
 - Every condition has at least one valid or invalid `ECxx`.
 - Each invalid EP test isolates one invalid class unless explicitly documenting an interaction test.
 - No condition is merged merely because another condition is stricter or often fails first during execution.

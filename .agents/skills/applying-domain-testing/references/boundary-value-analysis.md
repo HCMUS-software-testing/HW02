@@ -30,21 +30,21 @@ Apply BVA only to inputs or outputs with meaningful order and boundaries. Do not
 
 ## Output Sections
 
-### B. Phân tích giá trị biên
+## 3. Phân tích giá trị biên
 
-#### B1. Xác định miền liên tục có thể phân tích biên
+### 3.1. Xác định miền liên tục có thể phân tích biên
 
 | Đầu vào/Đầu ra | Dạng miền                                 | Có áp dụng BVA? | Lý do                                   |
 | ------------------- | ------------------------------------------- | ------------------ | ---------------------------------------- |
 | `<field/output>`  | `<số/độ dài/ngày/số lượng/khác>` | Có/Không         | `<vì sao có hoặc không có biên>` |
 
-#### B2. Xác định biên và giá trị cận biên
+### 3.2. Xác định biên và giá trị cận biên
 
 | Trường    | Quy tắc biên                            | Giá Trị biên và cận biên |
 | ----------- | ----------------------------------------- | ------------------------------ |
 | `<field>` | `<min/max/độ dài/ngày/số lượng>` | `<min-1, min, min+1...>`     |
 
-#### B3. Ca kiểm thử BVA
+### 3.3. Ca kiểm thử BVA
 
 | TC   | Trường    | Biên được kiểm thử | Dữ liệu kiểm thử | Kết quả mong đợi       |
 | ---- | ----------- | ------------------------ | -------------------- | -------------------------- |
@@ -52,8 +52,8 @@ Apply BVA only to inputs or outputs with meaningful order and boundaries. Do not
 
 ## Quality Checks
 
-- BVA includes step B1 before listing values, so the artifact explains why each field is or is not boundary-testable.
-- BVA includes step B2 before test cases, so the artifact separates boundary identification from case design.
+- BVA includes section 3.1 before listing values, so the artifact explains why each field is or is not boundary-testable.
+- BVA includes section 3.2 before test cases, so the artifact separates boundary identification from case design.
 - Boundary values from the specification are concrete and executable. Unspecified support values needed to compute an expected result may be symbolic only when they are explicitly defined as values observed during black-box setup.
 - Boundary dates include an explicit reference date.
 - BVA is not applied to unordered enums or free-form fields without a documented length, range, count, or ordering rule.

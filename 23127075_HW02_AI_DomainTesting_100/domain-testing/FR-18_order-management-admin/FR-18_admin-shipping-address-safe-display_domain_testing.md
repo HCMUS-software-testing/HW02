@@ -2,21 +2,15 @@
 
 ## 1. Chức năng kiểm thử
 
-| Thuộc tính                   | Nội dung                                                                                                                                                                                                                                                                                                                                                                                                           |
-| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Project                        | EShop                                                                                                                                                                                                                                                                                                                                                                                                               |
-| Feature                        | `FR-18: Order management (admin)` / `FR-18: Quản lý Đơn hàng (Admin)` - Hiển thị an toàn địa chỉ giao hàng                                                                                                                                                                                                                                                                                          |
-| SUT                            | EShop - Web Admin và Backend API                                                                                                                                                                                                                                                                                                                                                                                   |
-| Specification tham chiếu      | `requirements/2026.HW02.Domain Testing_En.md` mục Pool C; `eshop-sut/README.md` mục `FR-12: Kiểm soát truy cập`, `FR-18: Quản lý Đơn hàng (Admin)`, `SEC-04`; `eshop-sut/api_specification.md` mục `4.3 Đặt hàng (Checkout)`, `6.2 Quản lý Đơn hàng (Toàn hệ thống)`                                                                                                          |
-| Giao diện/API tham chiếu     | Màn hình Web Admin`Quản lý Đơn hàng`; `GET /api/admin/orders`; dữ liệu `shipping_address` được nhập khi checkout qua `POST /api/checkout`                                                                                                                                                                                                                                                      |
-| Phạm vi kiểm thử            | Thiết kế Domain Testing cho yêu cầu địa chỉ giao hàng trong quản lý đơn hàng admin phải được hiển thị an toàn, không render HTML, không thực thi script/event handler, và không làm lộ dữ liệu admin cho user không đủ quyền.                                                                                                                                                      |
-| Ngoài phạm vi                | Không kiểm thử validation độ dài/format địa chỉ khi checkout, không kiểm thử lưu trữ database, không kiểm thử XSS ở các màn hình ngoài Web Admin, và không kiểm thử state transition.                                                                                                                                                                                                     |
-| Giả định/ràng buộc thiếu | README chỉ yêu cầu`shipping_address` hiển thị an toàn và `SEC-04` yêu cầu escape dữ liệu user khi hiển thị; tài liệu không nêu độ dài tối thiểu/tối đa, regex, fallback text khi địa chỉ rỗng, hoặc status/body API. Vì an toàn hiển thị là kiểm chứng UI, API chỉ có thể cung cấp dữ liệu chuỗi để đối chiếu, không chứng minh được "không render HTML". |
-| Trạng thái thực thi         | Đã thực thi qua đọc UI Web Admin và gọi API kiểu Postman/cURL ngày 2026-07-09. Evidence:`artifacts/test-results/FR18_order_management_admin_api_evidence.txt`.                                                                                                                                                                                                                                           |
+| Thuộc tính | Nội dung                                                                                                                  |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| Project      | EShop                                                                                                                      |
+| Feature      | `FR-18: Order management (admin)` / `FR-18: Quản lý Đơn hàng (Admin)` - Hiển thị an toàn địa chỉ giao hàng |
+| SUT          | EShop - Web Admin và Backend API                                                                                          |
 
-### A. Phân hoạch tương đương
+## 2. Phân hoạch tương đương
 
-#### A1. Đầu vào và đầu ra
+### 2.1. Đầu vào và đầu ra
 
 | Loại      | Tên                                   | Mô tả                                                                                                                                                                        |
 | ---------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -26,7 +20,7 @@
 | Đầu ra   | Dữ liệu API`GET /api/admin/orders` | API trả dữ liệu đơn hàng để Web Admin hiển thị; contract không nêu schema chi tiết nhưng cần có địa chỉ nếu màn hình quản lý hiển thị trường này. |
 | Đầu ra   | Phản hồi xác thực/phân quyền     | User không đủ quyền không được truy cập dữ liệu địa chỉ trong danh sách admin.                                                                                  |
 
-#### A2. Điều kiện
+### 2.2. Điều kiện
 
 | Mã | Đầu vào/Đầu ra                  | Điều kiện                                                                                                                                |
 | --- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -40,7 +34,7 @@
 | C8  | Nội dung địa chỉ trên Web Admin | Nội dung hiển thị không được dùng kết quả render HTML làm giao diện cuối cùng.                                                |
 | C9  | Phản hồi xác thực/phân quyền   | Thiếu quyền admin không được xem dữ liệu địa chỉ giao hàng của đơn hàng toàn hệ thống.                                   |
 
-#### A3. Lớp tương đương
+### 2.3. Lớp tương đương
 
 | EC   | Đầu vào/Đầu ra                    | Lớp tương đương                                                                                      | Hợp lệ? | Giá trị đại diện                                                                                   | Kết quả mong đợi                                                                                                                     |
 | ---- | -------------------------------------- | ---------------------------------------------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
@@ -55,7 +49,7 @@
 | EC09 | Dữ liệu API`GET /api/admin/orders` | API cung cấp địa chỉ dạng chuỗi để UI hiển thị.                                                  | Có       | Item đơn hàng có`shipping_address` quan sát được                                              | API trả dữ liệu chuỗi; kiểm an toàn render thực hiện trên Web Admin.                                                            |
 | EC10 | Dữ liệu API`GET /api/admin/orders` | API thiếu địa chỉ cho đơn cần hiển thị hoặc biến đổi mất dữ liệu không được đặc tả. | Không    | Đơn đã checkout với địa chỉ`Apt "5" & <Gate A>` nhưng danh sách admin không có địa chỉ | Không đủ dữ liệu để kiểm/hiển thị địa chỉ giao hàng trong quản lý đơn hàng.                                           |
 
-#### A4. Ca kiểm thử EP
+### 2.4. Ca kiểm thử EP
 
 | TC               | Mục tiêu                                                           | Dữ liệu kiểm thử                                                                                                                                                                   | Lớp được bao phủ  | Kết quả mong đợi                                                                                                                                                                                                                                   | Kết quả thực tế                                                                                                                                                                                                                  | Đạt  |
 | ---------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------ |
@@ -67,9 +61,9 @@
 | EP-FR18-ADDR-006 | Từ chối user không đủ quyền xem địa chỉ trong admin orders. | Gọi`GET /api/admin/orders` bằng token user thường hoặc không gửi token.                                                                                                       | EC02, EC09             | Web: không hiển thị màn hình/dữ liệu địa chỉ của quản lý đơn hàng admin. API: trả lỗi xác thực/phân quyền theo contract thực tế; không lộ địa chỉ giao hàng của đơn hàng toàn hệ thống.                           | Thiếu token trả`401`, nhưng token user thường gọi `GET /api/admin/orders` trả `200` thay vì lỗi phân quyền. Do backend không kiểm role, user thường có thể lấy dữ liệu địa chỉ nếu có token hợp lệ. | Không |
 | EP-FR18-ADDR-007 | Phát hiện API/danh sách admin thiếu địa chỉ cần hiển thị.  | Đơn`O_addr_special` đã checkout với địa chỉ quan sát được, admin gọi danh sách đơn hàng nhưng item không có trường/nội dung địa chỉ để Web hiển thị.   | EC01, EC06, EC10       | Web/API chỉ đạt nếu dữ liệu địa chỉ cần hiển thị có thể quan sát trong quản lý đơn hàng. Nếu dữ liệu mất hoặc bị biến đổi không được đặc tả, cần ghi nhận actual và review.                                     | API admin orders có trường`shipping_address` cho các đơn đã checkout và giữ nguyên giá trị đã nhập, gồm plain/html/script/special/empty.                                                                          | Đạt  |
 
-### B. Phân tích giá trị biên
+## 3. Phân tích giá trị biên
 
-#### B1. Xác định miền liên tục có thể phân tích biên
+### 3.1. Xác định miền liên tục có thể phân tích biên
 
 | Đầu vào/Đầu ra        | Dạng miền             | Có áp dụng BVA? | Lý do                                                                                                                                                                    |
 | -------------------------- | ----------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -78,24 +72,15 @@
 | `Authorization` token    | Chuỗi/token            | Không             | Token chỉ có phân lớp hợp lệ/không hợp lệ/admin/user; không có boundary độ dài trong specification.                                                         |
 | Số lượng payload script | Count                   | Không             | Specification không nêu ngưỡng số lượng payload; chỉ cần mọi dữ liệu user nhập khi hiển thị đều được escape đúng cách.                             |
 
-#### B2. Xác định biên và giá trị cận biên
+### 3.2. Xác định biên và giá trị cận biên
 
 | Trường             | Quy tắc biên                                              | Giá Trị biên và cận biên                                                                                                                            |
 | -------------------- | ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `shipping_address` | Không có biên độ dài hoặc ngưỡng được đặc tả | Không sinh giá trị`min-1/min/max+1`; dùng EP với đại diện text thường, HTML tag, script/event handler, ký tự đặc biệt, và rỗng/thiếu. |
 
-#### B3. Ca kiểm thử BVA
+### 3.3. Ca kiểm thử BVA
 
 | TC | Trường | Biên được kiểm thử | Dữ liệu kiểm thử | Kết quả mong đợi | Kết quả thực tế | Đạt |
 | -- | -------- | ------------------------ | -------------------- | -------------------- | ------------------- | ----- |
 
 Không sinh ca BVA riêng cho file này vì `shipping_address` không có boundary được đặc tả. Các lớp rủi ro bảo mật được bao phủ bằng EP ở `EP-FR18-ADDR-002` đến `EP-FR18-ADDR-005`.
-
-## 5. Ghi chú rủi ro
-
-- Yêu cầu "hiển thị an toàn" là UI-only; API có thể trả chuỗi địa chỉ nhưng không thể chứng minh chuỗi đó được render an toàn trên Web Admin.
-- Tài liệu không nêu độ dài tối đa/tối thiểu hoặc bắt buộc/không bắt buộc cho `shipping_address` trong admin order view, nên không áp dụng BVA độ dài.
-- Khi thực thi, tester nên chuẩn bị order qua luồng checkout black-box để payload địa chỉ đi qua hệ thống như dữ liệu người dùng thật, thay vì sửa trực tiếp database.
-- Nếu UI biến đổi địa chỉ để sanitize, cần phân biệt biến đổi an toàn chấp nhận được với mất dữ liệu không được đặc tả; ghi lại screenshot/response làm evidence.
-- Lỗi phát hiện khi thực thi: Web Admin dùng `dangerouslySetInnerHTML` để hiển thị `shipping_address`, khiến HTML/script payload không được escape an toàn.
-- Lỗi phát hiện khi thực thi: API admin không kiểm `role=admin`, nên user thường có thể gọi endpoint chứa địa chỉ giao hàng toàn hệ thống.

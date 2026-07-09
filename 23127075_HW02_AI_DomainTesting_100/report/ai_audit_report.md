@@ -1,79 +1,73 @@
-# AI Audit Report
+# Báo cáo kiểm toán AI
 
-> Placeholder only. Log every meaningful AI-assisted step.
+## Thông tin sinh viên
 
-## Student Information
+- Họ và tên: `Lê Trung Kiên`
+- MSSV: `23127075`
 
-- Student name: `Lê Trung Kiên`
-- Student ID: `23127075`
-
-## Prompt and Output Log
+## Nhật ký câu lệnh và đầu ra
 
 ### Entry 001
 
-- Time: `2026-07-05 22:41 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: Add a skill and a rule so each user prompt session appends an entry to the HW02 AI audit report; leave human review and final use fields manual.
-- Output Summary: Created repo-local ai-audit-entry skill, added append script, updated AGENTS.md rule, and left manual audit fields as placeholders.
-- Human Review/Corrections: Skill được tạo trong root của repo nên sinh viên đưa vào `./.agents`.
+- Thời gian: `2026-07-05 22:41 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: Add a skill and a rule so each user prompt session appends an entry to the HW02 AI audit report; leave human review and final use fields manual.
+- Tóm tắt đầu ra: Created repo-local ai-audit-entry skill, added append script, updated AGENTS.md rule, and left manual audit fields as placeholders.
 
 ### Entry 002
 
-- Time: `2026-07-05 22:58 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: Đưa nội dung references/04_Domain Testing.pdf thành markdown
-- Output Summary: Created references/04_Domain Testing.md from the PDF content with headings, bullets, and Markdown tables for examples and test cases.
-- Human Review/Corrections: AI chuyển file pdf sang markdown đảm bảo được nội dung.
-- Final Use in Submission: File markdown không dùng để nộp nhưng sẽ được dùng để build skill domain testing.
+- Thời gian: `2026-07-05 22:58 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: Đưa nội dung references/04_Domain Testing.pdf thành markdown
+- Tóm tắt đầu ra: Created references/04_Domain Testing.md from the PDF content with headings, bullets, and Markdown tables for examples and test cases.
+- Rà soát/Chỉnh sửa bởi sinh viên: AI chuyển file pdf sang markdown đảm bảo được nội dung.
 
 ### Entry 003
 
-- Time: `2026-07-05 23:02 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: Cập nhật skill ai audit .agents/skills/ai-audit-entry để luôn đánh số lại phù hợp mỗi khi thêm entry vì user có thể xóa các entry thừa.
-- Output Summary: Updated the ai-audit-entry script to renumber existing Entry headings before appending, updated SKILL.md with the behavior and correct script path, and validated the skill.
-- Human Review/Corrections: Skill đánh số các entry trong AI audit report đúng thứ tự.
+- Thời gian: `2026-07-05 23:02 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: Cập nhật skill ai audit .agents/skills/ai-audit-entry để luôn đánh số lại phù hợp mỗi khi thêm entry vì user có thể xóa các entry thừa.
+- Tóm tắt đầu ra: Updated the ai-audit-entry script to renumber existing Entry headings before appending, updated SKILL.md with the behavior and correct script path, and validated the skill.
+- Rà soát/Chỉnh sửa bởi sinh viên: Skill đánh số các entry trong AI audit report đúng thứ tự.
 
 ### Entry 004
 
-- Time: `2026-07-05 23:18 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: User asked to change registration Part A IDs in references/23127075.md from E prefix to EC prefix.
-- Output Summary: Updated the Part A test data table so registration equivalent class references use EC01-EC23 consistently with the EP domain table.
-- Human Review/Corrections: Output đúng theo yêu cầu
-- Final Use in Submission: Không dùng trong bài nộp, chỉ để AI đọc.
+- Thời gian: `2026-07-05 23:18 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: User asked to change registration Part A IDs in references/23127075.md from E prefix to EC prefix.
+- Tóm tắt đầu ra: Updated the Part A test data table so registration equivalent class references use EC01-EC23 consistently with the EP domain table.
+- Rà soát/Chỉnh sửa bởi sinh viên: Output đúng theo yêu cầu
 
 ### Entry 005
 
-- Time: `2026-07-05 23:31 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: Fix the skill ai-audit to give the Ouput of a Entry is the full output of AI (only summarize if too long or not in a single paragraph). The output might be the content of a file, a code,... or any artifact created by AI.
-- Output: Updated the AI audit skill so Output means the full AI-generated output or artifact when it is short and contiguous, including final answer text, file content, code, Markdown, command text, or other created artifacts. The script now formats multi-line prompt/output values in fenced blocks and the skill validated successfully. No commit was made.
-- Human Review/Corrections: Skill đã giúp AI in output cho từng entry trong AI Audit report đúng theo ý muốn của sinh viên.
+- Thời gian: `2026-07-05 23:31 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: Fix the skill ai-audit to give the Ouput of a Entry is the full output of AI (only summarize if too long or not in a single paragraph). The output might be the content of a file, a code,... or any artifact created by AI.
+- Đầu ra: Updated the AI audit skill so Output means the full AI-generated output or artifact when it is short and contiguous, including final answer text, file content, code, Markdown, command text, or other created artifacts. The script now formats multi-line prompt/output values in fenced blocks and the skill validated successfully. No commit was made.
+- Rà soát/Chỉnh sửa bởi sinh viên: Skill đã giúp AI in output cho từng entry trong AI Audit report đúng theo ý muốn của sinh viên.
 
 ### Entry 006
 
-- Time: `2026-07-05 23:50 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) references/04_Domain Testing.md provide the knowledge about Domain Testing, meanwhile, references/23127075.md provide the example of exercises for Domain Testing to let you know how to do domain testing step by step. Based on two mentioned files, create the skills for domain testing including Equivalence partitioning (EP) and Boundary Value Analysis (BVA) for a single given function. Ensure that this skill (or skilss) is reusable and meets the requirements in requirements/2026.HW02.Domain Testing_En.md section 7. Agent Skill
-- Output: Created .agents/skills/applying-domain-testing/SKILL.md and .agents/skills/applying-domain-testing/agents/openai.yaml. The skill provides a reusable workflow and Markdown output templates for applying Domain Testing, Equivalence Partitioning, and Boundary Value Analysis to a single function/API/form/feature. Validated the skill with quick_validate.py; result: Skill is valid. No commit was made.
-- Human Review/Corrections: Skill thực hiện khá tốt domain testing cho FR-01: Registration.
-- Final Use in Submission: Chỉ dùng để test skill và giữ làm bản dự bị, chưa phải bản cuối.
+- Thời gian: `2026-07-05 23:50 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: [@superpowers](plugin://superpowers@openai-api-curated) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) references/04_Domain Testing.md provide the knowledge about Domain Testing, meanwhile, references/23127075.md provide the example of exercises for Domain Testing to let you know how to do domain testing step by step. Based on two mentioned files, create the skills for domain testing including Equivalence partitioning (EP) and Boundary Value Analysis (BVA) for a single given function. Ensure that this skill (or skilss) is reusable and meets the requirements in requirements/2026.HW02.Domain Testing_En.md section 7. Agent Skill
+- Đầu ra: Created .agents/skills/applying-domain-testing/SKILL.md and .agents/skills/applying-domain-testing/agents/openai.yaml. The skill provides a reusable workflow and Markdown output templates for applying Domain Testing, Equivalence Partitioning, and Boundary Value Analysis to a single function/API/form/feature. Validated the skill with quick_validate.py; result: Skill is valid. No commit was made.
+- Rà soát/Chỉnh sửa bởi sinh viên: Skill thực hiện khá tốt domain testing cho FR-01: Registration.
 
 ### Entry 007
 
-- Time: `2026-07-06 20:24 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) Cập nhật các skill để output đầu ra là tiếng Việt, đảm bảo có dấu, không bị lỗi kí tự. Tuy nhiên, trong ai audit thì với từng entry, prompt và output giữ nguyên ngôn ngữ không cần dịch để tôn trọng tính nguyên bản.
-- Output: Đã cập nhật .agents/skills/applying-domain-testing/SKILL.md để yêu cầu artifact Domain Testing bằng tiếng Việt có dấu, UTF-8, giữ nguyên định danh kỹ thuật và Việt hóa mẫu output. Đã cập nhật .agents/skills/ai-audit-entry/SKILL.md để metadata mới dùng tiếng Việt có dấu nhưng Prompt/Output của từng entry được giữ nguyên ngôn ngữ và nguyên văn. Đã thêm regression test Unicode vào .agents/skills/ai-audit-entry/scripts/test_append_ai_audit_entry.py và xác minh bằng test/compile.
-- Human Review/Corrections: Output của các skill bây giờ là tiếng Việt đúng yêu cầu bài tập.
+- Thời gian: `2026-07-06 20:24 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) Cập nhật các skill để output đầu ra là tiếng Việt, đảm bảo có dấu, không bị lỗi kí tự. Tuy nhiên, trong ai audit thì với từng entry, prompt và output giữ nguyên ngôn ngữ không cần dịch để tôn trọng tính nguyên bản.
+- Đầu ra: Đã cập nhật .agents/skills/applying-domain-testing/SKILL.md để yêu cầu artifact Domain Testing bằng tiếng Việt có dấu, UTF-8, giữ nguyên định danh kỹ thuật và Việt hóa mẫu output. Đã cập nhật .agents/skills/ai-audit-entry/SKILL.md để metadata mới dùng tiếng Việt có dấu nhưng Prompt/Output của từng entry được giữ nguyên ngôn ngữ và nguyên văn. Đã thêm regression test Unicode vào .agents/skills/ai-audit-entry/scripts/test_append_ai_audit_entry.py và xác minh bằng test/compile.
+- Rà soát/Chỉnh sửa bởi sinh viên: Output của các skill bây giờ là tiếng Việt đúng yêu cầu bài tập.
 
 ### Entry 008
 
-- Time: `2026-07-06 20:33 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project. The output for this feature will be added into folder ./domain-testing
-- Output:
+- Thời gian: `2026-07-06 20:33 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: [@superpowers](plugin://superpowers@openai-api-curated) [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project. The output for this feature will be added into folder ./domain-testing
+- Đầu ra:
 
 ```text
 # FR-01: Đăng ký tài khoản - Domain Testing
@@ -247,15 +241,14 @@ Không áp dụng BVA cho role vì role không phải input của chức năng �
 - Các ca trong artifact này chưa được thực thi. Sau khi chạy thật, cần điền actual result, status `Passed/Failed/Blocked/Not executed`, và evidence path trong báo cáo kiểm thử hoặc phụ lục execution riêng.
 ```
 
-- Human Review/Corrections: Input thiếu confirm password như yêu cầu tong đặc tả. Có vài cụm từ chưa phù hợp khi dịch ra như "Chức năng dưới kiểm thử". Phần 5 chỉ nên là Ghi chú rủi ro, còn AI gap analysis là của sinh viên làm.
-- Final Use in Submission: Chỉ dùng để test skill, chưa phải bản cuối.
+- Rà soát/Chỉnh sửa bởi sinh viên: Input thiếu confirm password như yêu cầu tong đặc tả. Có vài cụm từ chưa phù hợp khi dịch ra như "Chức năng dưới kiểm thử". Phần 5 chỉ nên là Ghi chú rủi ro, còn AI gap analysis là của sinh viên làm.
 
 ### Entry 009
 
-- Time: `2026-07-06 20:54 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) Cập nhật lại  skill‌ [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) để format lại phần 1 từ Chức năng dưới kiểm thử thành Chức năng kiểm thử. Nội dung phần này trình bày dưới dạng bảng, có format mẫu trong skill. AI gap analysis là phần user điền nên phần 5. chỉ ghi là Ghi chú rủi ro thôi. Phần BVA sẽ gồm 2 bước là xác định các input, output nào có dạng số liên tục rồi step 2 xác định biên, các giá trị cận biên
-- Output:
+- Thời gian: `2026-07-06 20:54 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) Cập nhật lại  skill‌ [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) để format lại phần 1 từ Chức năng dưới kiểm thử thành Chức năng kiểm thử. Nội dung phần này trình bày dưới dạng bảng, có format mẫu trong skill. AI gap analysis là phần user điền nên phần 5. chỉ ghi là Ghi chú rủi ro thôi. Phần BVA sẽ gồm 2 bước là xác định các input, output nào có dạng số liên tục rồi step 2 xác định biên, các giá trị cận biên
+- Đầu ra:
 
 ```text
 ---
@@ -376,10 +369,10 @@ Use the following Vietnamese structure for final artifacts.
 
 ### Entry 010
 
-- Time: `2026-07-06 20:59 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project. The output for this feature will be added into folder ./domain-testing
-- Output:
+- Thời gian: `2026-07-06 20:59 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: [@superpowers](plugin://superpowers@openai-api-curated) [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project. The output for this feature will be added into folder ./domain-testing
+- Đầu ra:
 
 ```text
 # FR-01: Đăng ký tài khoản - Domain Testing
@@ -544,31 +537,30 @@ Use the following Vietnamese structure for final artifacts.
 - Requirement chưa nêu độ dài tối đa cho `name`, `email`, `password`, cũng chưa nêu chính sách trim khoảng trắng, nên các biên tối đa và xử lý whitespace cần người học bổ sung sau khi rà soát.
 ```
 
-- Human Review/Corrections: Skill hoạt động tương đối đúng nhu cầu của sinh viên.
-- Final Use in Submission: Chỉ dùng để test skill, không phải bản nộp.
+- Rà soát/Chỉnh sửa bởi sinh viên: Skill hoạt động tương đối đúng nhu cầu của sinh viên.
 
 ### Entry 011
 
-- Time: `2026-07-06 22:09 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: [:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md)  Hãy chia [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) để skill ấy có 2 sub skill là Equivalence partitioning và Boundary value analysis
-- Output: Updated .agents/skills/applying-domain-testing/SKILL.md to act as a parent Domain Testing skill that routes to two sub-skill references: references/equivalence-partitioning.md and references/boundary-value-analysis.md. Added the two reference files with Vietnamese EP/BVA workflows, output sections, and quality checks. Updated .agents/skills/applying-domain-testing/agents/openai.yaml metadata to describe the parent/sub-skill structure. Verified UTF-8 readability and ran quick_validate.py successfully.
-- Human Review/Corrections: Skill domain testing đã gồm 2 phần là EP và BVA như yêu cầu.
+- Thời gian: `2026-07-06 22:09 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: [:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md)  Hãy chia [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) để skill ấy có 2 sub skill là Equivalence partitioning và Boundary value analysis
+- Đầu ra: Updated .agents/skills/applying-domain-testing/SKILL.md to act as a parent Domain Testing skill that routes to two sub-skill references: references/equivalence-partitioning.md and references/boundary-value-analysis.md. Added the two reference files with Vietnamese EP/BVA workflows, output sections, and quality checks. Updated .agents/skills/applying-domain-testing/agents/openai.yaml metadata to describe the parent/sub-skill structure. Verified UTF-8 readability and ran quick_validate.py successfully.
+- Rà soát/Chỉnh sửa bởi sinh viên: Skill domain testing đã gồm 2 phần là EP và BVA như yêu cầu.
 
 ### Entry 012
 
-- Time: `2026-07-06 22:24 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Xóa bảng AI tool usage summary trong ai audit report
-- Output: Removed the AI Tool Usage Summary section from 23127075_HW02_AI_DomainTesting_100/report/ai_audit_report.md. Updated .agents/skills/ai-audit-entry/SKILL.md so future audit work records evidence only in Prompt and Output Log entries. Updated .agents/skills/ai-audit-entry/scripts/append_ai_audit_entry.py so new reports do not create the summary table and old reports have that section removed before saving. Added a regression test in .agents/skills/ai-audit-entry/scripts/test_append_ai_audit_entry.py to verify the summary table is not created. Verified with the script tests, in-memory syntax parse, skill quick_validate.py, and a search for the removed summary table heading/header.
-- Human Review/Corrections: Đã xóa bản Summary trong AI audit report.
+- Thời gian: `2026-07-06 22:24 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Xóa bảng AI tool usage summary trong ai audit report
+- Đầu ra: Removed the AI Tool Usage Summary section from 23127075_HW02_AI_DomainTesting_100/report/ai_audit_report.md. Updated .agents/skills/ai-audit-entry/SKILL.md so future audit work records evidence only in Prompt and Output Log entries. Updated .agents/skills/ai-audit-entry/scripts/append_ai_audit_entry.py so new reports do not create the summary table and old reports have that section removed before saving. Added a regression test in .agents/skills/ai-audit-entry/scripts/test_append_ai_audit_entry.py to verify the summary table is not created. Verified with the script tests, in-memory syntax parse, skill quick_validate.py, and a search for the removed summary table heading/header.
+- Rà soát/Chỉnh sửa bởi sinh viên: Đã xóa bản Summary trong AI audit report.
 
 ### Entry 013
 
-- Time: `2026-07-06 22:43 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project. The output for this feature will be added into folder ./domain-testing
-- Output:
+- Thời gian: `2026-07-06 22:43 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: [@superpowers](plugin://superpowers@openai-api-curated) [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project. The output for this feature will be added into folder ./domain-testing
+- Đầu ra:
 
 ```text
 # FR-01: Đăng ký tài khoản - Domain Testing
@@ -726,22 +718,21 @@ Use the following Vietnamese structure for final artifacts.
 - Requirement chưa nêu độ dài tối đa và chính sách trim khoảng trắng cho `name`, `email`, `password`; các biên trên không được thiết kế trong artifact này để tránh tự đặt requirement ẩn.
 ```
 
-- Human Review/Corrections: Ở phần A2, các điều kiện bị gộp quá mức như Password.
-- Final Use in Submission: Chỉ dùng để test skill, không phải bản nộp.
+- Rà soát/Chỉnh sửa bởi sinh viên: Ở phần A2, các điều kiện bị gộp quá mức như Password.
 
 ### Entry 014
 
-- Time: `2026-07-06 23:11 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md)[$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Ở A2. Điều kiện, các điều kiện đang bị gộp quá mức. Hãy cập nhật [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md)  để đảm bảo các điều kiện được chia nhỏ ra.
-- Output: Updated .agents/skills/applying-domain-testing/SKILL.md to require A2 conditions to be atomic, with separate rows for required/non-empty, type, format, length, membership, uniqueness, state, and cross-field relationship checks. Added an example splitting email and password rules into separate C rows. Updated .agents/skills/applying-domain-testing/references/equivalence-partitioning.md to remove the old guidance that encouraged merging implied conditions, and replaced it with instructions to keep A2 conditions visible while documenting coverage relationships in A3/A4. Verified with rg/file checks; quick_validate.py was not available in the repo/PATH during this session.
+- Thời gian: `2026-07-06 23:11 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md)[$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Ở A2. Điều kiện, các điều kiện đang bị gộp quá mức. Hãy cập nhật [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md)  để đảm bảo các điều kiện được chia nhỏ ra.
+- Đầu ra: Updated .agents/skills/applying-domain-testing/SKILL.md to require A2 conditions to be atomic, with separate rows for required/non-empty, type, format, length, membership, uniqueness, state, and cross-field relationship checks. Added an example splitting email and password rules into separate C rows. Updated .agents/skills/applying-domain-testing/references/equivalence-partitioning.md to remove the old guidance that encouraged merging implied conditions, and replaced it with instructions to keep A2 conditions visible while documenting coverage relationships in A3/A4. Verified with rg/file checks; quick_validate.py was not available in the repo/PATH during this session.
 
 ### Entry 015
 
-- Time: `2026-07-06 23:17 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project. The output for this feature will be added into folder ./domain-testing
-- Output:
+- Thời gian: `2026-07-06 23:17 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: [@superpowers](plugin://superpowers@openai-api-curated) [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project. The output for this feature will be added into folder ./domain-testing
+- Đầu ra:
 
 ```text
 # FR-01: Đăng ký tài khoản - Domain Testing
@@ -905,14 +896,14 @@ Ghi chú bao phủ: điều kiện `email` không rỗng (C3) được giữ ri�
 - Requirement chưa nêu độ dài tối đa cho `name`, `email`, `password`, chưa nêu chuẩn trim khoảng trắng và tập ký tự đặc biệt hợp lệ, nên không tạo BVA cho biên tối đa trong artifact này.
 ```
 
-- Human Review/Corrections: Thông qua đợt prompt này, sinh viên nhận ra có mâu thuẫn trong skill apply-domain-testing đó là parent skill yêu cầu tách các Condition, EC ra mức atomic nhưng sub-skill (EP) lại yêu cầu gộp nếu có thể trùng lặp.
+- Rà soát/Chỉnh sửa bởi sinh viên: Thông qua đợt prompt này, sinh viên nhận ra có mâu thuẫn trong skill apply-domain-testing đó là parent skill yêu cầu tách các Condition, EC ra mức atomic nhưng sub-skill (EP) lại yêu cầu gộp nếu có thể trùng lặp.
 
 ### Entry 016
 
-- Time: `2026-07-06 23:27 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Đồng nhất sub skill EP và parent skill apply domain testing để đảm bảo phần A2. Điều kiện của EP sẽ tách điều kiện nguyên tử để đảm bảo tối ưu khi viết Lớp tương đương và test case.
-- Output:
+- Thời gian: `2026-07-06 23:27 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Đồng nhất sub skill EP và parent skill apply domain testing để đảm bảo phần A2. Điều kiện của EP sẽ tách điều kiện nguyên tử để đảm bảo tối ưu khi viết Lớp tương đương và test case.
+- Đầu ra:
 
 ```text
 # Equivalence Partitioning
@@ -986,10 +977,10 @@ List atomic conditions. One row should express one check only. Required/non-empt
 
 ### Entry 017
 
-- Time: `2026-07-06 23:33 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project (Please read the README in folder eshop-sut for Specification). The output for this feature will be added into folder ./domain-testing
-- Output:
+- Thời gian: `2026-07-06 23:33 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: [@superpowers](plugin://superpowers@openai-api-curated) [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project (Please read the README in folder eshop-sut for Specification). The output for this feature will be added into folder ./domain-testing
+- Đầu ra:
 
 ```text
 # FR-01: Đăng ký tài khoản - Domain Testing
@@ -1183,21 +1174,21 @@ List atomic conditions. One row should express one check only. Required/non-empt
 - Requirement chưa nêu độ dài tối đa cho `name`, `email`, `password`, chưa nêu trim khoảng trắng, và chưa quy định thông điệp lỗi cụ thể; khi thực thi cần ghi actual result theo hành vi quan sát được.
 ```
 
-- Human Review/Corrections: Qua quá trình sửa skill, AI mất context domain testing từ slide môn học.
+- Rà soát/Chỉnh sửa bởi sinh viên: Qua quá trình sửa skill, AI mất context domain testing từ slide môn học.
 
 ### Entry 018
 
-- Time: `2026-07-06 23:41 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Đồng nhất sub skill EP và parent skill apply domain testing để đảm bảo phần A2. Điều kiện của EP sẽ tách điều kiện nguyên tử để đảm bảo tối ưu khi viết Lớp tương đương và test case. Kiến thức phương pháp Domain Testing phải dựa trên references/04_Domain Testing.md.
-- Output: Đã cập nhật .agents/skills/applying-domain-testing/SKILL.md để yêu cầu đọc repo-root references/04_Domain Testing.md làm method oracle, đồng thời nhấn mạnh A2 phải tách điều kiện nguyên tử trước khi lập lớp tương đương. Đã cập nhật .agents/skills/applying-domain-testing/references/equivalence-partitioning.md để bỏ hướng dẫn gộp điều kiện dư thừa, thay bằng quy tắc giữ required/non-empty, type, format, range, length, membership, uniqueness, state và cross-field relationship thành các điều kiện riêng. Đã cập nhật .agents/skills/applying-domain-testing/references/boundary-value-analysis.md để nêu rõ BVA dựa trên repo-root references/04_Domain Testing.md. Đã chạy quick_validate.py và skill hợp lệ; các file Markdown vẫn là UTF-8.
+- Thời gian: `2026-07-06 23:41 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Đồng nhất sub skill EP và parent skill apply domain testing để đảm bảo phần A2. Điều kiện của EP sẽ tách điều kiện nguyên tử để đảm bảo tối ưu khi viết Lớp tương đương và test case. Kiến thức phương pháp Domain Testing phải dựa trên references/04_Domain Testing.md.
+- Đầu ra: Đã cập nhật .agents/skills/applying-domain-testing/SKILL.md để yêu cầu đọc repo-root references/04_Domain Testing.md làm method oracle, đồng thời nhấn mạnh A2 phải tách điều kiện nguyên tử trước khi lập lớp tương đương. Đã cập nhật .agents/skills/applying-domain-testing/references/equivalence-partitioning.md để bỏ hướng dẫn gộp điều kiện dư thừa, thay bằng quy tắc giữ required/non-empty, type, format, range, length, membership, uniqueness, state và cross-field relationship thành các điều kiện riêng. Đã cập nhật .agents/skills/applying-domain-testing/references/boundary-value-analysis.md để nêu rõ BVA dựa trên repo-root references/04_Domain Testing.md. Đã chạy quick_validate.py và skill hợp lệ; các file Markdown vẫn là UTF-8.
 
 ### Entry 019
 
-- Time: `2026-07-07 10:06 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Đưa nội dung references/04_Domain Testing.md thành các bước thực hiện domain testing vào trong [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) để đảm bảo tính tái sử dụng và portable. Bộ skill nhận input là project - feature, nhấn mạnh Domain testing gồm EP và BVA là blackbox testing, dựa trên các specification, không đọc code.
-- Output:
+- Thời gian: `2026-07-07 10:06 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Đưa nội dung references/04_Domain Testing.md thành các bước thực hiện domain testing vào trong [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) để đảm bảo tính tái sử dụng và portable. Bộ skill nhận input là project - feature, nhấn mạnh Domain testing gồm EP và BVA là blackbox testing, dựa trên các specification, không đọc code.
+- Đầu ra:
 
 ```text
 Đã cập nhật bộ skill `applying-domain-testing` để portable hơn.
@@ -1217,14 +1208,14 @@ Thay đổi chính:
 Mình chỉ sửa các file trong `.agents/skills/applying-domain-testing/`. Worktree đang có vài thay đổi ngoài phạm vi từ trước/khác task như `database.sqlite`, audit report, và một file backup bị xóa; mình không đụng vào chúng.
 ```
 
-- Human Review/Corrections: Skill không còn phụ thuộc vào file slide của môn học mà có thể xuất thành bộ skill domain testing độc lập.
+- Rà soát/Chỉnh sửa bởi sinh viên: Skill không còn phụ thuộc vào file slide của môn học mà có thể xuất thành bộ skill domain testing độc lập.
 
 ### Entry 020
 
-- Time: `2026-07-07 21:42 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project (Please read the specifications including: eshop-sut/README, eshop-sut/api_specification.md,  in the folder eshop-sut). The output for this feature will be added into folder ./domain-testing
-- Output:
+- Thời gian: `2026-07-07 21:42 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: [@superpowers](plugin://superpowers@openai-api-curated) [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Apply domain testing for Pool A FR-01: Account registration (mentioned in requirements/2026.HW02.Domain Testing_En.md) for eshop-sut project (Please read the specifications including: eshop-sut/README, eshop-sut/api_specification.md,  in the folder eshop-sut). The output for this feature will be added into folder ./domain-testing
+- Đầu ra:
 
 ```text
 # FR-01: Đăng ký tài khoản - Domain Testing
@@ -1403,41 +1394,34 @@ Mình chỉ sửa các file trong `.agents/skills/applying-domain-testing/`. Wor
 - Các ca kiểm thử trong artifact này đang ở trạng thái thiết kế; khi thực thi cần bổ sung actual result, status, và evidence path theo yêu cầu báo cáo.
 ```
 
-- Human Review/Corrections:
-
-  - Ở password chưa check tất cả kí tự đặc biệt trong tập yêu cầu trong đặc tả. Có khả năng thể hệ thống sẽ không nhận ít nhất 1 trong các ki tự trong tập nên phải kiểm tra từng kí tự.
-  - Sửa cột 3 phần `B2. Xác định biên và giá trị cận biên` từ Giá trị biên thành Giá trị biên và cận biên.
-  - Với các điều kiện `password` có ngưỡng “tối thiểu 1”, bổ sung đủ bộ cận biên: 0, 1, 2
-  - Đối với confirmPassword, giá trị biên và cận biên phải là:
-    - Không rỗng: $length \in \{0; 1\}$
-    - Khớp với password: Khớp hoàn toàn với `password`; khác/dư/thiếu 1 ký tự so với `password`.
-  - Từng testcase đều phải được test qua gao diện và cả API chứ khong tách biệt.
-- Final Use in Submission: `[Manual by user]`
+- Ở password chưa check tất cả kí tự đặc biệt trong tập yêu cầu trong đặc tả. Có khả năng thể hệ thống sẽ không nhận ít nhất 1 trong các ki tự trong tập nên phải kiểm tra từng kí tự.
+- Sửa cột 3 phần `B2. Xác định biên và giá trị cận biên` từ Giá trị biên thành Giá trị biên và cận biên.
+- Với các điều kiện `password` có ngưỡng “tối thiểu 1”, bổ sung đủ bộ cận biên: 0, 1, 2
+- Đối với confirmPassword, giá trị biên và cận biên phải là:
+  - Không rỗng: $length \in \{0; 1\}$
+  - Khớp với password: Khớp hoàn toàn với `password`; khác/dư/thiếu 1 ký tự so với `password`.
+- Từng testcase đều phải được test qua gao diện và cả API chứ khong tách biệt.
 
 ### Entry 021
 
-- Time: `2026-07-07 22:22 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: Cập nhật lại skill để output [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) là ở B2. Xác định biên và giá trị cận biên, bảng gồm 3 cột với title lần lượt là Trường, Quy tắc biên, Giá Trị biên và cận biên
-- Output: Đã cập nhật .agents/skills/applying-domain-testing/SKILL.md và .agents/skills/applying-domain-testing/references/boundary-value-analysis.md để bảng B2 dùng đúng 3 cột: Trường, Quy tắc biên, Giá Trị biên và cận biên. Đã chạy quick_validate.py cho skill applying-domain-testing và kết quả là Skill is valid!
-- Human Review/Corrections: `[Manual by user]`
-- Final Use in Submission: `[Manual by user]`
+- Thời gian: `2026-07-07 22:22 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: Cập nhật lại skill để output [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) là ở B2. Xác định biên và giá trị cận biên, bảng gồm 3 cột với title lần lượt là Trường, Quy tắc biên, Giá Trị biên và cận biên
+- Đầu ra: Đã cập nhật .agents/skills/applying-domain-testing/SKILL.md và .agents/skills/applying-domain-testing/references/boundary-value-analysis.md để bảng B2 dùng đúng 3 cột: Trường, Quy tắc biên, Giá Trị biên và cận biên. Đã chạy quick_validate.py cho skill applying-domain-testing và kết quả là Skill is valid!
 
 ### Entry 022
 
-- Time: `2026-07-08 12:54 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: Cập nhật các file trong folder domain-testing để các bảng testcase có thêm một cột Kết quả thực tế và Đạt để trống để user test xong ghi vào. Cập nhật lại skill [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) để các bảng testcase sau này có thêm 2 cột đó
-- Output: Đã cập nhật 3 file trong domain-testing để các bảng testcase EP/BVA có thêm hai cột trống Kết quả thực tế và Đạt. Đã cập nhật .agents/skills/applying-domain-testing/SKILL.md để template A4/B3 và quality check yêu cầu hai cột này cho các artifact sau. Đã kiểm tra 6 bảng testcase với 124 dòng bảng, không có lỗi lệch cột; skill validate thành công bằng quick_validate.py.
-- Human Review/Corrections: `[Manual by user]`
-- Final Use in Submission: `[Manual by user]`
+- Thời gian: `2026-07-08 12:54 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: Cập nhật các file trong folder domain-testing để các bảng testcase có thêm một cột Kết quả thực tế và Đạt để trống để user test xong ghi vào. Cập nhật lại skill [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) để các bảng testcase sau này có thêm 2 cột đó
+- Đầu ra: Đã cập nhật 3 file trong domain-testing để các bảng testcase EP/BVA có thêm hai cột trống Kết quả thực tế và Đạt. Đã cập nhật .agents/skills/applying-domain-testing/SKILL.md để template A4/B3 và quality check yêu cầu hai cột này cho các artifact sau. Đã kiểm tra 6 bảng testcase với 124 dòng bảng, không có lỗi lệch cột; skill validate thành công bằng quick_validate.py.
 
 ### Entry 023
 
-- Time: `2026-07-08 16:05 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Áp dụng Domain Testing cho Pool B FR-07: Giỏ hàng (Shopping cart) (được đề cập trong tài liệu requirements/2026.HW02.Domain Testing_En.md) - chức năng Hiển thị danh sách sản phẩm (Lấy gió hàng), áp dụng cho dự án eshop-sut (Vui lòng đọc kỹ các tài liệu đặc tả bao gồm: eshop-sut/README, eshop-sut/api_specification.md). Kết quả đầu ra (output) của tính năng này sẽ được thêm vào thư mục ./domain-testing/FR-07_shopping-cart.
-- Output:
+- Thời gian: `2026-07-08 16:05 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: [@superpowers](plugin://superpowers@openai-api-curated) [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Áp dụng Domain Testing cho Pool B FR-07: Giỏ hàng (Shopping cart) (được đề cập trong tài liệu requirements/2026.HW02.Domain Testing_En.md) - chức năng Hiển thị danh sách sản phẩm (Lấy gió hàng), áp dụng cho dự án eshop-sut (Vui lòng đọc kỹ các tài liệu đặc tả bao gồm: eshop-sut/README, eshop-sut/api_specification.md). Kết quả đầu ra (output) của tính năng này sẽ được thêm vào thư mục ./domain-testing/FR-07_shopping-cart.
+- Đầu ra:
 
 ```text
 # FR-07: Giỏ hàng - Hiển thị danh sách sản phẩm / Lấy giỏ hàng - Domain Testing
@@ -1575,30 +1559,27 @@ Mình chỉ sửa các file trong `.agents/skills/applying-domain-testing/`. Wor
 - `POST /api/cart` được dùng trong artifact này như bước tạo dữ liệu tiền điều kiện; lỗi của `POST /api/cart` nên được ghi nhận riêng nếu phát hiện, nhưng mục tiêu chính vẫn là hiển thị/lấy danh sách sản phẩm trong giỏ bằng `GET /api/cart`.
 ```
 
-- Human Review/Corrections:
-  - Sau output ban đầu của Entry 023, sinh viên rà soát và chỉnh lại phạm vi input/output của artifact FR-07:
-    - Các trạng thái như giỏ trống, giỏ có một/nhiều sản phẩm, sản phẩm trùng, dòng sản phẩm trong giỏ được xem là dữ liệu tiền điều kiện/test setup, không phải input trực tiếp của chức năng `GET /api/cart`; input chính còn lại là `Authorization` token.
-    - Output được thu gọn về `Danh sách sản phẩm trong giỏ`, `Trạng thái giỏ trống`, `Tổng tiền`, và `Phản hồi lỗi xác thực`. `Thành tiền` được chuyển thành điều kiện/thuộc tính của `Danh sách sản phẩm trong giỏ`, không tách thành output riêng.
-  - Cặp equivalence class cho sản phẩm trùng được tách thành hợp lệ/không hợp lệ, đặt cạnh nhau và đánh số lại; các testcase A4 được cập nhật lại mã EC tương ứng.
-  - Phần `Điều hướng`/nút `Tiếp tục mua sắm` được đưa ra ngoài phạm vi artifact này vì không thuộc chức năng lấy/hiển thị danh sách sản phẩm trong giỏ.
-  - Các testcase cần có sản phẩm trong giỏ được chỉnh để dựng tiền điều kiện bằng thao tác thêm sản phẩm qua UI, không gọi trực tiếp `POST /api/cart`, vì AI không có đủ context về kho hàng/tồn kho và product id hợp lệ khi thêm bằng API.
-  - Các giá tiền cụ thể do AI tự đặt trong testcase và BVA như `100000`, `300000`, `500000` được thay bằng ký hiệu `X`, `Y`, `2X`, `2X + Y`; lý do là artifact không có context về giá thực tế của sản phẩm được thêm vào giỏ, nên tester phải lấy đơn giá quan sát được trên UI làm dữ liệu đối chiếu.
+- Sau output ban đầu của Entry 023, sinh viên rà soát và chỉnh lại phạm vi input/output của artifact FR-07:
+  - Các trạng thái như giỏ trống, giỏ có một/nhiều sản phẩm, sản phẩm trùng, dòng sản phẩm trong giỏ được xem là dữ liệu tiền điều kiện/test setup, không phải input trực tiếp của chức năng `GET /api/cart`; input chính còn lại là `Authorization` token.
+  - Output được thu gọn về `Danh sách sản phẩm trong giỏ`, `Trạng thái giỏ trống`, `Tổng tiền`, và `Phản hồi lỗi xác thực`. `Thành tiền` được chuyển thành điều kiện/thuộc tính của `Danh sách sản phẩm trong giỏ`, không tách thành output riêng.
+- Cặp equivalence class cho sản phẩm trùng được tách thành hợp lệ/không hợp lệ, đặt cạnh nhau và đánh số lại; các testcase A4 được cập nhật lại mã EC tương ứng.
+- Phần `Điều hướng`/nút `Tiếp tục mua sắm` được đưa ra ngoài phạm vi artifact này vì không thuộc chức năng lấy/hiển thị danh sách sản phẩm trong giỏ.
+- Các testcase cần có sản phẩm trong giỏ được chỉnh để dựng tiền điều kiện bằng thao tác thêm sản phẩm qua UI, không gọi trực tiếp `POST /api/cart`, vì AI không có đủ context về kho hàng/tồn kho và product id hợp lệ khi thêm bằng API.
+- Các giá tiền cụ thể do AI tự đặt trong testcase và BVA như `100000`, `300000`, `500000` được thay bằng ký hiệu `X`, `Y`, `2X`, `2X + Y`; lý do là artifact không có context về giá thực tế của sản phẩm được thêm vào giỏ, nên tester phải lấy đơn giá quan sát được trên UI làm dữ liệu đối chiếu.
 
 ### Entry 024
 
-- Time: `2026-07-08 20:14 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) Cập nhật[$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) rằng với các giá trị đầu vào như mức giá mà không có context từ hệ thống (vì kiểm tra blackbox) thì hãy để dưới dạng biến. Đảm bảo nội dung domain testing vẫn theo sát references/04_Domain Testing.md và có thể release thành bộ skill độc lập, portable.
-- Output: Đã cập nhật .agents/skills/applying-domain-testing/SKILL.md để yêu cầu không tự đặt giá trị cụ thể cho dữ liệu runtime thiếu context black-box, mà dùng biến ký hiệu như X/Y và công thức như 2X, 2X + Y. Đã cập nhật references/equivalence-partitioning.md để representative value không bịa dữ liệu hệ thống ẩn, và references/boundary-value-analysis.md để phân biệt biên cụ thể từ specification với giá trị phụ trợ có thể dùng biến quan sát được. Đã đối chiếu references/04_Domain Testing.md, chạy RED check trước khi sửa, kiểm tra không thêm phụ thuộc HW02 vào skill, và chạy quick_validate.py với kết quả Skill is valid!.
-- Human Review/Corrections: `[Manual by user]`
-- Final Use in Submission: `[Manual by user]`
+- Thời gian: `2026-07-08 20:14 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) Cập nhật[$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) rằng với các giá trị đầu vào như mức giá mà không có context từ hệ thống (vì kiểm tra blackbox) thì hãy để dưới dạng biến. Đảm bảo nội dung domain testing vẫn theo sát references/04_Domain Testing.md và có thể release thành bộ skill độc lập, portable.
+- Đầu ra: Đã cập nhật .agents/skills/applying-domain-testing/SKILL.md để yêu cầu không tự đặt giá trị cụ thể cho dữ liệu runtime thiếu context black-box, mà dùng biến ký hiệu như X/Y và công thức như 2X, 2X + Y. Đã cập nhật references/equivalence-partitioning.md để representative value không bịa dữ liệu hệ thống ẩn, và references/boundary-value-analysis.md để phân biệt biên cụ thể từ specification với giá trị phụ trợ có thể dùng biến quan sát được. Đã đối chiếu references/04_Domain Testing.md, chạy RED check trước khi sửa, kiểm tra không thêm phụ thuộc HW02 vào skill, và chạy quick_validate.py với kết quả Skill is valid!.
 
 ### Entry 025
 
-- Time: `2026-07-08 21:08 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Áp dụng Domain Testing cho Pool B FR-07: Giỏ hàng (Shopping cart) (được đề cập trong tài liệu requirements/2026.HW02.Domain Testing_En.md) - chức năng Thêm vào giỏ hàng, áp dụng cho dự án eshop-sut (Vui lòng đọc kỹ các tài liệu đặc tả bao gồm: eshop-sut/README, eshop-sut/api_specification.md). Kết quả đầu ra (output) của tính năng này sẽ được thêm vào thư mục ./domain-testing/FR-07_shopping-cart.
-- Output:
+- Thời gian: `2026-07-08 21:08 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: [@superpowers](plugin://superpowers@openai-api-curated) [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Áp dụng Domain Testing cho Pool B FR-07: Giỏ hàng (Shopping cart) (được đề cập trong tài liệu requirements/2026.HW02.Domain Testing_En.md) - chức năng Thêm vào giỏ hàng, áp dụng cho dự án eshop-sut (Vui lòng đọc kỹ các tài liệu đặc tả bao gồm: eshop-sut/README, eshop-sut/api_specification.md). Kết quả đầu ra (output) của tính năng này sẽ được thêm vào thư mục ./domain-testing/FR-07_shopping-cart.
+- Đầu ra:
 
 ```text
 # FR-07: Giỏ hàng - Thêm vào giỏ hàng - Domain Testing
@@ -1737,47 +1718,2622 @@ Mình chỉ sửa các file trong `.agents/skills/applying-domain-testing/`. Wor
 - API nhận cả `name` và `price` trong body là rủi ro contract vì client có thể gửi dữ liệu không nhất quán; artifact chỉ nêu testcase black-box để phát hiện, không suy diễn cách backend nên triển khai từ mã nguồn.
 ```
 
-- Human Review/Corrections: `[Manual by user]`
-- Final Use in Submission: `[Manual by user]`
-
 ### Entry 026
 
-- Time: `2026-07-08 22:58 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Áp dụng Domain Testing cho Pool C FR-18: Order management (admin) (được đề cập trong tài liệu requirements/2026.HW02.Domain Testing_En.md) áp dụng cho dự án eshop-sut. Chia ra thành nhiều file nếu có các chức năng nhỏ khác nhau. Vui lòng đọc kỹ các tài liệu đặc tả bao gồm: eshop-sut/README, eshop-sut/api_specification.md. Kết quả đầu ra (output) của tính năng này sẽ được thêm vào thư mục ./domain-testing/FR-18_order-management-admin.
-- Output: Đã tạo bộ artifact Domain Testing cho FR-18 trong domain-testing/FR-18_order-management-admin, gồm README.md, FR-18_admin-order-list_domain_testing.md, FR-18_admin-order-status-update_domain_testing.md, và FR-18_admin-shipping-address-safe-display_domain_testing.md. Nội dung chia theo chức năng nhỏ: admin xem toàn bộ đơn hàng, admin cập nhật trạng thái theo FR-10 state machine, và hiển thị an toàn shipping_address. Các artifact dùng tiếng Việt, có EP/BVA, testcase chưa thực thi với cột Kết quả thực tế và Đạt để trống, ghi rõ contract gap/rủi ro đặc tả, và không viết phần AI gap analysis.
-- Human Review/Corrections: `[Manual by user]`
-- Final Use in Submission: `[Manual by user]`
+- Thời gian: `2026-07-08 22:58 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: [@superpowers](plugin://superpowers@openai-api-curated) [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Áp dụng Domain Testing cho Pool C FR-18: Order management (admin) (được đề cập trong tài liệu requirements/2026.HW02.Domain Testing_En.md) áp dụng cho dự án eshop-sut. Chia ra thành nhiều file nếu có các chức năng nhỏ khác nhau. Vui lòng đọc kỹ các tài liệu đặc tả bao gồm: eshop-sut/README, eshop-sut/api_specification.md. Kết quả đầu ra (output) của tính năng này sẽ được thêm vào thư mục ./domain-testing/FR-18_order-management-admin.
+- Đầu ra: Đã tạo bộ artifact Domain Testing cho FR-18 trong domain-testing/FR-18_order-management-admin, gồm README.md, FR-18_admin-order-list_domain_testing.md, FR-18_admin-order-status-update_domain_testing.md, và FR-18_admin-shipping-address-safe-display_domain_testing.md. Nội dung chia theo chức năng nhỏ: admin xem toàn bộ đơn hàng, admin cập nhật trạng thái theo FR-10 state machine, và hiển thị an toàn shipping_address. Các artifact dùng tiếng Việt, có EP/BVA, testcase chưa thực thi với cột Kết quả thực tế và Đạt để trống, ghi rõ contract gap/rủi ro đặc tả, và không viết phần AI gap analysis.
 
 ### Entry 027
 
-- Time: `2026-07-08 23:14 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Áp dụng Domain Testing cho Pool D FR-03: Quên mật khẩu & Đặt lại mật khẩu (2 bước) nhưng cho mobile (được đề cập trong tài liệu requirements/2026.HW02.Domain Testing_En.md) áp dụng cho dự án eshop-sut. Chia ra thành nhiều file nếu có các chức năng nhỏ khác nhau. Vui lòng đọc kỹ các tài liệu đặc tả bao gồm: eshop-sut/README.md, eshop-sut/api_specification.md. Kết quả đầu ra (output) của tính năng này sẽ được thêm vào thư mục ./domain-testing/FR-03_reset-password-mobile.
-- Output: Đã tạo thư mục domain-testing/FR-03_reset-password-mobile với README.md và hai artifact Markdown: FR-03_mobile-forgot-password-request-otp_domain_testing.md cho Bước 1 lấy OTP, FR-03_mobile-reset-password_domain_testing.md cho Bước 2 đặt lại mật khẩu. Các artifact dùng nguồn black-box requirements/2026.HW02.Domain Testing_En.md, eshop-sut/README.md, eshop-sut/api_specification.md; bao gồm EP, BVA, test case Mobile/API, giả định, contract gaps, và cột trống Kết quả thực tế/Đạt để người học điền khi thực thi.
-- Human Review/Corrections: `[Manual by user]`
-- Final Use in Submission: `[Manual by user]`
+- Thời gian: `2026-07-08 23:14 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: [@superpowers](plugin://superpowers@openai-api-curated) [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Áp dụng Domain Testing cho Pool D FR-03: Quên mật khẩu & Đặt lại mật khẩu (2 bước) nhưng cho mobile (được đề cập trong tài liệu requirements/2026.HW02.Domain Testing_En.md) áp dụng cho dự án eshop-sut. Chia ra thành nhiều file nếu có các chức năng nhỏ khác nhau. Vui lòng đọc kỹ các tài liệu đặc tả bao gồm: eshop-sut/README.md, eshop-sut/api_specification.md. Kết quả đầu ra (output) của tính năng này sẽ được thêm vào thư mục ./domain-testing/FR-03_reset-password-mobile.
+- Đầu ra: Đã tạo thư mục domain-testing/FR-03_reset-password-mobile với README.md và hai artifact Markdown: FR-03_mobile-forgot-password-request-otp_domain_testing.md cho Bước 1 lấy OTP, FR-03_mobile-reset-password_domain_testing.md cho Bước 2 đặt lại mật khẩu. Các artifact dùng nguồn black-box requirements/2026.HW02.Domain Testing_En.md, eshop-sut/README.md, eshop-sut/api_specification.md; bao gồm EP, BVA, test case Mobile/API, giả định, contract gaps, và cột trống Kết quả thực tế/Đạt để người học điền khi thực thi.
 
 ### Entry 028
 
-- Time: `2026-07-08 23:47 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Cập nhật [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md)  để skill có thể tách một chức năng lớn thành các file cho những chức năng nhỏ để dễ dàng hơn trong quá trình kiểm thử. Tuy nhiên phương pháp test vẫn phải bám sát references/04_Domain Testing.md và và đảm bảo tính độc lập, portable, có thể release thành 1 skill tái sử dụng.
-- Output: Đã cập nhật .agents/skills/applying-domain-testing/SKILL.md để hỗ trợ tách feature lớn thành nhiều artifact sub-feature độc lập, thêm decomposition map, README/index cho thư mục output, quy tắc mỗi child artifact vẫn chạy đủ Domain Testing theo EP/BVA, và nhấn mạnh phương pháp bám sát references/04_Domain Testing.md nhưng vẫn self-contained/portable khi release. Đã cập nhật .agents/skills/applying-domain-testing/agents/openai.yaml để metadata phản ánh khả năng split sub-feature files. Đã kiểm tra bằng quick_validate.py và git diff --check.
-- Human Review/Corrections: `[Manual by user]`
-- Final Use in Submission: `[Manual by user]`
+- Thời gian: `2026-07-08 23:47 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: [$superpowers:writing-skills](/home/tkin/.codex/plugins/cache/openai-api-curated/superpowers/d6169bef/skills/writing-skills/SKILL.md) [$skill-creator](/home/tkin/.codex/skills/.system/skill-creator/SKILL.md) Cập nhật [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md)  để skill có thể tách một chức năng lớn thành các file cho những chức năng nhỏ để dễ dàng hơn trong quá trình kiểm thử. Tuy nhiên phương pháp test vẫn phải bám sát references/04_Domain Testing.md và và đảm bảo tính độc lập, portable, có thể release thành 1 skill tái sử dụng.
+- Đầu ra: Đã cập nhật .agents/skills/applying-domain-testing/SKILL.md để hỗ trợ tách feature lớn thành nhiều artifact sub-feature độc lập, thêm decomposition map, README/index cho thư mục output, quy tắc mỗi child artifact vẫn chạy đủ Domain Testing theo EP/BVA, và nhấn mạnh phương pháp bám sát references/04_Domain Testing.md nhưng vẫn self-contained/portable khi release. Đã cập nhật .agents/skills/applying-domain-testing/agents/openai.yaml để metadata phản ánh khả năng split sub-feature files. Đã kiểm tra bằng quick_validate.py và git diff --check.
 
 ### Entry 029
 
-- Time: `2026-07-09 00:04 +07`
-- Tool/Model: `Codex / GPT-5`
-- Prompt: [@superpowers](plugin://superpowers@openai-api-curated) [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Áp dụng Domain Testing cho Pool B FR-07: Giỏ hàng (Shopping cart) (được đề cập trong tài liệu requirements/2026.HW02.Domain Testing_En.md) - chức năng cập nhật số lượng trong giỏ hàng, xóa sản phẩm trong giỏ hàng, tiếp tục mua hàng từ giỏ hàng, áp dụng cho dự án eshop-sut (Vui lòng đọc kỹ các tài liệu đặc tả bao gồm: eshop-sut/README, eshop-sut/api_specification.md). Kết quả đầu ra (output) của tính năng này sẽ được thêm vào thư mục ./domain-testing/FR-07_shopping-cart.
-- Output: Đã tạo/cập nhật các artifact Domain Testing trong thư mục domain-testing/FR-07_shopping-cart: README.md, FR-07_shopping-cart_update-cart-quantity_domain_testing.md, FR-07_shopping-cart_remove-cart-product_domain_testing.md, và FR-07_shopping-cart_continue-shopping-from-cart_domain_testing.md. Các artifact dùng nguồn black-box từ requirements/2026.HW02.Domain Testing_En.md, eshop-sut/README.md và eshop-sut/api_specification.md; tách theo hành vi quan sát được; dùng biến A_id, N_A, X, B_id, N_B, Y cho dữ liệu runtime không có trong đặc tả; để trống cột Kết quả thực tế/Đạt để sinh viên điền sau khi thực thi.
-- Human Review/Corrections: `[Manual by user]`
-- Final Use in Submission: `[Manual by user]`
+- Thời gian: `2026-07-09 00:04 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: [@superpowers](plugin://superpowers@openai-api-curated) [$applying-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md) Áp dụng Domain Testing cho Pool B FR-07: Giỏ hàng (Shopping cart) (được đề cập trong tài liệu requirements/2026.HW02.Domain Testing_En.md) - chức năng cập nhật số lượng trong giỏ hàng, xóa sản phẩm trong giỏ hàng, tiếp tục mua hàng từ giỏ hàng, áp dụng cho dự án eshop-sut (Vui lòng đọc kỹ các tài liệu đặc tả bao gồm: eshop-sut/README, eshop-sut/api_specification.md). Kết quả đầu ra (output) của tính năng này sẽ được thêm vào thư mục ./domain-testing/FR-07_shopping-cart.
+- Đầu ra: Đã tạo/cập nhật các artifact Domain Testing trong thư mục domain-testing/FR-07_shopping-cart: README.md, FR-07_shopping-cart_update-cart-quantity_domain_testing.md, FR-07_shopping-cart_remove-cart-product_domain_testing.md, và FR-07_shopping-cart_continue-shopping-from-cart_domain_testing.md. Các artifact dùng nguồn black-box từ requirements/2026.HW02.Domain Testing_En.md, eshop-sut/README.md và eshop-sut/api_specification.md; tách theo hành vi quan sát được; dùng biến A_id, N_A, X, B_id, N_B, Y cho dữ liệu runtime không có trong đặc tả; để trống cột Kết quả thực tế/Đạt để sinh viên điền sau khi thực thi.
 
-## Integrity Notes
+### Entry 030
 
-- AI-generated content verified against requirements: `[TODO]`
-- Manual corrections made: `[TODO]`
-- Limitations or risks: `[TODO]`
+- Thời gian: `2026-07-09 15:38 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: Từ các file trong domain-testing/FR-07_shopping-cart (ngoài folder init). Hãy tổng hợp lại các bug và thêm vào 23127075_HW02_AI_DomainTesting_100/report/bug_report.md theo format sẵn trong bug report.
+- Đầu ra:
+
+````text
+# Báo cáo lỗi
+
+## Tóm tắt
+
+| Mã lỗi | Tiêu đề lỗi | Mô tả lỗi | Mã chức năng | Độ nghiêm trọng | Ngày ghi nhận | Trạng thái |
+| ------ | ----------- | --------- | ------------ | ---------------- | ------------- | ---------- |
+| BUG-001 | Biểu mẫu đăng ký không có trường xác nhận mật khẩu | Biểu mẫu đăng ký tài khoản trên frontend-web không hiển thị trường xác nhận mật khẩu, nên người dùng không thể nhập lại mật khẩu để kiểm tra lỗi gõ sai trước khi tạo tài khoản. | FR-01 | Trung bình | 2026-07-08 | Đang mở |
+| BUG-002 | Regex kiểm tra mật khẩu mạnh yêu cầu khoảng trắng và không cho phép ký tự đặc biệt | Quy tắc kiểm tra mật khẩu dùng Regex yêu cầu có khoảng trắng `\s` nhưng lại không cho phép ký tự đặc biệt như `!`, khiến mật khẩu đúng yêu cầu đặc tả bị từ chối và mật khẩu có khoảng trắng được chấp nhận. | FR-01 | Trung bình | 2026-07-08 | Đang mở |
+| BUG-003 | API backend đăng ký không kiểm tra điều kiện dữ liệu nhập | Điểm cuối đăng ký cho phép gọi trực tiếp bằng Postman và tạo tài khoản dù dữ liệu không thỏa điều kiện kiểm tra như email sai định dạng, mật khẩu yếu hoặc thiếu trường bắt buộc. | FR-01 | Cao | 2026-07-08 | Đang mở |
+| BUG-004 | Tên người dùng chỉ gồm khoảng trắng vẫn vượt qua biểu mẫu đăng ký | Biểu mẫu đăng ký chấp nhận trường họ tên chỉ gồm khoảng trắng, nên tài khoản có tên không hợp lệ vẫn có thể được gửi đăng ký. | FR-01 | Trung bình | 2026-07-08 | Đang mở |
+| BUG-005 | Biểu mẫu đăng ký cho phép email sai định dạng | Biểu mẫu đăng ký trên frontend-web vẫn cho tạo tài khoản với các email sai định dạng như thiếu local-part, thiếu ký tự `@`, có nhiều hơn một `@`, thiếu domain hoặc thiếu phần mở rộng domain. | FR-01 | Cao | 2026-07-08 | Đang mở |
+| BUG-006 | Hệ thống cho phép đăng ký tài khoản bằng email đã tồn tại | Chức năng đăng ký không chặn email đã tồn tại trong hệ thống, nên người dùng có thể tạo tài khoản trùng email qua giao diện web và API. | FR-01 | Cao | 2026-07-08 | Đang mở |
+| BUG-007 | Thêm sản phẩm vào giỏ trên Web không ổn định và thiếu phản hồi badge | Lần bấm đầu tiên vào `Thêm vào giỏ hàng` chưa thêm sản phẩm; sau khi thêm thành công không thấy badge giỏ hàng trên navbar cập nhật. | FR-07 | Trung bình | 2026-07-09 | Đang mở |
+| BUG-008 | Thêm cùng sản phẩm tạo nhiều dòng trùng thay vì tăng số lượng | Khi thêm cùng một sản phẩm nhiều lần, Web và API tạo các dòng trùng `id` thay vì gộp thành một dòng và tăng `quantity`. | FR-07 | Cao | 2026-07-09 | Đang mở |
+| BUG-009 | API thêm vào giỏ chấp nhận sản phẩm thiếu hoặc không thuộc catalog | `POST /api/cart` vẫn trả thành công và lưu item khi body thiếu trường hoặc dùng sản phẩm giả/không nhất quán với catalog. | FR-07 | Cao | 2026-07-09 | Đang mở |
+| BUG-010 | Hệ thống cho phép số lượng giỏ hàng không hợp lệ | Web/API chấp nhận `quantity` thiếu, bằng `0`, âm hoặc không phải số nguyên, khiến giỏ có dữ liệu số lượng không hợp lệ. | FR-07 | Cao | 2026-07-09 | Đang mở |
+| BUG-011 | Giỏ hàng không có nút tăng/giảm số lượng sản phẩm | Màn hình giỏ hàng không hiển thị nút `+/-`, nên người dùng không thể cập nhật số lượng trong giỏ theo yêu cầu FR-07. | FR-07 | Cao | 2026-07-09 | Đang mở |
+| BUG-012 | Màn hình giỏ hàng dùng nhãn/cột không đúng đặc tả | Web dùng cột `Giá` thay vì `Đơn giá` và nhãn `Tổng tạm tính` thay vì `Tổng cộng`, làm sai nội dung hiển thị bắt buộc của giỏ hàng. | FR-07 | Thấp | 2026-07-09 | Đang mở |
+| BUG-013 | Giỏ hàng thêm qua Web không đồng bộ với API `GET /api/cart` | Sau khi thêm sản phẩm qua Web UI, `GET /api/cart` với bearer token hợp lệ vẫn trả `200 []`, không phản ánh dữ liệu giỏ đang thấy trên Web. | FR-07 | Trung bình | 2026-07-09 | Đang mở |
+| BUG-014 | Dữ liệu giỏ hàng trên Web bị mất sau khi tải lại trang | Trang giỏ hàng không giữ nguyên danh sách sản phẩm sau khi reload; các item đã thêm trong phiên hiện tại bị mất. | FR-07 | Cao | 2026-07-09 | Đang mở |
+| BUG-015 | Xóa sản phẩm khỏi giỏ không có dialog xác nhận | Bấm `Xóa` làm item biến mất ngay, không có dialog xác nhận/hủy nên người dùng không thể hủy thao tác xóa nhầm. | FR-07 | Trung bình | 2026-07-09 | Đang mở |
+| BUG-016 | Trạng thái giỏ trống thiếu hình minh họa | Empty state của giỏ hàng chỉ hiển thị thông báo/link và thiếu hình minh họa như oracle kiểm thử yêu cầu. | FR-07 | Thấp | 2026-07-09 | Đang mở |
+| BUG-017 | Nút tiếp tục mua sắm không thống nhất ở giỏ có sản phẩm | Khi giỏ có sản phẩm, control quay về mua sắm hiển thị `← Mua tiếp` thay vì nhãn `Tiếp tục mua sắm` như yêu cầu FR-07. | FR-07 | Thấp | 2026-07-09 | Đang mở |
+
+## Chi tiết lỗi
+
+### BUG-001 - Biểu mẫu đăng ký không có trường xác nhận mật khẩu
+
+- Mã lỗi: BUG-001
+- Tiêu đề lỗi: Biểu mẫu đăng ký không có trường xác nhận mật khẩu
+- Mô tả lỗi: Biểu mẫu đăng ký tài khoản trên frontend-web không hiển thị trường xác nhận mật khẩu, nên người dùng không thể nhập lại mật khẩu để kiểm tra lỗi gõ sai trước khi tạo tài khoản.
+- Mã chức năng: FR-01
+- Chức năng: Đăng ký tài khoản
+- Độ nghiêm trọng: Trung bình
+- Ngày ghi nhận: 2026-07-08
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã được cài đặt/chạy; truy cập biểu mẫu đăng ký trên ứng dụng web khách hàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: Chưa có
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Frontend-web đã được cài đặt và chạy thành công.
+- Người dùng truy cập được màn hình đăng ký tài khoản của ứng dụng web khách hàng.
+
+#### Các bước tái hiện
+
+1. Chạy backend của dự án.
+2. Chạy frontend-web của dự án.
+3. Mở ứng dụng web khách hàng trên trình duyệt.
+4. Điều hướng đến biểu mẫu đăng ký tài khoản.
+5. Quan sát các trường nhập liệu trên biểu mẫu đăng ký.
+
+#### Kết quả mong đợi
+
+Biểu mẫu đăng ký cần có trường xác nhận mật khẩu để người dùng nhập lại mật khẩu, giúp phát hiện lỗi gõ sai mật khẩu trước khi tạo tài khoản.
+
+#### Kết quả thực tế
+
+Biểu mẫu đăng ký không hiển thị trường xác nhận mật khẩu.
+
+#### Ghi chú
+
+Lỗi được phát hiện sau khi cài đặt dự án, chạy backend và frontend-web, sau đó vào biểu mẫu đăng ký và quan sát giao diện.
+
+### BUG-002 - Regex kiểm tra mật khẩu mạnh yêu cầu khoảng trắng và không cho phép ký tự đặc biệt
+
+- Mã lỗi: BUG-002
+- Tiêu đề lỗi: Regex kiểm tra mật khẩu mạnh yêu cầu khoảng trắng và không cho phép ký tự đặc biệt
+- Mô tả lỗi: Quy tắc kiểm tra mật khẩu dùng Regex yêu cầu có khoảng trắng `\s` nhưng lại không cho phép ký tự đặc biệt như `!`, khiến mật khẩu đúng yêu cầu đặc tả bị từ chối và mật khẩu có khoảng trắng được chấp nhận.
+- Mã chức năng: FR-01
+- Chức năng: Đăng ký tài khoản
+- Độ nghiêm trọng: Trung bình
+- Ngày ghi nhận: 2026-07-08
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã được cài đặt/chạy; kiểm tra quy tắc kiểm tra mật khẩu mạnh trên biểu mẫu đăng ký.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: Chưa có
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Frontend-web đã được cài đặt và chạy thành công.
+- Người dùng truy cập được màn hình đăng ký tài khoản của ứng dụng web khách hàng.
+- Quy tắc kiểm tra mật khẩu mạnh đang sử dụng Regex:
+
+```js
+/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\s)[A-Za-z\d\s]{8,}$/
+```
+
+#### Các bước tái hiện
+
+1. Chạy backend của dự án.
+2. Chạy frontend-web của dự án.
+3. Mở ứng dụng web khách hàng trên trình duyệt.
+4. Điều hướng đến biểu mẫu đăng ký tài khoản.
+5. Nhập mật khẩu có chữ hoa, chữ thường, chữ số và ký tự đặc biệt, ví dụ `Abcdef1!`.
+6. Quan sát kết quả kiểm tra mật khẩu.
+7. Nhập mật khẩu có chữ hoa, chữ thường, chữ số và khoảng trắng, ví dụ `Abcdef1 `.
+8. Quan sát kết quả kiểm tra mật khẩu.
+
+#### Kết quả mong đợi
+
+Mật khẩu mạnh nên chấp nhận ký tự đặc biệt phổ biến như `!@#$%` và không nên bắt buộc người dùng phải nhập khoảng trắng trong mật khẩu.
+
+#### Kết quả thực tế
+
+Regex hiện tại yêu cầu mật khẩu phải có ít nhất một ký tự khoảng trắng `\s`, đồng thời chỉ cho phép chữ cái, chữ số và khoảng trắng trong tập `[A-Za-z\d\s]`. Vì vậy mật khẩu như `Abcdef1!` bị từ chối, trong khi mật khẩu như `Abcdef1 ` lại hợp lệ.
+
+#### Ghi chú
+
+Regex đang dùng `(?=.*\s)` thay vì kiểm tra ký tự đặc biệt, và phần danh sách ký tự cho phép `[A-Za-z\d\s]{8,}` loại bỏ các ký tự đặc biệt thường được yêu cầu trong mật khẩu mạnh.
+
+### BUG-003 - API backend đăng ký không kiểm tra điều kiện dữ liệu nhập
+
+- Mã lỗi: BUG-003
+- Tiêu đề lỗi: API backend đăng ký không kiểm tra điều kiện dữ liệu nhập
+- Mô tả lỗi: Điểm cuối đăng ký cho phép gọi trực tiếp bằng Postman và tạo tài khoản dù dữ liệu không thỏa điều kiện kiểm tra như email sai định dạng, mật khẩu yếu hoặc thiếu trường bắt buộc.
+- Mã chức năng: FR-01
+- Chức năng: Đăng ký tài khoản
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-08
+- Trạng thái: Đang mở
+- Môi trường: Backend đã được cài đặt/chạy; kiểm thử API đăng ký trực tiếp bằng Postman.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `artifacts/test-results/fr01_api_domain_test_results.md`
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Công cụ Postman hoặc công cụ gửi yêu cầu HTTP tương đương đã sẵn sàng.
+- Xác định được điểm cuối API dùng để đăng ký tài khoản.
+
+#### Các bước tái hiện
+
+1. Chạy backend của dự án.
+2. Mở Postman.
+3. Gửi yêu cầu đăng ký tài khoản trực tiếp đến API đăng ký.
+4. Nhập dữ liệu không thỏa điều kiện kiểm tra của biểu mẫu đăng ký, ví dụ email sai định dạng, mật khẩu yếu, thiếu trường bắt buộc hoặc giá trị không hợp lệ.
+5. Gửi yêu cầu và quan sát phản hồi từ backend.
+
+#### Kết quả mong đợi
+
+Backend phải kiểm tra lại toàn bộ điều kiện dữ liệu nhập quan trọng của chức năng đăng ký, bao gồm trường bắt buộc, định dạng email, độ dài/độ mạnh mật khẩu và các giá trị không hợp lệ. Yêu cầu không thỏa điều kiện phải bị từ chối với mã lỗi và thông báo phù hợp.
+
+#### Kết quả thực tế
+
+Khi đăng ký tài khoản qua API bằng Postman, backend không kiểm tra các điều kiện dữ liệu nhập tương ứng. Các điều kiện kiểm tra có thể bị bỏ qua nếu người dùng không thao tác qua frontend. Kết quả thực thi FR-01 qua API cho thấy nhiều ca kiểm thử mong đợi bị từ chối nhưng vẫn nhận `200 OK` và phần thân phản hồi `{"message":"User registered successfully","id":...}`.
+
+#### Ghi chú
+
+Việc kiểm tra chỉ ở frontend là không đủ vì kiểm tra phía client có thể bị bỏ qua bằng cách gọi API trực tiếp. Backend cần là lớp kiểm tra cuối cùng trước khi tạo tài khoản.
+
+### BUG-004 - Tên người dùng chỉ gồm khoảng trắng vẫn vượt qua biểu mẫu đăng ký
+
+- Mã lỗi: BUG-004
+- Tiêu đề lỗi: Tên người dùng chỉ gồm khoảng trắng vẫn vượt qua biểu mẫu đăng ký
+- Mô tả lỗi: Biểu mẫu đăng ký chấp nhận trường họ tên chỉ gồm khoảng trắng, nên tài khoản có tên không hợp lệ vẫn có thể được gửi đăng ký.
+- Mã chức năng: FR-01
+- Chức năng: Đăng ký tài khoản
+- Độ nghiêm trọng: Trung bình
+- Ngày ghi nhận: 2026-07-08
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã được cài đặt/chạy; truy cập biểu mẫu đăng ký trên ứng dụng web khách hàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: Chưa có
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Frontend-web đã được cài đặt và chạy thành công.
+- Người dùng truy cập được màn hình đăng ký tài khoản của ứng dụng web khách hàng.
+
+#### Các bước tái hiện
+
+1. Chạy backend của dự án.
+2. Chạy frontend-web của dự án.
+3. Mở ứng dụng web khách hàng trên trình duyệt.
+4. Điều hướng đến biểu mẫu đăng ký tài khoản.
+5. Nhập trường họ tên chỉ gồm khoảng trắng, ví dụ .
+6. Nhập email hợp lệ chưa tồn tại.
+7. Nhập mật khẩu thỏa điều kiện hiện tại của biểu mẫu.
+8. Bấm nút đăng ký và quan sát kết quả.
+
+#### Kết quả mong đợi
+
+Biểu mẫu đăng ký phải từ chối giá trị họ tên chỉ gồm khoảng trắng, hiển thị lỗi họ tên không hợp lệ hoặc họ tên bắt buộc, và không tạo tài khoản mới.
+
+#### Kết quả thực tế
+
+Trường họ tên chỉ gồm khoảng trắng vẫn vượt qua biểu mẫu đăng ký, hệ thống tiếp tục xử lý đăng ký thay vì chặn dữ liệu không hợp lệ.
+
+#### Ghi chú
+
+Trường họ tên cần được loại bỏ khoảng trắng ở đầu/cuối hoặc kiểm tra để đảm bảo người dùng nhập dữ liệu có ký tự thực sự, không chỉ là khoảng trắng.
+
+### BUG-005 - Biểu mẫu đăng ký cho phép email sai định dạng
+
+- Mã lỗi: BUG-005
+- Tiêu đề lỗi: Biểu mẫu đăng ký cho phép email sai định dạng
+- Mô tả lỗi: Biểu mẫu đăng ký trên frontend-web vẫn cho tạo tài khoản với các email sai định dạng như thiếu local-part, thiếu ký tự `@`, có nhiều hơn một `@`, thiếu domain hoặc thiếu phần mở rộng domain.
+- Mã chức năng: FR-01
+- Chức năng: Đăng ký tài khoản
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-08
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã được cài đặt/chạy; truy cập biểu mẫu đăng ký trên ứng dụng web khách hàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-01_account_registration_domain_testing.md` - các testcase `EP-FR01-006` đến `EP-FR01-010`.
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Frontend-web đã được cài đặt và chạy thành công.
+- Người dùng truy cập được màn hình đăng ký tài khoản của ứng dụng web khách hàng.
+- Sử dụng email chưa tồn tại để loại trừ lỗi trùng email khỏi kết quả kiểm thử.
+
+#### Các bước tái hiện
+
+1. Chạy backend của dự án.
+2. Chạy frontend-web của dự án.
+3. Mở ứng dụng web khách hàng trên trình duyệt.
+4. Điều hướng đến biểu mẫu đăng ký tài khoản.
+5. Nhập họ tên hợp lệ.
+6. Nhập một email sai định dạng, ví dụ `@example.com`, `fr01.example.com`, `fr01@@example.com`, `fr01@` hoặc `fr01@example`.
+7. Nhập mật khẩu hợp lệ theo điều kiện hiện tại của biểu mẫu.
+8. Bấm nút đăng ký và quan sát kết quả.
+
+#### Kết quả mong đợi
+
+Biểu mẫu đăng ký phải từ chối email sai định dạng, hiển thị lỗi định dạng email phù hợp và không tạo tài khoản mới.
+
+#### Kết quả thực tế
+
+Các testcase `EP-FR01-006` đến `EP-FR01-010` cho thấy frontend-web vẫn cho đăng ký và tạo tài khoản với email sai định dạng. API cũng trả `Status: 200`, có message đăng ký thành công và tạo tài khoản mới cho các email sai định dạng này.
+
+#### Ghi chú
+
+Lỗi này khác với BUG-003 ở phạm vi giao diện: người dùng thao tác trực tiếp trên frontend-web vẫn có thể gửi và tạo tài khoản với email không hợp lệ, không chỉ khi gọi API trực tiếp bằng Postman.
+
+### BUG-006 - Hệ thống cho phép đăng ký tài khoản bằng email đã tồn tại
+
+- Mã lỗi: BUG-006
+- Tiêu đề lỗi: Hệ thống cho phép đăng ký tài khoản bằng email đã tồn tại
+- Mô tả lỗi: Chức năng đăng ký không chặn email đã tồn tại trong hệ thống, nên người dùng có thể tạo tài khoản trùng email qua giao diện web và API.
+- Mã chức năng: FR-01
+- Chức năng: Đăng ký tài khoản
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-08
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã được cài đặt/chạy; kiểm thử đăng ký với email đã tồn tại trong hệ thống.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-01_account_registration_domain_testing.md` - testcase `EP-FR01-011`.
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Frontend-web đã được cài đặt và chạy thành công.
+- Trong hệ thống đã có tài khoản sử dụng email `test@eshop.com` hoặc một email xác định khác để kiểm thử trùng lặp.
+- Người dùng truy cập được màn hình đăng ký tài khoản của ứng dụng web khách hàng.
+
+#### Các bước tái hiện
+
+1. Chạy backend của dự án.
+2. Chạy frontend-web của dự án.
+3. Mở ứng dụng web khách hàng trên trình duyệt.
+4. Điều hướng đến biểu mẫu đăng ký tài khoản.
+5. Nhập họ tên hợp lệ.
+6. Nhập email đã tồn tại, ví dụ `test@eshop.com`.
+7. Nhập mật khẩu hợp lệ theo điều kiện hiện tại của biểu mẫu.
+8. Bấm nút đăng ký và quan sát kết quả trên giao diện.
+9. Gửi yêu cầu đăng ký tương tự qua Postman đến `POST /api/register` và quan sát phản hồi API.
+
+#### Kết quả mong đợi
+
+Hệ thống phải từ chối đăng ký bằng email đã tồn tại, hiển thị hoặc trả lỗi email đã được sử dụng, và không tạo thêm tài khoản mới.
+
+#### Kết quả thực tế
+
+Testcase `EP-FR01-011` cho thấy frontend-web vẫn cho đăng ký và tạo tài khoản với email đã tồn tại. API cũng trả `Status: 200`, có message đăng ký thành công và tạo tài khoản mới.
+
+#### Ghi chú
+
+Email là định danh tài khoản theo đặc tả FR-01, vì vậy backend cần kiểm tra tính duy nhất trước khi ghi dữ liệu; frontend-web cũng cần hiển thị lỗi phù hợp cho người dùng.
+
+### BUG-007 - Thêm sản phẩm vào giỏ trên Web không ổn định và thiếu phản hồi badge
+
+- Mã lỗi: BUG-007
+- Tiêu đề lỗi: Thêm sản phẩm vào giỏ trên Web không ổn định và thiếu phản hồi badge
+- Mô tả lỗi: Lần bấm đầu tiên vào `Thêm vào giỏ hàng` chưa thêm sản phẩm; sau khi thêm thành công không thấy badge giỏ hàng trên navbar cập nhật.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Thêm vào giỏ hàng
+- Độ nghiêm trọng: Trung bình
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã được cài đặt/chạy; kiểm thử thao tác thêm sản phẩm vào giỏ trên ứng dụng web khách hàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_add-to-cart_domain_testing.md` - các testcase `EP-FR07-ADDCART-001`, `EP-FR07-ADDCART-002`, `EP-FR07-ADDCART-012`, `BV-FR07-ADDCART-002` đến `BV-FR07-ADDCART-004`.
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Frontend-web đã được cài đặt và chạy thành công.
+- Người dùng mở được trang chi tiết sản phẩm trên ứng dụng web khách hàng.
+- Giỏ hàng ban đầu rỗng hoặc có trạng thái biết trước để quan sát badge.
+
+#### Các bước tái hiện
+
+1. Mở frontend-web trên trình duyệt.
+2. Chọn một sản phẩm hợp lệ, ví dụ sản phẩm A.
+3. Nhập `quantity=1`.
+4. Bấm `Thêm vào giỏ hàng` một lần.
+5. Quan sát phản hồi trên nút, badge giỏ hàng trên navbar và màn hình giỏ hàng.
+6. Nếu sản phẩm chưa xuất hiện, bấm `Thêm vào giỏ hàng` lần thứ hai và quan sát lại.
+
+#### Kết quả mong đợi
+
+Ngay sau một lần bấm hợp lệ, Web phải thêm sản phẩm vào giỏ, hiển thị phản hồi trực quan rõ ràng và cập nhật badge giỏ hàng theo số lượng mới.
+
+#### Kết quả thực tế
+
+Lần bấm đầu tiên chưa thêm sản phẩm vào giỏ. Lần bấm thứ hai mới hiển thị trạng thái `Đã thêm` tạm thời và sản phẩm xuất hiện trong giỏ, nhưng không thấy badge navbar cập nhật.
+
+#### Ghi chú
+
+Lỗi ảnh hưởng khả năng nhận biết thao tác thành công của người dùng và có thể khiến người dùng bấm lặp lại, dẫn đến dữ liệu giỏ hàng sai.
+
+### BUG-008 - Thêm cùng sản phẩm tạo nhiều dòng trùng thay vì tăng số lượng
+
+- Mã lỗi: BUG-008
+- Tiêu đề lỗi: Thêm cùng sản phẩm tạo nhiều dòng trùng thay vì tăng số lượng
+- Mô tả lỗi: Khi thêm cùng một sản phẩm nhiều lần, Web và API tạo các dòng trùng `id` thay vì gộp thành một dòng và tăng `quantity`.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Thêm vào giỏ hàng / Hiển thị danh sách sản phẩm
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend, frontend-web và công cụ Postman/curl đã sẵn sàng để kiểm thử Web/API.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_add-to-cart_domain_testing.md` - `EP-FR07-ADDCART-003`, `BV-FR07-ADDCART-005`, `BV-FR07-ADDCART-007`; `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_get-cart-product-list_domain_testing.md` - `EP-FR07-GETCART-004`, `BV-FR07-GETCART-008`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-web đã chạy thành công.
+- Có một sản phẩm A hợp lệ quan sát được trên UI/API.
+- Có bearer token hợp lệ nếu kiểm thử bằng Postman.
+
+#### Các bước tái hiện
+
+1. Đảm bảo giỏ hàng rỗng hoặc không có sản phẩm A.
+2. Thêm sản phẩm A vào giỏ với `quantity=1`.
+3. Thêm lại chính sản phẩm A với `quantity=1`.
+4. Mở màn hình giỏ hàng trên Web và quan sát số dòng sản phẩm.
+5. Với API, gọi `POST /api/cart` hai lần cho cùng A, sau đó gọi `GET /api/cart` với bearer token hợp lệ.
+
+#### Kết quả mong đợi
+
+Giỏ hàng chỉ có một dòng cho sản phẩm A, `quantity` tăng thành `2`, `Thành tiền=2X` và tổng cộng phản ánh số lượng mới.
+
+#### Kết quả thực tế
+
+Web hiển thị 2 dòng trùng khi thêm cùng sản phẩm. API sau 2 lần `POST` cùng A trả 2 object cùng `id=1`, mỗi object có `quantity=1`.
+
+#### Ghi chú
+
+Lỗi này làm sai mô hình giỏ hàng và ảnh hưởng các phép tính số lượng, thành tiền, tổng cộng, checkout về sau.
+
+### BUG-009 - API thêm vào giỏ chấp nhận sản phẩm thiếu hoặc không thuộc catalog
+
+- Mã lỗi: BUG-009
+- Tiêu đề lỗi: API thêm vào giỏ chấp nhận sản phẩm thiếu hoặc không thuộc catalog
+- Mô tả lỗi: `POST /api/cart` vẫn trả thành công và lưu item khi body thiếu trường hoặc dùng sản phẩm giả/không nhất quán với catalog.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Thêm vào giỏ hàng qua API
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend đã chạy; kiểm thử API bằng Postman hoặc công cụ gửi HTTP tương đương.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_add-to-cart_domain_testing.md` - các testcase `EP-FR07-ADDCART-007`, `EP-FR07-ADDCART-008`.
+
+#### Điều kiện tiên quyết
+
+- Backend đã chạy thành công.
+- Có bearer token hợp lệ của user test.
+- Xác định được endpoint `POST /api/cart` và `GET /api/cart`.
+
+#### Các bước tái hiện
+
+1. Gửi `POST /api/cart` với bearer token hợp lệ nhưng body thiếu dữ liệu, ví dụ `{"id":1}`.
+2. Gọi `GET /api/cart` bằng cùng bearer token để đọc lại giỏ.
+3. Gửi tiếp `POST /api/cart` với sản phẩm không thuộc catalog, ví dụ `{"id":999,"name":"Ghost Product","price":12345,"quantity":1}`.
+4. Gọi `GET /api/cart` và quan sát dữ liệu giỏ.
+
+#### Kết quả mong đợi
+
+API phải từ chối item thiếu trường bắt buộc, item không tồn tại trong catalog hoặc dữ liệu product không nhất quán; giỏ không được thay đổi.
+
+#### Kết quả thực tế
+
+API trả `200 {"message":"Added to cart"}` cho body thiếu field và lưu object thiếu dữ liệu. API cũng chấp nhận `id=999`, `name="Ghost Product"` và lưu item giả vào giỏ.
+
+#### Ghi chú
+
+Backend cần kiểm tra dữ liệu sản phẩm dựa trên catalog hợp lệ thay vì tin toàn bộ payload từ client.
+
+### BUG-010 - Hệ thống cho phép số lượng giỏ hàng không hợp lệ
+
+- Mã lỗi: BUG-010
+- Tiêu đề lỗi: Hệ thống cho phép số lượng giỏ hàng không hợp lệ
+- Mô tả lỗi: Web/API chấp nhận `quantity` thiếu, bằng `0`, âm hoặc không phải số nguyên, khiến giỏ có dữ liệu số lượng không hợp lệ.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Thêm vào giỏ hàng / Cập nhật số lượng
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend, frontend-web và Postman/curl đã sẵn sàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_add-to-cart_domain_testing.md` - `EP-FR07-ADDCART-009` đến `EP-FR07-ADDCART-011`, `BV-FR07-ADDCART-001`; `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_update-cart-quantity_domain_testing.md` - `EP-FR07-UPDQTY-003`, `BV-FR07-UPDQTY-001`.
+
+#### Điều kiện tiên quyết
+
+- Backend đã chạy thành công.
+- Frontend-web đã chạy thành công.
+- Có sản phẩm A hợp lệ và bearer token hợp lệ để kiểm thử API.
+
+#### Các bước tái hiện
+
+1. Gửi `POST /api/cart` với sản phẩm A nhưng thiếu `quantity`.
+2. Gửi `POST /api/cart` với `quantity=0`.
+3. Gửi `POST /api/cart` với `quantity=-1`.
+4. Gửi `POST /api/cart` với `quantity="abc"` hoặc `quantity=1.5`.
+5. Gọi `GET /api/cart` để kiểm tra dữ liệu đã lưu.
+6. Trên Web, thử nhập giá trị rỗng, `0`, số âm hoặc số không nguyên vào ô số lượng trước khi thêm vào giỏ.
+
+#### Kết quả mong đợi
+
+Hệ thống phải chỉ chấp nhận số nguyên dương, tối thiểu là `1`; các giá trị thiếu, `0`, âm hoặc không phải số nguyên phải bị từ chối và không làm thay đổi giỏ.
+
+#### Kết quả thực tế
+
+API trả `200` và lưu item thiếu `quantity`, `quantity=0`, `quantity=-1` hoặc `"quantity":"abc"`. Web cho phép để trống/nhập `0`/số âm; với `1.5` hệ thống nhận thành `1`, còn chuỗi không số dẫn tới số lượng không hợp lệ trong giỏ.
+
+#### Ghi chú
+
+Lỗi này có thể làm sai thành tiền, tổng tiền, tồn kho và quy trình đặt hàng.
+
+### BUG-011 - Giỏ hàng không có nút tăng/giảm số lượng sản phẩm
+
+- Mã lỗi: BUG-011
+- Tiêu đề lỗi: Giỏ hàng không có nút tăng/giảm số lượng sản phẩm
+- Mô tả lỗi: Màn hình giỏ hàng không hiển thị nút `+/-`, nên người dùng không thể cập nhật số lượng trong giỏ theo yêu cầu FR-07.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Cập nhật số lượng trong giỏ
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã chạy; kiểm thử màn hình giỏ hàng trên Web UI.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_update-cart-quantity_domain_testing.md` - `EP-FR07-UPDQTY-001`, `EP-FR07-UPDQTY-002`, `EP-FR07-UPDQTY-007`, `BV-FR07-UPDQTY-003`, `BV-FR07-UPDQTY-004`, `BV-FR07-UPDQTY-006`, `BV-FR07-UPDQTY-007`; `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_get-cart-product-list_domain_testing.md` - `EP-FR07-GETCART-002`, `EP-FR07-GETCART-007`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-web đã chạy thành công.
+- Giỏ hàng trên Web có ít nhất một sản phẩm.
+
+#### Các bước tái hiện
+
+1. Thêm sản phẩm A vào giỏ hàng.
+2. Mở màn hình giỏ hàng.
+3. Quan sát cột số lượng của dòng sản phẩm A.
+4. Tìm nút `+` để tăng số lượng và nút `-` để giảm số lượng.
+
+#### Kết quả mong đợi
+
+Mỗi dòng sản phẩm trong giỏ cần có điều khiển `+/-` để người dùng tăng hoặc giảm số lượng. Sau thao tác hợp lệ, số lượng, thành tiền và tổng cộng phải cập nhật theo trạng thái mới.
+
+#### Kết quả thực tế
+
+Trong dòng sản phẩm không có nút `+` hoặc `-`, nên không thể thực hiện luồng tăng/giảm số lượng từ màn hình giỏ. API specification cũng không có endpoint cập nhật số lượng để đối chiếu qua API.
+
+#### Ghi chú
+
+Đây là thiếu sót chức năng chính của FR-07, không chỉ là lỗi hiển thị.
+
+### BUG-012 - Màn hình giỏ hàng dùng nhãn/cột không đúng đặc tả
+
+- Mã lỗi: BUG-012
+- Tiêu đề lỗi: Màn hình giỏ hàng dùng nhãn/cột không đúng đặc tả
+- Mô tả lỗi: Web dùng cột `Giá` thay vì `Đơn giá` và nhãn `Tổng tạm tính` thay vì `Tổng cộng`, làm sai nội dung hiển thị bắt buộc của giỏ hàng.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Hiển thị danh sách sản phẩm / Tổng cộng
+- Độ nghiêm trọng: Thấp
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã chạy; giỏ hàng có ít nhất một sản phẩm.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_get-cart-product-list_domain_testing.md` - `EP-FR07-GETCART-002`, `EP-FR07-GETCART-003`, `EP-FR07-GETCART-007`, `EP-FR07-GETCART-009`, `EP-FR07-GETCART-010`, `BV-FR07-GETCART-002`, `BV-FR07-GETCART-003`, `BV-FR07-GETCART-010`, `BV-FR07-GETCART-011`; `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_update-cart-quantity_domain_testing.md` - `EP-FR07-UPDQTY-009`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-web đã chạy thành công.
+- Giỏ hàng có ít nhất một sản phẩm.
+
+#### Các bước tái hiện
+
+1. Mở màn hình giỏ hàng.
+2. Quan sát tiêu đề các cột trong bảng sản phẩm.
+3. Quan sát nhãn tổng tiền phía cuối giỏ hàng.
+
+#### Kết quả mong đợi
+
+Màn hình giỏ hàng cần hiển thị đúng các nội dung theo FR-07, gồm cột `Đơn giá` và nhãn tổng tiền `Tổng cộng`.
+
+#### Kết quả thực tế
+
+Web hiển thị cột `Giá` thay vì `Đơn giá`, và hiển thị nhãn `Tổng tạm tính:` thay vì `Tổng cộng`.
+
+#### Ghi chú
+
+Giá trị tiền có thể được tính đúng trong một số testcase, nhưng nhãn không đúng đặc tả gây sai lệch yêu cầu hiển thị.
+
+### BUG-013 - Giỏ hàng thêm qua Web không đồng bộ với API `GET /api/cart`
+
+- Mã lỗi: BUG-013
+- Tiêu đề lỗi: Giỏ hàng thêm qua Web không đồng bộ với API `GET /api/cart`
+- Mô tả lỗi: Sau khi thêm sản phẩm qua Web UI, `GET /api/cart` với bearer token hợp lệ vẫn trả `200 []`, không phản ánh dữ liệu giỏ đang thấy trên Web.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Hiển thị danh sách sản phẩm / API `GET /api/cart`
+- Độ nghiêm trọng: Trung bình
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend, frontend-web và Postman/curl đã sẵn sàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_get-cart-product-list_domain_testing.md` - `EP-FR07-GETCART-002` đến `EP-FR07-GETCART-004`, `EP-FR07-GETCART-007`, `EP-FR07-GETCART-008`, `EP-FR07-GETCART-010`, `BV-FR07-GETCART-002` đến `BV-FR07-GETCART-008`, `BV-FR07-GETCART-010`, `BV-FR07-GETCART-011`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-web đã chạy thành công.
+- Có user hợp lệ và bearer token hợp lệ.
+- Người dùng đã đăng nhập hoặc có thể thêm sản phẩm vào giỏ trên Web.
+
+#### Các bước tái hiện
+
+1. Trên Web UI, thêm một sản phẩm hợp lệ vào giỏ.
+2. Mở màn hình giỏ hàng và xác nhận sản phẩm đang xuất hiện trên Web.
+3. Gọi `GET /api/cart` bằng bearer token hợp lệ của user test.
+4. So sánh dữ liệu API với dữ liệu đang hiển thị trên Web.
+
+#### Kết quả mong đợi
+
+API `GET /api/cart` phải trả dữ liệu giỏ tương ứng với giỏ của user hợp lệ, hoặc hệ thống phải có contract rõ ràng về việc Web dùng giỏ phiên riêng không đồng bộ với API.
+
+#### Kết quả thực tế
+
+Sau khi thêm bằng UI và thấy sản phẩm trên Web, Postman gọi `GET /api/cart` với bearer token hợp lệ vẫn trả `200 []`, không có item để đối chiếu.
+
+#### Ghi chú
+
+README của artifact ghi nhận dữ liệu thêm qua Web không mặc định đồng bộ với API, nhưng đây vẫn là rủi ro/bug chức năng nếu FR-07 yêu cầu giỏ hàng của user được quản lý nhất quán giữa Web và API.
+
+### BUG-014 - Dữ liệu giỏ hàng trên Web bị mất sau khi tải lại trang
+
+- Mã lỗi: BUG-014
+- Tiêu đề lỗi: Dữ liệu giỏ hàng trên Web bị mất sau khi tải lại trang
+- Mô tả lỗi: Trang giỏ hàng không giữ nguyên danh sách sản phẩm sau khi reload; các item đã thêm trong phiên hiện tại bị mất.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Hiển thị danh sách sản phẩm
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã chạy; kiểm thử bằng trình duyệt.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_get-cart-product-list_domain_testing.md` - testcase `EP-FR07-GETCART-011`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-web đã chạy thành công.
+- Trang giỏ hàng Web đang có ít nhất một sản phẩm.
+
+#### Các bước tái hiện
+
+1. Thêm một sản phẩm hợp lệ vào giỏ trên Web.
+2. Mở màn hình giỏ hàng và xác nhận item đang hiển thị.
+3. Tải lại trang trình duyệt.
+4. Quan sát lại danh sách sản phẩm trong giỏ.
+
+#### Kết quả mong đợi
+
+Danh sách sản phẩm trong trang giỏ hàng phải giữ nguyên sau khi tải lại trang.
+
+#### Kết quả thực tế
+
+Sau khi tải lại trang, danh sách sản phẩm đã thêm trong giỏ của phiên hiện tại bị mất.
+
+#### Ghi chú
+
+Lỗi này có thể làm người dùng mất toàn bộ tiến trình mua hàng trước khi checkout.
+
+### BUG-015 - Xóa sản phẩm khỏi giỏ không có dialog xác nhận
+
+- Mã lỗi: BUG-015
+- Tiêu đề lỗi: Xóa sản phẩm khỏi giỏ không có dialog xác nhận
+- Mô tả lỗi: Bấm `Xóa` làm item biến mất ngay, không có dialog xác nhận/hủy nên người dùng không thể hủy thao tác xóa nhầm.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Xóa sản phẩm trong giỏ
+- Độ nghiêm trọng: Trung bình
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã chạy; giỏ hàng có ít nhất một sản phẩm.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_remove-cart-product_domain_testing.md` - `EP-FR07-REMOVE-001` đến `EP-FR07-REMOVE-005`, `EP-FR07-REMOVE-009`, `BV-FR07-REMOVE-002` đến `BV-FR07-REMOVE-005`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-web đã chạy thành công.
+- Giỏ hàng có một hoặc nhiều sản phẩm.
+
+#### Các bước tái hiện
+
+1. Mở màn hình giỏ hàng có sản phẩm A.
+2. Bấm nút `Xóa` ở dòng sản phẩm A.
+3. Quan sát xem có dialog xác nhận/hủy xuất hiện trước khi xóa không.
+4. Với giỏ nhiều sản phẩm, thử bấm `Xóa` ở một dòng cụ thể và quan sát kết quả.
+
+#### Kết quả mong đợi
+
+Web phải hiển thị dialog xác nhận trước khi xóa. Nếu người dùng hủy, item vẫn phải còn trong giỏ; nếu xác nhận, chỉ item được chọn bị xóa và tổng cộng cập nhật.
+
+#### Kết quả thực tế
+
+Không xuất hiện dialog xác nhận/hủy. Khi bấm `Xóa`, item bị xóa ngay; người dùng không có cơ hội hủy thao tác.
+
+#### Ghi chú
+
+Trong các testcase nhiều item, Web xóa đúng dòng và cập nhật tổng, nhưng luồng vẫn không đạt vì thiếu bước xác nhận bắt buộc.
+
+### BUG-016 - Trạng thái giỏ trống thiếu hình minh họa
+
+- Mã lỗi: BUG-016
+- Tiêu đề lỗi: Trạng thái giỏ trống thiếu hình minh họa
+- Mô tả lỗi: Empty state của giỏ hàng chỉ hiển thị thông báo/link và thiếu hình minh họa như oracle kiểm thử yêu cầu.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Trạng thái giỏ trống
+- Độ nghiêm trọng: Thấp
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã chạy; kiểm thử màn hình giỏ hàng khi không có sản phẩm.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_get-cart-product-list_domain_testing.md` - `EP-FR07-GETCART-001`, `BV-FR07-GETCART-001`; `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_remove-cart-product_domain_testing.md` - `EP-FR07-REMOVE-001`, `EP-FR07-REMOVE-006`, `BV-FR07-REMOVE-001`, `BV-FR07-REMOVE-002`, `BV-FR07-REMOVE-004`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-web đã chạy thành công.
+- Giỏ hàng của người dùng đang rỗng hoặc vừa xóa item cuối cùng.
+
+#### Các bước tái hiện
+
+1. Mở màn hình giỏ hàng khi giỏ rỗng.
+2. Quan sát nội dung empty state.
+3. Nếu giỏ có một item, xóa item cuối cùng và quan sát empty state sau xóa.
+
+#### Kết quả mong đợi
+
+Màn hình giỏ trống cần có trạng thái rõ ràng, gồm thông báo và hình minh họa theo oracle kiểm thử.
+
+#### Kết quả thực tế
+
+Web chỉ hiển thị text `Giỏ hàng của bạn đang trống` và link `Tiếp tục mua sắm`, không có hình minh họa.
+
+#### Ghi chú
+
+Lỗi mức thấp vì không làm sai dữ liệu giỏ hàng, nhưng làm thiếu nội dung UI được ghi trong testcase.
+
+### BUG-017 - Nút tiếp tục mua sắm không thống nhất ở giỏ có sản phẩm
+
+- Mã lỗi: BUG-017
+- Tiêu đề lỗi: Nút tiếp tục mua sắm không thống nhất ở giỏ có sản phẩm
+- Mô tả lỗi: Khi giỏ có sản phẩm, control quay về mua sắm hiển thị `← Mua tiếp` thay vì nhãn `Tiếp tục mua sắm` như yêu cầu FR-07.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Tiếp tục mua sắm
+- Độ nghiêm trọng: Thấp
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Frontend-web đã chạy; kiểm thử điều hướng từ màn hình giỏ hàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_continue-shopping-from-cart_domain_testing.md` - `EP-FR07-CONTINUE-002`, `EP-FR07-CONTINUE-003`, `BV-FR07-CONTINUE-002`, `BV-FR07-CONTINUE-003`.
+
+#### Điều kiện tiên quyết
+
+- Frontend-web đã chạy thành công.
+- Giỏ hàng có ít nhất một sản phẩm.
+
+#### Các bước tái hiện
+
+1. Thêm một sản phẩm vào giỏ hàng trên Web.
+2. Mở màn hình giỏ hàng.
+3. Quan sát control quay về trang mua sắm.
+4. Bấm control này và quan sát điều hướng.
+
+#### Kết quả mong đợi
+
+Màn hình giỏ hàng phải có nút hoặc link `Tiếp tục mua sắm` để người dùng quay về trang chủ/product listing.
+
+#### Kết quả thực tế
+
+Khi giỏ có sản phẩm, control hiển thị là `← Mua tiếp`. Điều hướng vẫn về `/` và không làm thay đổi item trong giỏ, nhưng nhãn không đúng literal `Tiếp tục mua sắm`.
+
+#### Ghi chú
+
+Các testcase ghi nhận `← Mua tiếp` vẫn tương đương về ý nghĩa và điều hướng đúng, nên lỗi được xếp mức thấp.
+````
+
+### Entry 031
+
+- Thời gian: `2026-07-09 18:27 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: Từ các file trong domain-testing/FR-18_order-management-admin (ngoài folder init). Hãy tổng hợp lại các bug và thêm vào 23127075_HW02_AI_DomainTesting_100/report/bug_report.md theo format sẵn trong bug report.
+- Đầu ra:
+
+````text
+# Báo cáo lỗi
+
+## Tóm tắt
+
+| Mã lỗi | Tiêu đề lỗi | Mô tả lỗi | Mã chức năng | Độ nghiêm trọng | Ngày ghi nhận | Trạng thái |
+| ------ | ----------- | --------- | ------------ | ---------------- | ------------- | ---------- |
+| BUG-001 | Biểu mẫu đăng ký không có trường xác nhận mật khẩu | Biểu mẫu đăng ký tài khoản trên frontend-web không hiển thị trường xác nhận mật khẩu, nên người dùng không thể nhập lại mật khẩu để kiểm tra lỗi gõ sai trước khi tạo tài khoản. | FR-01 | Trung bình | 2026-07-08 | Đang mở |
+| BUG-002 | Regex kiểm tra mật khẩu mạnh yêu cầu khoảng trắng và không cho phép ký tự đặc biệt | Quy tắc kiểm tra mật khẩu dùng Regex yêu cầu có khoảng trắng `\s` nhưng lại không cho phép ký tự đặc biệt như `!`, khiến mật khẩu đúng yêu cầu đặc tả bị từ chối và mật khẩu có khoảng trắng được chấp nhận. | FR-01 | Trung bình | 2026-07-08 | Đang mở |
+| BUG-003 | API backend đăng ký không kiểm tra điều kiện dữ liệu nhập | Điểm cuối đăng ký cho phép gọi trực tiếp bằng Postman và tạo tài khoản dù dữ liệu không thỏa điều kiện kiểm tra như email sai định dạng, mật khẩu yếu hoặc thiếu trường bắt buộc. | FR-01 | Cao | 2026-07-08 | Đang mở |
+| BUG-004 | Tên người dùng chỉ gồm khoảng trắng vẫn vượt qua biểu mẫu đăng ký | Biểu mẫu đăng ký chấp nhận trường họ tên chỉ gồm khoảng trắng, nên tài khoản có tên không hợp lệ vẫn có thể được gửi đăng ký. | FR-01 | Trung bình | 2026-07-08 | Đang mở |
+| BUG-005 | Biểu mẫu đăng ký cho phép email sai định dạng | Biểu mẫu đăng ký trên frontend-web vẫn cho tạo tài khoản với các email sai định dạng như thiếu local-part, thiếu ký tự `@`, có nhiều hơn một `@`, thiếu domain hoặc thiếu phần mở rộng domain. | FR-01 | Cao | 2026-07-08 | Đang mở |
+| BUG-006 | Hệ thống cho phép đăng ký tài khoản bằng email đã tồn tại | Chức năng đăng ký không chặn email đã tồn tại trong hệ thống, nên người dùng có thể tạo tài khoản trùng email qua giao diện web và API. | FR-01 | Cao | 2026-07-08 | Đang mở |
+| BUG-007 | Thêm sản phẩm vào giỏ trên Web không ổn định và thiếu phản hồi badge | Lần bấm đầu tiên vào `Thêm vào giỏ hàng` chưa thêm sản phẩm; sau khi thêm thành công không thấy badge giỏ hàng trên navbar cập nhật. | FR-07 | Trung bình | 2026-07-09 | Đang mở |
+| BUG-008 | Thêm cùng sản phẩm tạo nhiều dòng trùng thay vì tăng số lượng | Khi thêm cùng một sản phẩm nhiều lần, Web và API tạo các dòng trùng `id` thay vì gộp thành một dòng và tăng `quantity`. | FR-07 | Cao | 2026-07-09 | Đang mở |
+| BUG-009 | API thêm vào giỏ chấp nhận sản phẩm thiếu hoặc không thuộc catalog | `POST /api/cart` vẫn trả thành công và lưu item khi body thiếu trường hoặc dùng sản phẩm giả/không nhất quán với catalog. | FR-07 | Cao | 2026-07-09 | Đang mở |
+| BUG-010 | Hệ thống cho phép số lượng giỏ hàng không hợp lệ | Web/API chấp nhận `quantity` thiếu, bằng `0`, âm hoặc không phải số nguyên, khiến giỏ có dữ liệu số lượng không hợp lệ. | FR-07 | Cao | 2026-07-09 | Đang mở |
+| BUG-011 | Giỏ hàng không có nút tăng/giảm số lượng sản phẩm | Màn hình giỏ hàng không hiển thị nút `+/-`, nên người dùng không thể cập nhật số lượng trong giỏ theo yêu cầu FR-07. | FR-07 | Cao | 2026-07-09 | Đang mở |
+| BUG-012 | Màn hình giỏ hàng dùng nhãn/cột không đúng đặc tả | Web dùng cột `Giá` thay vì `Đơn giá` và nhãn `Tổng tạm tính` thay vì `Tổng cộng`, làm sai nội dung hiển thị bắt buộc của giỏ hàng. | FR-07 | Thấp | 2026-07-09 | Đang mở |
+| BUG-013 | Giỏ hàng thêm qua Web không đồng bộ với API `GET /api/cart` | Sau khi thêm sản phẩm qua Web UI, `GET /api/cart` với bearer token hợp lệ vẫn trả `200 []`, không phản ánh dữ liệu giỏ đang thấy trên Web. | FR-07 | Trung bình | 2026-07-09 | Đang mở |
+| BUG-014 | Dữ liệu giỏ hàng trên Web bị mất sau khi tải lại trang | Trang giỏ hàng không giữ nguyên danh sách sản phẩm sau khi reload; các item đã thêm trong phiên hiện tại bị mất. | FR-07 | Cao | 2026-07-09 | Đang mở |
+| BUG-015 | Xóa sản phẩm khỏi giỏ không có dialog xác nhận | Bấm `Xóa` làm item biến mất ngay, không có dialog xác nhận/hủy nên người dùng không thể hủy thao tác xóa nhầm. | FR-07 | Trung bình | 2026-07-09 | Đang mở |
+| BUG-016 | Trạng thái giỏ trống thiếu hình minh họa | Empty state của giỏ hàng chỉ hiển thị thông báo/link và thiếu hình minh họa như oracle kiểm thử yêu cầu. | FR-07 | Thấp | 2026-07-09 | Đang mở |
+| BUG-017 | Nút tiếp tục mua sắm không thống nhất ở giỏ có sản phẩm | Khi giỏ có sản phẩm, control quay về mua sắm hiển thị `← Mua tiếp` thay vì nhãn `Tiếp tục mua sắm` như yêu cầu FR-07. | FR-07 | Thấp | 2026-07-09 | Đang mở |
+| BUG-018 | API quản lý đơn hàng admin không kiểm quyền `role=admin` | Các endpoint admin order chỉ kiểm token hợp lệ nhưng không kiểm role, nên user thường vẫn có thể xem danh sách đơn hàng toàn hệ thống và cập nhật trạng thái đơn hàng qua API admin. | FR-18 | Cao | 2026-07-09 | Đang mở |
+| BUG-019 | Đơn đã hủy vẫn có thể chuyển sang đã giao | Trạng thái `canceled` không được bảo toàn như final state: Web Admin vẫn có nút đánh dấu đã giao cho đơn đã hủy và API chấp nhận cập nhật `canceled -> delivered`. | FR-18 | Cao | 2026-07-09 | Đang mở |
+| BUG-020 | Web Admin render địa chỉ giao hàng bằng HTML không an toàn | Cột địa chỉ giao hàng trong quản lý đơn hàng dùng HTML thô để hiển thị `shipping_address`, khiến payload HTML/script hoặc ký tự đặc biệt không được escape an toàn. | FR-18 | Cao | 2026-07-09 | Đang mở |
+
+## Chi tiết lỗi
+
+### BUG-001 - Biểu mẫu đăng ký không có trường xác nhận mật khẩu
+
+- Mã lỗi: BUG-001
+- Tiêu đề lỗi: Biểu mẫu đăng ký không có trường xác nhận mật khẩu
+- Mô tả lỗi: Biểu mẫu đăng ký tài khoản trên frontend-web không hiển thị trường xác nhận mật khẩu, nên người dùng không thể nhập lại mật khẩu để kiểm tra lỗi gõ sai trước khi tạo tài khoản.
+- Mã chức năng: FR-01
+- Chức năng: Đăng ký tài khoản
+- Độ nghiêm trọng: Trung bình
+- Ngày ghi nhận: 2026-07-08
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã được cài đặt/chạy; truy cập biểu mẫu đăng ký trên ứng dụng web khách hàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: Chưa có
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Frontend-web đã được cài đặt và chạy thành công.
+- Người dùng truy cập được màn hình đăng ký tài khoản của ứng dụng web khách hàng.
+
+#### Các bước tái hiện
+
+1. Chạy backend của dự án.
+2. Chạy frontend-web của dự án.
+3. Mở ứng dụng web khách hàng trên trình duyệt.
+4. Điều hướng đến biểu mẫu đăng ký tài khoản.
+5. Quan sát các trường nhập liệu trên biểu mẫu đăng ký.
+
+#### Kết quả mong đợi
+
+Biểu mẫu đăng ký cần có trường xác nhận mật khẩu để người dùng nhập lại mật khẩu, giúp phát hiện lỗi gõ sai mật khẩu trước khi tạo tài khoản.
+
+#### Kết quả thực tế
+
+Biểu mẫu đăng ký không hiển thị trường xác nhận mật khẩu.
+
+#### Ghi chú
+
+Lỗi được phát hiện sau khi cài đặt dự án, chạy backend và frontend-web, sau đó vào biểu mẫu đăng ký và quan sát giao diện.
+
+### BUG-002 - Regex kiểm tra mật khẩu mạnh yêu cầu khoảng trắng và không cho phép ký tự đặc biệt
+
+- Mã lỗi: BUG-002
+- Tiêu đề lỗi: Regex kiểm tra mật khẩu mạnh yêu cầu khoảng trắng và không cho phép ký tự đặc biệt
+- Mô tả lỗi: Quy tắc kiểm tra mật khẩu dùng Regex yêu cầu có khoảng trắng `\s` nhưng lại không cho phép ký tự đặc biệt như `!`, khiến mật khẩu đúng yêu cầu đặc tả bị từ chối và mật khẩu có khoảng trắng được chấp nhận.
+- Mã chức năng: FR-01
+- Chức năng: Đăng ký tài khoản
+- Độ nghiêm trọng: Trung bình
+- Ngày ghi nhận: 2026-07-08
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã được cài đặt/chạy; kiểm tra quy tắc kiểm tra mật khẩu mạnh trên biểu mẫu đăng ký.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: Chưa có
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Frontend-web đã được cài đặt và chạy thành công.
+- Người dùng truy cập được màn hình đăng ký tài khoản của ứng dụng web khách hàng.
+- Quy tắc kiểm tra mật khẩu mạnh đang sử dụng Regex:
+
+```js
+/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\s)[A-Za-z\d\s]{8,}$/
+```
+
+#### Các bước tái hiện
+
+1. Chạy backend của dự án.
+2. Chạy frontend-web của dự án.
+3. Mở ứng dụng web khách hàng trên trình duyệt.
+4. Điều hướng đến biểu mẫu đăng ký tài khoản.
+5. Nhập mật khẩu có chữ hoa, chữ thường, chữ số và ký tự đặc biệt, ví dụ `Abcdef1!`.
+6. Quan sát kết quả kiểm tra mật khẩu.
+7. Nhập mật khẩu có chữ hoa, chữ thường, chữ số và khoảng trắng, ví dụ `Abcdef1 `.
+8. Quan sát kết quả kiểm tra mật khẩu.
+
+#### Kết quả mong đợi
+
+Mật khẩu mạnh nên chấp nhận ký tự đặc biệt phổ biến như `!@#$%` và không nên bắt buộc người dùng phải nhập khoảng trắng trong mật khẩu.
+
+#### Kết quả thực tế
+
+Regex hiện tại yêu cầu mật khẩu phải có ít nhất một ký tự khoảng trắng `\s`, đồng thời chỉ cho phép chữ cái, chữ số và khoảng trắng trong tập `[A-Za-z\d\s]`. Vì vậy mật khẩu như `Abcdef1!` bị từ chối, trong khi mật khẩu như `Abcdef1 ` lại hợp lệ.
+
+#### Ghi chú
+
+Regex đang dùng `(?=.*\s)` thay vì kiểm tra ký tự đặc biệt, và phần danh sách ký tự cho phép `[A-Za-z\d\s]{8,}` loại bỏ các ký tự đặc biệt thường được yêu cầu trong mật khẩu mạnh.
+
+### BUG-003 - API backend đăng ký không kiểm tra điều kiện dữ liệu nhập
+
+- Mã lỗi: BUG-003
+- Tiêu đề lỗi: API backend đăng ký không kiểm tra điều kiện dữ liệu nhập
+- Mô tả lỗi: Điểm cuối đăng ký cho phép gọi trực tiếp bằng Postman và tạo tài khoản dù dữ liệu không thỏa điều kiện kiểm tra như email sai định dạng, mật khẩu yếu hoặc thiếu trường bắt buộc.
+- Mã chức năng: FR-01
+- Chức năng: Đăng ký tài khoản
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-08
+- Trạng thái: Đang mở
+- Môi trường: Backend đã được cài đặt/chạy; kiểm thử API đăng ký trực tiếp bằng Postman.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `artifacts/test-results/fr01_api_domain_test_results.md`
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Công cụ Postman hoặc công cụ gửi yêu cầu HTTP tương đương đã sẵn sàng.
+- Xác định được điểm cuối API dùng để đăng ký tài khoản.
+
+#### Các bước tái hiện
+
+1. Chạy backend của dự án.
+2. Mở Postman.
+3. Gửi yêu cầu đăng ký tài khoản trực tiếp đến API đăng ký.
+4. Nhập dữ liệu không thỏa điều kiện kiểm tra của biểu mẫu đăng ký, ví dụ email sai định dạng, mật khẩu yếu, thiếu trường bắt buộc hoặc giá trị không hợp lệ.
+5. Gửi yêu cầu và quan sát phản hồi từ backend.
+
+#### Kết quả mong đợi
+
+Backend phải kiểm tra lại toàn bộ điều kiện dữ liệu nhập quan trọng của chức năng đăng ký, bao gồm trường bắt buộc, định dạng email, độ dài/độ mạnh mật khẩu và các giá trị không hợp lệ. Yêu cầu không thỏa điều kiện phải bị từ chối với mã lỗi và thông báo phù hợp.
+
+#### Kết quả thực tế
+
+Khi đăng ký tài khoản qua API bằng Postman, backend không kiểm tra các điều kiện dữ liệu nhập tương ứng. Các điều kiện kiểm tra có thể bị bỏ qua nếu người dùng không thao tác qua frontend. Kết quả thực thi FR-01 qua API cho thấy nhiều ca kiểm thử mong đợi bị từ chối nhưng vẫn nhận `200 OK` và phần thân phản hồi `{"message":"User registered successfully","id":...}`.
+
+#### Ghi chú
+
+Việc kiểm tra chỉ ở frontend là không đủ vì kiểm tra phía client có thể bị bỏ qua bằng cách gọi API trực tiếp. Backend cần là lớp kiểm tra cuối cùng trước khi tạo tài khoản.
+
+### BUG-004 - Tên người dùng chỉ gồm khoảng trắng vẫn vượt qua biểu mẫu đăng ký
+
+- Mã lỗi: BUG-004
+- Tiêu đề lỗi: Tên người dùng chỉ gồm khoảng trắng vẫn vượt qua biểu mẫu đăng ký
+- Mô tả lỗi: Biểu mẫu đăng ký chấp nhận trường họ tên chỉ gồm khoảng trắng, nên tài khoản có tên không hợp lệ vẫn có thể được gửi đăng ký.
+- Mã chức năng: FR-01
+- Chức năng: Đăng ký tài khoản
+- Độ nghiêm trọng: Trung bình
+- Ngày ghi nhận: 2026-07-08
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã được cài đặt/chạy; truy cập biểu mẫu đăng ký trên ứng dụng web khách hàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: Chưa có
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Frontend-web đã được cài đặt và chạy thành công.
+- Người dùng truy cập được màn hình đăng ký tài khoản của ứng dụng web khách hàng.
+
+#### Các bước tái hiện
+
+1. Chạy backend của dự án.
+2. Chạy frontend-web của dự án.
+3. Mở ứng dụng web khách hàng trên trình duyệt.
+4. Điều hướng đến biểu mẫu đăng ký tài khoản.
+5. Nhập trường họ tên chỉ gồm khoảng trắng, ví dụ .
+6. Nhập email hợp lệ chưa tồn tại.
+7. Nhập mật khẩu thỏa điều kiện hiện tại của biểu mẫu.
+8. Bấm nút đăng ký và quan sát kết quả.
+
+#### Kết quả mong đợi
+
+Biểu mẫu đăng ký phải từ chối giá trị họ tên chỉ gồm khoảng trắng, hiển thị lỗi họ tên không hợp lệ hoặc họ tên bắt buộc, và không tạo tài khoản mới.
+
+#### Kết quả thực tế
+
+Trường họ tên chỉ gồm khoảng trắng vẫn vượt qua biểu mẫu đăng ký, hệ thống tiếp tục xử lý đăng ký thay vì chặn dữ liệu không hợp lệ.
+
+#### Ghi chú
+
+Trường họ tên cần được loại bỏ khoảng trắng ở đầu/cuối hoặc kiểm tra để đảm bảo người dùng nhập dữ liệu có ký tự thực sự, không chỉ là khoảng trắng.
+
+### BUG-005 - Biểu mẫu đăng ký cho phép email sai định dạng
+
+- Mã lỗi: BUG-005
+- Tiêu đề lỗi: Biểu mẫu đăng ký cho phép email sai định dạng
+- Mô tả lỗi: Biểu mẫu đăng ký trên frontend-web vẫn cho tạo tài khoản với các email sai định dạng như thiếu local-part, thiếu ký tự `@`, có nhiều hơn một `@`, thiếu domain hoặc thiếu phần mở rộng domain.
+- Mã chức năng: FR-01
+- Chức năng: Đăng ký tài khoản
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-08
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã được cài đặt/chạy; truy cập biểu mẫu đăng ký trên ứng dụng web khách hàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-01_account_registration_domain_testing.md` - các testcase `EP-FR01-006` đến `EP-FR01-010`.
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Frontend-web đã được cài đặt và chạy thành công.
+- Người dùng truy cập được màn hình đăng ký tài khoản của ứng dụng web khách hàng.
+- Sử dụng email chưa tồn tại để loại trừ lỗi trùng email khỏi kết quả kiểm thử.
+
+#### Các bước tái hiện
+
+1. Chạy backend của dự án.
+2. Chạy frontend-web của dự án.
+3. Mở ứng dụng web khách hàng trên trình duyệt.
+4. Điều hướng đến biểu mẫu đăng ký tài khoản.
+5. Nhập họ tên hợp lệ.
+6. Nhập một email sai định dạng, ví dụ `@example.com`, `fr01.example.com`, `fr01@@example.com`, `fr01@` hoặc `fr01@example`.
+7. Nhập mật khẩu hợp lệ theo điều kiện hiện tại của biểu mẫu.
+8. Bấm nút đăng ký và quan sát kết quả.
+
+#### Kết quả mong đợi
+
+Biểu mẫu đăng ký phải từ chối email sai định dạng, hiển thị lỗi định dạng email phù hợp và không tạo tài khoản mới.
+
+#### Kết quả thực tế
+
+Các testcase `EP-FR01-006` đến `EP-FR01-010` cho thấy frontend-web vẫn cho đăng ký và tạo tài khoản với email sai định dạng. API cũng trả `Status: 200`, có message đăng ký thành công và tạo tài khoản mới cho các email sai định dạng này.
+
+#### Ghi chú
+
+Lỗi này khác với BUG-003 ở phạm vi giao diện: người dùng thao tác trực tiếp trên frontend-web vẫn có thể gửi và tạo tài khoản với email không hợp lệ, không chỉ khi gọi API trực tiếp bằng Postman.
+
+### BUG-006 - Hệ thống cho phép đăng ký tài khoản bằng email đã tồn tại
+
+- Mã lỗi: BUG-006
+- Tiêu đề lỗi: Hệ thống cho phép đăng ký tài khoản bằng email đã tồn tại
+- Mô tả lỗi: Chức năng đăng ký không chặn email đã tồn tại trong hệ thống, nên người dùng có thể tạo tài khoản trùng email qua giao diện web và API.
+- Mã chức năng: FR-01
+- Chức năng: Đăng ký tài khoản
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-08
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã được cài đặt/chạy; kiểm thử đăng ký với email đã tồn tại trong hệ thống.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-01_account_registration_domain_testing.md` - testcase `EP-FR01-011`.
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Frontend-web đã được cài đặt và chạy thành công.
+- Trong hệ thống đã có tài khoản sử dụng email `test@eshop.com` hoặc một email xác định khác để kiểm thử trùng lặp.
+- Người dùng truy cập được màn hình đăng ký tài khoản của ứng dụng web khách hàng.
+
+#### Các bước tái hiện
+
+1. Chạy backend của dự án.
+2. Chạy frontend-web của dự án.
+3. Mở ứng dụng web khách hàng trên trình duyệt.
+4. Điều hướng đến biểu mẫu đăng ký tài khoản.
+5. Nhập họ tên hợp lệ.
+6. Nhập email đã tồn tại, ví dụ `test@eshop.com`.
+7. Nhập mật khẩu hợp lệ theo điều kiện hiện tại của biểu mẫu.
+8. Bấm nút đăng ký và quan sát kết quả trên giao diện.
+9. Gửi yêu cầu đăng ký tương tự qua Postman đến `POST /api/register` và quan sát phản hồi API.
+
+#### Kết quả mong đợi
+
+Hệ thống phải từ chối đăng ký bằng email đã tồn tại, hiển thị hoặc trả lỗi email đã được sử dụng, và không tạo thêm tài khoản mới.
+
+#### Kết quả thực tế
+
+Testcase `EP-FR01-011` cho thấy frontend-web vẫn cho đăng ký và tạo tài khoản với email đã tồn tại. API cũng trả `Status: 200`, có message đăng ký thành công và tạo tài khoản mới.
+
+#### Ghi chú
+
+Email là định danh tài khoản theo đặc tả FR-01, vì vậy backend cần kiểm tra tính duy nhất trước khi ghi dữ liệu; frontend-web cũng cần hiển thị lỗi phù hợp cho người dùng.
+
+### BUG-007 - Thêm sản phẩm vào giỏ trên Web không ổn định và thiếu phản hồi badge
+
+- Mã lỗi: BUG-007
+- Tiêu đề lỗi: Thêm sản phẩm vào giỏ trên Web không ổn định và thiếu phản hồi badge
+- Mô tả lỗi: Lần bấm đầu tiên vào `Thêm vào giỏ hàng` chưa thêm sản phẩm; sau khi thêm thành công không thấy badge giỏ hàng trên navbar cập nhật.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Thêm vào giỏ hàng
+- Độ nghiêm trọng: Trung bình
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã được cài đặt/chạy; kiểm thử thao tác thêm sản phẩm vào giỏ trên ứng dụng web khách hàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_add-to-cart_domain_testing.md` - các testcase `EP-FR07-ADDCART-001`, `EP-FR07-ADDCART-002`, `EP-FR07-ADDCART-012`, `BV-FR07-ADDCART-002` đến `BV-FR07-ADDCART-004`.
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Frontend-web đã được cài đặt và chạy thành công.
+- Người dùng mở được trang chi tiết sản phẩm trên ứng dụng web khách hàng.
+- Giỏ hàng ban đầu rỗng hoặc có trạng thái biết trước để quan sát badge.
+
+#### Các bước tái hiện
+
+1. Mở frontend-web trên trình duyệt.
+2. Chọn một sản phẩm hợp lệ, ví dụ sản phẩm A.
+3. Nhập `quantity=1`.
+4. Bấm `Thêm vào giỏ hàng` một lần.
+5. Quan sát phản hồi trên nút, badge giỏ hàng trên navbar và màn hình giỏ hàng.
+6. Nếu sản phẩm chưa xuất hiện, bấm `Thêm vào giỏ hàng` lần thứ hai và quan sát lại.
+
+#### Kết quả mong đợi
+
+Ngay sau một lần bấm hợp lệ, Web phải thêm sản phẩm vào giỏ, hiển thị phản hồi trực quan rõ ràng và cập nhật badge giỏ hàng theo số lượng mới.
+
+#### Kết quả thực tế
+
+Lần bấm đầu tiên chưa thêm sản phẩm vào giỏ. Lần bấm thứ hai mới hiển thị trạng thái `Đã thêm` tạm thời và sản phẩm xuất hiện trong giỏ, nhưng không thấy badge navbar cập nhật.
+
+#### Ghi chú
+
+Lỗi ảnh hưởng khả năng nhận biết thao tác thành công của người dùng và có thể khiến người dùng bấm lặp lại, dẫn đến dữ liệu giỏ hàng sai.
+
+### BUG-008 - Thêm cùng sản phẩm tạo nhiều dòng trùng thay vì tăng số lượng
+
+- Mã lỗi: BUG-008
+- Tiêu đề lỗi: Thêm cùng sản phẩm tạo nhiều dòng trùng thay vì tăng số lượng
+- Mô tả lỗi: Khi thêm cùng một sản phẩm nhiều lần, Web và API tạo các dòng trùng `id` thay vì gộp thành một dòng và tăng `quantity`.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Thêm vào giỏ hàng / Hiển thị danh sách sản phẩm
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend, frontend-web và công cụ Postman/curl đã sẵn sàng để kiểm thử Web/API.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_add-to-cart_domain_testing.md` - `EP-FR07-ADDCART-003`, `BV-FR07-ADDCART-005`, `BV-FR07-ADDCART-007`; `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_get-cart-product-list_domain_testing.md` - `EP-FR07-GETCART-004`, `BV-FR07-GETCART-008`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-web đã chạy thành công.
+- Có một sản phẩm A hợp lệ quan sát được trên UI/API.
+- Có bearer token hợp lệ nếu kiểm thử bằng Postman.
+
+#### Các bước tái hiện
+
+1. Đảm bảo giỏ hàng rỗng hoặc không có sản phẩm A.
+2. Thêm sản phẩm A vào giỏ với `quantity=1`.
+3. Thêm lại chính sản phẩm A với `quantity=1`.
+4. Mở màn hình giỏ hàng trên Web và quan sát số dòng sản phẩm.
+5. Với API, gọi `POST /api/cart` hai lần cho cùng A, sau đó gọi `GET /api/cart` với bearer token hợp lệ.
+
+#### Kết quả mong đợi
+
+Giỏ hàng chỉ có một dòng cho sản phẩm A, `quantity` tăng thành `2`, `Thành tiền=2X` và tổng cộng phản ánh số lượng mới.
+
+#### Kết quả thực tế
+
+Web hiển thị 2 dòng trùng khi thêm cùng sản phẩm. API sau 2 lần `POST` cùng A trả 2 object cùng `id=1`, mỗi object có `quantity=1`.
+
+#### Ghi chú
+
+Lỗi này làm sai mô hình giỏ hàng và ảnh hưởng các phép tính số lượng, thành tiền, tổng cộng, checkout về sau.
+
+### BUG-009 - API thêm vào giỏ chấp nhận sản phẩm thiếu hoặc không thuộc catalog
+
+- Mã lỗi: BUG-009
+- Tiêu đề lỗi: API thêm vào giỏ chấp nhận sản phẩm thiếu hoặc không thuộc catalog
+- Mô tả lỗi: `POST /api/cart` vẫn trả thành công và lưu item khi body thiếu trường hoặc dùng sản phẩm giả/không nhất quán với catalog.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Thêm vào giỏ hàng qua API
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend đã chạy; kiểm thử API bằng Postman hoặc công cụ gửi HTTP tương đương.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_add-to-cart_domain_testing.md` - các testcase `EP-FR07-ADDCART-007`, `EP-FR07-ADDCART-008`.
+
+#### Điều kiện tiên quyết
+
+- Backend đã chạy thành công.
+- Có bearer token hợp lệ của user test.
+- Xác định được endpoint `POST /api/cart` và `GET /api/cart`.
+
+#### Các bước tái hiện
+
+1. Gửi `POST /api/cart` với bearer token hợp lệ nhưng body thiếu dữ liệu, ví dụ `{"id":1}`.
+2. Gọi `GET /api/cart` bằng cùng bearer token để đọc lại giỏ.
+3. Gửi tiếp `POST /api/cart` với sản phẩm không thuộc catalog, ví dụ `{"id":999,"name":"Ghost Product","price":12345,"quantity":1}`.
+4. Gọi `GET /api/cart` và quan sát dữ liệu giỏ.
+
+#### Kết quả mong đợi
+
+API phải từ chối item thiếu trường bắt buộc, item không tồn tại trong catalog hoặc dữ liệu product không nhất quán; giỏ không được thay đổi.
+
+#### Kết quả thực tế
+
+API trả `200 {"message":"Added to cart"}` cho body thiếu field và lưu object thiếu dữ liệu. API cũng chấp nhận `id=999`, `name="Ghost Product"` và lưu item giả vào giỏ.
+
+#### Ghi chú
+
+Backend cần kiểm tra dữ liệu sản phẩm dựa trên catalog hợp lệ thay vì tin toàn bộ payload từ client.
+
+### BUG-010 - Hệ thống cho phép số lượng giỏ hàng không hợp lệ
+
+- Mã lỗi: BUG-010
+- Tiêu đề lỗi: Hệ thống cho phép số lượng giỏ hàng không hợp lệ
+- Mô tả lỗi: Web/API chấp nhận `quantity` thiếu, bằng `0`, âm hoặc không phải số nguyên, khiến giỏ có dữ liệu số lượng không hợp lệ.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Thêm vào giỏ hàng / Cập nhật số lượng
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend, frontend-web và Postman/curl đã sẵn sàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_add-to-cart_domain_testing.md` - `EP-FR07-ADDCART-009` đến `EP-FR07-ADDCART-011`, `BV-FR07-ADDCART-001`; `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_update-cart-quantity_domain_testing.md` - `EP-FR07-UPDQTY-003`, `BV-FR07-UPDQTY-001`.
+
+#### Điều kiện tiên quyết
+
+- Backend đã chạy thành công.
+- Frontend-web đã chạy thành công.
+- Có sản phẩm A hợp lệ và bearer token hợp lệ để kiểm thử API.
+
+#### Các bước tái hiện
+
+1. Gửi `POST /api/cart` với sản phẩm A nhưng thiếu `quantity`.
+2. Gửi `POST /api/cart` với `quantity=0`.
+3. Gửi `POST /api/cart` với `quantity=-1`.
+4. Gửi `POST /api/cart` với `quantity="abc"` hoặc `quantity=1.5`.
+5. Gọi `GET /api/cart` để kiểm tra dữ liệu đã lưu.
+6. Trên Web, thử nhập giá trị rỗng, `0`, số âm hoặc số không nguyên vào ô số lượng trước khi thêm vào giỏ.
+
+#### Kết quả mong đợi
+
+Hệ thống phải chỉ chấp nhận số nguyên dương, tối thiểu là `1`; các giá trị thiếu, `0`, âm hoặc không phải số nguyên phải bị từ chối và không làm thay đổi giỏ.
+
+#### Kết quả thực tế
+
+API trả `200` và lưu item thiếu `quantity`, `quantity=0`, `quantity=-1` hoặc `"quantity":"abc"`. Web cho phép để trống/nhập `0`/số âm; với `1.5` hệ thống nhận thành `1`, còn chuỗi không số dẫn tới số lượng không hợp lệ trong giỏ.
+
+#### Ghi chú
+
+Lỗi này có thể làm sai thành tiền, tổng tiền, tồn kho và quy trình đặt hàng.
+
+### BUG-011 - Giỏ hàng không có nút tăng/giảm số lượng sản phẩm
+
+- Mã lỗi: BUG-011
+- Tiêu đề lỗi: Giỏ hàng không có nút tăng/giảm số lượng sản phẩm
+- Mô tả lỗi: Màn hình giỏ hàng không hiển thị nút `+/-`, nên người dùng không thể cập nhật số lượng trong giỏ theo yêu cầu FR-07.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Cập nhật số lượng trong giỏ
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã chạy; kiểm thử màn hình giỏ hàng trên Web UI.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_update-cart-quantity_domain_testing.md` - `EP-FR07-UPDQTY-001`, `EP-FR07-UPDQTY-002`, `EP-FR07-UPDQTY-007`, `BV-FR07-UPDQTY-003`, `BV-FR07-UPDQTY-004`, `BV-FR07-UPDQTY-006`, `BV-FR07-UPDQTY-007`; `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_get-cart-product-list_domain_testing.md` - `EP-FR07-GETCART-002`, `EP-FR07-GETCART-007`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-web đã chạy thành công.
+- Giỏ hàng trên Web có ít nhất một sản phẩm.
+
+#### Các bước tái hiện
+
+1. Thêm sản phẩm A vào giỏ hàng.
+2. Mở màn hình giỏ hàng.
+3. Quan sát cột số lượng của dòng sản phẩm A.
+4. Tìm nút `+` để tăng số lượng và nút `-` để giảm số lượng.
+
+#### Kết quả mong đợi
+
+Mỗi dòng sản phẩm trong giỏ cần có điều khiển `+/-` để người dùng tăng hoặc giảm số lượng. Sau thao tác hợp lệ, số lượng, thành tiền và tổng cộng phải cập nhật theo trạng thái mới.
+
+#### Kết quả thực tế
+
+Trong dòng sản phẩm không có nút `+` hoặc `-`, nên không thể thực hiện luồng tăng/giảm số lượng từ màn hình giỏ. API specification cũng không có endpoint cập nhật số lượng để đối chiếu qua API.
+
+#### Ghi chú
+
+Đây là thiếu sót chức năng chính của FR-07, không chỉ là lỗi hiển thị.
+
+### BUG-012 - Màn hình giỏ hàng dùng nhãn/cột không đúng đặc tả
+
+- Mã lỗi: BUG-012
+- Tiêu đề lỗi: Màn hình giỏ hàng dùng nhãn/cột không đúng đặc tả
+- Mô tả lỗi: Web dùng cột `Giá` thay vì `Đơn giá` và nhãn `Tổng tạm tính` thay vì `Tổng cộng`, làm sai nội dung hiển thị bắt buộc của giỏ hàng.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Hiển thị danh sách sản phẩm / Tổng cộng
+- Độ nghiêm trọng: Thấp
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã chạy; giỏ hàng có ít nhất một sản phẩm.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_get-cart-product-list_domain_testing.md` - `EP-FR07-GETCART-002`, `EP-FR07-GETCART-003`, `EP-FR07-GETCART-007`, `EP-FR07-GETCART-009`, `EP-FR07-GETCART-010`, `BV-FR07-GETCART-002`, `BV-FR07-GETCART-003`, `BV-FR07-GETCART-010`, `BV-FR07-GETCART-011`; `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_update-cart-quantity_domain_testing.md` - `EP-FR07-UPDQTY-009`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-web đã chạy thành công.
+- Giỏ hàng có ít nhất một sản phẩm.
+
+#### Các bước tái hiện
+
+1. Mở màn hình giỏ hàng.
+2. Quan sát tiêu đề các cột trong bảng sản phẩm.
+3. Quan sát nhãn tổng tiền phía cuối giỏ hàng.
+
+#### Kết quả mong đợi
+
+Màn hình giỏ hàng cần hiển thị đúng các nội dung theo FR-07, gồm cột `Đơn giá` và nhãn tổng tiền `Tổng cộng`.
+
+#### Kết quả thực tế
+
+Web hiển thị cột `Giá` thay vì `Đơn giá`, và hiển thị nhãn `Tổng tạm tính:` thay vì `Tổng cộng`.
+
+#### Ghi chú
+
+Giá trị tiền có thể được tính đúng trong một số testcase, nhưng nhãn không đúng đặc tả gây sai lệch yêu cầu hiển thị.
+
+### BUG-013 - Giỏ hàng thêm qua Web không đồng bộ với API `GET /api/cart`
+
+- Mã lỗi: BUG-013
+- Tiêu đề lỗi: Giỏ hàng thêm qua Web không đồng bộ với API `GET /api/cart`
+- Mô tả lỗi: Sau khi thêm sản phẩm qua Web UI, `GET /api/cart` với bearer token hợp lệ vẫn trả `200 []`, không phản ánh dữ liệu giỏ đang thấy trên Web.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Hiển thị danh sách sản phẩm / API `GET /api/cart`
+- Độ nghiêm trọng: Trung bình
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend, frontend-web và Postman/curl đã sẵn sàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_get-cart-product-list_domain_testing.md` - `EP-FR07-GETCART-002` đến `EP-FR07-GETCART-004`, `EP-FR07-GETCART-007`, `EP-FR07-GETCART-008`, `EP-FR07-GETCART-010`, `BV-FR07-GETCART-002` đến `BV-FR07-GETCART-008`, `BV-FR07-GETCART-010`, `BV-FR07-GETCART-011`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-web đã chạy thành công.
+- Có user hợp lệ và bearer token hợp lệ.
+- Người dùng đã đăng nhập hoặc có thể thêm sản phẩm vào giỏ trên Web.
+
+#### Các bước tái hiện
+
+1. Trên Web UI, thêm một sản phẩm hợp lệ vào giỏ.
+2. Mở màn hình giỏ hàng và xác nhận sản phẩm đang xuất hiện trên Web.
+3. Gọi `GET /api/cart` bằng bearer token hợp lệ của user test.
+4. So sánh dữ liệu API với dữ liệu đang hiển thị trên Web.
+
+#### Kết quả mong đợi
+
+API `GET /api/cart` phải trả dữ liệu giỏ tương ứng với giỏ của user hợp lệ, hoặc hệ thống phải có contract rõ ràng về việc Web dùng giỏ phiên riêng không đồng bộ với API.
+
+#### Kết quả thực tế
+
+Sau khi thêm bằng UI và thấy sản phẩm trên Web, Postman gọi `GET /api/cart` với bearer token hợp lệ vẫn trả `200 []`, không có item để đối chiếu.
+
+#### Ghi chú
+
+README của artifact ghi nhận dữ liệu thêm qua Web không mặc định đồng bộ với API, nhưng đây vẫn là rủi ro/bug chức năng nếu FR-07 yêu cầu giỏ hàng của user được quản lý nhất quán giữa Web và API.
+
+### BUG-014 - Dữ liệu giỏ hàng trên Web bị mất sau khi tải lại trang
+
+- Mã lỗi: BUG-014
+- Tiêu đề lỗi: Dữ liệu giỏ hàng trên Web bị mất sau khi tải lại trang
+- Mô tả lỗi: Trang giỏ hàng không giữ nguyên danh sách sản phẩm sau khi reload; các item đã thêm trong phiên hiện tại bị mất.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Hiển thị danh sách sản phẩm
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã chạy; kiểm thử bằng trình duyệt.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_get-cart-product-list_domain_testing.md` - testcase `EP-FR07-GETCART-011`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-web đã chạy thành công.
+- Trang giỏ hàng Web đang có ít nhất một sản phẩm.
+
+#### Các bước tái hiện
+
+1. Thêm một sản phẩm hợp lệ vào giỏ trên Web.
+2. Mở màn hình giỏ hàng và xác nhận item đang hiển thị.
+3. Tải lại trang trình duyệt.
+4. Quan sát lại danh sách sản phẩm trong giỏ.
+
+#### Kết quả mong đợi
+
+Danh sách sản phẩm trong trang giỏ hàng phải giữ nguyên sau khi tải lại trang.
+
+#### Kết quả thực tế
+
+Sau khi tải lại trang, danh sách sản phẩm đã thêm trong giỏ của phiên hiện tại bị mất.
+
+#### Ghi chú
+
+Lỗi này có thể làm người dùng mất toàn bộ tiến trình mua hàng trước khi checkout.
+
+### BUG-015 - Xóa sản phẩm khỏi giỏ không có dialog xác nhận
+
+- Mã lỗi: BUG-015
+- Tiêu đề lỗi: Xóa sản phẩm khỏi giỏ không có dialog xác nhận
+- Mô tả lỗi: Bấm `Xóa` làm item biến mất ngay, không có dialog xác nhận/hủy nên người dùng không thể hủy thao tác xóa nhầm.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Xóa sản phẩm trong giỏ
+- Độ nghiêm trọng: Trung bình
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã chạy; giỏ hàng có ít nhất một sản phẩm.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_remove-cart-product_domain_testing.md` - `EP-FR07-REMOVE-001` đến `EP-FR07-REMOVE-005`, `EP-FR07-REMOVE-009`, `BV-FR07-REMOVE-002` đến `BV-FR07-REMOVE-005`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-web đã chạy thành công.
+- Giỏ hàng có một hoặc nhiều sản phẩm.
+
+#### Các bước tái hiện
+
+1. Mở màn hình giỏ hàng có sản phẩm A.
+2. Bấm nút `Xóa` ở dòng sản phẩm A.
+3. Quan sát xem có dialog xác nhận/hủy xuất hiện trước khi xóa không.
+4. Với giỏ nhiều sản phẩm, thử bấm `Xóa` ở một dòng cụ thể và quan sát kết quả.
+
+#### Kết quả mong đợi
+
+Web phải hiển thị dialog xác nhận trước khi xóa. Nếu người dùng hủy, item vẫn phải còn trong giỏ; nếu xác nhận, chỉ item được chọn bị xóa và tổng cộng cập nhật.
+
+#### Kết quả thực tế
+
+Không xuất hiện dialog xác nhận/hủy. Khi bấm `Xóa`, item bị xóa ngay; người dùng không có cơ hội hủy thao tác.
+
+#### Ghi chú
+
+Trong các testcase nhiều item, Web xóa đúng dòng và cập nhật tổng, nhưng luồng vẫn không đạt vì thiếu bước xác nhận bắt buộc.
+
+### BUG-016 - Trạng thái giỏ trống thiếu hình minh họa
+
+- Mã lỗi: BUG-016
+- Tiêu đề lỗi: Trạng thái giỏ trống thiếu hình minh họa
+- Mô tả lỗi: Empty state của giỏ hàng chỉ hiển thị thông báo/link và thiếu hình minh họa như oracle kiểm thử yêu cầu.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Trạng thái giỏ trống
+- Độ nghiêm trọng: Thấp
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã chạy; kiểm thử màn hình giỏ hàng khi không có sản phẩm.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_get-cart-product-list_domain_testing.md` - `EP-FR07-GETCART-001`, `BV-FR07-GETCART-001`; `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_remove-cart-product_domain_testing.md` - `EP-FR07-REMOVE-001`, `EP-FR07-REMOVE-006`, `BV-FR07-REMOVE-001`, `BV-FR07-REMOVE-002`, `BV-FR07-REMOVE-004`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-web đã chạy thành công.
+- Giỏ hàng của người dùng đang rỗng hoặc vừa xóa item cuối cùng.
+
+#### Các bước tái hiện
+
+1. Mở màn hình giỏ hàng khi giỏ rỗng.
+2. Quan sát nội dung empty state.
+3. Nếu giỏ có một item, xóa item cuối cùng và quan sát empty state sau xóa.
+
+#### Kết quả mong đợi
+
+Màn hình giỏ trống cần có trạng thái rõ ràng, gồm thông báo và hình minh họa theo oracle kiểm thử.
+
+#### Kết quả thực tế
+
+Web chỉ hiển thị text `Giỏ hàng của bạn đang trống` và link `Tiếp tục mua sắm`, không có hình minh họa.
+
+#### Ghi chú
+
+Lỗi mức thấp vì không làm sai dữ liệu giỏ hàng, nhưng làm thiếu nội dung UI được ghi trong testcase.
+
+### BUG-017 - Nút tiếp tục mua sắm không thống nhất ở giỏ có sản phẩm
+
+- Mã lỗi: BUG-017
+- Tiêu đề lỗi: Nút tiếp tục mua sắm không thống nhất ở giỏ có sản phẩm
+- Mô tả lỗi: Khi giỏ có sản phẩm, control quay về mua sắm hiển thị `← Mua tiếp` thay vì nhãn `Tiếp tục mua sắm` như yêu cầu FR-07.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Tiếp tục mua sắm
+- Độ nghiêm trọng: Thấp
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Frontend-web đã chạy; kiểm thử điều hướng từ màn hình giỏ hàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_continue-shopping-from-cart_domain_testing.md` - `EP-FR07-CONTINUE-002`, `EP-FR07-CONTINUE-003`, `BV-FR07-CONTINUE-002`, `BV-FR07-CONTINUE-003`.
+
+#### Điều kiện tiên quyết
+
+- Frontend-web đã chạy thành công.
+- Giỏ hàng có ít nhất một sản phẩm.
+
+#### Các bước tái hiện
+
+1. Thêm một sản phẩm vào giỏ hàng trên Web.
+2. Mở màn hình giỏ hàng.
+3. Quan sát control quay về trang mua sắm.
+4. Bấm control này và quan sát điều hướng.
+
+#### Kết quả mong đợi
+
+Màn hình giỏ hàng phải có nút hoặc link `Tiếp tục mua sắm` để người dùng quay về trang chủ/product listing.
+
+#### Kết quả thực tế
+
+Khi giỏ có sản phẩm, control hiển thị là `← Mua tiếp`. Điều hướng vẫn về `/` và không làm thay đổi item trong giỏ, nhưng nhãn không đúng literal `Tiếp tục mua sắm`.
+
+#### Ghi chú
+
+Các testcase ghi nhận `← Mua tiếp` vẫn tương đương về ý nghĩa và điều hướng đúng, nên lỗi được xếp mức thấp.
+
+### BUG-018 - API quản lý đơn hàng admin không kiểm quyền `role=admin`
+
+- Mã lỗi: BUG-018
+- Tiêu đề lỗi: API quản lý đơn hàng admin không kiểm quyền `role=admin`
+- Mô tả lỗi: Các endpoint admin order chỉ kiểm token hợp lệ nhưng không kiểm role, nên user thường vẫn có thể xem danh sách đơn hàng toàn hệ thống và cập nhật trạng thái đơn hàng qua API admin.
+- Mã chức năng: FR-18
+- Chức năng: Quản lý Đơn hàng Admin - Xem toàn bộ đơn hàng / Cập nhật trạng thái đơn hàng
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-admin đã chạy; kiểm thử API bằng cURL/Postman-style trên `http://localhost:3000`.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-18_order-management-admin/FR-18_admin-order-list_domain_testing.md` - `EP-FR18-LIST-006`; `domain-testing/FR-18_order-management-admin/FR-18_admin-order-status-update_domain_testing.md` - `EP-FR18-STATUS-008`; `domain-testing/FR-18_order-management-admin/FR-18_admin-shipping-address-safe-display_domain_testing.md` - `EP-FR18-ADDR-006`; `artifacts/test-results/FR18_order_management_admin_api_evidence.txt`.
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Có token hợp lệ của một tài khoản user thường, ví dụ `test@eshop.com`.
+- Có ít nhất một đơn hàng quan sát được nếu kiểm thử cập nhật trạng thái.
+
+#### Các bước tái hiện
+
+1. Đăng nhập bằng tài khoản user thường để lấy bearer token hợp lệ.
+2. Gọi `GET /api/admin/orders` với header `Authorization: Bearer <valid_user_token>`.
+3. Quan sát response danh sách đơn hàng admin.
+4. Chọn một đơn đang ở trạng thái có thể chuyển đổi, ví dụ `pending`.
+5. Gọi `PUT /api/admin/orders/:id/status` với token user thường và body `{"status":"confirmed"}`.
+6. Đọc lại danh sách đơn hàng để kiểm tra trạng thái sau cập nhật.
+
+#### Kết quả mong đợi
+
+Mọi API `/api/admin/*` phải yêu cầu JWT hợp lệ và `role = 'admin'`. Token user thường phải bị từ chối với lỗi phân quyền `4xx`, không được trả dữ liệu đơn hàng toàn hệ thống và không được làm thay đổi trạng thái đơn.
+
+#### Kết quả thực tế
+
+`GET /api/admin/orders` bằng token user thường trả `200` thay vì lỗi phân quyền. `PUT /api/admin/orders/:id/status` bằng token user thường trả `200 {"message":"Order status updated"}` và đọc lại thấy đơn đã đổi từ `pending` sang `confirmed`.
+
+#### Ghi chú
+
+Frontend-admin có thể chặn user thường khi đăng nhập qua form, nhưng backend vẫn là lớp bảo vệ bắt buộc cho API admin vì người dùng có thể gọi API trực tiếp.
+
+### BUG-019 - Đơn đã hủy vẫn có thể chuyển sang đã giao
+
+- Mã lỗi: BUG-019
+- Tiêu đề lỗi: Đơn đã hủy vẫn có thể chuyển sang đã giao
+- Mô tả lỗi: Trạng thái `canceled` không được bảo toàn như final state: Web Admin vẫn có nút đánh dấu đã giao cho đơn đã hủy và API chấp nhận cập nhật `canceled -> delivered`.
+- Mã chức năng: FR-18
+- Chức năng: Quản lý Đơn hàng Admin - Cập nhật trạng thái đơn hàng
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-admin đã chạy; kiểm thử Web Admin và API trạng thái đơn hàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-18_order-management-admin/FR-18_admin-order-status-update_domain_testing.md` - `EP-FR18-STATUS-018`, `BV-FR18-STATUS-008`; `artifacts/test-results/FR18_order_management_admin_api_evidence.txt`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-admin đã chạy thành công.
+- Có token admin hợp lệ.
+- Có một đơn hàng đang ở trạng thái `canceled`.
+
+#### Các bước tái hiện
+
+1. Đăng nhập Web Admin bằng tài khoản admin.
+2. Mở màn hình `Quản lý Đơn hàng` và quan sát dòng đơn có `status=canceled`.
+3. Kiểm tra các nút thao tác trạng thái đang hiển thị cho đơn đã hủy.
+4. Gọi API `PUT /api/admin/orders/:id/status` cho đơn đã hủy với body `{"status":"delivered"}`.
+5. Gọi lại `GET /api/admin/orders` hoặc quan sát Web Admin để kiểm tra trạng thái sau cập nhật.
+
+#### Kết quả mong đợi
+
+Theo state machine FR-10, `canceled` là trạng thái kết thúc. Web Admin không được hiển thị thao tác chuyển tiếp cho đơn đã hủy, API phải từ chối mọi chuyển đổi rời khỏi `canceled`, và trạng thái đơn phải giữ nguyên `canceled`.
+
+#### Kết quả thực tế
+
+API từ chối `canceled -> confirmed` nhưng lại chấp nhận `canceled -> delivered` với `200`, sau đó đọc lại thấy đơn chuyển sang `delivered`. Web Admin cũng hiển thị nút `Đánh dấu Đã giao` khi đơn đang có `status === "canceled"`.
+
+#### Ghi chú
+
+Lỗi này làm sai state machine và có thể khiến đơn đã hủy bị ghi nhận như đã giao, ảnh hưởng trực tiếp đến vận hành đơn hàng và báo cáo.
+
+### BUG-020 - Web Admin render địa chỉ giao hàng bằng HTML không an toàn
+
+- Mã lỗi: BUG-020
+- Tiêu đề lỗi: Web Admin render địa chỉ giao hàng bằng HTML không an toàn
+- Mô tả lỗi: Cột địa chỉ giao hàng trong quản lý đơn hàng dùng HTML thô để hiển thị `shipping_address`, khiến payload HTML/script hoặc ký tự đặc biệt không được escape an toàn.
+- Mã chức năng: FR-18
+- Chức năng: Quản lý Đơn hàng Admin - Hiển thị an toàn địa chỉ giao hàng
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-admin đã chạy; dữ liệu đơn hàng được tạo qua luồng checkout với `shipping_address` chứa HTML/script/ký tự đặc biệt.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-18_order-management-admin/FR-18_admin-shipping-address-safe-display_domain_testing.md` - `EP-FR18-ADDR-003`, `EP-FR18-ADDR-004`; `artifacts/test-results/FR18_order_management_admin_api_evidence.txt`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-admin đã chạy thành công.
+- Có token admin hợp lệ.
+- Có đơn hàng được tạo với `shipping_address` chứa payload như `<img src=x onerror=alert(1)>` hoặc ký tự đặc biệt như `Apt "5" & <Gate A>`.
+
+#### Các bước tái hiện
+
+1. Tạo đơn hàng qua luồng checkout với `shipping_address="<img src=x onerror=alert(1)>"`.
+2. Đăng nhập Web Admin bằng tài khoản admin.
+3. Mở màn hình `Quản lý Đơn hàng`.
+4. Quan sát cột địa chỉ giao hàng của đơn vừa tạo.
+5. Lặp lại với địa chỉ có ký tự đặc biệt, ví dụ `Apt "5" & <Gate A>`.
+
+#### Kết quả mong đợi
+
+Web Admin phải hiển thị `shipping_address` như văn bản an toàn, escape các ký tự HTML đặc biệt, không tạo node HTML từ dữ liệu người dùng và không thực thi JavaScript/event handler.
+
+#### Kết quả thực tế
+
+API trả nguyên chuỗi payload trong `shipping_address`. Web Admin đưa giá trị này vào HTML thô bằng `dangerouslySetInnerHTML`, nên payload như `<img src=x onerror=alert(1)>` có thể được trình duyệt phân tích thành phần tử HTML/event handler thay vì hiển thị như văn bản an toàn; chuỗi `Apt "5" & <Gate A>` cũng có nguy cơ bị phân tích như markup.
+
+#### Ghi chú
+
+Đây là lỗi bảo mật hiển thị dữ liệu do người dùng nhập. API trả chuỗi không tự chứng minh lỗi render, nhưng artifact FR-18 ghi nhận UI Web Admin dùng HTML thô để hiển thị cột địa chỉ giao hàng.
+````
+
+### Entry 032
+
+- Thời gian: `2026-07-09 18:33 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: Từ các file trong domain-testing/FR-03_reset-password-mobile (ngoài folder init). Hãy tổng hợp lại các bug và thêm vào 23127075_HW02_AI_DomainTesting_100/report/bug_report.md theo format sẵn trong bug report.
+- Đầu ra:
+
+````text
+# Báo cáo lỗi
+
+## Tóm tắt
+
+| Mã lỗi | Tiêu đề lỗi | Mô tả lỗi | Mã chức năng | Độ nghiêm trọng | Ngày ghi nhận | Trạng thái |
+| ------ | ----------- | --------- | ------------ | ---------------- | ------------- | ---------- |
+| BUG-001 | Biểu mẫu đăng ký không có trường xác nhận mật khẩu | Biểu mẫu đăng ký tài khoản trên frontend-web không hiển thị trường xác nhận mật khẩu, nên người dùng không thể nhập lại mật khẩu để kiểm tra lỗi gõ sai trước khi tạo tài khoản. | FR-01 | Trung bình | 2026-07-08 | Đang mở |
+| BUG-002 | Regex kiểm tra mật khẩu mạnh yêu cầu khoảng trắng và không cho phép ký tự đặc biệt | Quy tắc kiểm tra mật khẩu dùng Regex yêu cầu có khoảng trắng `\s` nhưng lại không cho phép ký tự đặc biệt như `!`, khiến mật khẩu đúng yêu cầu đặc tả bị từ chối và mật khẩu có khoảng trắng được chấp nhận. | FR-01 | Trung bình | 2026-07-08 | Đang mở |
+| BUG-003 | API backend đăng ký không kiểm tra điều kiện dữ liệu nhập | Điểm cuối đăng ký cho phép gọi trực tiếp bằng Postman và tạo tài khoản dù dữ liệu không thỏa điều kiện kiểm tra như email sai định dạng, mật khẩu yếu hoặc thiếu trường bắt buộc. | FR-01 | Cao | 2026-07-08 | Đang mở |
+| BUG-004 | Tên người dùng chỉ gồm khoảng trắng vẫn vượt qua biểu mẫu đăng ký | Biểu mẫu đăng ký chấp nhận trường họ tên chỉ gồm khoảng trắng, nên tài khoản có tên không hợp lệ vẫn có thể được gửi đăng ký. | FR-01 | Trung bình | 2026-07-08 | Đang mở |
+| BUG-005 | Biểu mẫu đăng ký cho phép email sai định dạng | Biểu mẫu đăng ký trên frontend-web vẫn cho tạo tài khoản với các email sai định dạng như thiếu local-part, thiếu ký tự `@`, có nhiều hơn một `@`, thiếu domain hoặc thiếu phần mở rộng domain. | FR-01 | Cao | 2026-07-08 | Đang mở |
+| BUG-006 | Hệ thống cho phép đăng ký tài khoản bằng email đã tồn tại | Chức năng đăng ký không chặn email đã tồn tại trong hệ thống, nên người dùng có thể tạo tài khoản trùng email qua giao diện web và API. | FR-01 | Cao | 2026-07-08 | Đang mở |
+| BUG-007 | Thêm sản phẩm vào giỏ trên Web không ổn định và thiếu phản hồi badge | Lần bấm đầu tiên vào `Thêm vào giỏ hàng` chưa thêm sản phẩm; sau khi thêm thành công không thấy badge giỏ hàng trên navbar cập nhật. | FR-07 | Trung bình | 2026-07-09 | Đang mở |
+| BUG-008 | Thêm cùng sản phẩm tạo nhiều dòng trùng thay vì tăng số lượng | Khi thêm cùng một sản phẩm nhiều lần, Web và API tạo các dòng trùng `id` thay vì gộp thành một dòng và tăng `quantity`. | FR-07 | Cao | 2026-07-09 | Đang mở |
+| BUG-009 | API thêm vào giỏ chấp nhận sản phẩm thiếu hoặc không thuộc catalog | `POST /api/cart` vẫn trả thành công và lưu item khi body thiếu trường hoặc dùng sản phẩm giả/không nhất quán với catalog. | FR-07 | Cao | 2026-07-09 | Đang mở |
+| BUG-010 | Hệ thống cho phép số lượng giỏ hàng không hợp lệ | Web/API chấp nhận `quantity` thiếu, bằng `0`, âm hoặc không phải số nguyên, khiến giỏ có dữ liệu số lượng không hợp lệ. | FR-07 | Cao | 2026-07-09 | Đang mở |
+| BUG-011 | Giỏ hàng không có nút tăng/giảm số lượng sản phẩm | Màn hình giỏ hàng không hiển thị nút `+/-`, nên người dùng không thể cập nhật số lượng trong giỏ theo yêu cầu FR-07. | FR-07 | Cao | 2026-07-09 | Đang mở |
+| BUG-012 | Màn hình giỏ hàng dùng nhãn/cột không đúng đặc tả | Web dùng cột `Giá` thay vì `Đơn giá` và nhãn `Tổng tạm tính` thay vì `Tổng cộng`, làm sai nội dung hiển thị bắt buộc của giỏ hàng. | FR-07 | Thấp | 2026-07-09 | Đang mở |
+| BUG-013 | Giỏ hàng thêm qua Web không đồng bộ với API `GET /api/cart` | Sau khi thêm sản phẩm qua Web UI, `GET /api/cart` với bearer token hợp lệ vẫn trả `200 []`, không phản ánh dữ liệu giỏ đang thấy trên Web. | FR-07 | Trung bình | 2026-07-09 | Đang mở |
+| BUG-014 | Dữ liệu giỏ hàng trên Web bị mất sau khi tải lại trang | Trang giỏ hàng không giữ nguyên danh sách sản phẩm sau khi reload; các item đã thêm trong phiên hiện tại bị mất. | FR-07 | Cao | 2026-07-09 | Đang mở |
+| BUG-015 | Xóa sản phẩm khỏi giỏ không có dialog xác nhận | Bấm `Xóa` làm item biến mất ngay, không có dialog xác nhận/hủy nên người dùng không thể hủy thao tác xóa nhầm. | FR-07 | Trung bình | 2026-07-09 | Đang mở |
+| BUG-016 | Trạng thái giỏ trống thiếu hình minh họa | Empty state của giỏ hàng chỉ hiển thị thông báo/link và thiếu hình minh họa như oracle kiểm thử yêu cầu. | FR-07 | Thấp | 2026-07-09 | Đang mở |
+| BUG-017 | Nút tiếp tục mua sắm không thống nhất ở giỏ có sản phẩm | Khi giỏ có sản phẩm, control quay về mua sắm hiển thị `← Mua tiếp` thay vì nhãn `Tiếp tục mua sắm` như yêu cầu FR-07. | FR-07 | Thấp | 2026-07-09 | Đang mở |
+| BUG-018 | API quản lý đơn hàng admin không kiểm quyền `role=admin` | Các endpoint admin order chỉ kiểm token hợp lệ nhưng không kiểm role, nên user thường vẫn có thể xem danh sách đơn hàng toàn hệ thống và cập nhật trạng thái đơn hàng qua API admin. | FR-18 | Cao | 2026-07-09 | Đang mở |
+| BUG-019 | Đơn đã hủy vẫn có thể chuyển sang đã giao | Trạng thái `canceled` không được bảo toàn như final state: Web Admin vẫn có nút đánh dấu đã giao cho đơn đã hủy và API chấp nhận cập nhật `canceled -> delivered`. | FR-18 | Cao | 2026-07-09 | Đang mở |
+| BUG-020 | Web Admin render địa chỉ giao hàng bằng HTML không an toàn | Cột địa chỉ giao hàng trong quản lý đơn hàng dùng HTML thô để hiển thị `shipping_address`, khiến payload HTML/script hoặc ký tự đặc biệt không được escape an toàn. | FR-18 | Cao | 2026-07-09 | Đang mở |
+| BUG-021 | OTP quên mật khẩu Mobile chỉ có 4 chữ số thay vì 6 chữ số | API `POST /api/forgot-password` sinh `resetToken` 4 chữ số và Mobile hiển thị nhãn `Mã OTP (4 số)`, không đúng yêu cầu OTP 6 chữ số của FR-03/SEC-07. | FR-03 | Cao | 2026-07-09 | Đang mở |
+| BUG-022 | Luồng quên mật khẩu Mobile thiếu các thành phần UI bắt buộc | Mobile không hiển thị Step Indicator cho Bước 1/Bước 2, thiếu nút `Quay lại đăng nhập` ở Bước 1 và thiếu ký hiệu `*` cho các trường bắt buộc. | FR-03 | Trung bình | 2026-07-09 | Đang mở |
+| BUG-023 | Bước đặt lại mật khẩu Mobile không có trường xác nhận mật khẩu mới | Màn hình Bước 2 chỉ có OTP và mật khẩu mới, không có `confirmNewPassword`, nên người dùng không thể xác nhận mật khẩu mới hoặc phát hiện lỗi nhập không khớp trước khi reset. | FR-03 | Cao | 2026-07-09 | Đang mở |
+| BUG-024 | API đặt lại mật khẩu không kiểm tra độ mạnh mật khẩu mới | `POST /api/reset-password` chấp nhận đổi mật khẩu sang giá trị rỗng hoặc mật khẩu yếu như ngắn hơn 8 ký tự, thiếu chữ hoa, chữ thường, chữ số hoặc ký tự đặc biệt. | FR-03 | Cao | 2026-07-09 | Đang mở |
+
+## Chi tiết lỗi
+
+### BUG-001 - Biểu mẫu đăng ký không có trường xác nhận mật khẩu
+
+- Mã lỗi: BUG-001
+- Tiêu đề lỗi: Biểu mẫu đăng ký không có trường xác nhận mật khẩu
+- Mô tả lỗi: Biểu mẫu đăng ký tài khoản trên frontend-web không hiển thị trường xác nhận mật khẩu, nên người dùng không thể nhập lại mật khẩu để kiểm tra lỗi gõ sai trước khi tạo tài khoản.
+- Mã chức năng: FR-01
+- Chức năng: Đăng ký tài khoản
+- Độ nghiêm trọng: Trung bình
+- Ngày ghi nhận: 2026-07-08
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã được cài đặt/chạy; truy cập biểu mẫu đăng ký trên ứng dụng web khách hàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: Chưa có
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Frontend-web đã được cài đặt và chạy thành công.
+- Người dùng truy cập được màn hình đăng ký tài khoản của ứng dụng web khách hàng.
+
+#### Các bước tái hiện
+
+1. Chạy backend của dự án.
+2. Chạy frontend-web của dự án.
+3. Mở ứng dụng web khách hàng trên trình duyệt.
+4. Điều hướng đến biểu mẫu đăng ký tài khoản.
+5. Quan sát các trường nhập liệu trên biểu mẫu đăng ký.
+
+#### Kết quả mong đợi
+
+Biểu mẫu đăng ký cần có trường xác nhận mật khẩu để người dùng nhập lại mật khẩu, giúp phát hiện lỗi gõ sai mật khẩu trước khi tạo tài khoản.
+
+#### Kết quả thực tế
+
+Biểu mẫu đăng ký không hiển thị trường xác nhận mật khẩu.
+
+#### Ghi chú
+
+Lỗi được phát hiện sau khi cài đặt dự án, chạy backend và frontend-web, sau đó vào biểu mẫu đăng ký và quan sát giao diện.
+
+### BUG-002 - Regex kiểm tra mật khẩu mạnh yêu cầu khoảng trắng và không cho phép ký tự đặc biệt
+
+- Mã lỗi: BUG-002
+- Tiêu đề lỗi: Regex kiểm tra mật khẩu mạnh yêu cầu khoảng trắng và không cho phép ký tự đặc biệt
+- Mô tả lỗi: Quy tắc kiểm tra mật khẩu dùng Regex yêu cầu có khoảng trắng `\s` nhưng lại không cho phép ký tự đặc biệt như `!`, khiến mật khẩu đúng yêu cầu đặc tả bị từ chối và mật khẩu có khoảng trắng được chấp nhận.
+- Mã chức năng: FR-01
+- Chức năng: Đăng ký tài khoản
+- Độ nghiêm trọng: Trung bình
+- Ngày ghi nhận: 2026-07-08
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã được cài đặt/chạy; kiểm tra quy tắc kiểm tra mật khẩu mạnh trên biểu mẫu đăng ký.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: Chưa có
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Frontend-web đã được cài đặt và chạy thành công.
+- Người dùng truy cập được màn hình đăng ký tài khoản của ứng dụng web khách hàng.
+- Quy tắc kiểm tra mật khẩu mạnh đang sử dụng Regex:
+
+```js
+/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\s)[A-Za-z\d\s]{8,}$/
+```
+
+#### Các bước tái hiện
+
+1. Chạy backend của dự án.
+2. Chạy frontend-web của dự án.
+3. Mở ứng dụng web khách hàng trên trình duyệt.
+4. Điều hướng đến biểu mẫu đăng ký tài khoản.
+5. Nhập mật khẩu có chữ hoa, chữ thường, chữ số và ký tự đặc biệt, ví dụ `Abcdef1!`.
+6. Quan sát kết quả kiểm tra mật khẩu.
+7. Nhập mật khẩu có chữ hoa, chữ thường, chữ số và khoảng trắng, ví dụ `Abcdef1 `.
+8. Quan sát kết quả kiểm tra mật khẩu.
+
+#### Kết quả mong đợi
+
+Mật khẩu mạnh nên chấp nhận ký tự đặc biệt phổ biến như `!@#$%` và không nên bắt buộc người dùng phải nhập khoảng trắng trong mật khẩu.
+
+#### Kết quả thực tế
+
+Regex hiện tại yêu cầu mật khẩu phải có ít nhất một ký tự khoảng trắng `\s`, đồng thời chỉ cho phép chữ cái, chữ số và khoảng trắng trong tập `[A-Za-z\d\s]`. Vì vậy mật khẩu như `Abcdef1!` bị từ chối, trong khi mật khẩu như `Abcdef1 ` lại hợp lệ.
+
+#### Ghi chú
+
+Regex đang dùng `(?=.*\s)` thay vì kiểm tra ký tự đặc biệt, và phần danh sách ký tự cho phép `[A-Za-z\d\s]{8,}` loại bỏ các ký tự đặc biệt thường được yêu cầu trong mật khẩu mạnh.
+
+### BUG-003 - API backend đăng ký không kiểm tra điều kiện dữ liệu nhập
+
+- Mã lỗi: BUG-003
+- Tiêu đề lỗi: API backend đăng ký không kiểm tra điều kiện dữ liệu nhập
+- Mô tả lỗi: Điểm cuối đăng ký cho phép gọi trực tiếp bằng Postman và tạo tài khoản dù dữ liệu không thỏa điều kiện kiểm tra như email sai định dạng, mật khẩu yếu hoặc thiếu trường bắt buộc.
+- Mã chức năng: FR-01
+- Chức năng: Đăng ký tài khoản
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-08
+- Trạng thái: Đang mở
+- Môi trường: Backend đã được cài đặt/chạy; kiểm thử API đăng ký trực tiếp bằng Postman.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `artifacts/test-results/fr01_api_domain_test_results.md`
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Công cụ Postman hoặc công cụ gửi yêu cầu HTTP tương đương đã sẵn sàng.
+- Xác định được điểm cuối API dùng để đăng ký tài khoản.
+
+#### Các bước tái hiện
+
+1. Chạy backend của dự án.
+2. Mở Postman.
+3. Gửi yêu cầu đăng ký tài khoản trực tiếp đến API đăng ký.
+4. Nhập dữ liệu không thỏa điều kiện kiểm tra của biểu mẫu đăng ký, ví dụ email sai định dạng, mật khẩu yếu, thiếu trường bắt buộc hoặc giá trị không hợp lệ.
+5. Gửi yêu cầu và quan sát phản hồi từ backend.
+
+#### Kết quả mong đợi
+
+Backend phải kiểm tra lại toàn bộ điều kiện dữ liệu nhập quan trọng của chức năng đăng ký, bao gồm trường bắt buộc, định dạng email, độ dài/độ mạnh mật khẩu và các giá trị không hợp lệ. Yêu cầu không thỏa điều kiện phải bị từ chối với mã lỗi và thông báo phù hợp.
+
+#### Kết quả thực tế
+
+Khi đăng ký tài khoản qua API bằng Postman, backend không kiểm tra các điều kiện dữ liệu nhập tương ứng. Các điều kiện kiểm tra có thể bị bỏ qua nếu người dùng không thao tác qua frontend. Kết quả thực thi FR-01 qua API cho thấy nhiều ca kiểm thử mong đợi bị từ chối nhưng vẫn nhận `200 OK` và phần thân phản hồi `{"message":"User registered successfully","id":...}`.
+
+#### Ghi chú
+
+Việc kiểm tra chỉ ở frontend là không đủ vì kiểm tra phía client có thể bị bỏ qua bằng cách gọi API trực tiếp. Backend cần là lớp kiểm tra cuối cùng trước khi tạo tài khoản.
+
+### BUG-004 - Tên người dùng chỉ gồm khoảng trắng vẫn vượt qua biểu mẫu đăng ký
+
+- Mã lỗi: BUG-004
+- Tiêu đề lỗi: Tên người dùng chỉ gồm khoảng trắng vẫn vượt qua biểu mẫu đăng ký
+- Mô tả lỗi: Biểu mẫu đăng ký chấp nhận trường họ tên chỉ gồm khoảng trắng, nên tài khoản có tên không hợp lệ vẫn có thể được gửi đăng ký.
+- Mã chức năng: FR-01
+- Chức năng: Đăng ký tài khoản
+- Độ nghiêm trọng: Trung bình
+- Ngày ghi nhận: 2026-07-08
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã được cài đặt/chạy; truy cập biểu mẫu đăng ký trên ứng dụng web khách hàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: Chưa có
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Frontend-web đã được cài đặt và chạy thành công.
+- Người dùng truy cập được màn hình đăng ký tài khoản của ứng dụng web khách hàng.
+
+#### Các bước tái hiện
+
+1. Chạy backend của dự án.
+2. Chạy frontend-web của dự án.
+3. Mở ứng dụng web khách hàng trên trình duyệt.
+4. Điều hướng đến biểu mẫu đăng ký tài khoản.
+5. Nhập trường họ tên chỉ gồm khoảng trắng, ví dụ .
+6. Nhập email hợp lệ chưa tồn tại.
+7. Nhập mật khẩu thỏa điều kiện hiện tại của biểu mẫu.
+8. Bấm nút đăng ký và quan sát kết quả.
+
+#### Kết quả mong đợi
+
+Biểu mẫu đăng ký phải từ chối giá trị họ tên chỉ gồm khoảng trắng, hiển thị lỗi họ tên không hợp lệ hoặc họ tên bắt buộc, và không tạo tài khoản mới.
+
+#### Kết quả thực tế
+
+Trường họ tên chỉ gồm khoảng trắng vẫn vượt qua biểu mẫu đăng ký, hệ thống tiếp tục xử lý đăng ký thay vì chặn dữ liệu không hợp lệ.
+
+#### Ghi chú
+
+Trường họ tên cần được loại bỏ khoảng trắng ở đầu/cuối hoặc kiểm tra để đảm bảo người dùng nhập dữ liệu có ký tự thực sự, không chỉ là khoảng trắng.
+
+### BUG-005 - Biểu mẫu đăng ký cho phép email sai định dạng
+
+- Mã lỗi: BUG-005
+- Tiêu đề lỗi: Biểu mẫu đăng ký cho phép email sai định dạng
+- Mô tả lỗi: Biểu mẫu đăng ký trên frontend-web vẫn cho tạo tài khoản với các email sai định dạng như thiếu local-part, thiếu ký tự `@`, có nhiều hơn một `@`, thiếu domain hoặc thiếu phần mở rộng domain.
+- Mã chức năng: FR-01
+- Chức năng: Đăng ký tài khoản
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-08
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã được cài đặt/chạy; truy cập biểu mẫu đăng ký trên ứng dụng web khách hàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-01_account_registration_domain_testing.md` - các testcase `EP-FR01-006` đến `EP-FR01-010`.
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Frontend-web đã được cài đặt và chạy thành công.
+- Người dùng truy cập được màn hình đăng ký tài khoản của ứng dụng web khách hàng.
+- Sử dụng email chưa tồn tại để loại trừ lỗi trùng email khỏi kết quả kiểm thử.
+
+#### Các bước tái hiện
+
+1. Chạy backend của dự án.
+2. Chạy frontend-web của dự án.
+3. Mở ứng dụng web khách hàng trên trình duyệt.
+4. Điều hướng đến biểu mẫu đăng ký tài khoản.
+5. Nhập họ tên hợp lệ.
+6. Nhập một email sai định dạng, ví dụ `@example.com`, `fr01.example.com`, `fr01@@example.com`, `fr01@` hoặc `fr01@example`.
+7. Nhập mật khẩu hợp lệ theo điều kiện hiện tại của biểu mẫu.
+8. Bấm nút đăng ký và quan sát kết quả.
+
+#### Kết quả mong đợi
+
+Biểu mẫu đăng ký phải từ chối email sai định dạng, hiển thị lỗi định dạng email phù hợp và không tạo tài khoản mới.
+
+#### Kết quả thực tế
+
+Các testcase `EP-FR01-006` đến `EP-FR01-010` cho thấy frontend-web vẫn cho đăng ký và tạo tài khoản với email sai định dạng. API cũng trả `Status: 200`, có message đăng ký thành công và tạo tài khoản mới cho các email sai định dạng này.
+
+#### Ghi chú
+
+Lỗi này khác với BUG-003 ở phạm vi giao diện: người dùng thao tác trực tiếp trên frontend-web vẫn có thể gửi và tạo tài khoản với email không hợp lệ, không chỉ khi gọi API trực tiếp bằng Postman.
+
+### BUG-006 - Hệ thống cho phép đăng ký tài khoản bằng email đã tồn tại
+
+- Mã lỗi: BUG-006
+- Tiêu đề lỗi: Hệ thống cho phép đăng ký tài khoản bằng email đã tồn tại
+- Mô tả lỗi: Chức năng đăng ký không chặn email đã tồn tại trong hệ thống, nên người dùng có thể tạo tài khoản trùng email qua giao diện web và API.
+- Mã chức năng: FR-01
+- Chức năng: Đăng ký tài khoản
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-08
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã được cài đặt/chạy; kiểm thử đăng ký với email đã tồn tại trong hệ thống.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-01_account_registration_domain_testing.md` - testcase `EP-FR01-011`.
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Frontend-web đã được cài đặt và chạy thành công.
+- Trong hệ thống đã có tài khoản sử dụng email `test@eshop.com` hoặc một email xác định khác để kiểm thử trùng lặp.
+- Người dùng truy cập được màn hình đăng ký tài khoản của ứng dụng web khách hàng.
+
+#### Các bước tái hiện
+
+1. Chạy backend của dự án.
+2. Chạy frontend-web của dự án.
+3. Mở ứng dụng web khách hàng trên trình duyệt.
+4. Điều hướng đến biểu mẫu đăng ký tài khoản.
+5. Nhập họ tên hợp lệ.
+6. Nhập email đã tồn tại, ví dụ `test@eshop.com`.
+7. Nhập mật khẩu hợp lệ theo điều kiện hiện tại của biểu mẫu.
+8. Bấm nút đăng ký và quan sát kết quả trên giao diện.
+9. Gửi yêu cầu đăng ký tương tự qua Postman đến `POST /api/register` và quan sát phản hồi API.
+
+#### Kết quả mong đợi
+
+Hệ thống phải từ chối đăng ký bằng email đã tồn tại, hiển thị hoặc trả lỗi email đã được sử dụng, và không tạo thêm tài khoản mới.
+
+#### Kết quả thực tế
+
+Testcase `EP-FR01-011` cho thấy frontend-web vẫn cho đăng ký và tạo tài khoản với email đã tồn tại. API cũng trả `Status: 200`, có message đăng ký thành công và tạo tài khoản mới.
+
+#### Ghi chú
+
+Email là định danh tài khoản theo đặc tả FR-01, vì vậy backend cần kiểm tra tính duy nhất trước khi ghi dữ liệu; frontend-web cũng cần hiển thị lỗi phù hợp cho người dùng.
+
+### BUG-007 - Thêm sản phẩm vào giỏ trên Web không ổn định và thiếu phản hồi badge
+
+- Mã lỗi: BUG-007
+- Tiêu đề lỗi: Thêm sản phẩm vào giỏ trên Web không ổn định và thiếu phản hồi badge
+- Mô tả lỗi: Lần bấm đầu tiên vào `Thêm vào giỏ hàng` chưa thêm sản phẩm; sau khi thêm thành công không thấy badge giỏ hàng trên navbar cập nhật.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Thêm vào giỏ hàng
+- Độ nghiêm trọng: Trung bình
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã được cài đặt/chạy; kiểm thử thao tác thêm sản phẩm vào giỏ trên ứng dụng web khách hàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_add-to-cart_domain_testing.md` - các testcase `EP-FR07-ADDCART-001`, `EP-FR07-ADDCART-002`, `EP-FR07-ADDCART-012`, `BV-FR07-ADDCART-002` đến `BV-FR07-ADDCART-004`.
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Frontend-web đã được cài đặt và chạy thành công.
+- Người dùng mở được trang chi tiết sản phẩm trên ứng dụng web khách hàng.
+- Giỏ hàng ban đầu rỗng hoặc có trạng thái biết trước để quan sát badge.
+
+#### Các bước tái hiện
+
+1. Mở frontend-web trên trình duyệt.
+2. Chọn một sản phẩm hợp lệ, ví dụ sản phẩm A.
+3. Nhập `quantity=1`.
+4. Bấm `Thêm vào giỏ hàng` một lần.
+5. Quan sát phản hồi trên nút, badge giỏ hàng trên navbar và màn hình giỏ hàng.
+6. Nếu sản phẩm chưa xuất hiện, bấm `Thêm vào giỏ hàng` lần thứ hai và quan sát lại.
+
+#### Kết quả mong đợi
+
+Ngay sau một lần bấm hợp lệ, Web phải thêm sản phẩm vào giỏ, hiển thị phản hồi trực quan rõ ràng và cập nhật badge giỏ hàng theo số lượng mới.
+
+#### Kết quả thực tế
+
+Lần bấm đầu tiên chưa thêm sản phẩm vào giỏ. Lần bấm thứ hai mới hiển thị trạng thái `Đã thêm` tạm thời và sản phẩm xuất hiện trong giỏ, nhưng không thấy badge navbar cập nhật.
+
+#### Ghi chú
+
+Lỗi ảnh hưởng khả năng nhận biết thao tác thành công của người dùng và có thể khiến người dùng bấm lặp lại, dẫn đến dữ liệu giỏ hàng sai.
+
+### BUG-008 - Thêm cùng sản phẩm tạo nhiều dòng trùng thay vì tăng số lượng
+
+- Mã lỗi: BUG-008
+- Tiêu đề lỗi: Thêm cùng sản phẩm tạo nhiều dòng trùng thay vì tăng số lượng
+- Mô tả lỗi: Khi thêm cùng một sản phẩm nhiều lần, Web và API tạo các dòng trùng `id` thay vì gộp thành một dòng và tăng `quantity`.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Thêm vào giỏ hàng / Hiển thị danh sách sản phẩm
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend, frontend-web và công cụ Postman/curl đã sẵn sàng để kiểm thử Web/API.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_add-to-cart_domain_testing.md` - `EP-FR07-ADDCART-003`, `BV-FR07-ADDCART-005`, `BV-FR07-ADDCART-007`; `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_get-cart-product-list_domain_testing.md` - `EP-FR07-GETCART-004`, `BV-FR07-GETCART-008`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-web đã chạy thành công.
+- Có một sản phẩm A hợp lệ quan sát được trên UI/API.
+- Có bearer token hợp lệ nếu kiểm thử bằng Postman.
+
+#### Các bước tái hiện
+
+1. Đảm bảo giỏ hàng rỗng hoặc không có sản phẩm A.
+2. Thêm sản phẩm A vào giỏ với `quantity=1`.
+3. Thêm lại chính sản phẩm A với `quantity=1`.
+4. Mở màn hình giỏ hàng trên Web và quan sát số dòng sản phẩm.
+5. Với API, gọi `POST /api/cart` hai lần cho cùng A, sau đó gọi `GET /api/cart` với bearer token hợp lệ.
+
+#### Kết quả mong đợi
+
+Giỏ hàng chỉ có một dòng cho sản phẩm A, `quantity` tăng thành `2`, `Thành tiền=2X` và tổng cộng phản ánh số lượng mới.
+
+#### Kết quả thực tế
+
+Web hiển thị 2 dòng trùng khi thêm cùng sản phẩm. API sau 2 lần `POST` cùng A trả 2 object cùng `id=1`, mỗi object có `quantity=1`.
+
+#### Ghi chú
+
+Lỗi này làm sai mô hình giỏ hàng và ảnh hưởng các phép tính số lượng, thành tiền, tổng cộng, checkout về sau.
+
+### BUG-009 - API thêm vào giỏ chấp nhận sản phẩm thiếu hoặc không thuộc catalog
+
+- Mã lỗi: BUG-009
+- Tiêu đề lỗi: API thêm vào giỏ chấp nhận sản phẩm thiếu hoặc không thuộc catalog
+- Mô tả lỗi: `POST /api/cart` vẫn trả thành công và lưu item khi body thiếu trường hoặc dùng sản phẩm giả/không nhất quán với catalog.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Thêm vào giỏ hàng qua API
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend đã chạy; kiểm thử API bằng Postman hoặc công cụ gửi HTTP tương đương.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_add-to-cart_domain_testing.md` - các testcase `EP-FR07-ADDCART-007`, `EP-FR07-ADDCART-008`.
+
+#### Điều kiện tiên quyết
+
+- Backend đã chạy thành công.
+- Có bearer token hợp lệ của user test.
+- Xác định được endpoint `POST /api/cart` và `GET /api/cart`.
+
+#### Các bước tái hiện
+
+1. Gửi `POST /api/cart` với bearer token hợp lệ nhưng body thiếu dữ liệu, ví dụ `{"id":1}`.
+2. Gọi `GET /api/cart` bằng cùng bearer token để đọc lại giỏ.
+3. Gửi tiếp `POST /api/cart` với sản phẩm không thuộc catalog, ví dụ `{"id":999,"name":"Ghost Product","price":12345,"quantity":1}`.
+4. Gọi `GET /api/cart` và quan sát dữ liệu giỏ.
+
+#### Kết quả mong đợi
+
+API phải từ chối item thiếu trường bắt buộc, item không tồn tại trong catalog hoặc dữ liệu product không nhất quán; giỏ không được thay đổi.
+
+#### Kết quả thực tế
+
+API trả `200 {"message":"Added to cart"}` cho body thiếu field và lưu object thiếu dữ liệu. API cũng chấp nhận `id=999`, `name="Ghost Product"` và lưu item giả vào giỏ.
+
+#### Ghi chú
+
+Backend cần kiểm tra dữ liệu sản phẩm dựa trên catalog hợp lệ thay vì tin toàn bộ payload từ client.
+
+### BUG-010 - Hệ thống cho phép số lượng giỏ hàng không hợp lệ
+
+- Mã lỗi: BUG-010
+- Tiêu đề lỗi: Hệ thống cho phép số lượng giỏ hàng không hợp lệ
+- Mô tả lỗi: Web/API chấp nhận `quantity` thiếu, bằng `0`, âm hoặc không phải số nguyên, khiến giỏ có dữ liệu số lượng không hợp lệ.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Thêm vào giỏ hàng / Cập nhật số lượng
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend, frontend-web và Postman/curl đã sẵn sàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_add-to-cart_domain_testing.md` - `EP-FR07-ADDCART-009` đến `EP-FR07-ADDCART-011`, `BV-FR07-ADDCART-001`; `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_update-cart-quantity_domain_testing.md` - `EP-FR07-UPDQTY-003`, `BV-FR07-UPDQTY-001`.
+
+#### Điều kiện tiên quyết
+
+- Backend đã chạy thành công.
+- Frontend-web đã chạy thành công.
+- Có sản phẩm A hợp lệ và bearer token hợp lệ để kiểm thử API.
+
+#### Các bước tái hiện
+
+1. Gửi `POST /api/cart` với sản phẩm A nhưng thiếu `quantity`.
+2. Gửi `POST /api/cart` với `quantity=0`.
+3. Gửi `POST /api/cart` với `quantity=-1`.
+4. Gửi `POST /api/cart` với `quantity="abc"` hoặc `quantity=1.5`.
+5. Gọi `GET /api/cart` để kiểm tra dữ liệu đã lưu.
+6. Trên Web, thử nhập giá trị rỗng, `0`, số âm hoặc số không nguyên vào ô số lượng trước khi thêm vào giỏ.
+
+#### Kết quả mong đợi
+
+Hệ thống phải chỉ chấp nhận số nguyên dương, tối thiểu là `1`; các giá trị thiếu, `0`, âm hoặc không phải số nguyên phải bị từ chối và không làm thay đổi giỏ.
+
+#### Kết quả thực tế
+
+API trả `200` và lưu item thiếu `quantity`, `quantity=0`, `quantity=-1` hoặc `"quantity":"abc"`. Web cho phép để trống/nhập `0`/số âm; với `1.5` hệ thống nhận thành `1`, còn chuỗi không số dẫn tới số lượng không hợp lệ trong giỏ.
+
+#### Ghi chú
+
+Lỗi này có thể làm sai thành tiền, tổng tiền, tồn kho và quy trình đặt hàng.
+
+### BUG-011 - Giỏ hàng không có nút tăng/giảm số lượng sản phẩm
+
+- Mã lỗi: BUG-011
+- Tiêu đề lỗi: Giỏ hàng không có nút tăng/giảm số lượng sản phẩm
+- Mô tả lỗi: Màn hình giỏ hàng không hiển thị nút `+/-`, nên người dùng không thể cập nhật số lượng trong giỏ theo yêu cầu FR-07.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Cập nhật số lượng trong giỏ
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã chạy; kiểm thử màn hình giỏ hàng trên Web UI.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_update-cart-quantity_domain_testing.md` - `EP-FR07-UPDQTY-001`, `EP-FR07-UPDQTY-002`, `EP-FR07-UPDQTY-007`, `BV-FR07-UPDQTY-003`, `BV-FR07-UPDQTY-004`, `BV-FR07-UPDQTY-006`, `BV-FR07-UPDQTY-007`; `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_get-cart-product-list_domain_testing.md` - `EP-FR07-GETCART-002`, `EP-FR07-GETCART-007`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-web đã chạy thành công.
+- Giỏ hàng trên Web có ít nhất một sản phẩm.
+
+#### Các bước tái hiện
+
+1. Thêm sản phẩm A vào giỏ hàng.
+2. Mở màn hình giỏ hàng.
+3. Quan sát cột số lượng của dòng sản phẩm A.
+4. Tìm nút `+` để tăng số lượng và nút `-` để giảm số lượng.
+
+#### Kết quả mong đợi
+
+Mỗi dòng sản phẩm trong giỏ cần có điều khiển `+/-` để người dùng tăng hoặc giảm số lượng. Sau thao tác hợp lệ, số lượng, thành tiền và tổng cộng phải cập nhật theo trạng thái mới.
+
+#### Kết quả thực tế
+
+Trong dòng sản phẩm không có nút `+` hoặc `-`, nên không thể thực hiện luồng tăng/giảm số lượng từ màn hình giỏ. API specification cũng không có endpoint cập nhật số lượng để đối chiếu qua API.
+
+#### Ghi chú
+
+Đây là thiếu sót chức năng chính của FR-07, không chỉ là lỗi hiển thị.
+
+### BUG-012 - Màn hình giỏ hàng dùng nhãn/cột không đúng đặc tả
+
+- Mã lỗi: BUG-012
+- Tiêu đề lỗi: Màn hình giỏ hàng dùng nhãn/cột không đúng đặc tả
+- Mô tả lỗi: Web dùng cột `Giá` thay vì `Đơn giá` và nhãn `Tổng tạm tính` thay vì `Tổng cộng`, làm sai nội dung hiển thị bắt buộc của giỏ hàng.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Hiển thị danh sách sản phẩm / Tổng cộng
+- Độ nghiêm trọng: Thấp
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã chạy; giỏ hàng có ít nhất một sản phẩm.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_get-cart-product-list_domain_testing.md` - `EP-FR07-GETCART-002`, `EP-FR07-GETCART-003`, `EP-FR07-GETCART-007`, `EP-FR07-GETCART-009`, `EP-FR07-GETCART-010`, `BV-FR07-GETCART-002`, `BV-FR07-GETCART-003`, `BV-FR07-GETCART-010`, `BV-FR07-GETCART-011`; `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_update-cart-quantity_domain_testing.md` - `EP-FR07-UPDQTY-009`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-web đã chạy thành công.
+- Giỏ hàng có ít nhất một sản phẩm.
+
+#### Các bước tái hiện
+
+1. Mở màn hình giỏ hàng.
+2. Quan sát tiêu đề các cột trong bảng sản phẩm.
+3. Quan sát nhãn tổng tiền phía cuối giỏ hàng.
+
+#### Kết quả mong đợi
+
+Màn hình giỏ hàng cần hiển thị đúng các nội dung theo FR-07, gồm cột `Đơn giá` và nhãn tổng tiền `Tổng cộng`.
+
+#### Kết quả thực tế
+
+Web hiển thị cột `Giá` thay vì `Đơn giá`, và hiển thị nhãn `Tổng tạm tính:` thay vì `Tổng cộng`.
+
+#### Ghi chú
+
+Giá trị tiền có thể được tính đúng trong một số testcase, nhưng nhãn không đúng đặc tả gây sai lệch yêu cầu hiển thị.
+
+### BUG-013 - Giỏ hàng thêm qua Web không đồng bộ với API `GET /api/cart`
+
+- Mã lỗi: BUG-013
+- Tiêu đề lỗi: Giỏ hàng thêm qua Web không đồng bộ với API `GET /api/cart`
+- Mô tả lỗi: Sau khi thêm sản phẩm qua Web UI, `GET /api/cart` với bearer token hợp lệ vẫn trả `200 []`, không phản ánh dữ liệu giỏ đang thấy trên Web.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Hiển thị danh sách sản phẩm / API `GET /api/cart`
+- Độ nghiêm trọng: Trung bình
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend, frontend-web và Postman/curl đã sẵn sàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_get-cart-product-list_domain_testing.md` - `EP-FR07-GETCART-002` đến `EP-FR07-GETCART-004`, `EP-FR07-GETCART-007`, `EP-FR07-GETCART-008`, `EP-FR07-GETCART-010`, `BV-FR07-GETCART-002` đến `BV-FR07-GETCART-008`, `BV-FR07-GETCART-010`, `BV-FR07-GETCART-011`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-web đã chạy thành công.
+- Có user hợp lệ và bearer token hợp lệ.
+- Người dùng đã đăng nhập hoặc có thể thêm sản phẩm vào giỏ trên Web.
+
+#### Các bước tái hiện
+
+1. Trên Web UI, thêm một sản phẩm hợp lệ vào giỏ.
+2. Mở màn hình giỏ hàng và xác nhận sản phẩm đang xuất hiện trên Web.
+3. Gọi `GET /api/cart` bằng bearer token hợp lệ của user test.
+4. So sánh dữ liệu API với dữ liệu đang hiển thị trên Web.
+
+#### Kết quả mong đợi
+
+API `GET /api/cart` phải trả dữ liệu giỏ tương ứng với giỏ của user hợp lệ, hoặc hệ thống phải có contract rõ ràng về việc Web dùng giỏ phiên riêng không đồng bộ với API.
+
+#### Kết quả thực tế
+
+Sau khi thêm bằng UI và thấy sản phẩm trên Web, Postman gọi `GET /api/cart` với bearer token hợp lệ vẫn trả `200 []`, không có item để đối chiếu.
+
+#### Ghi chú
+
+README của artifact ghi nhận dữ liệu thêm qua Web không mặc định đồng bộ với API, nhưng đây vẫn là rủi ro/bug chức năng nếu FR-07 yêu cầu giỏ hàng của user được quản lý nhất quán giữa Web và API.
+
+### BUG-014 - Dữ liệu giỏ hàng trên Web bị mất sau khi tải lại trang
+
+- Mã lỗi: BUG-014
+- Tiêu đề lỗi: Dữ liệu giỏ hàng trên Web bị mất sau khi tải lại trang
+- Mô tả lỗi: Trang giỏ hàng không giữ nguyên danh sách sản phẩm sau khi reload; các item đã thêm trong phiên hiện tại bị mất.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Hiển thị danh sách sản phẩm
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã chạy; kiểm thử bằng trình duyệt.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_get-cart-product-list_domain_testing.md` - testcase `EP-FR07-GETCART-011`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-web đã chạy thành công.
+- Trang giỏ hàng Web đang có ít nhất một sản phẩm.
+
+#### Các bước tái hiện
+
+1. Thêm một sản phẩm hợp lệ vào giỏ trên Web.
+2. Mở màn hình giỏ hàng và xác nhận item đang hiển thị.
+3. Tải lại trang trình duyệt.
+4. Quan sát lại danh sách sản phẩm trong giỏ.
+
+#### Kết quả mong đợi
+
+Danh sách sản phẩm trong trang giỏ hàng phải giữ nguyên sau khi tải lại trang.
+
+#### Kết quả thực tế
+
+Sau khi tải lại trang, danh sách sản phẩm đã thêm trong giỏ của phiên hiện tại bị mất.
+
+#### Ghi chú
+
+Lỗi này có thể làm người dùng mất toàn bộ tiến trình mua hàng trước khi checkout.
+
+### BUG-015 - Xóa sản phẩm khỏi giỏ không có dialog xác nhận
+
+- Mã lỗi: BUG-015
+- Tiêu đề lỗi: Xóa sản phẩm khỏi giỏ không có dialog xác nhận
+- Mô tả lỗi: Bấm `Xóa` làm item biến mất ngay, không có dialog xác nhận/hủy nên người dùng không thể hủy thao tác xóa nhầm.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Xóa sản phẩm trong giỏ
+- Độ nghiêm trọng: Trung bình
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã chạy; giỏ hàng có ít nhất một sản phẩm.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_remove-cart-product_domain_testing.md` - `EP-FR07-REMOVE-001` đến `EP-FR07-REMOVE-005`, `EP-FR07-REMOVE-009`, `BV-FR07-REMOVE-002` đến `BV-FR07-REMOVE-005`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-web đã chạy thành công.
+- Giỏ hàng có một hoặc nhiều sản phẩm.
+
+#### Các bước tái hiện
+
+1. Mở màn hình giỏ hàng có sản phẩm A.
+2. Bấm nút `Xóa` ở dòng sản phẩm A.
+3. Quan sát xem có dialog xác nhận/hủy xuất hiện trước khi xóa không.
+4. Với giỏ nhiều sản phẩm, thử bấm `Xóa` ở một dòng cụ thể và quan sát kết quả.
+
+#### Kết quả mong đợi
+
+Web phải hiển thị dialog xác nhận trước khi xóa. Nếu người dùng hủy, item vẫn phải còn trong giỏ; nếu xác nhận, chỉ item được chọn bị xóa và tổng cộng cập nhật.
+
+#### Kết quả thực tế
+
+Không xuất hiện dialog xác nhận/hủy. Khi bấm `Xóa`, item bị xóa ngay; người dùng không có cơ hội hủy thao tác.
+
+#### Ghi chú
+
+Trong các testcase nhiều item, Web xóa đúng dòng và cập nhật tổng, nhưng luồng vẫn không đạt vì thiếu bước xác nhận bắt buộc.
+
+### BUG-016 - Trạng thái giỏ trống thiếu hình minh họa
+
+- Mã lỗi: BUG-016
+- Tiêu đề lỗi: Trạng thái giỏ trống thiếu hình minh họa
+- Mô tả lỗi: Empty state của giỏ hàng chỉ hiển thị thông báo/link và thiếu hình minh họa như oracle kiểm thử yêu cầu.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Trạng thái giỏ trống
+- Độ nghiêm trọng: Thấp
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-web đã chạy; kiểm thử màn hình giỏ hàng khi không có sản phẩm.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_get-cart-product-list_domain_testing.md` - `EP-FR07-GETCART-001`, `BV-FR07-GETCART-001`; `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_remove-cart-product_domain_testing.md` - `EP-FR07-REMOVE-001`, `EP-FR07-REMOVE-006`, `BV-FR07-REMOVE-001`, `BV-FR07-REMOVE-002`, `BV-FR07-REMOVE-004`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-web đã chạy thành công.
+- Giỏ hàng của người dùng đang rỗng hoặc vừa xóa item cuối cùng.
+
+#### Các bước tái hiện
+
+1. Mở màn hình giỏ hàng khi giỏ rỗng.
+2. Quan sát nội dung empty state.
+3. Nếu giỏ có một item, xóa item cuối cùng và quan sát empty state sau xóa.
+
+#### Kết quả mong đợi
+
+Màn hình giỏ trống cần có trạng thái rõ ràng, gồm thông báo và hình minh họa theo oracle kiểm thử.
+
+#### Kết quả thực tế
+
+Web chỉ hiển thị text `Giỏ hàng của bạn đang trống` và link `Tiếp tục mua sắm`, không có hình minh họa.
+
+#### Ghi chú
+
+Lỗi mức thấp vì không làm sai dữ liệu giỏ hàng, nhưng làm thiếu nội dung UI được ghi trong testcase.
+
+### BUG-017 - Nút tiếp tục mua sắm không thống nhất ở giỏ có sản phẩm
+
+- Mã lỗi: BUG-017
+- Tiêu đề lỗi: Nút tiếp tục mua sắm không thống nhất ở giỏ có sản phẩm
+- Mô tả lỗi: Khi giỏ có sản phẩm, control quay về mua sắm hiển thị `← Mua tiếp` thay vì nhãn `Tiếp tục mua sắm` như yêu cầu FR-07.
+- Mã chức năng: FR-07
+- Chức năng: Giỏ hàng - Tiếp tục mua sắm
+- Độ nghiêm trọng: Thấp
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Frontend-web đã chạy; kiểm thử điều hướng từ màn hình giỏ hàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-07_shopping-cart/FR-07_shopping-cart_continue-shopping-from-cart_domain_testing.md` - `EP-FR07-CONTINUE-002`, `EP-FR07-CONTINUE-003`, `BV-FR07-CONTINUE-002`, `BV-FR07-CONTINUE-003`.
+
+#### Điều kiện tiên quyết
+
+- Frontend-web đã chạy thành công.
+- Giỏ hàng có ít nhất một sản phẩm.
+
+#### Các bước tái hiện
+
+1. Thêm một sản phẩm vào giỏ hàng trên Web.
+2. Mở màn hình giỏ hàng.
+3. Quan sát control quay về trang mua sắm.
+4. Bấm control này và quan sát điều hướng.
+
+#### Kết quả mong đợi
+
+Màn hình giỏ hàng phải có nút hoặc link `Tiếp tục mua sắm` để người dùng quay về trang chủ/product listing.
+
+#### Kết quả thực tế
+
+Khi giỏ có sản phẩm, control hiển thị là `← Mua tiếp`. Điều hướng vẫn về `/` và không làm thay đổi item trong giỏ, nhưng nhãn không đúng literal `Tiếp tục mua sắm`.
+
+#### Ghi chú
+
+Các testcase ghi nhận `← Mua tiếp` vẫn tương đương về ý nghĩa và điều hướng đúng, nên lỗi được xếp mức thấp.
+
+### BUG-018 - API quản lý đơn hàng admin không kiểm quyền `role=admin`
+
+- Mã lỗi: BUG-018
+- Tiêu đề lỗi: API quản lý đơn hàng admin không kiểm quyền `role=admin`
+- Mô tả lỗi: Các endpoint admin order chỉ kiểm token hợp lệ nhưng không kiểm role, nên user thường vẫn có thể xem danh sách đơn hàng toàn hệ thống và cập nhật trạng thái đơn hàng qua API admin.
+- Mã chức năng: FR-18
+- Chức năng: Quản lý Đơn hàng Admin - Xem toàn bộ đơn hàng / Cập nhật trạng thái đơn hàng
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-admin đã chạy; kiểm thử API bằng cURL/Postman-style trên `http://localhost:3000`.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-18_order-management-admin/FR-18_admin-order-list_domain_testing.md` - `EP-FR18-LIST-006`; `domain-testing/FR-18_order-management-admin/FR-18_admin-order-status-update_domain_testing.md` - `EP-FR18-STATUS-008`; `domain-testing/FR-18_order-management-admin/FR-18_admin-shipping-address-safe-display_domain_testing.md` - `EP-FR18-ADDR-006`; `artifacts/test-results/FR18_order_management_admin_api_evidence.txt`.
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Có token hợp lệ của một tài khoản user thường, ví dụ `test@eshop.com`.
+- Có ít nhất một đơn hàng quan sát được nếu kiểm thử cập nhật trạng thái.
+
+#### Các bước tái hiện
+
+1. Đăng nhập bằng tài khoản user thường để lấy bearer token hợp lệ.
+2. Gọi `GET /api/admin/orders` với header `Authorization: Bearer <valid_user_token>`.
+3. Quan sát response danh sách đơn hàng admin.
+4. Chọn một đơn đang ở trạng thái có thể chuyển đổi, ví dụ `pending`.
+5. Gọi `PUT /api/admin/orders/:id/status` với token user thường và body `{"status":"confirmed"}`.
+6. Đọc lại danh sách đơn hàng để kiểm tra trạng thái sau cập nhật.
+
+#### Kết quả mong đợi
+
+Mọi API `/api/admin/*` phải yêu cầu JWT hợp lệ và `role = 'admin'`. Token user thường phải bị từ chối với lỗi phân quyền `4xx`, không được trả dữ liệu đơn hàng toàn hệ thống và không được làm thay đổi trạng thái đơn.
+
+#### Kết quả thực tế
+
+`GET /api/admin/orders` bằng token user thường trả `200` thay vì lỗi phân quyền. `PUT /api/admin/orders/:id/status` bằng token user thường trả `200 {"message":"Order status updated"}` và đọc lại thấy đơn đã đổi từ `pending` sang `confirmed`.
+
+#### Ghi chú
+
+Frontend-admin có thể chặn user thường khi đăng nhập qua form, nhưng backend vẫn là lớp bảo vệ bắt buộc cho API admin vì người dùng có thể gọi API trực tiếp.
+
+### BUG-019 - Đơn đã hủy vẫn có thể chuyển sang đã giao
+
+- Mã lỗi: BUG-019
+- Tiêu đề lỗi: Đơn đã hủy vẫn có thể chuyển sang đã giao
+- Mô tả lỗi: Trạng thái `canceled` không được bảo toàn như final state: Web Admin vẫn có nút đánh dấu đã giao cho đơn đã hủy và API chấp nhận cập nhật `canceled -> delivered`.
+- Mã chức năng: FR-18
+- Chức năng: Quản lý Đơn hàng Admin - Cập nhật trạng thái đơn hàng
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-admin đã chạy; kiểm thử Web Admin và API trạng thái đơn hàng.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-18_order-management-admin/FR-18_admin-order-status-update_domain_testing.md` - `EP-FR18-STATUS-018`, `BV-FR18-STATUS-008`; `artifacts/test-results/FR18_order_management_admin_api_evidence.txt`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-admin đã chạy thành công.
+- Có token admin hợp lệ.
+- Có một đơn hàng đang ở trạng thái `canceled`.
+
+#### Các bước tái hiện
+
+1. Đăng nhập Web Admin bằng tài khoản admin.
+2. Mở màn hình `Quản lý Đơn hàng` và quan sát dòng đơn có `status=canceled`.
+3. Kiểm tra các nút thao tác trạng thái đang hiển thị cho đơn đã hủy.
+4. Gọi API `PUT /api/admin/orders/:id/status` cho đơn đã hủy với body `{"status":"delivered"}`.
+5. Gọi lại `GET /api/admin/orders` hoặc quan sát Web Admin để kiểm tra trạng thái sau cập nhật.
+
+#### Kết quả mong đợi
+
+Theo state machine FR-10, `canceled` là trạng thái kết thúc. Web Admin không được hiển thị thao tác chuyển tiếp cho đơn đã hủy, API phải từ chối mọi chuyển đổi rời khỏi `canceled`, và trạng thái đơn phải giữ nguyên `canceled`.
+
+#### Kết quả thực tế
+
+API từ chối `canceled -> confirmed` nhưng lại chấp nhận `canceled -> delivered` với `200`, sau đó đọc lại thấy đơn chuyển sang `delivered`. Web Admin cũng hiển thị nút `Đánh dấu Đã giao` khi đơn đang có `status === "canceled"`.
+
+#### Ghi chú
+
+Lỗi này làm sai state machine và có thể khiến đơn đã hủy bị ghi nhận như đã giao, ảnh hưởng trực tiếp đến vận hành đơn hàng và báo cáo.
+
+### BUG-020 - Web Admin render địa chỉ giao hàng bằng HTML không an toàn
+
+- Mã lỗi: BUG-020
+- Tiêu đề lỗi: Web Admin render địa chỉ giao hàng bằng HTML không an toàn
+- Mô tả lỗi: Cột địa chỉ giao hàng trong quản lý đơn hàng dùng HTML thô để hiển thị `shipping_address`, khiến payload HTML/script hoặc ký tự đặc biệt không được escape an toàn.
+- Mã chức năng: FR-18
+- Chức năng: Quản lý Đơn hàng Admin - Hiển thị an toàn địa chỉ giao hàng
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và frontend-admin đã chạy; dữ liệu đơn hàng được tạo qua luồng checkout với `shipping_address` chứa HTML/script/ký tự đặc biệt.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-18_order-management-admin/FR-18_admin-shipping-address-safe-display_domain_testing.md` - `EP-FR18-ADDR-003`, `EP-FR18-ADDR-004`; `artifacts/test-results/FR18_order_management_admin_api_evidence.txt`.
+
+#### Điều kiện tiên quyết
+
+- Backend và frontend-admin đã chạy thành công.
+- Có token admin hợp lệ.
+- Có đơn hàng được tạo với `shipping_address` chứa payload như `<img src=x onerror=alert(1)>` hoặc ký tự đặc biệt như `Apt "5" & <Gate A>`.
+
+#### Các bước tái hiện
+
+1. Tạo đơn hàng qua luồng checkout với `shipping_address="<img src=x onerror=alert(1)>"`.
+2. Đăng nhập Web Admin bằng tài khoản admin.
+3. Mở màn hình `Quản lý Đơn hàng`.
+4. Quan sát cột địa chỉ giao hàng của đơn vừa tạo.
+5. Lặp lại với địa chỉ có ký tự đặc biệt, ví dụ `Apt "5" & <Gate A>`.
+
+#### Kết quả mong đợi
+
+Web Admin phải hiển thị `shipping_address` như văn bản an toàn, escape các ký tự HTML đặc biệt, không tạo node HTML từ dữ liệu người dùng và không thực thi JavaScript/event handler.
+
+#### Kết quả thực tế
+
+API trả nguyên chuỗi payload trong `shipping_address`. Web Admin đưa giá trị này vào HTML thô bằng `dangerouslySetInnerHTML`, nên payload như `<img src=x onerror=alert(1)>` có thể được trình duyệt phân tích thành phần tử HTML/event handler thay vì hiển thị như văn bản an toàn; chuỗi `Apt "5" & <Gate A>` cũng có nguy cơ bị phân tích như markup.
+
+#### Ghi chú
+
+Đây là lỗi bảo mật hiển thị dữ liệu do người dùng nhập. API trả chuỗi không tự chứng minh lỗi render, nhưng artifact FR-18 ghi nhận UI Web Admin dùng HTML thô để hiển thị cột địa chỉ giao hàng.
+
+### BUG-021 - OTP quên mật khẩu Mobile chỉ có 4 chữ số thay vì 6 chữ số
+
+- Mã lỗi: BUG-021
+- Tiêu đề lỗi: OTP quên mật khẩu Mobile chỉ có 4 chữ số thay vì 6 chữ số
+- Mô tả lỗi: API `POST /api/forgot-password` sinh `resetToken` 4 chữ số và Mobile hiển thị nhãn `Mã OTP (4 số)`, không đúng yêu cầu OTP 6 chữ số của FR-03/SEC-07.
+- Mã chức năng: FR-03
+- Chức năng: Quên mật khẩu Mobile - Lấy OTP / Đặt lại mật khẩu
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend và Mobile App đã chạy; kiểm thử API bằng Postman-style trên `http://127.0.0.1:3000` và quan sát luồng Mobile.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-03_reset-password-mobile/FR-03_mobile-forgot-password-request-otp_domain_testing.md` - `EP-FR03-MOB-FORGOT-001`, `EP-FR03-MOB-FORGOT-005`, `BV-FR03-MOB-FORGOT-001`, `BV-FR03-MOB-FORGOT-002`; `domain-testing/FR-03_reset-password-mobile/FR-03_mobile-reset-password_domain_testing.md` - `EP-FR03-MOB-RESET-001`, `EP-FR03-MOB-RESET-006`, `BV-FR03-MOB-RESET-001`, `BV-FR03-MOB-RESET-002`.
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Mobile App đã chạy và có thể gọi API backend.
+- Có tài khoản đã đăng ký, ví dụ `test@eshop.com`.
+
+#### Các bước tái hiện
+
+1. Mở luồng `Quên mật khẩu` trên Mobile hoặc gọi API `POST /api/forgot-password`.
+2. Gửi yêu cầu lấy OTP với body `{"email":"test@eshop.com"}`.
+3. Quan sát `resetToken` trong API response.
+4. Chuyển sang màn hình nhập OTP/password trên Mobile.
+5. Quan sát nhãn trường OTP.
+
+#### Kết quả mong đợi
+
+Theo FR-03/SEC-07, OTP phải là mã gồm đúng 6 chữ số. Mobile phải hướng dẫn người dùng nhập OTP 6 chữ số, và API success phải trả `resetToken` đúng 6 ký tự số trong môi trường demo.
+
+#### Kết quả thực tế
+
+API trả `200 OK` nhưng `resetToken` chỉ có 4 chữ số, ví dụ `"6295"` hoặc `"3816"`. Mobile Bước 2 hiển thị nhãn `Mã OTP (4 số)`, nhất quán với hành vi 4 chữ số nhưng sai yêu cầu OTP 6 chữ số.
+
+#### Ghi chú
+
+Các testcase cũng ghi nhận Mobile không hiển thị OTP demo trực tiếp trên màn hình sau khi lấy OTP; API vẫn có trường `resetToken`, nhưng độ dài token không đạt biên 6 chữ số.
+
+### BUG-022 - Luồng quên mật khẩu Mobile thiếu các thành phần UI bắt buộc
+
+- Mã lỗi: BUG-022
+- Tiêu đề lỗi: Luồng quên mật khẩu Mobile thiếu các thành phần UI bắt buộc
+- Mô tả lỗi: Mobile không hiển thị Step Indicator cho Bước 1/Bước 2, thiếu nút `Quay lại đăng nhập` ở Bước 1 và thiếu ký hiệu `*` cho các trường bắt buộc.
+- Mã chức năng: FR-03
+- Chức năng: Quên mật khẩu Mobile - Giao diện luồng 2 bước
+- Độ nghiêm trọng: Trung bình
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Mobile App đã chạy; quan sát màn hình `Quên mật khẩu` Bước 1 và màn hình đặt lại mật khẩu Bước 2.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-03_reset-password-mobile/FR-03_mobile-forgot-password-request-otp_domain_testing.md` - `EP-FR03-MOB-FORGOT-001`, `EP-FR03-MOB-FORGOT-006`, `EP-FR03-MOB-FORGOT-007`, `EP-FR03-MOB-FORGOT-008`; `domain-testing/FR-03_reset-password-mobile/FR-03_mobile-reset-password_domain_testing.md` - `EP-FR03-MOB-RESET-001`, `EP-FR03-MOB-RESET-018`, `EP-FR03-MOB-RESET-020`.
+
+#### Điều kiện tiên quyết
+
+- Mobile App đã chạy thành công.
+- Người dùng mở được màn hình `Quên mật khẩu`.
+- Có thể chuyển sang màn hình nhập OTP/password sau khi yêu cầu OTP.
+
+#### Các bước tái hiện
+
+1. Mở màn hình `Quên mật khẩu` Bước 1 trên Mobile.
+2. Quan sát tiêu đề, nhãn email, Step Indicator và nút điều hướng về đăng nhập.
+3. Gửi yêu cầu lấy OTP hợp lệ để chuyển sang Bước 2.
+4. Quan sát Step Indicator, nhãn OTP và nhãn mật khẩu mới ở Bước 2.
+
+#### Kết quả mong đợi
+
+Mobile phải thể hiện rõ luồng 2 bước bằng Step Indicator, ví dụ `Bước 1 / 2` và `Bước 2 / 2`. Bước 1 phải có nút `Quay lại đăng nhập`. Các trường bắt buộc như email, OTP, mật khẩu mới và xác nhận mật khẩu mới phải có ký hiệu `*` theo FR-22.
+
+#### Kết quả thực tế
+
+Bước 1 chỉ hiển thị tiêu đề `Quên Mật Khẩu`, nhãn `Nhập Email của bạn` và nút `Lấy mã OTP`; không có Step Indicator, không có nút `Quay lại đăng nhập`, và nhãn email không có `*`. Bước 2 không có Step Indicator; nhãn `Mã OTP (4 số)` và `Mật khẩu mới` không có ký hiệu `*`.
+
+#### Ghi chú
+
+Đây là nhóm lỗi UI/UX và form requirement của luồng Mobile; API không có endpoint để kiểm các thành phần hiển thị này.
+
+### BUG-023 - Bước đặt lại mật khẩu Mobile không có trường xác nhận mật khẩu mới
+
+- Mã lỗi: BUG-023
+- Tiêu đề lỗi: Bước đặt lại mật khẩu Mobile không có trường xác nhận mật khẩu mới
+- Mô tả lỗi: Màn hình Bước 2 chỉ có OTP và mật khẩu mới, không có `confirmNewPassword`, nên người dùng không thể xác nhận mật khẩu mới hoặc phát hiện lỗi nhập không khớp trước khi reset.
+- Mã chức năng: FR-03
+- Chức năng: Đặt lại mật khẩu Mobile - Xác nhận mật khẩu mới
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Mobile App đã chạy; kiểm thử màn hình đặt lại mật khẩu Bước 2 sau khi lấy OTP.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-03_reset-password-mobile/FR-03_mobile-reset-password_domain_testing.md` - `EP-FR03-MOB-RESET-001`, `EP-FR03-MOB-RESET-016`, `EP-FR03-MOB-RESET-017`, `EP-FR03-MOB-RESET-020`, `BV-FR03-MOB-RESET-008`, `BV-FR03-MOB-RESET-009`, `BV-FR03-MOB-RESET-010`, `BV-FR03-MOB-RESET-011`.
+
+#### Điều kiện tiên quyết
+
+- Backend và Mobile App đã chạy thành công.
+- Có tài khoản đã đăng ký và đã lấy OTP qua Bước 1.
+- Mobile đang ở màn hình nhập OTP và mật khẩu mới.
+
+#### Các bước tái hiện
+
+1. Trên Mobile, mở luồng `Quên mật khẩu`.
+2. Gửi email đã đăng ký để lấy OTP.
+3. Chuyển sang màn hình đặt lại mật khẩu Bước 2.
+4. Quan sát các trường nhập liệu trên màn hình.
+5. Thử nhập tình huống confirm rỗng, confirm khác mật khẩu mới, confirm thiếu hoặc dư một ký tự.
+
+#### Kết quả mong đợi
+
+Bước 2 phải có trường `Xác nhận mật khẩu mới` hoặc `confirmNewPassword`. Mobile phải yêu cầu người dùng nhập confirm, kiểm tra confirm khớp toàn bộ với `newPassword`, và từ chối reset khi confirm rỗng hoặc không khớp.
+
+#### Kết quả thực tế
+
+Mobile Bước 2 không có trường `confirmNewPassword`, nên không thể nhập confirm rỗng, confirm mismatch, confirm thiếu 1 ký tự hoặc dư 1 ký tự để hệ thống validate. API `POST /api/reset-password` cũng không có field riêng cho confirm trong contract.
+
+#### Ghi chú
+
+Lỗi này làm mất lớp phòng tránh nhập sai mật khẩu mới ở phía người dùng. API không nhận confirm có thể là giới hạn contract, nhưng Mobile UI vẫn phải đáp ứng yêu cầu form xác nhận mật khẩu mới.
+
+### BUG-024 - API đặt lại mật khẩu không kiểm tra độ mạnh mật khẩu mới
+
+- Mã lỗi: BUG-024
+- Tiêu đề lỗi: API đặt lại mật khẩu không kiểm tra độ mạnh mật khẩu mới
+- Mô tả lỗi: `POST /api/reset-password` chấp nhận đổi mật khẩu sang giá trị rỗng hoặc mật khẩu yếu như ngắn hơn 8 ký tự, thiếu chữ hoa, chữ thường, chữ số hoặc ký tự đặc biệt.
+- Mã chức năng: FR-03
+- Chức năng: Đặt lại mật khẩu Mobile - API reset password
+- Độ nghiêm trọng: Cao
+- Ngày ghi nhận: 2026-07-09
+- Trạng thái: Đang mở
+- Môi trường: Backend đã chạy; kiểm thử API bằng Postman-style trên `http://127.0.0.1:3000`, xác nhận bằng đăng nhập sau reset.
+- Vấn đề GitHub: Chưa có
+- Bằng chứng: `domain-testing/FR-03_reset-password-mobile/FR-03_mobile-reset-password_domain_testing.md` - `EP-FR03-MOB-RESET-009`, `EP-FR03-MOB-RESET-010`, `EP-FR03-MOB-RESET-011`, `EP-FR03-MOB-RESET-012`, `EP-FR03-MOB-RESET-013`, `EP-FR03-MOB-RESET-014`, `BV-FR03-MOB-RESET-005`.
+
+#### Điều kiện tiên quyết
+
+- Backend đã được cài đặt và chạy thành công.
+- Có tài khoản đã đăng ký, ví dụ `test@eshop.com`.
+- Có OTP hợp lệ cho tài khoản này sau khi gọi `POST /api/forgot-password`.
+
+#### Các bước tái hiện
+
+1. Gọi `POST /api/forgot-password` với email đã đăng ký để lấy OTP.
+2. Gọi `POST /api/reset-password` với OTP đúng và `newPassword=""`.
+3. Thử lại với các mật khẩu yếu như `Aa1!aaa`, `newpass1!`, `NEWPASS1!`, `NewPass!!` hoặc `NewPass12`.
+4. Sau mỗi lần reset trả thành công, gọi API đăng nhập bằng mật khẩu yếu vừa đặt.
+
+#### Kết quả mong đợi
+
+API reset password phải áp dụng cùng rule mật khẩu mạnh của FR-01: mật khẩu mới không được rỗng, tối thiểu 8 ký tự, có chữ hoa, chữ thường, chữ số và ký tự đặc biệt hợp lệ. Các mật khẩu yếu phải bị từ chối và tài khoản không được đổi sang giá trị không hợp lệ.
+
+#### Kết quả thực tế
+
+API trả `200 OK` `{"message":"Password reset successfully"}` cho mật khẩu rỗng và nhiều mật khẩu yếu. Sau đó đăng nhập bằng các mật khẩu này vẫn trả `200 OK`, chứng minh mật khẩu tài khoản đã bị đổi sang giá trị không đạt rule.
+
+#### Ghi chú
+
+Mobile có regex chặn một số mật khẩu yếu trước khi gọi API, nhưng backend vẫn là lớp kiểm soát bắt buộc vì người dùng có thể gọi API trực tiếp bằng Postman hoặc công cụ HTTP khác.
+````
+
+- Rà soát/Chỉnh sửa bởi sinh viên: Sinh viên thêm bug `BUG-FR03-05`.
+
+### Entry 033
+
+- Thời gian: `2026-07-09 19:42 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: Cập nhật các file markdown trong 23127075_HW02_AI_DomainTesting_100/domain-testing để format lại đánh số heading các file domain testing chứ không theo chữ A, B nữa. Sau đó cập nhật lại format file trong skill [-domain-testing](/home/tkin/Documents/hcmus/software-testing/HW02/.agents/skills/applying-domain-testing/SKILL.md)
+- Đầu ra: Đã cập nhật heading trong các file Markdown dưới 23127075_HW02_AI_DomainTesting_100/domain-testing từ dạng A/B, A1-A4, B1-B3 sang dạng số: ## 2, ### 2.1-2.4, ## 3, ### 3.1-3.3, và ## 4. Ghi chú rủi ro. Đã cập nhật .agents/skills/applying-domain-testing/SKILL.md cùng hai reference equivalence-partitioning.md và boundary-value-analysis.md để workflow, template và quality checks dùng format đánh số mới.
+
+### Entry 034
+
+- Thời gian: `2026-07-09 20:41 +07`
+- Công cụ/Mô hình: `Codex / GPT-5`
+- Câu lệnh: Dịch 23127075_HW02_AI_DomainTesting_100/report/ai_audit_report.md ra tiếng Việt (có dấu). Trong nội dung mỗi entry thì chỉ dịch các cụm từ Time, Tool/Model, Prompt, Output, Human Review/Corrections, Final Use in Submission. Dòng nào không được điền thì xóa.
+- Đầu ra: Đã Việt hóa các nhãn trường trong từng entry của AI audit report và xóa các dòng placeholder/chưa điền.
