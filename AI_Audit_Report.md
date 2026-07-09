@@ -318,3 +318,43 @@
 - Em yêu cầu loại bỏ toàn bộ biểu tượng emoji và các dịch nghĩa tiếng Anh trong các tệp biểu mẫu báo cáo lỗi và hướng dẫn issue để đảm bảo tính nhất quán của ngôn ngữ tiếng Việt.
 - Em yêu cầu chuyển ngữ 100% các tiêu đề (Title) của các Issue sang tiếng Việt để người đọc dễ theo dõi.
 - Em đã kiểm tra và xác nhận cấu trúc bảng tổng hợp lỗi và việc dọn dẹp các tệp tin lẻ đã hoàn tất chính xác trước khi thực hiện commit.
+
+### Nhật ký Tương tác AI 11: Thiết kế Domain Testing và BVA cho FR-08 (Checkout)
+
+- **Tên công cụ AI:** Antigravity / Gemini 3.5 Flash
+- **Ngày và giờ:** 09-07-2026 01:12:00 +07:00
+- **Mô tả nhiệm vụ:** Thiết kế kiểm thử phân hoạch tương đương (Equivalent Partitioning / Domain Testing) và phân tích giá trị biên (Boundary Value Analysis / BVA) cho tính năng FR-08: Checkout theo hướng black-box, và cập nhật kết quả vào báo cáo chính.
+
+#### 1. Các Prompt đã sử dụng
+
+- "Đọc và làm theo `HW02/.agents/skills/domain_testing/SKILL.md`. Dùng context FR-08: Checkout trong `HW02/Feature_Contexts.md`. Chỉ thực hiện Step 1: xác định Input và Output. Chưa tạo Condition, EP hoặc bảng Test Case."
+- "OK. Tiếp tục Step 2: xác định Condition cho FR-08. Giữ đúng nguyên tắc black-box, không đọc source code và không tự kết luận actual result hoặc bug."
+- "OK. Tiếp tục Step 3: xác định miền phân hoạch tương đương (EP) cho FR-08. Mỗi EP phải liên kết với condition tương ứng và phân biệt rõ valid/invalid."
+- "OK. Tiếp tục Step 4: xác định Test Case cho FR-08. Bảng test case phải có mã `FR08-DOM-TCxx`, input cụ thể, expected result, các cột `Kết quả thực tế`, `Trạng thái`, `Bug ID / Evidence` để TODO, và coverage EP."
+- "Đọc và làm theo `HW02/.agents/skills/bva_testing/SKILL.md`. Dùng Domain Testing output đã được duyệt và context FR-08: Checkout trong `HW02/Feature_Contexts.md`. Chỉ thực hiện Step 1. Chưa xác định giá trị biên chi tiết và chưa sinh BVA Test Case."
+- "OK. Tiếp tục Step 2: xác định giá trị biên và cận biên."
+- "OK. Tiếp tục Step 3: xác định BVA Test Case."
+- "ok" (đồng ý ghi tự động các nội dung đã duyệt của Step 1, Step 2 và Step 3 vào Main_Report.md).
+
+#### 2. Phản hồi của AI / Sản phẩm được tạo ra
+
+- Tạo phần Domain Testing / EP của FR-08 trong tệp [Main_Report.md](./Main_Report.md) gồm:
+  - Step 1: Xác định 14 tham số/biến đầu vào, đầu ra và trạng thái liên quan đến checkout.
+  - Step 2: Xác định 14 điều kiện kiểm thử `C1` đến `C14`.
+  - Step 3: Phân chia 29 miền phân hoạch tương đương `E1` đến `E29` cho các điều kiện.
+  - Step 4: Thiết kế 14 test case Domain Testing `FR08-DOM-TC01` đến `FR08-DOM-TC14`.
+- Tạo phần BVA cho FR-08 trong tệp [Main_Report.md](./Main_Report.md) gồm:
+  - Step 1: Xác định 10 tham số và đánh giá khả năng áp dụng BVA, lựa chọn 6 tham số số/độ dài/tiền tệ làm đối tượng cho BVA.
+  - Step 2: Xác định chi tiết giá trị biên, cận biên dưới/trên ngoài và trong cho 6 tham số trên (`FR08-BVA-B01` đến `FR08-BVA-B06`).
+  - Step 3: Thiết kế 18 BVA Test Case tương ứng phủ các giá trị biên (`FR08-BVA-TC01` đến `FR08-BVA-TC18`).
+- Các cột thực thi (`Kết quả thực tế`, `Trạng thái`, `Bug ID / Evidence`) ở cả hai bảng đều ở trạng thái `TODO` theo đúng quy tắc hộp đen.
+
+#### 3. Rà soát và Chỉnh sửa của con người
+
+- Sinh viên rà soát các biến đầu vào và đầu ra, yêu cầu thêm biến `request_body_completeness` ở phần Domain Testing để kiểm thử cấu trúc body của API checkout.
+- Sinh viên yêu cầu kiểm chứng hành vi thực tế của API SUT đối với các giá trị dị biệt như empty cart hoặc sai lệch `total_amount` bằng một script thử nghiệm (`test_checkout_validation.js`) trước khi chốt kết quả mong đợi.
+- Sinh viên kiểm duyệt và đồng ý từng bước của quy trình trước khi cho phép AI cập nhật vào tệp báo cáo chính.
+- Các cột kết quả thực thi và trạng thái được giữ ở `TODO` cho đến khi thực hiện chạy trực tiếp trên ứng dụng.
+
+
+
