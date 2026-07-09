@@ -1,18 +1,18 @@
 # Hướng dẫn quay demo Agent Skills
 
-File này dùng như một kịch bản ngắn khi quay video demo Agent Skills cho HW02.
+File này dùng như kịch bản ngắn khi quay video demo Agent Skills cho HW02.
 
 ## Mục tiêu demo
 
-Chứng minh rằng Agent Skills có thể hướng dẫn AI thực hiện Domain Testing và Boundary Value Analysis theo quy trình **AI-first, human-reviewed**.
+Chứng minh rằng Agent Skills hướng dẫn AI thực hiện Domain Testing và Boundary Value Analysis theo quy trình **AI-first, human-review**.
 
-Video cần thể hiện được:
+Video cần thể hiện:
 
-- Skill có thể tái sử dụng.
-- Skill bám theo methodology của môn học.
-- AI không sinh toàn bộ kết quả trong một lần không kiểm soát.
-- Sinh viên review từng checkpoint trước khi cho AI tiếp tục.
-- Output cuối có thể đưa vào section feature tương ứng trong `Main_Report.md` và AI Audit Report.
+- Skill có thể tái sử dụng cho nhiều feature.
+- Skill bám theo `04_Domain Testing.pdf` và cách trình bày trong `23127205.pdf`.
+- AI không sinh toàn bộ kết quả trong một lần.
+- Người làm review từng checkpoint trước khi cho AI tiếp tục.
+- Output cuối được đưa vào `Main_Report.md` và được ghi lại trong `AI_Reports/AI_Audit_Report.md`.
 
 ## Feature nên dùng để demo
 
@@ -21,7 +21,7 @@ Nên dùng FR-04: Personal profile management.
 Lý do:
 
 - Input rõ: `name`, `shipping_address`, `phone`, authentication state.
-- Output/state rõ: update success, validation error, unauthorized access, unchanged profile.
+- Output/state rõ: profile displayed, update success, validation/unauthorized behavior, unchanged profile.
 - Dễ giải thích hơn checkout hoặc admin CRUD.
 
 ## Các file nên mở đầu video
@@ -30,40 +30,29 @@ Mở lần lượt:
 
 1. `.agents/README.md`
 2. `.agents/skills/domain_testing/SKILL.md`
-3. `.agents/skills/bva_testing/SKILL.md`
-4. `.agents/skills/audit_extraction/SKILL.md`
-5. `HW02_FR_Workflow.md`
+3. `.agents/skills/domain_testing/references/domain_testing_method.md`
+4. `.agents/skills/domain_testing/references/report_style_23127205.md`
+5. `.agents/skills/bva_testing/SKILL.md`
+6. `.agents/skills/bva_testing/references/bva_method.md`
+7. `.agents/skills/audit_extraction/SKILL.md`
+8. `.agents/skills/audit_extraction/references/hw02_audit_requirements.md`
+9. `Feature_Contexts.md`
+10. `HW02_FR_Workflow.md`
 
 Câu giải thích ngắn:
 
 ```text
-Đây là bộ native Agent Skills dùng cho HW02. Các skill này triển khai workflow Domain Testing và BVA theo bài giảng, có checkpoint bắt buộc để human review. AI sinh phân tích và candidate test cases, còn tôi review output và sau đó tự execute test trên SUT.
+Đây là bộ native Agent Skills dùng cho HW02. Skill không tự chạy test và không tự kết luận bug. Skill hướng dẫn AI tạo phân tích Domain Testing/BVA theo từng bước, còn em review output, execute test trên SUT, ghi actual result và confirmed bugs.
 ```
 
 ## Bước demo 1: Chuẩn bị Feature Context
 
-Paste context này vào AI session:
+Mở `Feature_Contexts.md`, copy block FR-04.
+
+Câu nên nói:
 
 ```text
-Feature ID: FR-04
-Feature name: Personal profile management
-Pool: A
-Surface: Web/API
-User role: Logged-in customer
-Preconditions: User has a valid account and token
-Relevant API endpoint/body:
-PUT /api/users/me
-{
-  "name": "Nguyen Van A",
-  "shipping_address": "123 Le Loi, Q1, TP.HCM",
-  "phone": "0912345678"
-}
-Known constraints/business rules:
-- User must be authenticated.
-- User can update name, shipping_address, and phone.
-Out of scope:
-- Password change
-- Admin user management
+Em không để AI tự nghĩ context từ đầu. Context được chuẩn bị từ requirement, API spec công khai và UI/SUT behavior quan sát được; không dùng source code để thiết kế test. Điểm nào chưa có căn cứ sẽ không được đưa vào bảng chính cho đến khi được verify.
 ```
 
 ## Bước demo 2: Chạy Domain Testing Step 1
@@ -71,113 +60,121 @@ Out of scope:
 Prompt:
 
 ```text
-Use the domain_testing skill for the following feature.
+Đọc và làm theo `HW02/.agents/skills/domain_testing/SKILL.md`.
+Dùng context FR-04 trong `HW02/Feature_Contexts.md`.
 
-[Paste the FR-04 feature context]
-
-Start Step 1 only. Do not create the combination matrix or test cases yet.
+Chỉ thực hiện Step 1: xác định Input và Output.
+Chưa tạo Condition, EP hoặc bảng Test Case.
 ```
 
-Câu nên nói trong video:
+Nếu AI không đọc được file, dùng fallback:
 
 ```text
-Ở bước này tôi chỉ yêu cầu AI xác định variables và equivalence classes. Tôi chưa cho AI sinh test cases vì cần review phần phân tích trước.
+Em sẽ paste trực tiếp nội dung skill và context của feature.
+
+[Paste nội dung từ HW02/.agents/skills/domain_testing/SKILL.md]
+
+[Paste context FR-04 từ HW02/Feature_Contexts.md]
+
+Hãy làm đúng theo skill. Chỉ thực hiện Step 1.
 ```
 
 Cần review:
 
-- Input variables đã đủ chưa?
-- Có output/state classes chưa?
-- Valid/invalid partitions có hợp lý không?
-- Assumptions có được ghi rõ không?
-
-Ví dụ prompt sửa nếu AI thiếu:
-
-```text
-Revise Step 1 with these corrections:
-- Add authentication state as an input condition.
-- Split phone invalid partitions into empty, non-digit, too short, and too long.
-- Mark any unspecified length limits as assumptions.
-
-Do not continue to Step 2 yet.
-```
+- Bảng Input/Output đã đúng cấu trúc chưa? Có cột Rationale giải thích cơ sở lựa chọn chưa?
+- Các biến đầu vào và đầu ra đã được xác định đầy đủ và có căn cứ chưa?
+- AI có tự bịa validation rule nào chưa được verify không?
 
 ## Bước demo 3: Duyệt Domain Step 1 và chạy Step 2
 
 Prompt:
 
 ```text
-Verified. Continue to Step 2 and create representative values and the combination matrix.
-```
-
-Câu nên nói:
-
-```text
-Sau khi Step 1 đã được review, tôi mới cho AI tạo representative values và combination matrix. Với invalid partitions, AI phải áp dụng Single Fault Assumption.
+OK. Tiếp tục Step 2: xác định Condition.
 ```
 
 Cần review:
 
-- Valid partitions đã được cover chưa?
-- Invalid scenarios có test một invalid class tại một thời điểm không?
-- Representative values có cụ thể không?
-- Expected output/state có quan sát được không?
+- Bảng Điều kiện có cột giải thích luật nghiệp vụ (Rationale) đầy đủ không?
+- Condition có được đánh mã C1, C2, C3... rõ ràng và liên kết đúng tham số không?
+- Điểm chưa có căn cứ có bị trình bày như requirement không?
 
 ## Bước demo 4: Duyệt Domain Step 2 và chạy Step 3
 
 Prompt:
 
 ```text
-Verified. Continue to Step 3 and generate detailed Domain Testing test cases.
-```
-
-Câu nên nói:
-
-```text
-Output cuối của Domain Testing là bảng candidate test cases. Tôi vẫn phải review và execute các test case này trên SUT trước khi ghi actual results.
-```
-
-## Bước demo 5: Chạy BVA Step 1
-
-Prompt:
-
-```text
-Use the bva_testing skill for FR-04 - Personal profile management.
-
-Use the approved Domain Testing variables and this feature context:
-[Paste the FR-04 feature context]
-
-Start Step 1 only. Do not generate BVA test cases yet.
-```
-
-Câu nên nói:
-
-```text
-BVA chỉ áp dụng cho các biến có boundary có ý nghĩa. Skill không được tự bịa min/max. Nếu boundary không explicit thì phải ghi là assumption hoặc no explicit boundary found.
+OK. Tiếp tục Step 3: xác định miền phân hoạch tương đương (EP).
 ```
 
 Cần review:
 
-- Source của boundary có rõ không?
-- Có bịa min/max không?
-- One-sided boundary có được giải thích không?
-- Các biến không phù hợp BVA có được loại ra với lý do không?
+- Bảng EP có đầy đủ cột Loại phân hoạch (Valid/Invalid), Giá trị đại diện và lý do lựa chọn không?
+- Các lớp EP có được đối chiếu chính xác với mã điều kiện C tương ứng không?
+- Invalid EP có vi phạm đúng một condition chính để đáp ứng Single Fault không?
 
-## Bước demo 6: Duyệt BVA Step 1 và chạy Step 2
+## Bước demo 5: Duyệt Domain Step 3 và chạy Step 4
 
 Prompt:
 
 ```text
-Verified. Generate BVA test cases.
+OK. Tiếp tục Step 4: xác định Test Case.
 ```
 
 Câu nên nói:
 
 ```text
-Khi test một boundary variable, các biến còn lại phải giữ ở nominal valid values để cô lập hành vi tại biên.
+Theo bài giảng và file mẫu, bảng cuối của EP được trình bày như bảng Test Case. Với valid classes, AI có thể cover chung để giảm số test; với invalid classes, mỗi test chỉ nên isolate một lỗi chính. Các cột actual/status/evidence chỉ được điền sau khi execute trên SUT.
 ```
 
-## Bước demo 7: Đưa output vào Main Report
+## Bước demo 6: Chạy BVA Step 1
+
+Prompt:
+
+```text
+Đọc và làm theo `HW02/.agents/skills/bva_testing/SKILL.md`.
+Dùng Domain Testing output đã được duyệt và context FR-04 trong `HW02/Feature_Contexts.md`.
+
+Chỉ thực hiện Step 1: xác định biến có thể áp dụng BVA.
+Chưa xác định giá trị biên chi tiết và chưa sinh BVA test case.
+```
+
+Cần review:
+
+- Boundary candidate có nguồn rõ không?
+- Biến nào không áp dụng BVA đã được loại ra với lý do chưa?
+- Có boundary nào bị AI tự bịa không?
+- Boundary nào chỉ là exploratory, không phải formal BVA?
+
+## Bước demo 7: Duyệt BVA Step 1 và chạy Step 2
+
+Prompt:
+
+```text
+OK. Tiếp tục Step 2: xác định giá trị biên và cận biên.
+```
+
+Câu nên nói:
+
+```text
+BVA chỉ được tạo khi boundary có căn cứ. Nếu không có min/max explicit, skill phải ghi không có biên explicit thay vì tự chọn số. Bảng BVA Step 2 có cột Rationale để làm rõ nguồn gốc của các biên này nhằm tăng tính thuyết phục khi vấn đáp.
+```
+
+## Bước demo 8: Duyệt BVA Step 2 và chạy Step 3
+
+Prompt:
+
+```text
+OK. Tiếp tục Step 3: xác định BVA Test Case.
+```
+
+Câu nên nói:
+
+```text
+Khi test một boundary variable, các biến còn lại giữ nominal valid values để cô lập hành vi tại biên.
+```
+
+## Bước demo 9: Đưa output vào Main Report
 
 Show nơi output sẽ được đưa vào:
 
@@ -188,16 +185,23 @@ Main_Report.md
 Câu giải thích:
 
 ```text
-AI output không được nộp raw. Tôi review, chỉnh sửa, rồi đưa phần analysis đã duyệt vào section FR-04 của main report.
+AI output không được nộp raw. Em review, chỉnh sửa, rồi đưa phần analysis đã duyệt vào section FR-04 của main report.
 ```
 
-## Bước demo 8: Chạy Audit Extraction
+Câu nói thêm khi show template execution:
+
+```text
+Phần actual result không được AI tự điền. Sau khi thiết kế xong test cases, em execute Domain test cases và BVA test cases riêng trên SUT, rồi điền `Kết quả thực tế`, `Trạng thái`, và `Bug ID / Evidence` ngay trong bảng test case tương ứng. Bug report chi tiết nằm ở artifact riêng, không viết trong main report.
+```
+
+## Bước demo 10: Chạy Audit Extraction
 
 Prompt:
 
 ```text
-Use the audit_extraction skill for this FR-04 Domain Testing and BVA session.
-Use the simplified AI Audit template and exclude meta workflow questions.
+Đọc và làm theo `HW02/.agents/skills/audit_extraction/SKILL.md`.
+Tạo audit entry cho session Domain Testing và BVA của FR-04.
+Không đưa các câu hỏi meta về workflow vào audit nếu chúng không tạo/sửa artifact cuối cùng.
 ```
 
 Show nơi audit sẽ được đưa vào:
@@ -206,31 +210,27 @@ Show nơi audit sẽ được đưa vào:
 AI_Reports/AI_Audit_Report.md
 ```
 
-Câu nên nói:
-
-```text
-Phần này đáp ứng yêu cầu AI Audit bằng cách ghi lại tool, date/time, prompts, output summary và human corrections.
-```
-
 ## Câu kết demo
 
-Có thể dùng câu này:
-
 ```text
-Workflow này thể hiện AI-first testing có human review. AI hỗ trợ sinh Domain Testing và BVA artifacts, nhưng tôi kiểm soát checkpoint, verify expected results, execute test cases trên SUT và chỉ report bug sau khi xác nhận.
+Workflow này thể hiện AI-first testing có human review. AI hỗ trợ sinh Domain Testing và BVA artifacts, nhưng em kiểm soát checkpoint, verify expected results, execute test cases trên SUT và chỉ report bug sau khi xác nhận.
 ```
 
 ## Checklist video
 
 - Show `.agents/README.md`.
-- Show `domain_testing/SKILL.md` phần Methodology Basis.
+- Show `domain_testing/SKILL.md` và `domain_testing/references/`.
+- Show `Feature_Contexts.md`.
 - Chạy Domain Step 1 only.
-- Thực hiện hoặc giải thích human review.
+- Review hoặc giải thích human review.
 - Chỉ chạy Domain Step 2 sau khi approve.
 - Chỉ chạy Domain Step 3 sau khi approve.
+- Chỉ chạy Domain Step 4 sau khi approve.
 - Chạy BVA Step 1 only.
-- Thực hiện hoặc giải thích human review.
+- Review hoặc giải thích human review.
 - Chỉ chạy BVA Step 2 sau khi approve.
+- Chỉ chạy BVA Step 3 sau khi approve.
 - Show output được đưa vào `Main_Report.md`.
+- Show các cột execution nằm trong bảng Domain Test Case và BVA Test Case.
 - Chạy hoặc giải thích `audit_extraction`.
 - Nói rõ actual execution và bug confirmation do sinh viên thực hiện.

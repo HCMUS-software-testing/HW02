@@ -91,9 +91,8 @@ HW02/
 │       ├── domain_testing/SKILL.md
 │       ├── bva_testing/SKILL.md
 │       └── audit_extraction/SKILL.md
-├── AI_Reports/
-│   ├── AI_Audit_Report.md
-│   └── AI_Critique.md
+├── AI_Audit_Report.md
+├── AI_Critique.md
 └── git_commit_log.txt
 ```
 
