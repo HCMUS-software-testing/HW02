@@ -10,7 +10,7 @@ Các skill này **không phải test automation script**. Chúng không tự ch�
 
 | Tài liệu | Cách sử dụng trong bộ skill |
 | :--- | :--- |
-| HW02 assignment PDF | Xác định deliverables bắt buộc: Domain Testing, BVA, AI Audit, AI Critique, bug report, Git log, README và demo Agent Skill |
+| HW02 assignment PDF | Xác định deliverables bắt buộc: Domain Testing, BVA, AI Audit, AI Critique, bug report, Git log, README |
 | `04_Domain Testing.pdf` | Cung cấp quy trình Domain Testing: xác định input/output variables, equivalence classes, representative values và BVA cho ordered fields |
 | Homework policy PDF | Quy định Markdown/PDF submission, Git usage, file naming và compliance |
 | ISTQB CT-AI syllabus | Làm rõ AI có thể hỗ trợ test case generation nhưng vẫn cần human review vì có test oracle problem |
@@ -66,28 +66,5 @@ Với mỗi feature đã chọn:
 19. Chạy các test case Domain Testing `FRxx-DOM-TCxx` trên SUT.
 20. Ghi actual results vào các cột execution trong bảng Domain Test Case của `Main_Report.md`.
 21. Chạy các test case BVA `FRxx-BVA-TCxx` trên SUT.
-22. Ghi actual results vào các cột execution trong bảng BVA Test Case của `Main_Report.md`.
-23. Ghi confirmed bugs trong bug report riêng; trong `Main_Report.md` chỉ link `Bug ID / Evidence` tại dòng test case liên quan.
-24. Chạy `audit_extraction`.
-25. Copy audit entry vào `AI_Audit_Report.md`.
-26. Commit phần việc đã hoàn thành.
 
-## Gợi ý demo
 
-Nên dùng FR-04 cho video demo Agent Skills vì feature này gọn và dễ giải thích.
-
-Trong video nên show:
-
-- File tổng quan này.
-- `domain_testing` skill và phần Methodology Basis.
-- Feature context prompt cho FR-04.
-- AI output ở Step 1.
-- Human review trước khi cho AI tiếp tục.
-- AI output ở Step 2 và Step 3 sau khi được duyệt.
-- `bva_testing` skill và boundary table đã review.
-- Các cột execution nằm trong bảng Domain Test Case và BVA Test Case của `Main_Report.md`.
-- `audit_extraction` skill và audit entry cuối cùng.
-- [Agent_Skills_Demo_Guide.md](../Agent_Skills_Demo_Guide.md) để theo kịch bản quay demo và test execution trực tiếp.
-- [references/execution_scripts](../references/execution_scripts) để show phần actual execution trên SUT/API.
-
-Điểm quan trọng khi demo không phải là tự động hóa toàn bộ. Điểm quan trọng là AI đi theo đúng kỹ thuật kiểm thử từng bước và sinh viên kiểm soát các checkpoint.

@@ -136,15 +136,14 @@
 - Cập nhật [bva_testing/SKILL.md](./.agents/skills/bva_testing/SKILL.md) với phương pháp BVA: các phân hoạch có thứ tự, biên dưới/biên trên, các giá trị min/min-1/min+1/max/max-1/max+1, và giữ giá trị bình thường cho các biến khác.
 - Cập nhật [bva_testing/SKILL.md](./.agents/skills/bva_testing/SKILL.md) với các quy tắc nghiêm ngặt: không tự bịa min/max, không trộn lẫn stress test với BVA chính thống, không tự điền kết quả thực tế, điều kiện đầu vào và đầu ra.
 - Cập nhật [audit_extraction/SKILL.md](./.agents/skills/audit_extraction/SKILL.md) để khớp với mẫu AI Audit giản lược sử dụng trong báo cáo chính thức.
-- Tạo tệp giới thiệu tiếng Việt [.agents/README.md](./.agents/README.md) để giải thích mục đích, tài liệu tham chiếu lý thuyết, danh sách skill, nguyên tắc kiểm soát, quy trình chạy skill và khuyến nghị demo.
-- Tạo tệp [Agent_Skills_Demo_Guide.md](./Agent_Skills_Demo_Guide.md) bằng tiếng Việt làm kịch bản quay video demo quy trình Agent Skills.
+- Tạo tệp giới thiệu tiếng Việt [.agents/README.md](./.agents/README.md) để giải thích mục đích, tài liệu tham chiếu lý thuyết, danh sách skill, nguyên tắc kiểm soát, quy trình chạy skill và khuyến nghị tích hợp.
 - Tạo tệp [HW02_FR_Workflow.md](./references/development_process/HW02_FR_Workflow.md) bằng tiếng Việt làm checklist làm việc cho từng tính năng được chọn.
 
 #### 3. Rà soát và Chỉnh sửa của con người
 
 - Em yêu cầu các Agent Skills phải bao gồm cơ sở phương pháp/tài liệu tham chiếu, không chỉ là các prompt vận hành.
-- Em quyết định giữ phần tóm tắt phương pháp bên trong mỗi tệp `SKILL.md` nhưng di chuyển các giải thích chi tiết về cách dùng/demo sang [.agents/README.md](./.agents/README.md), [Agent_Skills_Demo_Guide.md](./Agent_Skills_Demo_Guide.md), và [HW02_FR_Workflow.md](./references/development_process/HW02_FR_Workflow.md).
-- Em yêu cầu các tài liệu hướng dẫn viết bằng tiếng Việt để dễ theo dõi và thực hiện trong quá trình kiểm thử thực tế và quay video.
+- Em quyết định giữ phần tóm tắt phương pháp bên trong mỗi tệp `SKILL.md` nhưng di chuyển các giải thích chi tiết về cách dùng sang [.agents/README.md](./.agents/README.md) và [HW02_FR_Workflow.md](./references/development_process/HW02_FR_Workflow.md).
+- Em yêu cầu các tài liệu hướng dẫn viết bằng tiếng Việt để dễ theo dõi và thực hiện trong quá trình kiểm thử thực tế.
 
 ---
 
@@ -175,7 +174,7 @@
 - Thêm các phần trong [Main_Report.md](./Main_Report.md) cho tổng quan tính năng, xác định yêu cầu/quy tắc, phân tích Domain Testing, BVA, kết quả thực thi, báo cáo lỗi, AI Gap Analysis, tổng hợp kiểm thử, Agent Skills/video demo, tài liệu tham chiếu và phụ lục.
 - Cập nhật [HW02_Action_Plan.md](./references/development_process/HW02_Action_Plan.md) để làm rõ rằng toàn bộ nội dung kiểm thử cuối cùng phải được hợp nhất vào [Main_Report.md](./Main_Report.md).
 - Cập nhật [HW02_FR_Workflow.md](./references/development_process/HW02_FR_Workflow.md) để mỗi đầu ra Domain/BVA được duyệt sẽ được copy vào phần tương ứng của [Main_Report.md](./Main_Report.md).
-- Cập nhật [.agents/README.md](./.agents/README.md) và [Agent_Skills_Demo_Guide.md](./Agent_Skills_Demo_Guide.md) để phần demo trỏ đến [Main_Report.md](./Main_Report.md) làm điểm đến của báo cáo.
+- Cập nhật [.agents/README.md](./.agents/README.md) để phần tích hợp trỏ đến [Main_Report.md](./Main_Report.md) làm điểm đến của báo cáo.
 
 #### 3. Rà soát và Chỉnh sửa của con người
 
@@ -246,7 +245,6 @@
   - [.agents/skills/bva_testing/references/bva_method.md](./.agents/skills/bva_testing/references/bva_method.md)
   - [.agents/skills/audit_extraction/references/hw02_audit_requirements.md](./.agents/skills/audit_extraction/references/hw02_audit_requirements.md)
 - Cập nhật [.agents/README.md](./.agents/README.md) để ghi nhận các tệp tham chiếu và cấu trúc skill mới.
-- Cập nhật [Agent_Skills_Demo_Guide.md](./Agent_Skills_Demo_Guide.md) để kịch bản video demo trỏ đến các tệp tham chiếu thực tế.
 - Loại bỏ các tệp lớn không cần thiết bị sao chép nhầm vào thư mục skill, chỉ giữ lại các tệp tham chiếu ngắn gọn, cô đọng.
 
 #### 3. Rà soát và Chỉnh sửa của con người
@@ -321,7 +319,7 @@
   - Mục 4.2 (FR-04 Domain Testing): Chuyển đổi toàn bộ Step 1, 2, 3 sang dạng bảng tiếng Việt và điền đầy đủ nội dung giải thích (Rationale) nghiệp vụ của SUT.
   - Mục 4.3 (FR-04 BVA): Thiết kế bảng Step 1 và Step 2 BVA tiếng Việt có giải thích nguồn gốc biên, đồng thời sinh 6 kịch bản kiểm thử biên (TC01 đến TC06) ở Step 3 có phủ các mã biên và để trống cột kết quả thực tế.
   - Mục 5, 6, 7 (FR-08, FR-15, FR-06): Dọn dẹp nội dung nháp trùng lặp, xây dựng các khung bảng rỗng dạng `TODO` để chuẩn bị kiểm thử cho các feature tiếp theo.
-- Cập nhật đồng bộ các đường dẫn tệp tin báo cáo ([./AI_Audit_Report.md](./AI_Audit_Report.md), [./AI_Critique.md](./AI_Critique.md) ở thư mục gốc) và định dạng bảng mới trong các tệp hướng dẫn [HW02_FR_Workflow.md](./references/development_process/HW02_FR_Workflow.md), [Agent_Skills_Demo_Guide.md](./Agent_Skills_Demo_Guide.md), và [README.md](./README.md).
+- Cập nhật đồng bộ các đường dẫn tệp tin báo cáo ([./AI_Audit_Report.md](./AI_Audit_Report.md), [./AI_Critique.md](./AI_Critique.md) ở thư mục gốc) và định dạng bảng mới trong các tệp hướng dẫn [HW02_FR_Workflow.md](./references/development_process/HW02_FR_Workflow.md) và [README.md](./README.md).
 
 #### 3. Rà soát và Chỉnh sửa của con người
 
