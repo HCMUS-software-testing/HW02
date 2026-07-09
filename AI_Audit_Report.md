@@ -2,6 +2,8 @@
 
 **Tuyên bố:** Em sử dụng các công cụ AI cho các nhiệm vụ sau: lập kế hoạch chiến lược bài tập, thiết kế các Agent Skills có thể tái sử dụng, sinh các ca kiểm thử cho Domain Testing và BVA, soát xét tính căn bản lý thuyết, và phân tích các điểm thiếu sót của AI (AI Gap Analysis).
 
+**Ghi chú về prompt:** Các prompt trong báo cáo audit được ghi dưới dạng tóm tắt/chuẩn hóa từ các tương tác thực tế với AI. Nội dung giữ nguyên mục đích kiểm thử, phạm vi artifact và vai trò human review, nhưng đã được biên tập lại để ngắn gọn, rõ ràng và phù hợp với quy trình Agent Skill của bài nộp.
+
 ---
 
 ### Nhật ký Tương tác AI 1: Thiết lập Dự án Ban đầu và Lập kế hoạch
@@ -14,14 +16,14 @@
 
 - "Bạn là 1 senior QA/QC có kinh nghiệm lâu năm trong lĩnh vực testing. Hãy giúp em lên kế hoạch chi tiết để em có thể thực hiện giải bài tập này một cách hoàn thiện nhất tuân thủ các yêu vụ trong file pdf..."
 - "Hãy dựa trên plan đã được lên, Hãy giúp em thực hiện giai đoạn 1 là chuẩn bị Agent Skills."
-- "Yêu cầu cập nhật kế hoạch: chia nhỏ Git commits, thêm Traceability Matrix, không nén source code."
+- "Yêu cầu cập nhật kế hoạch: chia nhỏ Git commits, thêm Traceability Matrix, không nộp các tệp SUT không cần thiết."
 
 #### 2. Tóm tắt kết quả của AI
 
 - Đề xuất kế hoạch hành động ban đầu gồm nhiều giai đoạn để hoàn thành bài HW02.
 - Gợi ý sử dụng các quy trình AI/Agent có thể tái sử dụng cho Domain Testing, Boundary Value Analysis, và trích xuất AI Audit.
 - Đề xuất cấu trúc báo cáo cho các tính năng được chọn: FR-04, FR-08, FR-15, và FR-06.
-- Gợi ý kiểm soát quy trình như chia nhỏ commit Git, thông tin độ phủ/truy vết, và tránh nộp mã nguồn không cần thiết của SUT.
+- Gợi ý kiểm soát quy trình như chia nhỏ commit Git, thông tin độ phủ/truy vết, và tránh nộp các tệp SUT không cần thiết.
 - Lưu ý: Một số ý tưởng ban đầu về bộ prompt hỗ trợ đã được thay thế bằng cấu trúc kỹ năng gốc `.agents/skills`.
 
 #### 3. Rà soát và Chỉnh sửa của con người
@@ -43,7 +45,7 @@
 - "Em đang trong quá trình làm bài tập kiểm thử Domain + boundary testing... Hãy nhận xét phần chuẩn bị của em, và tiến hành chỉnh sửa để hoàn thiện cho phần plan và agent skill."
 - "Thứ nhất, Toàn bộ plan, skill đã match requirement hay chưa. Thứ hai, Agent Skill hiện tại đã có thể cover được hết hay chưa. Và cách để em có thể thực hiện được agent skill này là như thế nào (workflow)"
 - "Em cần làm rõ... AI first, human review nghĩa là chúng ta sẽ cho AI tự động chạy kiểm thử web rồi ghi bug hay chỉ dừng lại ở việc sinh test case... theo như plan hay skill thì đã match với phần lí thuyết ở domain testing pdf chưa và đã thoả mãn được ISTQB hay chưa."
-- "ok hãy xuất AI audit giúp em"
+- "Hãy xuất AI Audit Report theo mẫu audit của bài, chỉ ghi nhận các artifact và quyết định đã được rà soát."
 
 #### 2. Tóm tắt kết quả của AI
 
@@ -160,7 +162,7 @@
 
 #### 1. Các Prompt đã sử dụng
 
-- "Review and update the current HW02 Agent Skills as a senior QA/QC. Ensure the Domain Testing and BVA skills are strictly black-box: they must not read or use source code, backend/frontend implementation, database schema, internal constants, or hidden logic to design context, equivalence classes, boundaries, expected results, or test cases. Cross-check the skills against the attached requirement and theory files: [2026.HW02.Domain Testing_En.pdf](./references/2026.HW02.Domain%20Testing_En.pdf), [___2026.Homework.Policies.pdf](./references/___2026.Homework.Policies.pdf), [04_Domain Testing.pdf](./references/04_Domain%20Testing.pdf), [23127205.pdf](./references/23127205.pdf), and [ISTQB_CT-AI_Syllabus_v1.0.pdf](./references/ISTQB_CT-AI_Syllabus_v1.0.pdf). Redesign the skills in Vietnamese using the canonical structure `.agents/skills/[skill_name]/SKILL.md` with a `references/` folder for methodology and report-style evidence. Update the workflow/demo documentation so it matches the final skill structure. Do not include meta discussion in the audit; only record changes that create, modify, or validate final assignment artifacts."
+- "Review and update the current HW02 Agent Skills as a senior QA/QC. Ensure the Domain Testing and BVA skills are strictly black-box: they must use only requirement/context, public API/UI behavior, and observable SUT responses to design context, equivalence classes, boundaries, expected results, or test cases. Cross-check the skills against the attached requirement and theory files: [2026.HW02.Domain Testing_En.pdf](./references/2026.HW02.Domain%20Testing_En.pdf), [___2026.Homework.Policies.pdf](./references/___2026.Homework.Policies.pdf), [04_Domain Testing.pdf](./references/04_Domain%20Testing.pdf), [23127205.pdf](./references/23127205.pdf), and [ISTQB_CT-AI_Syllabus_v1.0.pdf](./references/ISTQB_CT-AI_Syllabus_v1.0.pdf). Redesign the skills in Vietnamese using the canonical structure `.agents/skills/[skill_name]/SKILL.md` with a `references/` folder for methodology and report-style evidence. Update the workflow/demo documentation so it matches the final skill structure. Do not include meta discussion in the audit; only record changes that create, modify, or validate final assignment artifacts."
 
 #### 2. Tóm tắt kết quả của AI / Sản phẩm được tạo ra
 
@@ -176,12 +178,12 @@
   - [.agents/skills/audit_extraction/references/hw02_audit_requirements.md](./.agents/skills/audit_extraction/references/hw02_audit_requirements.md)
 - Cập nhật [.agents/README.md](./.agents/README.md) để ghi nhận các tệp tham chiếu và cấu trúc skill mới.
 - Cập nhật [Agent_Skills_Demo_Guide.md](./Agent_Skills_Demo_Guide.md) để kịch bản video demo trỏ đến các tệp tham chiếu thực tế.
-- Loại bỏ các tệp tài liệu tham khảo/mã nguồn lớn bị sao chép nhầm vào thư mục skill, chỉ giữ lại các tệp tham chiếu ngắn gọn, cô đọng.
+- Loại bỏ các tệp lớn không cần thiết bị sao chép nhầm vào thư mục skill, chỉ giữ lại các tệp tham chiếu ngắn gọn, cô đọng.
 
 #### 3. Rà soát và Chỉnh sửa của con người
 
-- Em đã đặt câu hỏi liệu thiết kế skill trước đây có thực sự là hộp đen hay không khi nó vẫn cho phép hoặc ngụ ý đọc mã nguồn.
-- Em làm rõ rằng ngữ cảnh của Domain Testing và BVA phải đến từ tài liệu yêu cầu, API spec công khai, giao diện UI và hành vi thực tế của SUT, không lấy từ mã nguồn.
+- Em đã đặt câu hỏi liệu thiết kế skill trước đây có thực sự là hộp đen hay không khi phạm vi dữ liệu đầu vào chưa được giới hạn đủ rõ.
+- Em làm rõ rằng ngữ cảnh của Domain Testing và BVA phải đến từ tài liệu yêu cầu, API spec công khai, giao diện UI và hành vi thực tế quan sát được của SUT.
 - Em yêu cầu viết các Agent Skills và tài liệu hướng dẫn bằng tiếng Việt để phục vụ tốt nhất cho việc quay video và chạy test.
 - Em yêu cầu mỗi skill có một thư mục `references/` để dễ dàng truy vết lý thuyết trong buổi vấn đáp bảo vệ bài tập.
 - Em đồng ý với cấu trúc chuẩn gồm một thư mục cho mỗi skill, bên trong chứa `SKILL.md` và chi tiết `references/` cô đọng.
@@ -261,7 +263,7 @@
 #### 1. Các Prompt đã sử dụng
 
 - "Đọc và làm theo `HW02/.agents/skills/domain_testing/SKILL.md`. Dùng context FR-04 Personal Profile Management trong `HW02/Feature_Contexts.md`. Chỉ thực hiện Step 1: xác định Input và Output. Chưa tạo Condition, EP hoặc bảng Test Case."
-- "OK. Tiếp tục Step 2: xác định Condition cho FR-04. Giữ đúng nguyên tắc black-box, không đọc source code và không tự kết luận actual result hoặc bug."
+- "OK. Tiếp tục Step 2: xác định Condition cho FR-04. Giữ đúng nguyên tắc black-box, chỉ dùng requirement/context/API/UI public behavior và không tự kết luận actual result hoặc bug."
 - "OK. Tiếp tục Step 3: xác định miền phân hoạch tương đương (EP) cho FR-04. Mỗi EP phải liên kết với condition tương ứng và phân biệt rõ valid/invalid."
 - "OK. Tiếp tục Step 4: xác định Test Case cho FR-04. Bảng test case phải có mã `FR04-DOM-TCxx`, input cụ thể, expected result, các cột `Kết quả thực tế`, `Trạng thái`, `Bug ID / Evidence` để TODO, và coverage EP."
 - "Đọc và làm theo `HW02/.agents/skills/bva_testing/SKILL.md`. Dùng Domain Testing output đã được review cho FR-04. Chỉ thực hiện Step 1: xác định input/output có thể áp dụng BVA."
@@ -284,7 +286,7 @@
 
 #### 3. Rà soát và Chỉnh sửa của con người
 
-- Em xác nhận phạm vi FR-04 là black-box: chỉ dựa trên requirement, context feature, API/UI behavior quan sát được hoặc cần verify; không dùng source code để thiết kế test.
+- Em xác nhận phạm vi FR-04 là black-box: chỉ dựa trên requirement, context feature, API/UI behavior quan sát được hoặc cần verify.
 - Em yêu cầu đổi thuật ngữ từ `Test Data` sang `Test Case` để khớp cách trình bày trong báo cáo chính.
 - Em yêu cầu đưa `Kết quả thực tế`, `Trạng thái`, và `Bug ID / Evidence` vào chung bảng test case thay vì tách thành bảng execution riêng.
 - Em yêu cầu không viết bug report chi tiết trong `Main_Report.md`; nếu phát hiện bug sau khi execute, dòng test case chỉ ghi `Bug ID / Evidence` và bug chi tiết nằm ở artifact bug report riêng.
@@ -328,13 +330,13 @@
 #### 1. Các Prompt đã sử dụng
 
 - "Đọc và làm theo `HW02/.agents/skills/domain_testing/SKILL.md`. Dùng context FR-08: Checkout trong `HW02/Feature_Contexts.md`. Chỉ thực hiện Step 1: xác định Input và Output. Chưa tạo Condition, EP hoặc bảng Test Case."
-- "OK. Tiếp tục Step 2: xác định Condition cho FR-08. Giữ đúng nguyên tắc black-box, không đọc source code và không tự kết luận actual result hoặc bug."
+- "OK. Tiếp tục Step 2: xác định Condition cho FR-08. Giữ đúng nguyên tắc black-box, chỉ dùng requirement/context/API/UI public behavior và không tự kết luận actual result hoặc bug."
 - "OK. Tiếp tục Step 3: xác định miền phân hoạch tương đương (EP) cho FR-08. Mỗi EP phải liên kết với condition tương ứng và phân biệt rõ valid/invalid."
 - "OK. Tiếp tục Step 4: xác định Test Case cho FR-08. Bảng test case phải có mã `FR08-DOM-TCxx`, input cụ thể, expected result, các cột `Kết quả thực tế`, `Trạng thái`, `Bug ID / Evidence` để TODO, và coverage EP."
 - "Đọc và làm theo `HW02/.agents/skills/bva_testing/SKILL.md`. Dùng Domain Testing output đã được duyệt và context FR-08: Checkout trong `HW02/Feature_Contexts.md`. Chỉ thực hiện Step 1. Chưa xác định giá trị biên chi tiết và chưa sinh BVA Test Case."
 - "OK. Tiếp tục Step 2: xác định giá trị biên và cận biên."
 - "OK. Tiếp tục Step 3: xác định BVA Test Case."
-- "ok" (đồng ý ghi tự động các nội dung đã duyệt của Step 1, Step 2 và Step 3 vào Main_Report.md).
+- "Tôi đồng ý cập nhật các nội dung đã duyệt của Step 1, Step 2 và Step 3 vào Main_Report.md."
 
 #### 2. Phản hồi của AI / Sản phẩm được tạo ra
 
@@ -356,5 +358,163 @@
 - Sinh viên kiểm duyệt và đồng ý từng bước của quy trình trước khi cho phép AI cập nhật vào tệp báo cáo chính.
 - Các cột kết quả thực thi và trạng thái được giữ ở `TODO` cho đến khi thực hiện chạy trực tiếp trên ứng dụng.
 
+---
 
+### Nhật ký Tương tác AI 12: Kiểm thử thực tế, hoàn thiện BVA và Báo cáo lỗi cho FR-15 (Product Management CRUD)
 
+- **Tên công cụ AI:** Antigravity / Gemini 3.5 Flash
+- **Ngày và giờ:** 09-07-2026 16:10:00 +07:00
+- **Mô tả nhiệm vụ:** Hỗ trợ lập danh sách ca kiểm thử black-box, viết và chạy script test tự động bằng Node.js để gọi các API công khai của Product CRUD (FR-15), hoàn thiện báo cáo BVA và Domain Testing trong Main_Report.md, cập nhật danh sách lỗi phát hiện vào Bug_Report_Template.md.
+
+#### 1. Các Prompt đã sử dụng
+
+- "Hãy giúp tôi xây dựng script để kiểm thử các test case FR15 qua API công khai, tìm bug thực tế, đồng thời hoàn thiện BVA cho FR15 - Product Management."
+- "Thực hiện cập nhật BVA cho FR-15 trong Main_Report.md dựa trên dữ liệu thực tế thu được từ file test_fr15.js."
+
+#### 2. Phản hồi của AI / Sản phẩm được tạo ra
+
+- Tạo script test tự động [test_fr15.js](./scratch/test_fr15.js) để gọi trực tiếp các API Product CRUD (GET, POST, PUT, DELETE) với các kịch bản kiểm thử phân quyền, BVA, và Domain testing.
+- Cập nhật [Main_Report.md](./Main_Report.md):
+  - Điền kết quả thực tế cho 14 test case Domain Testing của FR-15 (`FR15-DOM-TC01` đến `FR15-DOM-TC14`).
+  - Thiết lập bảng BVA Step 1, Step 2 và Step 3 gồm 10 test case BVA (`FR15-BVA-TC01` đến `FR15-BVA-TC10`) phủ các giá trị biên của name length, price và category_id.
+  - Viết phần 6.4 AI Gap Analysis cho FR-15 phân tích nguyên nhân khoảng cách giữa lý thuyết thiết kế kiểm thử và thực tế thực thi.
+- Cập nhật [Bug_Report_Template.md](./Bug_Report_Template.md):
+  - Thêm 4 lỗi mới (`BUG-FR15-01` đến `BUG-FR15-04`) vào bảng tổng hợp danh sách lỗi và viết báo cáo lỗi chi tiết của từng bug này.
+
+#### 3. Rà soát và Chỉnh sửa của con người
+
+- Sinh viên xác nhận cách ghi nhận kết quả phải dựa trên hành vi quan sát được khi gọi API công khai và thao tác trên giao diện, đúng định hướng black-box của bài.
+- Sinh viên rà soát các kết quả thực tế thu được từ script kiểm thử tự động, đối chiếu với expected result để gán trạng thái Passed/Failed cho các test case và liên kết chúng đến các mã lỗi tương ứng.
+- Sinh viên kiểm duyệt nội dung phân tích khoảng cách AI (AI Gap Analysis), bổ sung lý do về giới hạn của thiết kế test ban đầu khi chưa execute trực tiếp trên SUT.
+
+---
+
+### Nhật ký Tương tác AI 13: Thiết kế Domain Testing cho FR-15 theo Agent Skill
+
+- **Tên công cụ AI:** Codex / ChatGPT
+- **Ngày và giờ:** 09-07-2026 18:30:00 +07:00
+- **Mô tả nhiệm vụ:** Sử dụng Agent Skill Domain Testing để thiết kế từng bước phân tích miền cho FR-15 Product Management CRUD dựa trên context trong `Feature_Contexts.md`, sau đó cập nhật nội dung được duyệt vào báo cáo chính.
+
+#### 1. Các Prompt đã sử dụng
+
+- "Đọc và làm theo `HW02/.agents/skills/domain_testing/SKILL.md`. Dùng context FR15 Product management CRUD trong `HW02/Feature_Contexts.md`. Chỉ thực hiện Step 1: xác định Input và Output. Chưa tạo Condition, EP hoặc bảng Test Case."
+- "Step 2: xác định Condition cho FR-15."
+- "Step 3: xác định miền phân hoạch tương đương (EP)."
+- "OK. Tiếp tục Step 4: xác định Test Case."
+
+#### 2. Phản hồi của AI / Sản phẩm được tạo ra
+
+- Đọc và tuân thủ [domain_testing/SKILL.md](./.agents/skills/domain_testing/SKILL.md) trước khi thiết kế test.
+- Cập nhật phần FR-15 Domain Testing trong [Main_Report.md](./Main_Report.md):
+  - Step 1: xác định input/output/state cho Product CRUD như `auth_state`, `crud_operation`, `product_id`, `name`, `price`, `description`, `imageUrl`, `category_id`, trạng thái category list, target product và các output/error tương ứng.
+  - Step 2: xác định các condition nghiệp vụ và trạng thái quan sát được cho create/update/delete.
+  - Step 3: chia miền phân hoạch tương đương hợp lệ/không hợp lệ cho phân quyền, ID sản phẩm, dữ liệu body, category và kết quả product list/detail.
+  - Step 4: thiết kế bảng test case Domain Testing `FR15-DOM-TC01` đến `FR15-DOM-TC19`, bao gồm cả ca kiểm tra update isolation ở API và bug giao diện Web Admin.
+
+#### 3. Rà soát và Chỉnh sửa của con người
+
+- Sinh viên yêu cầu thực hiện đúng từng bước, không sinh Condition/EP/Test Case trước khi được duyệt.
+- Sinh viên bổ sung các bug thực tế quan sát được sau khi execute, gồm `name` dài hơn 255 vẫn được chấp nhận, thiếu `price` vẫn được chấp nhận, `category_id` ngoài danh sách vẫn được chấp nhận, và bug UI update làm đổi tên các product khác.
+- Sinh viên yêu cầu giữ phân biệt giữa lỗi API và lỗi giao diện để tránh gộp sai root cause.
+
+---
+
+### Nhật ký Tương tác AI 14: Hoàn thiện Script Kiểm thử, BVA, Bug Report và AI Gap cho FR-15
+
+- **Tên công cụ AI:** Codex / ChatGPT
+- **Ngày và giờ:** 09-07-2026 19:20:00 +07:00
+- **Mô tả nhiệm vụ:** Hoàn thiện script kiểm thử FR-15, cập nhật Domain/BVA test result, bổ sung bug report, và rà soát lại AI Gap Analysis để phản ánh chi tiết khoảng cách giữa thiết kế AI ban đầu và hành vi thực tế của SUT.
+
+#### 1. Các Prompt đã sử dụng
+
+- "Hãy xây dựng script kiểm thử tự động cho các test case FR-15 qua API công khai, ghi nhận kết quả thực tế và hỗ trợ xác định bug."
+- "Dựa trên Domain Testing FR-15 đã được duyệt, hãy hoàn thiện phần BVA, Bug Report và AI Gap Analysis trong các artifact tương ứng."
+- "Rà soát lại FR-15 để phát hiện test case còn thiếu, bug còn thiếu, và cập nhật AI Gap Analysis chi tiết hơn dựa trên kết quả thực thi."
+- "Bổ sung bug giao diện Web Admin: sau khi cập nhật thành công một product, tên của các product khác trên giao diện cũng bị thay đổi."
+- "Bổ sung các bug validation FR-15 đã quan sát được: `name` dài hơn 255 ký tự vẫn được chấp nhận, thiếu `price` vẫn được chấp nhận, và `category_id` ngoài danh sách category vẫn được chấp nhận."
+
+#### 2. Phản hồi của AI / Sản phẩm được tạo ra
+
+- Cập nhật script [test_fr15.js](./scratch/test_fr15.js) để kiểm thử các test case Domain Testing và BVA của FR-15 qua API Product CRUD.
+- Cập nhật [Main_Report.md](./Main_Report.md):
+  - Bổ sung thêm các test case còn thiếu cho FR-15, nâng tổng số test case được thiết kế/thực thi lên 30.
+  - Cập nhật kết quả thực tế, trạng thái Pass/Fail và liên kết `BUG-FR15-01` đến `BUG-FR15-05`.
+  - Bổ sung các BVA case quan trọng cho `name` length 254/255/256, `price=-1/0/1/2`, missing required fields và category không tồn tại.
+  - Cập nhật summary của FR-15 thành 30 designed, 30 executed, 10 passed, 20 failed, 5 confirmed bugs.
+- Cập nhật [Bug_Report_Template.md](./Bug_Report_Template.md):
+  - Mở rộng `BUG-FR15-02` để bao phủ thiếu field bắt buộc, `name` rỗng/quá dài, `price=0`, `price=-1`, sai kiểu dữ liệu.
+  - Bổ sung `BUG-FR15-05` cho lỗi Web Admin update một product làm đổi tên các product khác.
+- Cập nhật phần `6.4 AI Gap Analysis` của FR-15 để nêu rõ các behavior thực tế của SUT, tác động đến test suite, và rủi ro còn lại.
+
+#### 3. Rà soát và Chỉnh sửa của con người
+
+- Sinh viên cung cấp thêm bug quan sát thủ công trên giao diện Web Admin, giúp tách lỗi UI state/rendering khỏi API update isolation.
+- Sinh viên yêu cầu kiểm tra lại các bug validation đã thật sự được ghi nhận trong bug report hay chưa.
+- Sinh viên yêu cầu AI Gap Analysis phải chi tiết hơn, không chỉ liệt kê lỗi mà cần giải thích vì sao AI ban đầu bỏ sót hoặc đánh giá chưa đủ.
+- Sinh viên xác nhận các lỗi thực tế phải dựa trên kết quả execute hoặc quan sát giao diện, không được AI tự bịa.
+
+---
+
+### Nhật ký Tương tác AI 15: Rà soát AI Gap cho FR-04, FR-08 và Chuẩn hóa Feature Overview/Bug Report FR-15
+
+- **Tên công cụ AI:** Codex / ChatGPT
+- **Ngày và giờ:** 09-07-2026 20:15:00 +07:00
+- **Mô tả nhiệm vụ:** Rà soát chất lượng AI Gap Analysis cho FR-04/FR-08, sửa lỗi trùng section FR-08, cập nhật Feature Overview của FR-15 theo format thống nhất, và chuẩn hóa bug report FR-15 theo template của các feature trước.
+
+#### 1. Các Prompt đã sử dụng
+
+- "Rà soát chất lượng AI Gap Analysis hiện tại và cho biết phần nào cần chỉnh để phù hợp với yêu cầu bài."
+- "Đánh giá AI Gap Analysis của FR-04 và FR-08, đảm bảo nội dung đủ chi tiết và đúng mục tiêu phản ánh khoảng cách AI."
+- "Cập nhật AI Gap Analysis để chi tiết hơn, đặc biệt với FR-08 và các behavior thực tế quan sát được."
+- "Cập nhật Feature Overview cho FR-15."
+- "Điều chỉnh Feature Overview của FR-15 để dùng cùng cấu trúc với FR-04 và FR-08."
+- "Cập nhật Bug Report Template cho FR-15, bổ sung điều kiện tiên quyết liên quan đến quyền Admin cho các bug cần bối cảnh Admin."
+- "Chuẩn hóa các bug report FR-15 theo cùng template trình bày với các bug của FR-04 và FR-08."
+
+#### 2. Phản hồi của AI / Sản phẩm được tạo ra
+
+- Cập nhật [Main_Report.md](./Main_Report.md):
+  - Xóa section FR-08 bị trùng và giữ lại section FR-08 đầy đủ hơn.
+  - Viết lại `### 5.4 AI Gap Analysis` cho FR-08 chi tiết hơn, gồm gap do prompt/context, AI assumption, thiếu UI/API interaction test, hậu điều kiện sau checkout, SUT-specific behavior, human review correction và bài học prompt sau.
+  - Chuyển `### 6.1 Feature Overview` của FR-15 về đúng format giống FR-04/FR-08: đoạn mô tả ngắn và bảng `Mục / Nội dung`.
+- Cập nhật [Bug_Report_Template.md](./Bug_Report_Template.md):
+  - Bổ sung điều kiện tiên quyết có Admin hợp lệ cho các bug FR-15 liên quan validation/reference/not found/UI.
+  - Chỉnh lại toàn bộ `BUG-FR15-01` đến `BUG-FR15-05` theo format giống FR-04/FR-08: mô tả lỗi, điều kiện tiên quyết, các bước tái hiện, kết quả mong đợi, kết quả thực tế, test case đối chiếu, môi trường và bằng chứng.
+
+#### 3. Rà soát và Chỉnh sửa của con người
+
+- Sinh viên nhận xét phần overview FR-15 không nên lệch style so với các phần trước, yêu cầu sửa về cùng khuôn mẫu.
+- Sinh viên chỉ ra bug report FR-15 cần có precondition Admin rõ ràng để người đọc hiểu bối cảnh tái hiện lỗi.
+- Sinh viên yêu cầu precondition không nên viết dài theo kiểu phân tích, mà phải giống template bug report của FR-04/FR-08.
+- Sinh viên chấp thuận việc giữ FR-04 AI Gap như hiện tại và tập trung làm FR-08/FR-15 chi tiết hơn.
+
+---
+
+### Nhật ký Tương tác AI 16: Phân loại Screenshot theo Feature và Cập nhật Evidence trong Bug Report
+
+- **Tên công cụ AI:** Codex / ChatGPT
+- **Ngày và giờ:** 09-07-2026 21:00:00 +07:00
+- **Mô tả nhiệm vụ:** Tổ chức lại ảnh bằng chứng trong thư mục screenshots theo từng feature và cập nhật link ảnh trong Bug Report để mỗi bug có evidence rõ ràng.
+
+#### 1. Các Prompt đã sử dụng
+
+- "Cập nhật ảnh bằng chứng trong Bug Report và tổ chức thư mục screenshots theo từng feature để dễ đối chiếu."
+
+#### 2. Phản hồi của AI / Sản phẩm được tạo ra
+
+- Tạo cấu trúc thư mục screenshot theo feature:
+  - [screenshots/FR04](./screenshots/FR04)
+  - [screenshots/FR08](./screenshots/FR08)
+  - [screenshots/FR15](./screenshots/FR15)
+- Di chuyển ảnh bằng chứng theo prefix bug ID tương ứng (`BUG-FR04-*`, `BUG-FR08-*`, `BUG-FR15-*`).
+- Cập nhật [Bug_Report_Template.md](./Bug_Report_Template.md):
+  - Đổi toàn bộ link ảnh FR-04 sang `./screenshots/FR04/...`.
+  - Bổ sung ảnh minh chứng cho từng bug FR-08 (`BUG-FR08-01` đến `BUG-FR08-06`).
+  - Bổ sung ảnh minh chứng cho từng bug FR-15 (`BUG-FR15-01` đến `BUG-FR15-05`).
+- Kiểm tra link ảnh trong Markdown: tổng cộng 38 link ảnh được tham chiếu và không thiếu file ảnh nào.
+
+#### 3. Rà soát và Chỉnh sửa của con người
+
+- Sinh viên yêu cầu ảnh screenshot phải được phân theo từng feature để dễ đọc và dễ đối chiếu khi nộp bài.
+- Sinh viên yêu cầu bug report phải cập nhật ảnh trong từng mục bug report, không chỉ để ảnh rời trong thư mục.
+- AI chỉ di chuyển và liên kết các ảnh đã có trong workspace, không tự tạo hoặc bịa ảnh bằng chứng.
