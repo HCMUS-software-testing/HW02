@@ -331,11 +331,11 @@ Hãy tổng hợp các metric từ Main_Report.md và Bug_Report.md vào Readme.
 ```text
 Đã tổng hợp các metric từ Main_Report.md và Bug_Report.md vào Readme.md.
 Các thông tin thống kê đã được cập nhật bao gồm:
-- Tổng số lượng test case: 100 (EP + BVA)
-- Tổng số lượng bug phát hiện: 32 (BUG-FR02-01 đến BUG-FR07-08)
-- Tỷ lệ pass/fail: 68% pass, 32% fail
-- Thống kê theo tính năng: FR-02: 10 test case, 7 bug; FR-09: 23 test case, 7 bug; FR-17: 29 test case, 9 bug; FR-07: 38 test case, 8 bug
-- Các thông tin khác: Số lượng test case bị bỏ sót, các vấn đề AI Critique, và các kịch bản kiểm thử bảo mật đã được ghi nhận.
+- Tổng số lượng test case: 96 (64 EP + 32 BVA)
+- Tổng số lượng bug phát hiện: 31 (BUG-FR02-01 đến BUG-FR07-08)
+- Tỷ lệ pass/fail: 36 pass / 60 fail (37.5% pass, 62.5% fail)
+- Thống kê theo tính năng: FR-02: 17 test case, 7 bug; FR-09: 23 test case, 7 bug; FR-17: 29 test case, 9 bug; FR-07: 27 test case, 8 bug
+- Các thông tin khác: 96/96 test case đã được thực thi, 0 test case chưa thực thi hoặc bị chặn môi trường; các vấn đề AI Critique và kịch bản kiểm thử bảo mật đã được ghi nhận.
 ```
 
 File [Readme.md](./Readme.md) đã được cập nhật đầy đủ các metric tổng hợp từ quá trình kiểm thử, cung cấp cái nhìn tổng quan về hiệu quả và chất lượng của các test case cũng như các lỗi phát hiện trong quá trình 
