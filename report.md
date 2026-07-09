@@ -6,12 +6,12 @@
 
 | STT | Tiêu chí | Điểm | Điểm tự đánh giá |
 | --- | --- | --- | --- |
-| 1 | Tính năng 3 - Pool A: Quên mật khẩu & Đặt lại mật khẩu (2 bước)  | 25 |  |
-| 2 | Tính năng 10 - Pool B: Trạng thái Đơn hàng | 25 |  |
-| 3 | Tính năng 14 - Pool C: Quản lý Danh mục (Category CRUD)| 25 |  |
-| 4 | Tính năng 1 - Pool D (Mobile): Đăng ký tài khoản | 15 |  |
-| 5 | Agent Skills | 10 |  |
-| | **Total** | **100** |  |
+| 1 | Tính năng 3 - Pool A: Quên mật khẩu & Đặt lại mật khẩu (2 bước)  | 25 | 25 |
+| 2 | Tính năng 10 - Pool B: Trạng thái Đơn hàng | 25 | 25 |
+| 3 | Tính năng 14 - Pool C: Quản lý Danh mục (Category CRUD)| 25 | 25 |
+| 4 | Tính năng 1 - Pool D (Mobile): Đăng ký tài khoản | 15 | 15 |
+| 5 | Agent Skills | 10 | 8 |
+| | **Total** | **100** | 98 |
 
 # 2. Báo cáo chi tiết các tính năng
 
@@ -29,7 +29,7 @@
     - OTP chỉ hợp lệ cho email đã yêu cầu, không thể dùng cho email khác.
 
 ### Domain Testing
-[Xem nội dung](./domain-testing-fr3.md)
+[Xem nội dung chi tiết (domain-testing-fr3.md)](./domain-testing-fr3.md)
 
 ### Test Cases
 
@@ -78,7 +78,7 @@
     - Mọi chuyển đổi không hợp lệ phải trả về lỗi với thông báo phù hợp.
 
 ### Domain Testing
-[Xem nội dung](./domain-testing-fr10.md)
+[Xem nội dung chi tiết (domain-testing-fr10.md)](./domain-testing-fr10.md)
 
 ### Test Cases
 
@@ -102,7 +102,7 @@
 - Tên danh mục là bắt buộc, không được để trống.
 
 ### Domain Testing
-[Xem nội dung](./domain-testing-fr14.md)
+[Xem nội dung chi tiết (domain-testing-fr14.md)](./domain-testing-fr14.md)
 
 ### Test Cases
 
@@ -128,7 +128,7 @@
 - Sau khi đăng ký thành công, người dùng được chuyển tới trang Đăng nhập.
 
 ### Domain Testing
-[Xem nội dung](./domain-testing-fr1.md)
+[Xem nội dung chi tiết (domain-testing-fr1.md)](./domain-testing-fr1.md)
 
 ### Test Cases
 
@@ -153,3 +153,19 @@
 | TC17 | Kiểm tra lỗi mật khẩu thiếu chữ cái in thường (E12, B8) | Họ tên: `Nguyen Van A`<br>Email: `validuser13@gmail.com`<br>MK: `AAAAAAAA12!@`<br>Xác nhận MK: `AAAAAAAA12!@` | 1. Nhập mật khẩu thiếu chữ thường<br>2. Bấm Đăng ký | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ cái in thường | Không có ô xác thực mật khẩu. Hệ thống báo lỗi "Mật khẩu quá yếu. Phải dài tối thiểu 8 ký tự, gồm chữ hoa, chữ thường, số và KÝ TỰ ĐẶC BIỆT" | PASS |
 | TC18 | Kiểm tra lỗi mật khẩu thiếu chữ số (E14, B11) | Họ tên: `Nguyen Van A`<br>Email: `validuser14@gmail.com`<br>MK: `AAaaaaaa!@#$`<br>Xác nhận MK: `AAaaaaaa!@#$` | 1. Nhập mật khẩu thiếu chữ số<br>2. Bấm Đăng ký | Hệ thống báo lỗi mật khẩu phải chứa ít nhất 1 chữ số | Không có ô xác thực mật khẩu. Hệ thống báo lỗi "Mật khẩu quá yếu. Phải dài tối thiểu 8 ký tự, gồm chữ hoa, chữ thường, số và KÝ TỰ ĐẶC BIỆT" | PASS |
 | TC19 | Kiểm tra lỗi mật khẩu thiếu ký tự đặc biệt (E16, B14) | Họ tên: `Nguyen Van A`<br>Email: `validuser15@gmail.com`<br>MK: `AAaaaaaa1234`<br>Xác nhận MK: `AAaaaaaa1234` | 1. Nhập mật khẩu thiếu ký tự đặc biệt<br>2. Bấm Đăng ký | Hệ thống báo lỗi mật khẩu phải chứa ký tự đặc biệt | Không có ô xác thực mật khẩu. Hệ thống báo lỗi "Mật khẩu quá yếu. Phải dài tối thiểu 8 ký tự, gồm chữ hoa, chữ thường, số và KÝ TỰ ĐẶC BIỆT" | PASS |
+
+## 2.3 Báo cáo tổng hợp
+
+Thống kê số liệu kiểm thử cho các tính năng FR-03, FR-10, FR-14 và FR-01:
+
+*   Số lượng tính năng kiểm thử (Number of features): 4 tính năng (`FR-03`, `FR-10`, `FR-14`, `FR-01`)
+*   Tổng số kịch bản kiểm thử thiết kế (Test cases designed): 60 kịch bản
+    *   FR-03 (Pool A): 21 kịch bản (`TC1` → `TC21`)
+    *   FR-10 (Pool B): 11 kịch bản (`TC1` → `TC11`)
+    *   FR-14 (Pool C): 9 kịch bản (`TC1` → `TC9`)
+    *   FR-01 (Pool D): 19 kịch bản (`TC1` → `TC19`)
+*   Số lượng kịch bản đã thực thi (Test cases executed): 60 kịch bản
+*   Số lượng kịch bản đạt (Test cases passed): 32 kịch bản (FR-03: 8, FR-10: 6, FR-14: 3, FR-01: 15)
+*   Số lượng kịch bản lỗi (Test cases failed): 28 kịch bản (FR-03: 13, FR-10: 5, FR-14: 6, FR-01: 4)
+*   Số lượng lỗi phát hiện được (Number of bugs): 14 lỗi (gồm Bug 1 → Bug 4 cho FR-03; Bug 5 → Bug 6 cho FR-10; Bug 7 → Bug 10 cho FR-14; Bug 11 → Bug 14 cho FR-01)
+*   Video Demo minh họa (Demo videos): https://youtu.be/IAn5Fo-WTX8
