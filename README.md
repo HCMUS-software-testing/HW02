@@ -7,7 +7,6 @@ Dự án thực hiện kiểm thử hộp đen cho hệ thống **EShop** bằng
 * **Họ và tên:** Lê Mai Hoài Bảo
 * **MSSV:** 23127326
 * **Môn học:** Kiểm thử phần mềm
-* **Mã bài tập:** HW02-AI
 
 ## 2. Phạm vi kiểm thử
 
@@ -51,14 +50,14 @@ Chi tiết từng lỗi, bước tái hiện, expected/actual output, severity, 
 
 ## 6. Tự đánh giá
 
-|   STT    | Tiêu chí đánh giá                                                | Điểm tối đa | Điểm tự đánh giá |
-| :------: | :--------------------------------------------------------------- | :---------: | :--------------: |
-|    1     | Pool A - FR-02: Đăng nhập & Khóa tài khoản (Domain + Boundary)   |     25      |        25        |
-|    2     | Pool B - FR-09: Mã Giảm Giá (Domain + Boundary)                  |     25      |        25        |
-|    3     | Pool C - FR-17: Quản lý Mã Giảm Giá (Domain + Boundary)          |     25      |        25        |
-|    4     | Pool D - FR-07: Giỏ hàng (Mobile, Domain + Boundary)             |     15      |        15        |
-|    5     | Agent Skills                                                     |     10      |        10        |
-| **Tổng** |                                                                  |   **100**   |   **100/100**    |
+|   STT    | Tiêu chí đánh giá                                              | Điểm tối đa | Điểm tự đánh giá |
+| :------: | :------------------------------------------------------------- | :---------: | :--------------: |
+|    1     | Pool A - FR-02: Đăng nhập & Khóa tài khoản (Domain + Boundary) |     25      |        25        |
+|    2     | Pool B - FR-09: Mã Giảm Giá (Domain + Boundary)                |     25      |        25        |
+|    3     | Pool C - FR-17: Quản lý Mã Giảm Giá (Domain + Boundary)        |     25      |        25        |
+|    4     | Pool D - FR-07: Giỏ hàng (Mobile, Domain + Boundary)           |     15      |        15        |
+|    5     | Agent Skills                                                   |     10      |        10        |
+| **Tổng** |                                                                |   **100**   |   **100/100**    |
 
 ## 7. Demo videos
 
