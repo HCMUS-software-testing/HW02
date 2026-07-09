@@ -1,6 +1,6 @@
 ---
 name: domain_testing
-description: Áp dụng Equivalent Partitioning/Domain Testing theo hướng black-box cho HW02, bám format mẫu 23127205 với các bước Input/Output, Condition, EP và Test Case.
+description: Áp dụng Equivalent Partitioning/Domain Testing theo hướng black-box cho HW02, bám format mẫu 23127205 với các bước Input/Output, Condition, EP và Test Case; sau khi Step 4 được human review/approve hoặc user yêu cầu ghi report, tự đọc và cập nhật phần Domain Testing trong HW02/Main_Report.md.
 ---
 
 # Domain Testing Skill
@@ -13,6 +13,10 @@ Trước khi chạy skill, đọc:
 
 - `references/domain_testing_method.md`: quy trình Domain Testing và rule chọn test theo bài giảng.
 - `references/report_style_23127205.md`: cách trình bày theo sample report.
+
+Khi cần ghi kết quả đã approve vào main report, đọc thêm:
+
+- `references/main_report_writeback.md`: quy trình tự đọc/ghi `HW02/Main_Report.md`, giới hạn section được sửa, bảo toàn execution data, và kiểm tra encoding UTF-8.
 
 Output phải bám cấu trúc mẫu `23127205.pdf`:
 
@@ -50,6 +54,7 @@ Nếu rule chưa có căn cứ, hỏi lại user hoặc loại khỏi bảng ch�
 - Không tự claim actual result, Pass/Fail, hoặc bug trước khi sinh viên execute. Khi tạo bảng test case, để các cột execution là `TODO` cho đến khi người làm chạy SUT.
 - Không tự bịa constraint min/max/format nếu requirement hoặc UI/API behavior chưa nêu.
 - Sau mỗi step phải dừng để human review. Chỉ tiếp tục khi user xác nhận `OK`, `Verified`, hoặc tương đương.
+- Không ghi `Main_Report.md` trước khi Step 4 được human review/approve, trừ khi user chỉ yêu cầu lưu bản nháp rõ ràng.
 
 ## Quy tắc ID
 
@@ -65,6 +70,7 @@ Skill hoàn tất khi đã tạo:
 - Step 2: Conditions.
 - Step 3: EP valid/invalid theo từng input/output/condition.
 - Step 4: Test Case có coverage EP và có cột execution để điền sau khi chạy SUT.
+- Nếu user đã yêu cầu ghi report hoặc đã approve Step 4 trong workflow ghi report, phần `Domain Testing / EP` của feature tương ứng đã được cập nhật vào `HW02/Main_Report.md` theo `references/main_report_writeback.md`.
 
 ## Step 1: Xác định Input và Output
 
@@ -146,5 +152,8 @@ Checklist cuối:
 - Kết quả mong đợi dựa trên rule/behavior có căn cứ.
 - Điểm chưa có căn cứ đã bị loại khỏi bảng chính hoặc được hỏi lại trước khi sinh test case.
 
-Sau bảng cuối, nhắc user copy vào `Main_Report.md`, chạy test thủ công trên SUT, điền `Kết quả thực tế` và `Trạng thái` ngay trong bảng test case. Nếu có bug đã xác nhận, ghi `Bug ID / Evidence` để trỏ tới bug report riêng; không viết bug report chi tiết trong main report.
+Sau bảng cuối:
 
+- Nếu user chưa yêu cầu ghi report tự động, yêu cầu user review Step 4 và hỏi có muốn ghi vào `Main_Report.md` không.
+- Nếu user đã yêu cầu ghi report tự động hoặc phản hồi approve Step 4 kèm ý định ghi report, đọc `references/main_report_writeback.md` và cập nhật `HW02/Main_Report.md`.
+- Sau khi ghi report, nhắc user chạy test thủ công trên SUT, điền `Kết quả thực tế` và `Trạng thái` ngay trong bảng test case. Nếu có bug đã xác nhận, ghi `Bug ID / Evidence` để trỏ tới bug report riêng; không viết bug report chi tiết trong main report.

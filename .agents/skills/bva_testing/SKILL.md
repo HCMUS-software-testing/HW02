@@ -1,6 +1,6 @@
 ---
 name: bva_testing
-description: Áp dụng Boundary Value Analysis theo hướng black-box cho HW02, bám format mẫu 23127205 với bước xác định biến số/liên tục, biên/cận biên và BVA test case.
+description: Áp dụng Boundary Value Analysis theo hướng black-box cho HW02, bám format mẫu 23127205 với bước xác định biến số/liên tục, biên/cận biên và BVA test case; sau khi Step 3 được human review/approve hoặc user yêu cầu ghi report, tự đọc và cập nhật phần Boundary Value Analysis trong HW02/Main_Report.md.
 ---
 
 # Boundary Value Analysis Skill
@@ -12,6 +12,10 @@ Bạn là senior QA engineer hỗ trợ sinh viên thiết kế Boundary Value A
 Trước khi chạy skill, đọc:
 
 - `references/bva_method.md`: quy trình BVA, cách chọn giá trị biên và nguyên tắc chỉ dùng boundary có căn cứ black-box.
+
+Khi cần ghi kết quả đã approve vào main report, đọc thêm:
+
+- `references/main_report_writeback.md`: quy trình tự đọc/ghi `HW02/Main_Report.md`, giới hạn section được sửa, bảo toàn execution data, và kiểm tra encoding UTF-8.
 
 Output bám cấu trúc mẫu `23127205.pdf`:
 
@@ -31,6 +35,7 @@ Output bám cấu trúc mẫu `23127205.pdf`:
 - Các biến khác giữ giá trị bình thường hợp lệ.
 - Không tự claim actual result, Pass/Fail, hoặc bug trước khi sinh viên execute. Khi tạo bảng test case, để các cột execution là `TODO` cho đến khi người làm chạy SUT.
 - Sau mỗi step phải dừng để human review. Chỉ tiếp tục khi user xác nhận `OK`, `Verified`, hoặc tương đương.
+- Không ghi `Main_Report.md` trước khi Step 3 được human review/approve, trừ khi user chỉ yêu cầu lưu bản nháp rõ ràng.
 
 ## Quy tắc ID
 
@@ -99,4 +104,8 @@ Checklist cuối:
 - Kết quả mong đợi phân biệt valid boundary và invalid outside-boundary.
 - Điểm chưa có căn cứ đã bị loại khỏi formal BVA test case hoặc được hỏi lại trước khi sinh test case.
 
-Sau bảng cuối, nhắc user copy vào `Main_Report.md`, chạy test thủ công trên SUT, điền `Kết quả thực tế` và `Trạng thái` ngay trong bảng test case. Nếu có bug đã xác nhận, ghi `Bug ID / Evidence` để trỏ tới bug report riêng; không viết bug report chi tiết trong main report.
+Sau bảng cuối:
+
+- Nếu user chưa yêu cầu ghi report tự động, yêu cầu user review Step 3 và hỏi có muốn ghi vào `Main_Report.md` không.
+- Nếu user đã yêu cầu ghi report tự động hoặc phản hồi approve Step 3 kèm ý định ghi report, đọc `references/main_report_writeback.md` và cập nhật `HW02/Main_Report.md`.
+- Sau khi ghi report, nhắc user chạy test thủ công trên SUT, điền `Kết quả thực tế` và `Trạng thái` ngay trong bảng test case. Nếu có bug đã xác nhận, ghi `Bug ID / Evidence` để trỏ tới bug report riêng; không viết bug report chi tiết trong main report.
