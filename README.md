@@ -6,8 +6,7 @@
 | :--- | :--- |
 | Mã số sinh viên | 23127205 |
 | Họ và tên | Lâm Hữu Khánh |
-| Kho chứa mã nguồn (Repository) | `HCMUS-software-testing/HW02` |
-| Tệp tin nộp bài | `23127205_HW02_AI_DomainTesting_100.zip` |
+| Kho chứa mã nguồn (Repository) | [HCMUS-software-testing/HW02](https://github.com/HCMUS-software-testing/HW02) |
 
 ## Phạm vi thực hiện
 
@@ -52,54 +51,6 @@ Bài nộp này chứa gói báo cáo HW02 cho phương pháp Kiểm thử Miề
 | 5 | Bộ kỹ năng Agent (Agent Skills) | 10 | 10 |
 | | **Tổng điểm** | **100** | **100** |
 
-## Các sản phẩm nộp bài yêu cầu
-
-| Sản phẩm nộp bài | Đường dẫn tệp tin | Trạng thái |
-| :--- | :--- | :--- |
-| Báo cáo chính (Main report) | [Main_Report.md](./Main_Report.md) | Hoàn thành |
-| Báo cáo danh sách lỗi (Bug report) | [Bug_Report.md](./Bug_Report.md) | Hoàn thành |
-| Báo cáo nhật ký tương tác AI (AI audit report) | [AI_Audit_Report.md](./AI_Audit_Report.md) | Hoàn thành |
-| Báo cáo phê bình AI (AI critique) | [AI_Critique.md](./AI_Critique.md) | Hoàn thành |
-| Hướng dẫn demo Agent Skills | [Agent_Skills_Demo_Guide.md](./Agent_Skills_Demo_Guide.md) | Hoàn thành |
-| Gói mã nguồn Agent Skills | [.agents/](./.agents/) | Hoàn thành |
-| Mẫu báo cáo lỗi GitHub | [.github/ISSUE_TEMPLATE/bug_report.md](./.github/ISSUE_TEMPLATE/bug_report.md) | Hoàn thành |
-| Nhật ký commit Git | [git_commit_log.txt](./git_commit_log.txt) | Hoàn thành |
-| Tài liệu và PDF tham khảo | [references/](./references/) | Hoàn thành |
-| Bằng chứng ảnh chụp màn hình | [screenshots/](./screenshots/) | Hoàn thành |
-
-## Bộ kỹ năng Agent (Agent Skills)
-
-Các Agent Skills tự định nghĩa được lưu trữ tại thư mục [.agents/skills/](./.agents/skills/). Bộ kỹ năng này hỗ trợ trích xuất ngữ cảnh nghiệp vụ, tự động sinh thiết kế Domain/BVA, lập kế hoạch thực thi, viết báo cáo lỗi, ghi nhật ký tương tác AI và đồng bộ hóa báo cáo cuối cùng. Hướng dẫn sử dụng và kịch bản demo trực tiếp được tài liệu hóa chi tiết tại [Agent_Skills_Demo_Guide.md](./Agent_Skills_Demo_Guide.md).
-
-## Script thực thi kiểm thử
-
-Các script hỗ trợ thực thi tự động được lưu trữ tại [references/execution_scripts/](./references/execution_scripts/):
-
-```bash
-node HW02/references/execution_scripts/test_fr04.js
-node HW02/references/execution_scripts/test_fr08_checkout.js
-node HW02/references/execution_scripts/test_fr15.js
-```
-
-Các script này chạy với giả định hệ thống backend/frontend của EShop đã được khởi chạy cục bộ theo cấu hình mong đợi. Bằng chứng kiểm thử cho FR-06 trên di động được chụp thủ công từ giao diện ứng dụng di động do các lỗi liên quan chủ yếu là lỗi hiển thị và tương tác giao diện mobile.
-
-## Thứ tự đọc tài liệu soát xét
-
-1. Đọc [Main_Report.md](./Main_Report.md) để xem toàn bộ thiết kế kiểm thử Domain Testing và BVA, kết quả thực thi và tóm tắt kết quả.
-2. Đọc [Bug_Report.md](./Bug_Report.md) để kiểm tra danh sách lỗi chi tiết, liên kết issue và ảnh chụp bằng chứng.
-3. Đọc [AI_Audit_Report.md](./AI_Audit_Report.md) và [AI_Critique.md](./AI_Critique.md) để đánh giá cách thức AI được sử dụng và rà soát bởi con người.
-4. Đọc [Agent_Skills_Demo_Guide.md](./Agent_Skills_Demo_Guide.md) để chạy thử nghiệm quy trình làm việc với Agent Skills.
-
 ## Video minh họa (Demo Video)
 
-| Mô tả Video | Liên kết (Link) |
-| :--- | :--- |
-| Demo Agent Skills | Đường liên kết sẽ được bổ sung sau khi quay và tải lên ở chế độ không công khai (unlisted) |
-| Demo chạy thực tế (tùy chọn) | Được hướng dẫn chi tiết tại [Agent_Skills_Demo_Guide.md](./Agent_Skills_Demo_Guide.md) |
-
-## Lưu ý
-
-- Kiểm thử Miền (Domain Testing) và BVA được coi là các hoạt động thiết kế ca kiểm thử hộp đen (black-box).
-- Kết quả thực tế và trạng thái lỗi được xác nhận dựa trên việc chạy kiểm thử thật trên ứng dụng SUT và thu thập bằng chứng quan sát trực quan.
-- Các giả định chỉ dựa trên việc đọc source code và các ca kiểm thử hộp đen trùng lặp đã được loại bỏ khỏi bộ kiểm thử FR-06 cuối cùng.
-- Mọi liên kết tài liệu trong báo cáo đều dùng đường dẫn tương đối để đảm bảo gói bài nộp không bị lỗi liên kết sau khi nén zip.
+- Liên kết video demo quy trình Agent Skills: [https://youtu.be/IsvB-NfZ41s](https://youtu.be/IsvB-NfZ41s)

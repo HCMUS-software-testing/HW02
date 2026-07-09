@@ -733,11 +733,12 @@ Agent Skills được đặt trong thư mục [.agents/skills](./.agents/skills)
 Tài liệu hướng dẫn và kịch bản demo:
 
 - Tổng quan Agent Skills: [.agents/README.md](./.agents/README.md)
-- Kịch bản quay demo Agent Skills và test execution trực tiếp: [Agent_Skills_Demo_Guide.md](./Agent_Skills_Demo_Guide.md)
 - Workflow theo từng feature: [HW02_FR_Workflow.md](./references/development_process/HW02_FR_Workflow.md)
 - Script thực thi/evidence kỹ thuật: [references/execution_scripts](./references/execution_scripts)
 
-Video demo unlisted: Link sẽ được bổ sung sau khi quay và upload video demo.
+Video demo: [https://youtu.be/IsvB-NfZ41s](https://youtu.be/IsvB-NfZ41s)
+
+
 
 ## 10. References
 
